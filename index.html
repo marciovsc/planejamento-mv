@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0053)file:///C:/Users/Marcio/Downloads/gastos_novo_22.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -248,36 +247,72 @@ select option{background:var(--surface2);color:var(--text)}
     <div class="app-title">💰 Planejamento Financeiro MV</div>
     <div class="month-switcher">
       <button class="month-btn" onclick="prevMonth()">‹</button>
-      <span class="month-label" id="month-label">—</span>
+      <span class="month-label" id="month-label">Agosto 2026</span>
       <button class="month-btn" onclick="nextMonth()">›</button>
     </div>
   </div>
 </div>
 
 <div class="content">
-  <div id="tab-painel"  class="page active"></div>
-  <div id="tab-marcio"  class="page"></div>
-  <div id="tab-raissa"  class="page"></div>
+  <div id="tab-painel" class="page active">
+  <div class="hero">
+    <div class="hero-label">Saldo do mês — Márcio</div>
+    <div class="hero-val">R$ 2.032,88</div>
+    <div class="hero-sub">Entradas R$ 5.150,00 · Gastos R$ 3.117,12</div>
+    <div class="hero-divider"></div>
+    <div class="hero-row">
+      <div class="hero-stat"><div class="hero-stat-val">R$ 328,38</div><div class="hero-stat-lbl">🟣 Nubank</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">R$ 1.390,17</div><div class="hero-stat-lbl">⚫ C6</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">R$ 1.398,57</div><div class="hero-stat-lbl">🏠 Fixos</div></div>
+    </div>
+  </div>
+  <div class="mgrid">
+    <div class="mcard" style="border-left:4px solid var(--rai);border-radius:0 var(--radius) var(--radius) 0">
+      <div class="mcard-label">💗 Total Raíssa</div>
+      <div class="mcard-val" style="color:var(--rai)">R$ 1.659,78</div>
+      <div class="mcard-sub">Nu R$ 860,61 · C6 R$ 799,17</div>
+    </div>
+    <div class="mcard" style="border-left:4px solid #6366f1;border-radius:0 var(--radius) var(--radius) 0">
+      <div class="mcard-label">🌐 Total geral</div>
+      <div class="mcard-val">R$ 4.776,90</div>
+      <div class="mcard-sub">2 entradas</div>
+    </div>
+  </div>
+  <div class="mgrid" style="margin-bottom:14px">
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">👤 Márcio</div>
+      <div class="chart-wrap" style="height:140px"><canvas id="chart-donut-m" height="140" style="display: block; box-sizing: border-box; height: 140px; width: 300px;" width="300"></canvas></div>
+      <div class="legend" id="legend-m"><div class="leg-item"><span class="leg-dot" style="background:#7c3aed"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#3b82f6"></span>C6</div><div class="leg-item"><span class="leg-dot" style="background:#10b981"></span>Fixos</div></div>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">💜 Raíssa</div>
+      <div class="chart-wrap" style="height:140px"><canvas id="chart-donut-r" height="140" width="300" style="display: block; box-sizing: border-box; height: 140px; width: 300px;"></canvas></div>
+      <div class="legend" id="legend-r"><div class="leg-item"><span class="leg-dot" style="background:#f43f5e"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#f97316"></span>C6</div></div>
+    </div>
+  </div>
+  <div class="chart-card"><div class="chart-title">Categorias</div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#7c3aed;display:inline-block;margin-right:6px"></span>Nubank Márcio</span><span class="catbar-vals">R$ 328,38<span class="catbar-pct">7%</span></span></div><div class="track"><div class="fill" style="width:7%;background:#7c3aed"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;display:inline-block;margin-right:6px"></span>C6 Márcio</span><span class="catbar-vals">R$ 1.390,17<span class="catbar-pct">29%</span></span></div><div class="track"><div class="fill" style="width:29%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;margin-right:6px"></span>Fixos</span><span class="catbar-vals">R$ 1.398,57<span class="catbar-pct">29%</span></span></div><div class="track"><div class="fill" style="width:29%;background:#10b981"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;display:inline-block;margin-right:6px"></span>Nubank Raíssa</span><span class="catbar-vals">R$ 860,61<span class="catbar-pct">18%</span></span></div><div class="track"><div class="fill" style="width:18%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f97316;display:inline-block;margin-right:6px"></span>C6 Raíssa</span><span class="catbar-vals">R$ 799,17<span class="catbar-pct">17%</span></span></div><div class="track"><div class="fill" style="width:17%;background:#f97316"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="894" style="display: block; box-sizing: border-box; height: 140px; width: 894px;"></canvas></div></div></div>
+  <div id="tab-marcio" class="page"></div>
+  <div id="tab-raissa" class="page"></div>
   <div id="tab-entradas" class="page"></div>
-  <div id="tab-add"    class="page"></div>
-  <div id="tab-fixos"  class="page"></div>
-  <div id="tab-meses"  class="page"></div>
+  <div id="tab-add" class="page"></div>
+  <div id="tab-fixos" class="page"></div>
+  <div id="tab-meses" class="page"></div>
   <div id="tab-analise" class="page"></div>
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn active" id="bn-painel"   onclick="goTab('painel')"><span class="bicon">📊</span>Painel</button>
-  <button class="bnav-btn"        id="bn-marcio"   onclick="goTab('marcio')"><span class="bicon">👤</span>Márcio</button>
-  <button class="bnav-btn"        id="bn-raissa"   onclick="goTab('raissa')"><span class="bicon">💜</span>Raíssa</button>
-  <button class="bnav-btn add-btn" id="bn-add"     onclick="goTab('add')"><span class="bicon-wrap">➕</span>Adicionar</button>
-  <button class="bnav-btn"        id="bn-analise"  onclick="goTab('analise')"><span class="bicon">📈</span>Análise</button>
-  <button class="bnav-btn"        id="bn-fixos"    onclick="goTab('fixos')"><span class="bicon">🏠</span>Fixos</button>
-  <button class="bnav-btn"        id="bn-meses"    onclick="goTab('meses')"><span class="bicon">📅</span>Meses</button>
+  <button class="bnav-btn active" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
+  <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="bicon">👤</span>Márcio</button>
+  <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
+  <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="bicon-wrap">➕</span>Adicionar</button>
+  <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="bicon">📈</span>Análise</button>
+  <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
+  <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><span class="bicon">📅</span>Meses</button>
 </nav>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="./Planejamento Financeiro MV_files/chart.umd.min.js.download"></script>
 <script>
 const SK='gastos_mv';
 const CLOUD_URL='https://script.google.com/macros/s/AKfycbyIgx5yPBXXTcM0iNAy7D31DeWjhTjr7Ap1RKOqG6s2pX7cdV89VKxsyQNLlaVdwfzE1g/exec';
@@ -1656,5 +1691,6 @@ document.addEventListener('click',closeMenu);
 function renderAll(){renderTab(activeTab);updateLabel();}
 renderAll();
 </script>
-</body>
-</html>
+
+
+<div id="cloud-status" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 9999; transition: opacity 0.4s; white-space: nowrap; font-family: Inter, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px; background: rgb(254, 226, 226); color: rgb(220, 38, 38); opacity: 0;">☁️ Sem dados na nuvem</div></body></html>
