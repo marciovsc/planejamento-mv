@@ -1,7 +1,8 @@
-<!DOCTYPE html>
-<!-- saved from url=(0044)https://marciovsc.github.io/planejamento-mv/ -->
-<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -235,337 +236,76 @@ input:focus,select:focus{outline:none;border-color:var(--nu)}
     <div class="app-title">💰 Planejamento Financeiro MV</div>
     <div class="month-switcher">
       <button class="month-btn" onclick="prevMonth()">‹</button>
-      <span class="month-label" id="month-label">Julho 2026</span>
+      <span class="month-label" id="month-label">—</span>
       <button class="month-btn" onclick="nextMonth()">›</button>
     </div>
   </div>
 </div>
 
 <div class="content">
-  <div id="tab-painel" class="page">
-  <div class="hero">
-    <div class="hero-label">Saldo do mês — Márcio</div>
-    <div class="hero-val">R$ 295,22</div>
-    <div class="hero-sub">Entradas R$ 5.150,00 · Gastos R$ 4.854,78</div>
-    <div class="hero-divider"></div>
-    <div class="hero-row">
-      <div class="hero-stat"><div class="hero-stat-val">R$ 1.651,17</div><div class="hero-stat-lbl">🟣 Nubank</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">R$ 1.805,04</div><div class="hero-stat-lbl">⚫ C6</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">R$ 1.398,57</div><div class="hero-stat-lbl">🏠 Fixos</div></div>
-    </div>
-  </div>
-  <div class="mgrid">
-    <div class="mcard" style="border-left:4px solid var(--rai);border-radius:0 var(--radius) var(--radius) 0">
-      <div class="mcard-label">💗 Total Raíssa</div>
-      <div class="mcard-val" style="color:var(--rai)">R$ 2.238,31</div>
-      <div class="mcard-sub">Nu R$ 1.089,78 · C6 R$ 1.148,53</div>
-    </div>
-    <div class="mcard" style="border-left:4px solid #6366f1;border-radius:0 var(--radius) var(--radius) 0">
-      <div class="mcard-label">🌐 Total geral</div>
-      <div class="mcard-val">R$ 7.093,09</div>
-      <div class="mcard-sub">1 entradas</div>
-    </div>
-  </div>
-  <div class="mgrid" style="margin-bottom:14px">
-    <div class="chart-card" style="margin-bottom:0">
-      <div class="chart-title">👤 Márcio</div>
-      <div class="chart-wrap" style="height:140px"><canvas id="chart-donut-m" height="140" style="display: block; box-sizing: border-box; height: 140px; width: 300px;" width="300"></canvas></div>
-      <div class="legend" id="legend-m"><div class="leg-item"><span class="leg-dot" style="background:#7c3aed"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#3b82f6"></span>C6</div><div class="leg-item"><span class="leg-dot" style="background:#10b981"></span>Fixos</div></div>
-    </div>
-    <div class="chart-card" style="margin-bottom:0">
-      <div class="chart-title">💜 Raíssa</div>
-      <div class="chart-wrap" style="height:140px"><canvas id="chart-donut-r" height="140" width="300" style="display: block; box-sizing: border-box; height: 140px; width: 300px;"></canvas></div>
-      <div class="legend" id="legend-r"><div class="leg-item"><span class="leg-dot" style="background:#f43f5e"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#f97316"></span>C6</div></div>
-    </div>
-  </div>
-  <div class="chart-card"><div class="chart-title">Categorias</div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#7c3aed;display:inline-block;margin-right:6px"></span>Nubank Márcio</span><span class="catbar-vals">R$ 1.651,17<span class="catbar-pct">23%</span></span></div><div class="track"><div class="fill" style="width:23%;background:#7c3aed"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;display:inline-block;margin-right:6px"></span>C6 Márcio</span><span class="catbar-vals">R$ 1.805,04<span class="catbar-pct">25%</span></span></div><div class="track"><div class="fill" style="width:25%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;margin-right:6px"></span>Fixos</span><span class="catbar-vals">R$ 1.398,57<span class="catbar-pct">20%</span></span></div><div class="track"><div class="fill" style="width:20%;background:#10b981"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;display:inline-block;margin-right:6px"></span>Nubank Raíssa</span><span class="catbar-vals">R$ 1.089,78<span class="catbar-pct">15%</span></span></div><div class="track"><div class="fill" style="width:15%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f97316;display:inline-block;margin-right:6px"></span>C6 Raíssa</span><span class="catbar-vals">R$ 1.148,53<span class="catbar-pct">16%</span></span></div><div class="track"><div class="fill" style="width:16%;background:#f97316"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="616" style="display: block; box-sizing: border-box; height: 140px; width: 616px;"></canvas></div></div></div>
-  <div id="tab-marcio" class="page active"><div>
-    <div class="page-title">👤 Márcio</div>
-    <div class="card-selector">
-    <button class="csel-btn active" style="background:var(--nu);border-color:var(--nu)" onclick="marcioCard=&#39;mnu&#39;;renderMarcio()">
-      <span class="csel-icon">🟣</span><span>Nubank</span><span class="csel-val">R$ 1.651,17</span>
-    </button>
-    <button class="csel-btn" style="" onclick="marcioCard=&#39;mc6&#39;;renderMarcio()">
-      <span class="csel-icon">⚫</span><span>C6</span><span class="csel-val">R$ 1.805,04</span>
-    </button></div>
-    
-    
-      <div style="margin-bottom:14px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px">
-          <div style="display:flex;align-items:center;gap:7px">
-            <span style="font-size:16px">📦</span>
-            <span style="font-size:13px;font-weight:700;color:var(--text)">Compras Parceladas</span>
-            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#2563eb22;color:#2563eb">8</span>
-          </div>
-          <span style="font-size:13px;font-weight:700;color:#2563eb">R$ 963,12</span>
-        </div>
-        <div class="list-card" style="margin-bottom:0"><div id="row-mnu-1">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">Pix Mariana 2-2</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 138,68</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,1)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,1)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-mnu-2">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">Bateria carro div 9-10</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 24,95</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,2)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,2)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-mnu-3">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">Out Godead Fish 4-4</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 46,10</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,3)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,3)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-mnu-4">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">Passai 2-2</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 158,18</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,4)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,4)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-mnu-5">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">MV 3-5</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 269,35</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,5)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,5)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-mnu-6">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">Pix Oh Boxe 2-2</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 119,57</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,6)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,6)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-mnu-7">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">Pix Oh Boxe 2-2</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 172,21</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,7)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,7)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-mnu-10">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">Pix Sushi Home 1-3 div</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 34,08</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,10)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,10)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div></div>
-      </div>
-    
-      <div style="margin-bottom:14px">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px">
-          <div style="display:flex;align-items:center;gap:7px">
-            <span style="font-size:16px">🛍️</span>
-            <span style="font-size:13px;font-weight:700;color:var(--text)">Compras Avulsas</span>
-            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#0f172a22;color:#0f172a">3</span>
-          </div>
-          <span style="font-size:13px;font-weight:700;color:#0f172a">R$ 688,05</span>
-        </div>
-        <div class="list-card" style="margin-bottom:0"><div id="row-mnu-0">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">FIES</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 534,61</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,0)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,0)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-mnu-8">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">Pix MV</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 114,98</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,8)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,8)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-mnu-9">
-    <div class="item" style="">
-      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
-      <div class="item-body">
-        <div class="item-desc">Pix Zé</div>
-        
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 38,46</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,9)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,9)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div></div>
-      </div>
-    
-    
-    <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:4px">
-      <span style="font-size:13px;font-weight:600;color:var(--text2)">Total do cartão</span>
-      <span style="font-size:16px;font-weight:700;color:var(--text)">R$ 1.651,17</span>
-    </div>
-  </div></div>
-  <div id="tab-raissa" class="page"></div>
+  <div id="tab-painel"  class="page active"></div>
+  <div id="tab-marcio"  class="page"></div>
+  <div id="tab-raissa"  class="page"></div>
   <div id="tab-entradas" class="page"></div>
-  <div id="tab-add" class="page"><div>
-    <div class="page-title">➕ Novo lançamento</div>
-    <div class="form-card">
-      <div class="form-section">💸 Novo gasto</div>
-      <div class="row2">
-        <div class="fg"><label class="flabel">Pessoa</label><select id="f-pessoa"><option>Márcio</option><option>Raíssa</option></select></div>
-        <div class="fg"><label class="flabel">Cartão</label><select id="f-tipo" onchange="toggleVenc()"><option value="nu">🟣 Nubank</option><option value="c6">⚫ C6</option><option value="fix">🏠 Fixo</option></select></div>
-      </div>
-      <div class="fg"><label class="flabel">Descrição</label><input id="f-desc" placeholder="Nome do gasto"></div>
-      <div class="row2">
-        <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="f-val" placeholder="0,00" step="0.01" oninput="calcParcela()"></div>
-        <div class="fg"><label class="flabel">Data</label><input id="f-data" placeholder="dd/mm"></div>
-      </div>
-      <div class="row2">
-        <div class="fg"><label class="flabel">Parcela atual</label><input type="number" id="f-parc-atual" placeholder="ex: 1" min="1" oninput="calcParcela()"></div>
-        <div class="fg"><label class="flabel">Total parcelas</label><input type="number" id="f-parc-total" placeholder="ex: 12" min="1" oninput="calcParcela()"></div>
-      </div>
-      <div id="parc-preview" class="parc-preview" style="display: none;"></div>
-      <div class="fg" id="fg-venc" style="display:none"><label class="flabel">Dia de vencimento</label><input type="number" id="f-venc" placeholder="ex: 10" min="1" max="31"></div>
-
-      <div class="fg" id="fg-rec">
-        <div class="flabel">Tipo de cobrança</div>
-        <div style="display:flex;gap:8px">
-          <button id="btn-rec-nao" onclick="setRec(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💳 Normal</button>
-          <button id="btn-rec-sim" onclick="setRec(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:#f8fafc;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
-        </div>
-        <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="rec-hint">Gasto único ou parcelado</div>
-      </div>
-
-      <button class="btn-submit" onclick="addGasto()">Adicionar gasto</button>
-      <div class="toast" id="toast-g" style="display: none;">✅ Lançamento adicionado!</div>
-    </div>
-  </div></div>
-  <div id="tab-fixos" class="page"></div>
-  <div id="tab-meses" class="page"><div>
-    <div class="page-title">📅 Meses</div>
-
-    <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
-      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">☁️ Sincronizar dados</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:14px">Exporte no celular, salve no Google Drive, importe no PC — e vice-versa.</div>
-      <div style="display:flex;gap:8px">
-        <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#059669,#047857);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">💾 Exportar dados</button>
-        <button onclick="document.getElementById(&#39;import-input&#39;).click()" style="flex:1;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">📂 Importar dados</button>
-      </div>
-      <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)">
-      <div id="sync-msg" style="display:none;margin-top:10px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:500;text-align:center"></div>
-    </div>
-
-    <div class="month-mgr">
-      <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px">📆 Meses cadastrados</div>
-      <div class="month-list-item">
-      <div><div class="month-name" style="font-weight:400">Junho 2026</div><div class="month-stats">Total R$ 9.694,99</div></div>
-      <button class="btn-month-sel" onclick="selectMonth(0)">Selecionar</button>
-    </div><div class="month-list-item">
-      <div><div class="month-name" style="font-weight:600">Julho 2026 📌</div><div class="month-stats">Total R$ 7.193,09</div></div>
-      <button class="btn-month-sel current" onclick="selectMonth(1)">Atual</button>
-    </div>
-      <button class="btn-new-month" onclick="addMonth()">➕ Novo mês</button>
-      <button class="btn-new-month" style="margin-top:6px;color:#dc2626;border-color:#fca5a5" onclick="restoreDefault()">🔄 Restaurar dados originais Julho 2026</button>
-    </div>
-  </div></div>
+  <div id="tab-add"    class="page"></div>
+  <div id="tab-fixos"  class="page"></div>
+  <div id="tab-meses"  class="page"></div>
   <div id="tab-analise" class="page"></div>
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
-  <button class="bnav-btn active" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="bicon">👤</span>Márcio</button>
-  <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
-  <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="bicon-wrap">➕</span>Adicionar</button>
-  <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="bicon">📈</span>Análise</button>
-  <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
-  <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><span class="bicon">📅</span>Meses</button>
+  <button class="bnav-btn active" id="bn-painel"   onclick="goTab('painel')"><span class="bicon">📊</span>Painel</button>
+  <button class="bnav-btn"        id="bn-marcio"   onclick="goTab('marcio')"><span class="bicon">👤</span>Márcio</button>
+  <button class="bnav-btn"        id="bn-raissa"   onclick="goTab('raissa')"><span class="bicon">💜</span>Raíssa</button>
+  <button class="bnav-btn add-btn" id="bn-add"     onclick="goTab('add')"><span class="bicon-wrap">➕</span>Adicionar</button>
+  <button class="bnav-btn"        id="bn-analise"  onclick="goTab('analise')"><span class="bicon">📈</span>Análise</button>
+  <button class="bnav-btn"        id="bn-fixos"    onclick="goTab('fixos')"><span class="bicon">🏠</span>Fixos</button>
+  <button class="bnav-btn"        id="bn-meses"    onclick="goTab('meses')"><span class="bicon">📅</span>Meses</button>
 </nav>
 
 </div>
 
-<script src="./Planejamento Financeiro MV_files/chart.umd.min.js.download"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
 const SK='gastos_mv';
+const CLOUD_URL='https://script.google.com/macros/s/AKfycbyIgx5yPBXXTcM0iNAy7D31DeWjhTjr7Ap1RKOqG6s2pX7cdV89VKxsyQNLlaVdwfzE1g/exec';
+
+// ── CLOUD SYNC ──
+async function cloudSave(data){
+  try{
+    await fetch(CLOUD_URL,{
+      method:'POST',
+      body:JSON.stringify(data),
+      headers:{'Content-Type':'text/plain'}
+    });
+  }catch(e){console.warn('Cloud save failed:',e);}
+}
+
+async function cloudLoad(){
+  try{
+    const r=await fetch(CLOUD_URL+'?t='+Date.now());
+    const text=await r.text();
+    if(!text||text==='{}')return null;
+    const d=JSON.parse(text);
+    if(d&&d.months&&d.months.length>0)return d;
+  }catch(e){console.warn('Cloud load failed:',e);}
+  return null;
+}
+
+function showSyncStatus(msg,ok){
+  let el=document.getElementById('cloud-status');
+  if(!el){
+    el=document.createElement('div');
+    el.id='cloud-status';
+    el.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;transition:opacity .4s;white-space:nowrap;font-family:Inter,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.15)';
+    document.body.appendChild(el);
+  }
+  el.style.background=ok?'#dcfce7':'#fee2e2';
+  el.style.color=ok?'#16a34a':'#dc2626';
+  el.style.opacity='1';
+  el.textContent=msg;
+  setTimeout(()=>{el.style.opacity='0';},2500);
+}
 const MONTH_NAMES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
 function blankMonth(name){return{name,entradas:[],mnu:[],mc6:[],rnu:[],rc6:[],fix:[]};}
@@ -803,9 +543,27 @@ function ensureJunho(data){
   return data;
 }
 
-function save(){try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}}
+function save(){
+  try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}
+  cloudSave(G).then(()=>showSyncStatus('☁️ Salvo na nuvem',true)).catch(()=>{});
+}
+
+async function loadFromCloud(){
+  showSyncStatus('☁️ Sincronizando...',true);
+  const cloud=await cloudLoad();
+  if(cloud){
+    G=ensureJunho(cloud);
+    try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}
+    renderAll();
+    showSyncStatus('☁️ Sincronizado!',true);
+  } else {
+    showSyncStatus('☁️ Sem dados na nuvem',false);
+  }
+}
 
 let G=ensureJunho(load());
+// Sync from cloud on startup
+window.addEventListener('load',()=>loadFromCloud());
 function M(){return G.months[G.current];}
 const fmt=v=>'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const fmtS=v=>Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -1241,11 +999,11 @@ function renderMeses(){
     <div class="page-title">📅 Meses</div>
 
     <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
-      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">☁️ Sincronizar dados</div>
-      <div style="font-size:12px;color:var(--text3);margin-bottom:14px">Exporte no celular, salve no Google Drive, importe no PC — e vice-versa.</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">☁️ Sincronização na nuvem</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:14px">Dados salvos automaticamente no Google Drive a cada alteração.</div>
       <div style="display:flex;gap:8px">
-        <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#059669,#047857);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">💾 Exportar dados</button>
-        <button onclick="document.getElementById('import-input').click()" style="flex:1;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">📂 Importar dados</button>
+        <button onclick="loadFromCloud()" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">☁️ Sincronizar agora</button>
+        <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">💾 Backup local</button>
       </div>
       <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)">
       <div id="sync-msg" style="display:none;margin-top:10px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:500;text-align:center"></div>
@@ -1654,6 +1412,5 @@ function renderAnalise(){
 function renderAll(){renderTab(activeTab);updateLabel();}
 renderAll();
 </script>
-
-
-</body></html>
+</body>
+</html>
