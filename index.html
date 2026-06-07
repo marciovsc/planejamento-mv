@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Marcio/Downloads/gastos_novo_27.html -->
-<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -248,88 +248,36 @@ select option{background:var(--surface2);color:var(--text)}
     <div class="app-title">💰 Planejamento Financeiro MV</div>
     <div class="month-switcher">
       <button class="month-btn" onclick="prevMonth()">‹</button>
-      <span class="month-label" id="month-label">Agosto 2026</span>
+      <span class="month-label" id="month-label">—</span>
       <button class="month-btn" onclick="nextMonth()">›</button>
     </div>
   </div>
 </div>
 
 <div class="content">
-  <div id="tab-painel" class="page active">
-  <!-- HERO SALDO -->
-  <div class="hero">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-      <div>
-        <div class="hero-label">Saldo do mês — Márcio</div>
-        <div class="hero-val" style="font-size:28px">R$ 2.032,88</div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:11px;opacity:.6;margin-bottom:4px">Entradas</div>
-        <div style="font-size:16px;font-weight:700;color:#4ade80">R$ 5.150,00</div>
-        <div style="font-size:11px;opacity:.6;margin-top:6px;margin-bottom:4px">Gastos</div>
-        <div style="font-size:16px;font-weight:700;color:#f87171">R$ 3.117,12</div>
-      </div>
-    </div>
-    <div class="hero-divider"></div>
-    <div class="hero-row">
-      <div class="hero-stat"><div class="hero-stat-val">R$ 328,38</div><div class="hero-stat-lbl">🟣 Nubank</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">R$ 1.390,17</div><div class="hero-stat-lbl">⚫ C6</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">R$ 1.398,57</div><div class="hero-stat-lbl">🏠 Fixos</div></div>
-    </div>
-  </div>
-
-  <!-- CARDS RAISSA + GERAL -->
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
-    <div class="mcard" style="border-top:3px solid var(--rai)">
-      <div class="mcard-label">💗 Total Raíssa</div>
-      <div class="mcard-val" style="color:var(--rai);font-size:17px">R$ 1.659,78</div>
-      <div class="mcard-sub">🟣 R$ 860,61 · ⚫ R$ 799,17</div>
-    </div>
-    <div class="mcard" style="border-top:3px solid #6366f1">
-      <div class="mcard-label">🌐 Total geral</div>
-      <div class="mcard-val" style="font-size:17px">R$ 4.776,90</div>
-      <div class="mcard-sub">Márcio + Raíssa</div>
-    </div>
-  </div>
-
-  <!-- GRÁFICOS LADO A LADO -->
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
-    <div class="chart-card" style="margin-bottom:0;padding:14px">
-      <div class="chart-title" style="font-size:13px">👤 Márcio</div>
-      <div class="chart-wrap" style="height:130px"><canvas id="chart-donut-m" height="130" style="display: block; box-sizing: border-box; height: 130px; width: 429px;" width="429"></canvas></div>
-      <div class="legend" id="legend-m"><div class="leg-item"><span class="leg-dot" style="background:#7c3aed"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#3b82f6"></span>C6</div><div class="leg-item"><span class="leg-dot" style="background:#10b981"></span>Fixos</div></div>
-    </div>
-    <div class="chart-card" style="margin-bottom:0;padding:14px">
-      <div class="chart-title" style="font-size:13px">💜 Raíssa</div>
-      <div class="chart-wrap" style="height:130px"><canvas id="chart-donut-r" height="130" width="429" style="display: block; box-sizing: border-box; height: 130px; width: 429px;"></canvas></div>
-      <div class="legend" id="legend-r"><div class="leg-item"><span class="leg-dot" style="background:#f43f5e"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#f97316"></span>C6</div></div>
-    </div>
-  </div>
-
-  <!-- CATEGORIAS -->
-  <div class="chart-card"><div class="chart-title">📊 Categorias</div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#7c3aed;display:inline-block;margin-right:6px"></span>Nubank Márcio</span><span class="catbar-vals">R$ 328,38<span class="catbar-pct">7%</span></span></div><div class="track"><div class="fill" style="width:7%;background:#7c3aed"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;display:inline-block;margin-right:6px"></span>C6 Márcio</span><span class="catbar-vals">R$ 1.390,17<span class="catbar-pct">29%</span></span></div><div class="track"><div class="fill" style="width:29%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;margin-right:6px"></span>Fixos</span><span class="catbar-vals">R$ 1.398,57<span class="catbar-pct">29%</span></span></div><div class="track"><div class="fill" style="width:29%;background:#10b981"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;display:inline-block;margin-right:6px"></span>Nubank Raíssa</span><span class="catbar-vals">R$ 860,61<span class="catbar-pct">18%</span></span></div><div class="track"><div class="fill" style="width:18%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f97316;display:inline-block;margin-right:6px"></span>C6 Raíssa</span><span class="catbar-vals">R$ 799,17<span class="catbar-pct">17%</span></span></div><div class="track"><div class="fill" style="width:17%;background:#f97316"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="894" style="display: block; box-sizing: border-box; height: 140px; width: 894px;"></canvas></div></div></div>
-  <div id="tab-marcio" class="page"></div>
-  <div id="tab-raissa" class="page"></div>
+  <div id="tab-painel"  class="page active"></div>
+  <div id="tab-marcio"  class="page"></div>
+  <div id="tab-raissa"  class="page"></div>
   <div id="tab-entradas" class="page"></div>
-  <div id="tab-add" class="page"></div>
-  <div id="tab-fixos" class="page"></div>
-  <div id="tab-meses" class="page"></div>
+  <div id="tab-add"    class="page"></div>
+  <div id="tab-fixos"  class="page"></div>
+  <div id="tab-meses"  class="page"></div>
   <div id="tab-analise" class="page"></div>
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn active" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
-  <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="bicon">👤</span>Márcio</button>
-  <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
-  <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="bicon-wrap">➕</span>Adicionar</button>
-  <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="bicon">📈</span>Análise</button>
-  <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
-  <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><span class="bicon">📅</span>Meses</button>
+  <button class="bnav-btn active" id="bn-painel"   onclick="goTab('painel')"><span class="bicon">📊</span>Painel</button>
+  <button class="bnav-btn"        id="bn-marcio"   onclick="goTab('marcio')"><span class="bicon">👤</span>Márcio</button>
+  <button class="bnav-btn"        id="bn-raissa"   onclick="goTab('raissa')"><span class="bicon">💜</span>Raíssa</button>
+  <button class="bnav-btn add-btn" id="bn-add"     onclick="goTab('add')"><span class="bicon-wrap">➕</span>Adicionar</button>
+  <button class="bnav-btn"        id="bn-analise"  onclick="goTab('analise')"><span class="bicon">📈</span>Análise</button>
+  <button class="bnav-btn"        id="bn-fixos"    onclick="goTab('fixos')"><span class="bicon">🏠</span>Fixos</button>
+  <button class="bnav-btn"        id="bn-meses"    onclick="goTab('meses')"><span class="bicon">📅</span>Meses</button>
 </nav>
 
 </div>
 
-<script src="./gastos novo_files/chart.umd.min.js.download"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 const SK='gastos_mv';
 const CLOUD_URL='https://script.google.com/macros/s/AKfycbyIgx5yPBXXTcM0iNAy7D31DeWjhTjr7Ap1RKOqG6s2pX7cdV89VKxsyQNLlaVdwfzE1g/exec';
@@ -669,11 +617,15 @@ function renderPainel(){
         <div class="hero-label">Saldo do mês — Márcio</div>
         <div class="${saldo>=0?'hero-val':'hero-val neg'}" style="font-size:28px">${fmt(saldo)}</div>
       </div>
-      <div style="text-align:right">
-        <div style="font-size:11px;opacity:.6;margin-bottom:4px">Entradas</div>
-        <div style="font-size:16px;font-weight:700;color:#4ade80">${fmt(tEnt)}</div>
-        <div style="font-size:11px;opacity:.6;margin-top:6px;margin-bottom:4px">Gastos</div>
-        <div style="font-size:16px;font-weight:700;color:#f87171">${fmt(tMarcio)}</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:8px 12px;text-align:right">
+          <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:2px">Entradas</div>
+          <div style="font-size:15px;font-weight:700;color:#4ade80">${fmt(tEnt)}</div>
+        </div>
+        <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:8px 12px;text-align:right">
+          <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:2px">Gastos</div>
+          <div style="font-size:15px;font-weight:700;color:#f87171">${fmt(tMarcio)}</div>
+        </div>
       </div>
     </div>
     <div class="hero-divider"></div>
@@ -1724,6 +1676,5 @@ document.addEventListener('click',closeMenu);
 function renderAll(){renderTab(activeTab);updateLabel();}
 renderAll();
 </script>
-
-
-<div id="cloud-status" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 9999; transition: opacity 0.4s; white-space: nowrap; font-family: Inter, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px; background: rgb(254, 226, 226); color: rgb(220, 38, 38); opacity: 0;">☁️ Sem dados na nuvem</div></body></html>
+</body>
+</html>
