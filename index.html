@@ -12,35 +12,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --nu:#7c3aed;--nu-bg:#ede9fe;--nu-txt:#6d28d9;
-  --c6:#2563eb;--c6-bg:#dbeafe;--c6-txt:#1d4ed8;
-  --fix:#059669;--fix-bg:#d1fae5;--fix-txt:#047857;
-  --rai:#db2777;--rai-bg:#fce7f3;--rai-txt:#be185d;
-  --in:#16a34a;--in-bg:#dcfce7;
-  --danger:#dc2626;--danger-bg:#fee2e2;
-  --bg:#f1f5f9;--surface:#fff;--border:#e2e8f0;
-  --text:#0f172a;--text2:#64748b;--text3:#94a3b8;
-  --radius:16px;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
+  --nu:#a78bfa;--nu-bg:#2d1f5e;--nu-txt:#c4b5fd;
+  --c6:#60a5fa;--c6-bg:#1e3a5f;--c6-txt:#93c5fd;
+  --fix:#34d399;--fix-bg:#064e3b;--fix-txt:#6ee7b7;
+  --rai:#f472b6;--rai-bg:#500724;--rai-txt:#fbcfe8;
+  --in:#4ade80;--in-bg:#14532d;
+  --danger:#f87171;--danger-bg:#450a0a;
+  --bg:#0f0f13;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;
+  --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
+  --radius:16px;--shadow:0 1px 3px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
 }
 html,body{background:var(--bg);font-family:'Inter',system-ui,sans-serif}
-.app{max-width:680px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:90px}
+.app{max-width:960px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:90px}
 
 /* HEADER */
-.topbar{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4c1d95 100%);padding:20px 20px 14px}
+.topbar{background:linear-gradient(135deg,#0d0d1a 0%,#1a1030 50%,#1e0a3c 100%);padding:20px 20px 14px;border-bottom:1px solid var(--border)}
 .topbar-row{display:flex;align-items:center;justify-content:space-between}
 .app-title{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
-.month-switcher{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:24px;padding:5px 10px}
-.month-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);font-size:20px;line-height:1;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.month-switcher{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border-radius:24px;padding:5px 10px;border:1px solid rgba(255,255,255,.1)}
+.month-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.7);font-size:20px;line-height:1;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 .month-label{font-size:13px;font-weight:600;color:#fff;min-width:88px;text-align:center}
 
 /* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:680px;background:#fff;border-top:1px solid var(--border);display:flex;z-index:100;padding:6px 4px 8px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:960px;background:#13131e;border-top:1px solid var(--border);display:flex;z-index:100;padding:6px 4px 8px;box-shadow:0 -4px 20px rgba(0,0,0,.4)}
 .bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 2px;border:none;background:none;cursor:pointer;color:var(--text3);font-size:10px;font-weight:500;font-family:'Inter',sans-serif}
 .bnav-btn .bicon{font-size:20px;line-height:1}
 .bnav-btn.active{color:var(--nu)}
 .bnav-btn.active::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:3px;background:var(--nu);border-radius:0 0 4px 4px}
 .bnav-btn{position:relative}
-.add-btn .bicon-wrap{background:linear-gradient(135deg,var(--nu),var(--c6));border-radius:14px;width:44px;height:32px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 12px rgba(124,58,237,.4)}
+.add-btn .bicon-wrap{background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:14px;width:44px;height:32px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 12px rgba(124,58,237,.5)}
 .add-btn{color:#fff!important}
 
 /* CONTENT */
@@ -63,14 +63,14 @@ html,body{background:var(--bg);font-family:'Inter',system-ui,sans-serif}
 .hero-stat+.hero-stat{border-left:1px solid rgba(255,255,255,.15)}
 
 /* METRIC GRID */
-.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
-.mcard{background:var(--surface);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+.mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}@media(min-width:600px){.mgrid{grid-template-columns:repeat(4,1fr)}}
+.mcard{background:var(--surface);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .mcard-label{font-size:11px;color:var(--text2);margin-bottom:6px;font-weight:500;display:flex;align-items:center;gap:5px}
-.mcard-val{font-size:20px;font-weight:700;letter-spacing:-.5px}
+.mcard-val{font-size:20px;font-weight:700;letter-spacing:-.5px;color:var(--text)}
 .mcard-sub{font-size:11px;color:var(--text3);margin-top:4px}
 
 /* CHARTS */
-.chart-card{background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.chart-card{background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .chart-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px}
 .chart-wrap{position:relative;height:170px}
 canvas{display:block}
@@ -84,11 +84,11 @@ canvas{display:block}
 .catbar-name{font-size:12px;color:var(--text2);font-weight:500}
 .catbar-vals{font-size:12px;font-weight:600;color:var(--text)}
 .catbar-pct{font-size:11px;color:var(--text3);margin-left:4px}
-.track{height:7px;background:#f1f5f9;border-radius:4px;overflow:hidden}
+.track{height:7px;background:var(--border);border-radius:4px;overflow:hidden}
 .fill{height:7px;border-radius:4px;transition:width .6s cubic-bezier(.4,0,.2,1)}
 
 /* LIST */
-.list-card{background:var(--surface);border-radius:var(--radius);overflow:visible;margin-bottom:12px;box-shadow:var(--shadow)}
+.list-card{background:var(--surface);border-radius:var(--radius);overflow:visible;margin-bottom:12px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .list-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .list-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--text)}
 .pill{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600}
@@ -96,7 +96,7 @@ canvas{display:block}
 .pill-c6{background:var(--c6-bg);color:var(--c6-txt)}
 .pill-fix{background:var(--fix-bg);color:var(--fix-txt)}
 .pill-in{background:var(--in-bg);color:var(--in)}
-.item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #f8fafc;overflow:visible}
+.item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);overflow:visible}
 .item:last-child{border-bottom:none}
 .item-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:0 0 36px;font-size:16px}
 .item-body{flex:1;min-width:0;overflow:hidden}
@@ -109,25 +109,26 @@ canvas{display:block}
 .act-btn{border:none;cursor:pointer;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 32px}
 .act-btn.edit{background:var(--c6-bg)}
 .act-btn.del{background:var(--danger-bg)}
-.list-foot{padding:12px 16px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius)}
+.list-foot{padding:12px 16px;background:var(--surface2);display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius)}
 .foot-lbl{font-size:12px;color:var(--text2);font-weight:500}
 .foot-val{font-size:15px;font-weight:700;color:var(--text)}
 .empty{padding:28px 16px;text-align:center;font-size:13px;color:var(--text3)}
 
 /* EDIT ROW */
-.edit-row{display:flex;align-items:center;gap:6px;padding:10px 16px;background:#f8fafc;border-bottom:1px solid var(--border);flex-wrap:wrap}
-.edit-row input{flex:1;min-width:80px;padding:8px 10px;font-size:13px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--text);font-family:'Inter',sans-serif}
+.edit-row{display:flex;align-items:center;gap:6px;padding:10px 16px;background:var(--surface2);border-bottom:1px solid var(--border);flex-wrap:wrap}
+.edit-row input{flex:1;min-width:80px;padding:8px 10px;font-size:13px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif}
 .edit-row input.val-inp{width:90px;flex:0 0 90px}
 .btn-ok{background:var(--nu);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
 .btn-cancel{background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12px;cursor:pointer;color:var(--text2);font-family:'Inter',sans-serif}
 
 /* FORM */
-.form-card{background:var(--surface);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:var(--shadow)}
+.form-card{background:var(--surface);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .form-section{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px}
 .fg{margin-bottom:14px}
 .flabel{font-size:12px;color:var(--text2);display:block;margin-bottom:6px;font-weight:500}
-input,select{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--text);font-size:14px;font-family:'Inter',sans-serif}
+input,select{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-size:14px;font-family:'Inter',sans-serif}
 input:focus,select:focus{outline:none;border-color:var(--nu)}
+select option{background:var(--surface2);color:var(--text)}
 .row2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 .btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--nu),var(--c6));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;box-shadow:0 4px 14px rgba(124,58,237,.35)}
 .toast{font-size:12px;color:var(--in);background:var(--in-bg);border-radius:10px;padding:10px 14px;text-align:center;margin-top:12px;display:none;font-weight:500}
@@ -141,8 +142,8 @@ input:focus,select:focus{outline:none;border-color:var(--nu)}
 .csel-btn .csel-val{font-size:11px;opacity:.85}
 
 /* MONTH MGR */
-.month-mgr{background:var(--surface);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:var(--shadow)}
-.month-list-item{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f1f5f9}
+.month-mgr{background:var(--surface);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.month-list-item{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
 .month-list-item:last-child{border-bottom:none}
 .month-name{font-size:14px;color:var(--text);font-weight:500}
 .month-stats{font-size:11px;color:var(--text3);margin-top:2px}
@@ -312,7 +313,7 @@ function blankMonth(name){return{name,entradas:[],mnu:[],mc6:[],rnu:[],rc6:[],fi
 
 function defaultData(){
   const junho=blankMonth('Junho 2026');
-  junho.entradas=[{desc:'Salário',val:5000,data:'05/06'}];
+  junho.entradas=[{desc:'Salário',val:5000,data:'05/06',recorrente:true}];
   junho.mnu=[
     {desc:'FIES',val:534.61},
     {desc:'IPVA',val:65.15},
@@ -462,7 +463,7 @@ function defaultData(){
   ];
 
   const julho=blankMonth('Julho 2026');
-  julho.entradas=[{desc:'Salário',val:5150,data:'05/07'}];
+  julho.entradas=[{desc:'Salário',val:5150,data:'05/07',recorrente:true}];
   julho.mnu=[
     {desc:'FIES',val:534.61},{desc:'Pix Mariana 2-2',val:138.68},{desc:'Bateria carro div 9-10',val:24.95},
     {desc:'Out Godead Fish 4-4',val:46.10},{desc:'Passai 2-2',val:158.18},{desc:'MV 3-5',val:269.35},
@@ -570,7 +571,7 @@ const fmtS=v=>Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumF
 const sum=a=>(a||[]).reduce((t,i)=>t+(+i.val||0),0);
 
 // ── HELPERS ──
-function keyBg(k){return{mnu:'var(--nu-bg)',mc6:'var(--c6-bg)',rnu:'var(--nu-bg)',rc6:'var(--c6-bg)',fix:'var(--fix-bg)',entradas:'var(--in-bg)'}[k]||'#f1f5f9';}
+function keyBg(k){return{mnu:'#2d1f5e',mc6:'#1e3358',rnu:'#2d1f5e',rc6:'#1e3358',fix:'#064e3b',entradas:'#14532d'}[k]||'#22222f';}
 function keyEmoji(k){return{mnu:'🟣',mc6:'⚫',rnu:'🟣',rc6:'⚫',fix:'🏠',entradas:'💵'}[k]||'💳';}
 
 // ── CHARTS ──
@@ -667,10 +668,10 @@ let editState={key:null,idx:null};
 function itemRow(it,i,key){
   const isRec=!!it.recorrente;
   return `<div id="row-${key}-${i}">
-    <div class="item" style="${isRec?'background:linear-gradient(to right,#faf5ff,#fff)':''}">
+    <div class="item" style="${isRec?'background:linear-gradient(to right,#1e1530,#1a1a24)':''}">
       <div class="item-icon" style="background:${keyBg(key)}">${keyEmoji(key)}</div>
       <div class="item-body">
-        <div class="item-desc">${it.desc}</div>
+        <div class="item-desc" style="color:var(--text)">${it.desc}</div>
         ${it.data?`<div class="item-date">${it.data}</div>`:''}
       </div>
       <div class="item-right">
@@ -830,13 +831,38 @@ function renderRaissa(){
 function renderFixos(){
   const m=M();
   const items=m.fix||[];
-  const today=new Date(),todayDay=today.getDate();
+
+  // Determina o mês/ano do período selecionado
+  const MONTH_NAMES_PT=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const partes=m.name.split(' ');
+  const mesIdx=MONTH_NAMES_PT.indexOf(partes[0]);
+  const anoMes=parseInt(partes[1])||new Date().getFullYear();
+  const hoje=new Date();
+  const isMesAtual=(mesIdx===hoje.getMonth()&&anoMes===hoje.getFullYear());
+  const diaRef=isMesAtual?hoje.getDate():new Date(anoMes,mesIdx+1,0).getDate(); // último dia do mês se não for o atual
+
   function vencBadge(venc,pago){
     if(!venc||pago)return '';
-    const d=parseInt(venc),diff=d-todayDay;
+    const d=parseInt(venc);
     if(isNaN(d))return '';
-    const [bg,col]=diff<0?['#fee2e2','#dc2626']:diff<=3?['#fef3c7','#d97706']:['#f1f5f9','#94a3b8'];
-    const lbl=diff<0?'Vencido':diff===0?'Hoje':'dia '+d;
+    // Se é o mês atual, compara com hoje. Se é mês futuro, mostra só o dia. Se é passado, mostra como vencido.
+    const hoje=new Date();
+    const fimMes=new Date(anoMes,mesIdx+1,0).getDate();
+    let diff,lbl,bg,col;
+    if(anoMes>hoje.getFullYear()||(anoMes===hoje.getFullYear()&&mesIdx>hoje.getMonth())){
+      // Mês futuro — mostra só o dia, sem alerta
+      return `<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia ${d}</span>`;
+    } else if(anoMes<hoje.getFullYear()||(anoMes===hoje.getFullYear()&&mesIdx<hoje.getMonth())){
+      // Mês passado — já venceu
+      bg='#450a0a';col='#f87171';lbl='Vencido';
+    } else {
+      // Mês atual — compara com hoje
+      diff=d-hoje.getDate();
+      if(diff<0){bg='#450a0a';col='#f87171';lbl='Vencido';}
+      else if(diff===0){bg='#422006';col='#fb923c';lbl='Hoje';}
+      else if(diff<=3){bg='#422006';col='#fb923c';lbl=diff+'d';}
+      else{return `<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia ${d}</span>`;}
+    }
     return `<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${bg};color:${col};margin-left:6px">📅 ${lbl}</span>`;
   }
   const rows=items.length?items.map((it,i)=>`
@@ -918,8 +944,13 @@ function renderEntradas(){
   const rows=ent.length?ent.map((it,i)=>`
     <div id="row-entradas-${i}">
       <div class="item">
-        <div class="item-icon" style="background:var(--in-bg)">💵</div>
-        <div class="item-body"><div class="item-desc">${it.desc}</div>${it.data?`<div class="item-date">${it.data}</div>`:''}</div>
+        <div class="item-icon" style="background:var(--in-bg)">${it.recorrente?'🔄':'💵'}</div>
+        <div class="item-body"><div class="item-desc" style="color:var(--text)">${it.desc}</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
+            ${it.data?`<span style="font-size:11px;color:var(--text3)">${it.data}</span>`:''}
+            ${it.recorrente?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:var(--in-bg);color:var(--in)">🔄 Recorrente</span>`:''}
+          </div>
+        </div>
         <div class="item-right">
           <span class="item-val pos">${fmt(it.val)}</span>
           <div class="item-actions">
@@ -953,37 +984,109 @@ function renderAdd(){
   document.getElementById('tab-add').innerHTML=`<div>
     <div class="page-title">➕ Novo lançamento</div>
     <div class="form-card">
-      <div class="form-section">💸 Novo gasto</div>
-      <div class="row2">
-        <div class="fg"><label class="flabel">Pessoa</label><select id="f-pessoa"><option>Márcio</option><option>Raíssa</option></select></div>
-        <div class="fg"><label class="flabel">Cartão</label><select id="f-tipo" onchange="toggleVenc()"><option value="nu">🟣 Nubank</option><option value="c6">⚫ C6</option><option value="fix">🏠 Fixo</option></select></div>
-      </div>
-      <div class="fg"><label class="flabel">Descrição</label><input id="f-desc" placeholder="Nome do gasto"></div>
-      <div class="row2">
-        <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="f-val" placeholder="0,00" step="0.01" oninput="calcParcela()"></div>
-        <div class="fg"><label class="flabel">Data</label><input id="f-data" placeholder="dd/mm"></div>
-      </div>
-      <div class="row2">
-        <div class="fg"><label class="flabel">Parcela atual</label><input type="number" id="f-parc-atual" placeholder="ex: 1" min="1" oninput="calcParcela()"></div>
-        <div class="fg"><label class="flabel">Total parcelas</label><input type="number" id="f-parc-total" placeholder="ex: 12" min="1" oninput="calcParcela()"></div>
-      </div>
-      <div id="parc-preview" class="parc-preview"></div>
-      <div class="fg" id="fg-venc" style="display:none"><label class="flabel">Dia de vencimento</label><input type="number" id="f-venc" placeholder="ex: 10" min="1" max="31"></div>
 
-      <div class="fg" id="fg-rec">
-        <div class="flabel">Tipo de cobrança</div>
+      <div class="fg">
+        <div class="flabel">Tipo de lançamento</div>
         <div style="display:flex;gap:8px">
-          <button id="btn-rec-nao" onclick="setRec(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💳 Normal</button>
-          <button id="btn-rec-sim" onclick="setRec(true)"  style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:#f8fafc;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
+          <button id="btn-tipo-gasto" onclick="setTipoLanc('gasto')" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💸 Gasto</button>
+          <button id="btn-tipo-entrada" onclick="setTipoLanc('entrada')" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--border);background:#f8fafc;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💵 Entrada</button>
         </div>
-        <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="rec-hint">Gasto único ou parcelado</div>
       </div>
 
-      <button class="btn-submit" onclick="addGasto()">Adicionar gasto</button>
+      <div id="fields-gasto">
+        <div class="form-section">💸 Novo gasto</div>
+        <div class="row2">
+          <div class="fg"><label class="flabel">Pessoa</label><select id="f-pessoa"><option>Márcio</option><option>Raíssa</option></select></div>
+          <div class="fg"><label class="flabel">Cartão</label><select id="f-tipo" onchange="toggleVenc()"><option value="nu">🟣 Nubank</option><option value="c6">⚫ C6</option><option value="fix">🏠 Fixo</option></select></div>
+        </div>
+        <div class="fg"><label class="flabel">Descrição</label><input id="f-desc" placeholder="Nome do gasto"></div>
+        <div class="row2">
+          <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="f-val" placeholder="0,00" step="0.01" oninput="calcParcela()"></div>
+          <div class="fg"><label class="flabel">Data</label><input id="f-data" placeholder="dd/mm"></div>
+        </div>
+        <div class="row2">
+          <div class="fg"><label class="flabel">Parcela atual</label><input type="number" id="f-parc-atual" placeholder="ex: 1" min="1" oninput="calcParcela()"></div>
+          <div class="fg"><label class="flabel">Total parcelas</label><input type="number" id="f-parc-total" placeholder="ex: 12" min="1" oninput="calcParcela()"></div>
+        </div>
+        <div id="parc-preview" class="parc-preview"></div>
+        <div class="fg" id="fg-venc" style="display:none"><label class="flabel">Dia de vencimento</label><input type="number" id="f-venc" placeholder="ex: 10" min="1" max="31"></div>
+        <div class="fg" id="fg-rec">
+          <div class="flabel">Tipo de cobrança</div>
+          <div style="display:flex;gap:8px">
+            <button id="btn-rec-nao" onclick="setRec(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💳 Normal</button>
+            <button id="btn-rec-sim" onclick="setRec(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:#f8fafc;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
+          </div>
+          <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="rec-hint">Gasto único ou parcelado</div>
+        </div>
+        <button class="btn-submit" onclick="addGasto()">Adicionar gasto</button>
+      </div>
+
+      <div id="fields-entrada" style="display:none">
+        <div class="form-section">💵 Nova entrada</div>
+        <div class="fg"><label class="flabel">Descrição</label><input id="e-desc" placeholder="Salário, freelance, 13°..."></div>
+        <div class="row2">
+          <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="e-val" placeholder="0,00" step="0.01"></div>
+          <div class="fg"><label class="flabel">Data</label><input id="e-data" placeholder="dd/mm"></div>
+        </div>
+        <div class="fg">
+          <div class="flabel">Tipo de cobrança</div>
+          <div style="display:flex;gap:8px">
+            <button id="btn-erec-nao" onclick="setRecEntrada(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid #16a34a;background:#16a34a;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💵 Normal</button>
+            <button id="btn-erec-sim" onclick="setRecEntrada(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
+          </div>
+          <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="erec-hint">Entrada única</div>
+        </div>
+        <button class="btn-submit" style="background:linear-gradient(135deg,#16a34a,#15803d)" onclick="addEntrada()">Adicionar entrada</button>
+      </div>
+
       <div class="toast" id="toast-g">✅ Lançamento adicionado!</div>
     </div>
+
+    ${(()=>{
+      const ent=M().entradas||[];
+      if(!ent.length) return '';
+      const rows=ent.map((it,i)=>`
+        <div id="row-entradas-${i}">
+          <div class="item">
+            <div class="item-icon" style="background:var(--in-bg)">💵</div>
+            <div class="item-body"><div class="item-desc" style="color:var(--text)">${it.desc}</div>${it.data?`<div class="item-date">${it.data}</div>`:''}</div>
+            <div class="item-right">
+              <span class="item-val pos">${fmt(it.val)}</span>
+              <div class="item-actions">
+                <button class="act-btn edit" onclick="startEdit('entradas',${i})">✏️</button>
+                <button class="act-btn del" onclick="confirmDel('entradas',${i})">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>`).join('');
+      return `<div class="list-card">
+        <div class="list-head"><div class="list-title"><span class="pill pill-in">Entradas</span></div><span style="font-size:11px;color:var(--text3)">${ent.length} itens</span></div>
+        <div>${rows}</div>
+        <div class="list-foot"><span class="foot-lbl">Total entradas</span><span class="foot-val" style="color:var(--in)">${fmt(sum(ent))}</span></div>
+      </div>`;
+    })()}
   </div>`;
   window._recorrente=false;
+  window._tipoLanc='gasto';
+}
+
+function setTipoLanc(tipo){
+  window._tipoLanc=tipo;
+  const btnGasto=document.getElementById('btn-tipo-gasto');
+  const btnEntrada=document.getElementById('btn-tipo-entrada');
+  const fieldsGasto=document.getElementById('fields-gasto');
+  const fieldsEntrada=document.getElementById('fields-entrada');
+  if(tipo==='gasto'){
+    btnGasto.style.background='var(--nu)';btnGasto.style.color='#fff';btnGasto.style.borderColor='var(--nu)';
+    btnEntrada.style.background='#f8fafc';btnEntrada.style.color='var(--text2)';btnEntrada.style.borderColor='var(--border)';
+    fieldsGasto.style.display='block';
+    fieldsEntrada.style.display='none';
+  } else {
+    btnEntrada.style.background='#16a34a';btnEntrada.style.color='#fff';btnEntrada.style.borderColor='#16a34a';
+    btnGasto.style.background='#f8fafc';btnGasto.style.color='var(--text2)';btnGasto.style.borderColor='var(--border)';
+    fieldsGasto.style.display='none';
+    fieldsEntrada.style.display='block';
+  }
 }
 
 function renderMeses(){
@@ -992,7 +1095,10 @@ function renderMeses(){
     const cur=i===G.current;
     return `<div class="month-list-item">
       <div><div class="month-name" style="font-weight:${cur?600:400}">${mo.name}${cur?' 📌':''}</div><div class="month-stats">Total ${fmt(t)}</div></div>
-      <button class="btn-month-sel${cur?' current':''}" onclick="selectMonth(${i})">${cur?'Atual':'Selecionar'}</button>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button class="btn-month-sel${cur?' current':''}" onclick="selectMonth(${i})">${cur?'Atual':'Selecionar'}</button>
+        ${!cur&&G.months.length>1?`<button onclick="deleteMonth(${i})" style="background:var(--danger-bg);color:var(--danger);border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">🗑️</button>`:''}
+      </div>
     </div>`;
   }).join('');
   document.getElementById('tab-meses').innerHTML=`<div>
@@ -1105,10 +1211,19 @@ function calcParcela(){
     prev.style.display='none';
   }
 }
+function normalizeText(str){
+  return str
+    .toUpperCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'')
+    .replace(/[Ç]/g,'C')
+    .replace(/[ç]/g,'C');
+}
+
 function addGasto(){
   const pessoa=document.getElementById('f-pessoa').value;
   const tipo=document.getElementById('f-tipo').value;
-  const desc=document.getElementById('f-desc').value.trim();
+  const desc=normalizeText(document.getElementById('f-desc').value.trim());
   const val=parseFloat(document.getElementById('f-val').value);
   const data=document.getElementById('f-data').value.trim();
   const pAtual=parseInt(document.getElementById('f-parc-atual')?.value)||0;
@@ -1130,15 +1245,34 @@ function addGasto(){
   const prev=document.getElementById('parc-preview');if(prev)prev.style.display='none';
   showToast('toast-g');
 }
+function setRecEntrada(val){
+  window._recEntrada=val;
+  const btnNao=document.getElementById('btn-erec-nao');
+  const btnSim=document.getElementById('btn-erec-sim');
+  const hint=document.getElementById('erec-hint');
+  if(!btnNao||!btnSim)return;
+  if(val){
+    btnSim.style.background='#16a34a';btnSim.style.color='#fff';btnSim.style.borderColor='#16a34a';
+    btnNao.style.background='var(--surface2)';btnNao.style.color='var(--text2)';btnNao.style.borderColor='var(--border)';
+    if(hint)hint.textContent='Entrada recorrente todo mês';
+  } else {
+    btnNao.style.background='#16a34a';btnNao.style.color='#fff';btnNao.style.borderColor='#16a34a';
+    btnSim.style.background='var(--surface2)';btnSim.style.color='var(--text2)';btnSim.style.borderColor='var(--border)';
+    if(hint)hint.textContent='Entrada única';
+  }
+}
 function addEntrada(){
-  const desc=document.getElementById('e-desc').value.trim();
+  const desc=normalizeText(document.getElementById('e-desc').value.trim());
   const val=parseFloat(document.getElementById('e-val').value);
   const data=document.getElementById('e-data').value.trim();
   if(!desc||isNaN(val)||val<=0)return;
-  M().entradas.push({desc,val,data});
+  const item={desc,val,data};
+  if(window._recEntrada)item.recorrente=true;
+  M().entradas.push(item);
   save();renderAll();
   ['e-desc','e-val','e-data'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  showToast('toast-e');
+  window._recEntrada=false;
+  showToast('toast-g');
 }
 function showToast(id){
   const el=document.getElementById(id);if(!el)return;
@@ -1146,15 +1280,90 @@ function showToast(id){
   setTimeout(()=>{el.style.display='none';},2200);
 }
 function selectMonth(i){G.current=i;save();renderAll();updateLabel();}
+function deleteMonth(i){
+  if(!confirm('Excluir o mês "'+G.months[i].name+'"? Todos os lançamentos serão perdidos.'))return;
+  G.months.splice(i,1);
+  if(G.current>=G.months.length)G.current=G.months.length-1;
+  save();renderAll();updateLabel();
+}
 function prevMonth(){if(G.current>0){G.current--;save();renderAll();updateLabel();}}
 function nextMonth(){if(G.current<G.months.length-1){G.current++;save();renderAll();updateLabel();}}
 function updateLabel(){document.getElementById('month-label').textContent=M().name;}
+function nextParcel(desc){
+  // Encontra padrão "X-Y" no final ou no meio da descrição
+  // ex: "PS5 Amazon 3-12" → "PS5 Amazon 4-12"
+  // ex: "Pix Mariana 2-2" → null (terminou)
+  const m=desc.match(/^(.*\s)(\d+)-(\d+)(\s*.*)$/);
+  if(!m)return null;
+  const atual=parseInt(m[2]),total=parseInt(m[3]);
+  if(atual>=total)return null; // parcela terminou
+  return m[1]+(atual+1)+'-'+total+m[4];
+}
+
+function criarMesInteligente(name){
+  const origem=M(); // mês atual como base
+  const novo=blankMonth(name);
+
+  // Entradas: copia recorrentes (remove data pois é novo mês)
+  novo.entradas=origem.entradas
+    .filter(i=>i.recorrente)
+    .map(i=>({...i, data:''}))
+
+  // Função para processar cada cartão
+  function processarCartao(items){
+    const result=[];
+    for(const it of items){
+      if(it.recorrente){
+        // Assinatura: copia igual mas sem data
+        result.push({...it, data:''});
+      } else if(isParcelado(it)){
+        // Parcelado: avança a parcela se não terminou
+        const novaDesc=nextParcel(it.desc);
+        if(novaDesc){
+          result.push({...it, desc:novaDesc, data:''});
+        }
+        // se terminou, não copia
+      }
+      // Avulso: não copia
+    }
+    return result;
+  }
+
+  novo.mnu=processarCartao(origem.mnu);
+  novo.mc6=processarCartao(origem.mc6);
+  novo.rnu=processarCartao(origem.rnu);
+  novo.rc6=processarCartao(origem.rc6);
+
+  // Fixos: copia todos, mas marca como não pagos
+  novo.fix=origem.fix.map(i=>({...i, pago:false, data:''}));
+
+  return novo;
+}
+
 function addMonth(){
-  const name=prompt('Nome do mês (ex: Agosto 2026):',MONTH_NAMES[new Date().getMonth()]+' '+new Date().getFullYear());
+  const meses=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const ultimo=G.months[G.months.length-1];
+  // Sugere o próximo mês baseado no último cadastrado
+  let sugestao='';
+  if(ultimo){
+    const partes=ultimo.name.split(' ');
+    const idxMes=meses.indexOf(partes[0]);
+    const ano=parseInt(partes[1])||2026;
+    if(idxMes>=0){
+      const proximo=idxMes===11?0:idxMes+1;
+      const anoProximo=idxMes===11?ano+1:ano;
+      sugestao=meses[proximo]+' '+anoProximo;
+    }
+  }
+  const name=prompt('Nome do mês:',sugestao||meses[new Date().getMonth()]+' '+new Date().getFullYear());
   if(!name||!name.trim())return;
-  G.months.push(blankMonth(name.trim()));
+
+  const novo=criarMesInteligente(name.trim());
+  const total=novo.mnu.length+novo.mc6.length+novo.rnu.length+novo.rc6.length;
+  G.months.push(novo);
   G.current=G.months.length-1;
   save();renderAll();updateLabel();goTab('meses');
+  alert('✅ '+name.trim()+' criado!\nEntradas: '+novo.entradas.length+'\nNu Márcio: '+novo.mnu.length+' | C6 Márcio: '+novo.mc6.length+'\nNu Raíssa: '+novo.rnu.length+' | C6 Raíssa: '+novo.rc6.length+'\nFixos: '+novo.fix.length);
 }
 function restoreDefault(){
   if(!confirm('Restaurar todos os lançamentos originais do Julho 2026?'))return;
