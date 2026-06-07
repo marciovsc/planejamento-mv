@@ -1,4 +1,12 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)file:///C:/Users/Marcio/Downloads/gastos_novo_10.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1e1b4b">
+<title>Planejamento Financeiro MV</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -9,39 +17,37 @@
   --rai:#db2777;--rai-bg:#fce7f3;--rai-txt:#be185d;
   --in:#16a34a;--in-bg:#dcfce7;
   --danger:#dc2626;--danger-bg:#fee2e2;
-  --bg:#f1f5f9;--surface:#ffffff;--border:#e2e8f0;
+  --bg:#f1f5f9;--surface:#fff;--border:#e2e8f0;
   --text:#0f172a;--text2:#64748b;--text3:#94a3b8;
   --radius:16px;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);
 }
 html,body{background:var(--bg);font-family:'Inter',system-ui,sans-serif}
 .app{max-width:680px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:90px}
 
-/* ── HEADER ── */
-.topbar{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4c1d95 100%);padding:20px 20px 0;position:relative;overflow:hidden}
-.topbar::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:rgba(255,255,255,.06);border-radius:50%}
-.topbar::after{content:'';position:absolute;bottom:-20px;left:30%;width:120px;height:120px;background:rgba(255,255,255,.04);border-radius:50%}
-.topbar-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;position:relative;z-index:1}
-.app-title{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;letter-spacing:-.3px}
-.app-title span{font-weight:400;opacity:.7;font-size:13px}
+/* HEADER */
+.topbar{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 50%,#4c1d95 100%);padding:20px 20px 14px}
+.topbar-row{display:flex;align-items:center;justify-content:space-between}
+.app-title{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
 .month-switcher{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border-radius:24px;padding:5px 10px}
-.month-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);font-size:18px;line-height:1;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .15s}
-.month-btn:hover{background:rgba(255,255,255,.2)}
+.month-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);font-size:20px;line-height:1;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 .month-label{font-size:13px;font-weight:600;color:#fff;min-width:88px;text-align:center}
 
-/* ── BOTTOM NAV ── */
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:680px;background:#fff;border-top:1px solid var(--border);display:flex;z-index:100;padding:6px 4px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.08)}
-.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border:none;background:none;cursor:pointer;font-family:'Inter',sans-serif;color:var(--text3);font-size:10px;font-weight:500;border-radius:12px;transition:color .15s;position:relative}
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:680px;background:#fff;border-top:1px solid var(--border);display:flex;z-index:100;padding:6px 4px 8px;box-shadow:0 -4px 20px rgba(0,0,0,.08)}
+.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 2px;border:none;background:none;cursor:pointer;color:var(--text3);font-size:10px;font-weight:500;font-family:'Inter',sans-serif}
 .bnav-btn .bicon{font-size:20px;line-height:1}
 .bnav-btn.active{color:var(--nu)}
 .bnav-btn.active::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:3px;background:var(--nu);border-radius:0 0 4px 4px}
-.bnav-btn.add-btn{color:#fff}
-.bnav-btn.add-btn .bicon-wrap{background:linear-gradient(135deg,var(--nu),var(--c6));border-radius:14px;width:44px;height:32px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:1px;box-shadow:0 4px 12px rgba(124,58,237,.4)}
+.bnav-btn{position:relative}
+.add-btn .bicon-wrap{background:linear-gradient(135deg,var(--nu),var(--c6));border-radius:14px;width:44px;height:32px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 12px rgba(124,58,237,.4)}
+.add-btn{color:#fff!important}
 
-/* ── CONTENT ── */
+/* CONTENT */
 .content{padding:16px 16px 8px}
 .page{display:none}.page.active{display:block}
+.page-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:16px;letter-spacing:-.4px}
 
-/* ── HERO CARD ── */
+/* HERO */
 .hero{background:linear-gradient(135deg,#1e1b4b,#4c1d95);border-radius:var(--radius);padding:22px;margin-bottom:14px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:rgba(255,255,255,.07);border-radius:50%}
 .hero-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
@@ -55,15 +61,14 @@ html,body{background:var(--bg);font-family:'Inter',system-ui,sans-serif}
 .hero-stat-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px}
 .hero-stat+.hero-stat{border-left:1px solid rgba(255,255,255,.15)}
 
-/* ── METRIC GRID ── */
+/* METRIC GRID */
 .mgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
 .mcard{background:var(--surface);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
 .mcard-label{font-size:11px;color:var(--text2);margin-bottom:6px;font-weight:500;display:flex;align-items:center;gap:5px}
-.mcard-emoji{font-size:14px}
 .mcard-val{font-size:20px;font-weight:700;letter-spacing:-.5px}
 .mcard-sub{font-size:11px;color:var(--text3);margin-top:4px}
 
-/* ── CHART CARD ── */
+/* CHARTS */
 .chart-card{background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
 .chart-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:14px}
 .chart-wrap{position:relative;height:170px}
@@ -72,7 +77,7 @@ canvas{display:block}
 .leg-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)}
 .leg-dot{width:8px;height:8px;border-radius:50%;flex:0 0 8px}
 
-/* ── CAT BARS ── */
+/* CAT BARS */
 .catbar{margin-bottom:12px}
 .catbar-info{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
 .catbar-name{font-size:12px;color:var(--text2);font-weight:500}
@@ -81,16 +86,15 @@ canvas{display:block}
 .track{height:7px;background:#f1f5f9;border-radius:4px;overflow:hidden}
 .fill{height:7px;border-radius:4px;transition:width .6s cubic-bezier(.4,0,.2,1)}
 
-/* ── LIST CARDS ── */
+/* LIST */
 .list-card{background:var(--surface);border-radius:var(--radius);overflow:visible;margin-bottom:12px;box-shadow:var(--shadow)}
 .list-head{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .list-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--text)}
-.pill{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;letter-spacing:.2px}
+.pill{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600}
 .pill-nu{background:var(--nu-bg);color:var(--nu-txt)}
 .pill-c6{background:var(--c6-bg);color:var(--c6-txt)}
 .pill-fix{background:var(--fix-bg);color:var(--fix-txt)}
 .pill-in{background:var(--in-bg);color:var(--in)}
-.pill-rai{background:var(--rai-bg);color:var(--rai-txt)}
 .item{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #f8fafc;overflow:visible}
 .item:last-child{border-bottom:none}
 .item-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:0 0 36px;font-size:16px}
@@ -101,8 +105,7 @@ canvas{display:block}
 .item-val{font-size:13px;font-weight:600;color:var(--text)}
 .item-val.pos{color:var(--in)}
 .item-actions{display:flex;gap:5px;flex:0 0 auto}
-.act-btn{border:none;cursor:pointer;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 32px;transition:transform .1s,opacity .15s}
-.act-btn:hover{transform:scale(1.1)}
+.act-btn{border:none;cursor:pointer;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex:0 0 32px}
 .act-btn.edit{background:var(--c6-bg)}
 .act-btn.del{background:var(--danger-bg)}
 .list-foot{padding:12px 16px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius)}
@@ -110,49 +113,121 @@ canvas{display:block}
 .foot-val{font-size:15px;font-weight:700;color:var(--text)}
 .empty{padding:28px 16px;text-align:center;font-size:13px;color:var(--text3)}
 
-/* ── EDIT ROW ── */
-.edit-row{display:flex;align-items:center;gap:6px;padding:10px 16px;background:#f8fafc;border-bottom:1px solid var(--border)}
-.edit-row input{flex:1;padding:8px 10px;font-size:13px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--text);font-family:'Inter',sans-serif}
-.edit-row input:focus{outline:none;border-color:var(--nu)}
+/* EDIT ROW */
+.edit-row{display:flex;align-items:center;gap:6px;padding:10px 16px;background:#f8fafc;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.edit-row input{flex:1;min-width:80px;padding:8px 10px;font-size:13px;border:1.5px solid var(--border);border-radius:8px;background:#fff;color:var(--text);font-family:'Inter',sans-serif}
 .edit-row input.val-inp{width:90px;flex:0 0 90px}
 .btn-ok{background:var(--nu);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
 .btn-cancel{background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12px;cursor:pointer;color:var(--text2);font-family:'Inter',sans-serif}
 
-/* ── FORM ── */
+/* FORM */
 .form-card{background:var(--surface);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:var(--shadow)}
-.form-section{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px;display:flex;align-items:center;gap:6px}
+.form-section{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px}
 .fg{margin-bottom:14px}
 .flabel{font-size:12px;color:var(--text2);display:block;margin-bottom:6px;font-weight:500}
-input,select{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--text);font-size:14px;font-family:'Inter',sans-serif;transition:border-color .15s}
+input,select{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:#fff;color:var(--text);font-size:14px;font-family:'Inter',sans-serif}
 input:focus,select:focus{outline:none;border-color:var(--nu)}
 .row2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--nu),var(--c6));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;letter-spacing:.2px;box-shadow:0 4px 14px rgba(124,58,237,.35);transition:opacity .15s,transform .1s}
-.btn-submit:hover{opacity:.92;transform:translateY(-1px)}
+.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--nu),var(--c6));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;box-shadow:0 4px 14px rgba(124,58,237,.35)}
 .toast{font-size:12px;color:var(--in);background:var(--in-bg);border-radius:10px;padding:10px 14px;text-align:center;margin-top:12px;display:none;font-weight:500}
+.parc-preview{background:var(--nu-bg);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--nu-txt);font-weight:500;display:none}
 
-/* ── MONTH MANAGER ── */
+/* CARD SELECTOR */
+.card-selector{display:flex;gap:10px;margin-bottom:14px}
+.csel-btn{flex:1;padding:12px 8px;border-radius:14px;border:2px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:var(--shadow)}
+.csel-btn.active{border-color:transparent;color:#fff}
+.csel-btn .csel-icon{font-size:20px}
+.csel-btn .csel-val{font-size:11px;opacity:.85}
+
+/* MONTH MGR */
 .month-mgr{background:var(--surface);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:var(--shadow)}
 .month-list-item{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f1f5f9}
 .month-list-item:last-child{border-bottom:none}
 .month-name{font-size:14px;color:var(--text);font-weight:500}
 .month-stats{font-size:11px;color:var(--text3);margin-top:2px}
 .btn-month-sel{background:var(--nu);color:#fff;border:none;border-radius:10px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
-.btn-month-sel.current{background:var(--nu-bg);color:var(--nu-txt);border:none}
-.btn-new-month{width:100%;padding:12px;border:2px dashed var(--border);border-radius:12px;background:transparent;color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s,border-color .15s}
-.btn-new-month:hover{background:var(--nu-bg);border-color:var(--nu);color:var(--nu-txt)}
+.btn-month-sel.current{background:var(--nu-bg);color:var(--nu-txt)}
+.btn-new-month{width:100%;padding:12px;border:2px dashed var(--border);border-radius:12px;background:transparent;color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px}
 
-/* ── CARD SELECTOR ── */
-.card-selector{display:flex;gap:10px;margin-bottom:14px}
-.csel-btn{flex:1;padding:12px 8px;border-radius:14px;border:2px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;gap:4px;transition:all .2s;box-shadow:var(--shadow)}
-.csel-btn:hover{border-color:var(--nu);color:var(--nu)}
-.csel-btn.active{border-color:transparent;color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.2)}
-.csel-btn .csel-icon{font-size:20px}
-.csel-btn .csel-val{font-size:11px;font-weight:500;opacity:.85}
+/* MOBILE RESPONSIVE */
+@media (max-width: 480px){
+  /* Prevent zoom on input focus */
+  input,select,textarea{font-size:16px!important}
 
-/* ── PAGE TITLE ── */
-.page-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:16px;letter-spacing:-.4px}
+  /* Header */
+  .app-title{font-size:15px}
+  .month-label{min-width:72px;font-size:12px}
+  .month-btn{width:32px;height:32px;font-size:22px}
+
+  /* Content padding */
+  .content{padding:12px 12px 8px}
+  .page-title{font-size:18px;margin-bottom:12px}
+
+  /* Bottom nav - bigger touch targets */
+  .bottom-nav{padding:4px 0 calc(4px + env(safe-area-inset-bottom))}
+  .bnav-btn{font-size:9px;padding:6px 2px;gap:2px;min-height:52px}
+  .bnav-btn .bicon{font-size:22px}
+  .add-btn .bicon-wrap{width:40px;height:30px;font-size:18px}
+
+  /* Hero */
+  .hero{padding:16px}
+  .hero-val{font-size:28px}
+  .hero-stat-val{font-size:13px}
+  .hero-stat-lbl{font-size:10px}
+
+  /* Cards */
+  .mcard{padding:12px}
+  .mcard-val{font-size:17px}
+
+  /* List items - bigger touch targets */
+  .item{padding:12px 12px;gap:10px}
+  .item-icon{width:32px;height:32px;flex:0 0 32px;font-size:15px}
+  .item-desc{font-size:13px}
+  .item-val{font-size:13px}
+  .act-btn{width:36px;height:36px;font-size:18px;flex:0 0 36px}
+  .item-actions{gap:6px}
+
+  /* Edit row - stack on mobile */
+  .edit-row{flex-wrap:wrap;gap:8px;padding:12px}
+  .edit-row input{min-width:0}
+  .edit-row input.val-inp{width:80px;flex:0 0 80px}
+  .btn-ok{padding:10px 16px;font-size:13px}
+  .btn-cancel{padding:10px 12px;font-size:13px}
+
+  /* Form */
+  .form-card{padding:16px}
+  .fg{margin-bottom:16px}
+  .flabel{font-size:13px;margin-bottom:8px}
+  .btn-submit{padding:15px;font-size:15px;border-radius:14px}
+  .toast{font-size:13px;padding:12px}
+  .row2{gap:8px}
+
+  /* Card selector */
+  .csel-btn{padding:14px 8px}
+  .csel-btn .csel-icon{font-size:22px}
+  .csel-btn .csel-val{font-size:11px}
+
+  /* Charts */
+  .chart-wrap{height:150px}
+  .mgrid{gap:8px}
+
+  /* List head/foot */
+  .list-head{padding:12px 14px}
+  .list-title{font-size:13px}
+  .list-foot{padding:10px 14px}
+  .foot-val{font-size:14px}
+
+  /* Month mgr */
+  .month-mgr{padding:16px}
+  .btn-month-sel{padding:8px 14px;font-size:13px}
+  .btn-new-month{padding:14px;font-size:13px}
+
+  /* App padding bottom for nav */
+  .app{padding-bottom:80px}
+}
 </style>
-
+</head>
+<body>
 <div class="app">
 
 <div class="topbar">
@@ -160,57 +235,1160 @@ input:focus,select:focus{outline:none;border-color:var(--nu)}
     <div class="app-title">💰 Planejamento Financeiro MV</div>
     <div class="month-switcher">
       <button class="month-btn" onclick="prevMonth()">‹</button>
-      <span class="month-label" id="month-label">—</span>
+      <span class="month-label" id="month-label">Junho 2026</span>
       <button class="month-btn" onclick="nextMonth()">›</button>
     </div>
   </div>
 </div>
 
 <div class="content">
-  <div id="tab-painel" class="page active"></div>
-  <div id="tab-marcio" class="page"></div>
-  <div id="tab-raissa" class="page"></div>
-  <div id="tab-fixos" class="page"></div>
+  <div id="tab-painel" class="page">
+  <div class="hero">
+    <div class="hero-label">Saldo do mês — Márcio</div>
+    <div class="hero-val">R$ 295,22</div>
+    <div class="hero-sub">Entradas R$ 5.150,00 · Gastos R$ 4.854,78</div>
+    <div class="hero-divider"></div>
+    <div class="hero-row">
+      <div class="hero-stat"><div class="hero-stat-val">R$ 1.651,17</div><div class="hero-stat-lbl">🟣 Nubank</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">R$ 1.805,04</div><div class="hero-stat-lbl">⚫ C6</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">R$ 1.398,57</div><div class="hero-stat-lbl">🏠 Fixos</div></div>
+    </div>
+  </div>
+  <div class="mgrid">
+    <div class="mcard" style="border-left:4px solid var(--rai);border-radius:0 var(--radius) var(--radius) 0">
+      <div class="mcard-label">💗 Total Raíssa</div>
+      <div class="mcard-val" style="color:var(--rai)">R$ 2.239,31</div>
+      <div class="mcard-sub">Nu R$ 1.089,78 · C6 R$ 1.149,53</div>
+    </div>
+    <div class="mcard" style="border-left:4px solid #6366f1;border-radius:0 var(--radius) var(--radius) 0">
+      <div class="mcard-label">🌐 Total geral</div>
+      <div class="mcard-val">R$ 7.094,09</div>
+      <div class="mcard-sub">1 entradas</div>
+    </div>
+  </div>
+  <div class="mgrid" style="margin-bottom:14px">
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">👤 Márcio</div>
+      <div class="chart-wrap" style="height:140px"><canvas id="chart-donut-m" height="140" style="display: block; box-sizing: border-box; height: 140px; width: 300px;" width="300"></canvas></div>
+      <div class="legend" id="legend-m"><div class="leg-item"><span class="leg-dot" style="background:#7c3aed"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#3b82f6"></span>C6</div><div class="leg-item"><span class="leg-dot" style="background:#10b981"></span>Fixos</div></div>
+    </div>
+    <div class="chart-card" style="margin-bottom:0">
+      <div class="chart-title">💜 Raíssa</div>
+      <div class="chart-wrap" style="height:140px"><canvas id="chart-donut-r" height="140" width="300" style="display: block; box-sizing: border-box; height: 140px; width: 300px;"></canvas></div>
+      <div class="legend" id="legend-r"><div class="leg-item"><span class="leg-dot" style="background:#f43f5e"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#f97316"></span>C6</div></div>
+    </div>
+  </div>
+  <div class="chart-card"><div class="chart-title">Categorias</div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#7c3aed;display:inline-block;margin-right:6px"></span>Nubank Márcio</span><span class="catbar-vals">R$ 1.651,17<span class="catbar-pct">23%</span></span></div><div class="track"><div class="fill" style="width:23%;background:#7c3aed"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;display:inline-block;margin-right:6px"></span>C6 Márcio</span><span class="catbar-vals">R$ 1.805,04<span class="catbar-pct">25%</span></span></div><div class="track"><div class="fill" style="width:25%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;margin-right:6px"></span>Fixos</span><span class="catbar-vals">R$ 1.398,57<span class="catbar-pct">20%</span></span></div><div class="track"><div class="fill" style="width:20%;background:#10b981"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;display:inline-block;margin-right:6px"></span>Nubank Raíssa</span><span class="catbar-vals">R$ 1.089,78<span class="catbar-pct">15%</span></span></div><div class="track"><div class="fill" style="width:15%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f97316;display:inline-block;margin-right:6px"></span>C6 Raíssa</span><span class="catbar-vals">R$ 1.149,53<span class="catbar-pct">16%</span></span></div><div class="track"><div class="fill" style="width:16%;background:#f97316"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="616" style="display: block; box-sizing: border-box; height: 140px; width: 616px;"></canvas></div></div></div>
+  <div id="tab-marcio" class="page"><div>
+    <div class="page-title">👤 Márcio</div>
+    <div class="card-selector">
+    <button class="csel-btn active" style="background:var(--nu);border-color:var(--nu)" onclick="marcioCard=&#39;mnu&#39;;renderMarcio()">
+      <span class="csel-icon">🟣</span><span>Nubank</span><span class="csel-val">R$ 1.651,17</span>
+    </button>
+    <button class="csel-btn" style="" onclick="marcioCard=&#39;mc6&#39;;renderMarcio()">
+      <span class="csel-icon">⚫</span><span>C6</span><span class="csel-val">R$ 1.805,04</span>
+    </button></div>
+    
+    
+      <div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">📦</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Compras Parceladas</span>
+            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#2563eb22;color:#2563eb">8</span>
+          </div>
+          <span style="font-size:13px;font-weight:700;color:#2563eb">R$ 963,12</span>
+        </div>
+        <div class="list-card" style="margin-bottom:0"><div id="row-mnu-1">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">Pix Mariana 2-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 138,68</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,1)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,1)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mnu-2">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">Bateria carro div 9-10</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 24,95</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,2)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,2)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mnu-3">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">Out Godead Fish 4-4</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 46,10</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,3)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,3)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mnu-4">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">Passai 2-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 158,18</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,4)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,4)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mnu-5">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">MV 3-5</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 269,35</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,5)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,5)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mnu-6">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">Pix Oh Boxe 2-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 119,57</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,6)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,6)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mnu-7">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">Pix Oh Boxe 2-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 172,21</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,7)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,7)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mnu-10">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">Pix Sushi Home 1-3 div</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 34,08</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,10)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,10)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div></div>
+      </div>
+    
+      <div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">🛍️</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Compras Avulsas</span>
+            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#0f172a22;color:#0f172a">3</span>
+          </div>
+          <span style="font-size:13px;font-weight:700;color:#0f172a">R$ 688,05</span>
+        </div>
+        <div class="list-card" style="margin-bottom:0"><div id="row-mnu-0">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">FIES</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 534,61</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,0)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,0)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mnu-8">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">Pix MV</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 114,98</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,8)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,8)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mnu-9">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--nu-bg)">🟣</div>
+      <div class="item-body">
+        <div class="item-desc">Pix Zé</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 38,46</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mnu&#39;,9)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mnu&#39;,9)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div></div>
+      </div>
+    
+    
+    <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:4px">
+      <span style="font-size:13px;font-weight:600;color:var(--text2)">Total do cartão</span>
+      <span style="font-size:16px;font-weight:700;color:var(--text)">R$ 1.651,17</span>
+    </div>
+  </div></div>
+  <div id="tab-raissa" class="page active"><div>
+    <div class="page-title">💜 Raíssa</div>
+    <div class="card-selector">
+    <button class="csel-btn" style="" onclick="raissaCard=&#39;rnu&#39;;renderRaissa()">
+      <span class="csel-icon">🟣</span><span>Nubank</span><span class="csel-val">R$ 1.627,01</span>
+    </button>
+    <button class="csel-btn active" style="background:var(--c6);border-color:var(--c6)" onclick="raissaCard=&#39;rc6&#39;;renderRaissa()">
+      <span class="csel-icon">⚫</span><span>C6</span><span class="csel-val">R$ 1.810,87</span>
+    </button></div>
+    
+    
+      <div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">📦</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Compras Parceladas</span>
+            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#2563eb22;color:#2563eb">28</span>
+          </div>
+          <span style="font-size:13px;font-weight:700;color:#2563eb">R$ 1.296,55</span>
+        </div>
+        <div class="list-card" style="margin-bottom:0"><div id="row-rc6-2">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Jim Com 4-4</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 47,00</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,2)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,2)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-4">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Imaginarium 7-10</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 22,98</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,4)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,4)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-5">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Melissa 4-6</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 25,74</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,5)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,5)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-6">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Dafiti 8-10</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 68,94</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,6)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,6)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-7">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Trevo 5-6</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 138,32</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,7)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,7)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-8">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Enjoei 8-12</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 8,93</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,8)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,8)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-9">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Enjoei 7-12</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 22,90</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,9)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,9)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-10">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Boi da Maçuca div 8-10</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 18,51</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,10)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,10)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-11">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Store Maju 8-12</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 18,21</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,11)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,11)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-12">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Enjoei 6-10</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 85,20</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,12)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,12)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-13">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Enjoei 7-10</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 16,50</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,13)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,13)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-14">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Enjoei 7-10</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 13,42</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,14)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,14)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-16">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Melissa 4-6</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 89,97</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,16)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,16)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-17">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Zee Now div 3-3</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 11,90</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,17)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,17)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-18">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">iFood Novo Atacado 3-3</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 22,49</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,18)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,18)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-19">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Jim Com 3-10</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 300,00</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,19)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,19)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-20">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">iFood China 48 div 2-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 31,27</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,20)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,20)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-21">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Zee Now 2-3 div</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 25,68</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,21)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,21)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-22">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">iFood Andrade 2-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 27,55</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,22)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,22)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-23">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Cobasi div 2-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 41,91</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,23)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,23)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-24">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">iFood 2-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 23,91</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,24)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,24)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-25">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Cobasi div 2-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 52,80</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,25)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,25)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-26">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Zee Now div 2-3</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 15,87</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,26)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,26)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-28">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Cobasi div 3-3</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 43,24</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,28)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,28)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-29">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Atacadão div 3-3</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 25,70</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,29)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,29)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-33">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">iFood Laura 1-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 43,89</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,33)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,33)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-36">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Mix Mateus div 1-2</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 28,60</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,36)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,36)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-37">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Atacado dos Presentes 1-4</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 25,12</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,37)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,37)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div></div>
+      </div>
+    
+      <div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">🛍️</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Compras Avulsas</span>
+            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#0f172a22;color:#0f172a">11</span>
+          </div>
+          <span style="font-size:13px;font-weight:700;color:#0f172a">R$ 432,57</span>
+        </div>
+        <div class="list-card" style="margin-bottom:0"><div id="row-rc6-1">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">PayPal Fusora</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 98,00</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,1)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,1)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-27">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Carrefour div</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 47,63</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,27)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,27)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-30">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Uber</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 5,80</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,30)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,30)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-31">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Mix Mateus</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 31,09</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,31)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,31)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-32">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Bercy div</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 101,05</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,32)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,32)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-34">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">iFood DMR</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 31,89</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,34)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,34)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-35">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Mix Mateus</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 23,94</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,35)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,35)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-38">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">99 POP</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 4,40</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,38)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,38)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-39">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Wedja Caranga div</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 65,95</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,39)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,39)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-40">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Uber</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 8,18</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,40)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,40)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-41">
+    <div class="item" style="">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Drogasil</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 14,64</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,41)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,41)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div></div>
+      </div>
+    
+      <div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">🔄</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Assinaturas</span>
+            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#7c3aed22;color:#7c3aed">3</span>
+          </div>
+          <span style="font-size:13px;font-weight:700;color:#7c3aed">R$ 81,75</span>
+        </div>
+        <div class="list-card" style="margin-bottom:0"><div id="row-rc6-0">
+    <div class="item" style="background:linear-gradient(to right,#faf5ff,#fff)">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">iFood Clube</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 7,95</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,0)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,0)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-3">
+    <div class="item" style="background:linear-gradient(to right,#faf5ff,#fff)">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Apple Bill</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 66,90</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,3)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,3)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-rc6-15">
+    <div class="item" style="background:linear-gradient(to right,#faf5ff,#fff)">
+      <div class="item-icon" style="background:var(--c6-bg)">⚫</div>
+      <div class="item-body">
+        <div class="item-desc">Apple Bill</div>
+        
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 6,90</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;rc6&#39;,15)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;rc6&#39;,15)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div></div>
+      </div>
+    
+    <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:4px">
+      <span style="font-size:13px;font-weight:600;color:var(--text2)">Total do cartão</span>
+      <span style="font-size:16px;font-weight:700;color:var(--text)">R$ 1.810,87</span>
+    </div>
+  </div></div>
   <div id="tab-entradas" class="page"></div>
-  <div id="tab-add" class="page"></div>
+  <div id="tab-add" class="page"><div>
+    <div class="page-title">➕ Novo lançamento</div>
+    <div class="form-card">
+      <div class="form-section">💸 Novo gasto</div>
+      <div class="row2">
+        <div class="fg"><label class="flabel">Pessoa</label><select id="f-pessoa"><option>Márcio</option><option>Raíssa</option></select></div>
+        <div class="fg"><label class="flabel">Cartão</label><select id="f-tipo" onchange="toggleVenc()"><option value="nu">🟣 Nubank</option><option value="c6">⚫ C6</option><option value="fix">🏠 Fixo</option></select></div>
+      </div>
+      <div class="fg"><label class="flabel">Descrição</label><input id="f-desc" placeholder="Nome do gasto"></div>
+      <div class="row2">
+        <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="f-val" placeholder="0,00" step="0.01" oninput="calcParcela()"></div>
+        <div class="fg"><label class="flabel">Data</label><input id="f-data" placeholder="dd/mm"></div>
+      </div>
+      <div class="row2">
+        <div class="fg"><label class="flabel">Parcela atual</label><input type="number" id="f-parc-atual" placeholder="ex: 1" min="1" oninput="calcParcela()"></div>
+        <div class="fg"><label class="flabel">Total parcelas</label><input type="number" id="f-parc-total" placeholder="ex: 12" min="1" oninput="calcParcela()"></div>
+      </div>
+      <div id="parc-preview" class="parc-preview" style="display: none;"></div>
+      <div class="fg" id="fg-venc" style="display:none"><label class="flabel">Dia de vencimento</label><input type="number" id="f-venc" placeholder="ex: 10" min="1" max="31"></div>
+
+      <div class="fg" id="fg-rec">
+        <div class="flabel">Tipo de cobrança</div>
+        <div style="display:flex;gap:8px">
+          <button id="btn-rec-nao" onclick="setRec(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💳 Normal</button>
+          <button id="btn-rec-sim" onclick="setRec(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:#f8fafc;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="rec-hint">Gasto único ou parcelado</div>
+      </div>
+
+      <button class="btn-submit" onclick="addGasto()">Adicionar gasto</button>
+      <div class="toast" id="toast-g" style="display: none;">✅ Lançamento adicionado!</div>
+    </div>
+  </div></div>
+  <div id="tab-fixos" class="page"></div>
   <div id="tab-meses" class="page"></div>
+  <div id="tab-analise" class="page"></div>
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn active" onclick="goTab('painel')" id="bn-painel"><span class="bicon">📊</span>Painel</button>
-  <button class="bnav-btn" onclick="goTab('marcio')" id="bn-marcio"><span class="bicon">👤</span>Márcio</button>
-  <button class="bnav-btn" onclick="goTab('raissa')" id="bn-raissa"><span class="bicon">💜</span>Raíssa</button>
-  <button class="bnav-btn add-btn" onclick="goTab('add')" id="bn-add"><span class="bicon-wrap">➕</span>Adicionar</button>
-  <button class="bnav-btn" onclick="goTab('entradas')" id="bn-entradas"><span class="bicon">💵</span>Entradas</button>
-  <button class="bnav-btn" onclick="goTab('fixos')" id="bn-fixos"><span class="bicon">🏠</span>Fixos</button>
-  <button class="bnav-btn" onclick="goTab('meses')" id="bn-meses"><span class="bicon">📅</span>Meses</button>
+  <button class="bnav-btn" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
+  <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="bicon">👤</span>Márcio</button>
+  <button class="bnav-btn active" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
+  <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="bicon-wrap">➕</span>Adicionar</button>
+  <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="bicon">📈</span>Análise</button>
+  <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
+  <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><span class="bicon">📅</span>Meses</button>
 </nav>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="./Planejamento Financeiro MV_files/chart.umd.min.js.download"></script>
 <script>
-const SK='gastos_v4';
-const MONTHS_NAMES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const SK='gastos_mv';
+const MONTH_NAMES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
-function blankMonth(name){
-  return {name,entradas:[],mnu:[],mc6:[],rnu:[],rc6:[],fix:[]};
-}
+function blankMonth(name){return{name,entradas:[],mnu:[],mc6:[],rnu:[],rc6:[],fix:[]};}
 
 function defaultData(){
-  const m=blankMonth('Julho 2026');
-  m.entradas=[{desc:'Salário',val:5150,data:'05/07'}];
-  m.mnu=[
+  const junho=blankMonth('Junho 2026');
+  junho.entradas=[{desc:'Salário',val:5000,data:'05/06'}];
+  junho.mnu=[
+    {desc:'FIES',val:534.61},
+    {desc:'IPVA',val:65.15},
+    {desc:'Seguro Moto 10-10',val:101.47},
+    {desc:'Pix Mariana 1-2',val:138.68},
+    {desc:'PE Motos 10-10',val:59.99},
+    {desc:'Bateria carro div 8-10',val:24.95},
+    {desc:'Out Godead Fish 3-4',val:46.10},
+    {desc:'Passai 1-2',val:158.18},
+    {desc:'MV 2-5',val:269.35},
+    {desc:'Cia do Clima 3-3',val:41.24},
+    {desc:'Pix Oh Boxe 1-2',val:119.57},
+    {desc:'Pix Oh Boxe 1-2',val:172.21},
+    {desc:'Pix Wilma Batista',val:21.09},
+    {desc:'Consórcio',val:488.17},
+    {desc:'Pelada',val:102.61},
+    {desc:'IPTU',val:154.51}
+  ];
+  junho.mc6=[
+    {data:'',desc:'Google Drive',val:9.99,recorrente:true},
+    {data:'',desc:'Apple',val:5.90,recorrente:true},
+    {data:'04/06',desc:'Timbushop 3-3',val:63.30},
+    {data:'',desc:'PS5 Amazon 7-12',val:249.91},
+    {data:'',desc:'Boi da Maçuca div 8-10',val:18.51},
+    {data:'',desc:'TIM cel',val:66.99,recorrente:true},
+    {data:'',desc:'TIM',val:59.99,recorrente:true},
+    {data:'',desc:'Boticário 8-10',val:56.75},
+    {data:'10/06',desc:'Perfume 3-6',val:50.00},
+    {data:'',desc:'Sócio CNC 7-12',val:67.42},
+    {data:'05/06',desc:'Spotify',val:23.90,recorrente:true},
+    {data:'08/06',desc:'Zee Now div 3-3',val:11.90},
+    {data:'12/06',desc:'iFood China 48 div 2-2',val:31.27},
+    {data:'12/06',desc:'Zee Now 2-3 div',val:25.68},
+    {data:'',desc:'Amazon Prime',val:19.90,recorrente:true},
+    {data:'15/06',desc:'iFood 2-2',val:27.45},
+    {data:'16/06',desc:'Cobasi div 2-2',val:41.91},
+    {data:'17/06',desc:'CELPE',val:258.46},
+    {data:'18/06',desc:'Mercado Livre 2-11',val:33.71},
+    {data:'19/06',desc:'Mercado Livre 2-6',val:34.03},
+    {data:'20/06',desc:'Cobasi div 2-2',val:52.80},
+    {data:'19/06',desc:'Estelita Sympla 2-3',val:29.53},
+    {data:'',desc:'Rayvson Geladeira 2-10',val:269.90},
+    {data:'26/06',desc:'Marcela Salão 2-3',val:156.85},
+    {data:'27/06',desc:'Clínica Sim 2-4',val:45.00},
+    {data:'27/06',desc:'Algo Hits 2-3',val:55.00},
+    {data:'29/06',desc:'Black Pantera 2-3',val:103.34},
+    {data:'05/06',desc:'Camisa CNC 2-6',val:71.65},
+    {data:'07/06',desc:'Zee Now div 2-3',val:15.87},
+    {data:'07/06',desc:'Pura Vida 2-2',val:220.11},
+    {data:'11/06',desc:'Clínica Sim 1-3',val:40.00},
+    {data:'11/06',desc:'Drogaria SP',val:52.76},
+    {data:'11/06',desc:'Estacionamento Riomar',val:9.50},
+    {data:'11/06',desc:'Shopee AR reembolso',val:54.63},
+    {data:'11/06',desc:'Shopee short 1-3',val:50.52},
+    {data:'12/06',desc:'Shopee cadeira 1-7',val:55.13},
+    {data:'30/05',desc:'Carrefour div',val:100.00},
+    {data:'12/06',desc:'99',val:11.60},
+    {data:'12/06',desc:'Uber',val:29.31},
+    {data:'02/05',desc:'Cobasi div 3-3',val:43.24},
+    {data:'06/05',desc:'Atacadão div 3-3',val:25.70},
+    {data:'11/06',desc:'Bercy div',val:39.80},
+    {data:'16/06',desc:'Uber AR reembolso',val:27.81},
+    {data:'14/06',desc:'Mix Mateus div 1-2',val:28.60},
+    {data:'16/06',desc:'99 POP AR reembolso',val:29.70},
+    {data:'17/06',desc:'Wedja Caranga div',val:65.95},
+    {data:'18/06',desc:'Almoço Lelo',val:38.00},
+    {data:'18/06',desc:'Jim Com chaves reembolso AR',val:35.00},
+    {data:'18/06',desc:'Uber AR reembolso',val:26.96},
+    {data:'18/06',desc:'ML óculos 1-10',val:18.14},
+    {data:'18/06',desc:'Conveniência',val:25.98},
+    {data:'19/06',desc:'Shopee 1-4',val:12.92},
+    {data:'19/06',desc:'Shopee 1-5',val:15.77},
+    {data:'19/06',desc:'Uber AR reembolso',val:27.95}
+  ];
+  junho.rnu=[
+    {desc:'Netflix',val:20.90,recorrente:true},
+    {desc:'Renner 6-6',val:112.84},
+    {desc:'Embala Shop 7-12',val:132.11},
+    {desc:'Natalia Tatuagem 6-12',val:53.26},
+    {desc:'Renner 7-12',val:59.35},
+    {desc:'Ferreira Costa 6-7',val:51.40},
+    {desc:'Jim Com 6-6',val:43.11},
+    {desc:'Bateria carro div 8-10',val:24.95},
+    {desc:'Pix Maria Julia 2-6',val:195.77},
+    {desc:'Odonto 2-2',val:266.67},
+    {desc:'Pix Ruili 2-3',val:65.48},
+    {desc:'Va Long iFood 2-2',val:45.63},
+    {desc:'Raissa Pix 3-3',val:96.63},
+    {desc:'Raissa Pix 3-3',val:93.65},
+    {desc:'Pix CEA Pay 2-5',val:171.00},
+    {desc:'Thaís Regina 3-6',val:56.96},
+    {desc:'Cia do Clima 3-3',val:41.24},
+    {desc:'Pix iFood China 48 2-2',val:48.32},
+    {desc:'Pix Ju Souto 2-6',val:47.74}
+  ];
+  junho.rc6=[
+    {desc:'iFood Clube',val:7.95,recorrente:true},
+    {desc:'PayPal Fusora',val:98.00},
+    {desc:'Jim Com 4-4',val:47.00},
+    {desc:'Apple Bill',val:66.90,recorrente:true},
+    {desc:'Imaginarium 7-10',val:22.98},
+    {desc:'Melissa 4-6',val:25.74},
+    {desc:'Dafiti 8-10',val:68.94},
+    {desc:'Trevo 5-6',val:138.32},
+    {desc:'Enjoei 8-12',val:8.93},
+    {desc:'Enjoei 7-12',val:22.90},
+    {desc:'Boi da Maçuca div 8-10',val:18.51},
+    {desc:'Store Maju 8-12',val:18.21},
+    {desc:'Enjoei 6-10',val:85.20},
+    {desc:'Enjoei 7-10',val:16.50},
+    {desc:'Enjoei 7-10',val:13.42},
+    {desc:'Apple Bill',val:6.90,recorrente:true},
+    {desc:'Melissa 4-6',val:89.97},
+    {desc:'Zee Now div 3-3',val:11.90},
+    {desc:'iFood Novo Atacado 3-3',val:22.49},
+    {desc:'Jim Com 3-10',val:300.00},
+    {desc:'iFood China 48 div 2-2',val:31.27},
+    {desc:'Zee Now 2-3 div',val:25.68},
+    {desc:'iFood Andrade 2-2',val:27.55},
+    {desc:'Cobasi div 2-2',val:41.91},
+    {desc:'iFood 2-2',val:23.91},
+    {desc:'Cobasi div 2-2',val:52.80},
+    {desc:'Zee Now div 2-3',val:15.87},
+    {desc:'Carrefour div',val:47.63},
+    {desc:'Cobasi div 3-3',val:43.24},
+    {desc:'Atacadão div 3-3',val:25.70},
+    {desc:'Uber',val:5.80},
+    {desc:'Mix Mateus',val:31.09},
+    {desc:'Bercy div',val:101.05},
+    {desc:'iFood Laura 1-2',val:43.89},
+    {desc:'iFood DMR',val:31.89},
+    {desc:'Mix Mateus',val:23.94},
+    {desc:'Mix Mateus div 1-2',val:28.60},
+    {desc:'Atacado dos Presentes 1-4',val:25.12},
+    {desc:'99 POP',val:4.40},
+    {desc:'Wedja Caranga div',val:65.95},
+    {desc:'Uber',val:8.18}
+  ];
+  junho.fix=[
+    {data:'',desc:'Consórcio',val:0,venc:'1',pago:true},
+    {data:'17/06',desc:'Condomínio',val:330.00,venc:'17',pago:true},
+    {data:'',desc:'Oh Boxe',val:140.00,venc:''},
+    {data:'',desc:'C&A Pay',val:47.00,venc:''},
+    {data:'',desc:'IPTU',val:0,venc:'2',pago:true},
+    {data:'',desc:'CELPE',val:0,venc:'',pago:true},
+    {data:'',desc:'MEI',val:86.05,venc:''}
+  ];
+
+  const julho=blankMonth('Julho 2026');
+  julho.entradas=[{desc:'Salário',val:5150,data:'05/07'}];
+  julho.mnu=[
     {desc:'FIES',val:534.61},{desc:'Pix Mariana 2-2',val:138.68},{desc:'Bateria carro div 9-10',val:24.95},
     {desc:'Out Godead Fish 4-4',val:46.10},{desc:'Passai 2-2',val:158.18},{desc:'MV 3-5',val:269.35},
     {desc:'Pix Oh Boxe 2-2',val:119.57},{desc:'Pix Oh Boxe 2-2',val:172.21},{desc:'Pix MV',val:114.98},
     {desc:'Pix Zé',val:38.46},{desc:'Pix Sushi Home 1-3 div',val:34.08}
   ];
-  m.mc6=[
-    {data:'',desc:'Google Drive',val:9.99},{data:'',desc:'Apple',val:5.90},{data:'',desc:'PS5 Amazon 8-12',val:249.91},
-    {data:'',desc:'Boi da Maçuca div 9-10',val:18.51},{data:'',desc:'TIM cel',val:66.99},{data:'',desc:'TIM',val:59.99},
+  julho.mc6=[
+    {data:'',desc:'Google Drive',recorrente:true,val:9.99},{data:'',desc:'Apple',recorrente:true,val:5.90},{data:'',desc:'PS5 Amazon 8-12',val:249.91},
+    {data:'',desc:'Boi da Maçuca div 9-10',val:18.51},{data:'',desc:'TIM cel',recorrente:true,val:66.99},{data:'',desc:'TIM',recorrente:true,val:59.99},
     {data:'',desc:'Boticário 9-10',val:56.75},{data:'',desc:'Perfume 4-6',val:50.00},{data:'',desc:'Sócio CNC 8-12',val:67.42},
-    {data:'',desc:'Spotify',val:23.90},{data:'02/07',desc:'Zee Now 3-3 div',val:25.68},{data:'',desc:'Amazon Prime',val:19.90},
+    {data:'',desc:'Spotify',recorrente:true,val:23.90},{data:'02/07',desc:'Zee Now 3-3 div',val:25.68},{data:'',desc:'Amazon Prime',recorrente:true,val:19.90},
     {data:'13/07',desc:'Mercado Livre 3-11',val:33.71},{data:'14/07',desc:'Mercado Livre 3-6',val:34.03},
     {data:'14/07',desc:'Estelita Sympla 3-3',val:29.53},{data:'',desc:'Rayvson Geladeira 3-10',val:269.90},
     {data:'21/07',desc:'Marcela Salão 3-3',val:156.85},{data:'22/07',desc:'Clínica Sim 3-4',val:45.00},
@@ -220,58 +1398,106 @@ function defaultData(){
     {data:'07/07',desc:'Shopee cadeira 2-7',val:55.13},{data:'09/07',desc:'Mix Mateus div 2-2',val:28.60},
     {data:'13/07',desc:'ML óculos 2-10',val:18.14},{data:'14/07',desc:'Shopee 2-4',val:12.92},{data:'14/07',desc:'Shopee 2-5',val:15.77}
   ];
-  m.rnu=[
-    {desc:'Netflix',val:20.90},{desc:'Embala Shop 8-12',val:132.11},{desc:'Natalia Tatuagem',val:53.26},
+  julho.rnu=[
+    {desc:'Netflix',recorrente:true,val:20.90},{desc:'Embala Shop 8-12',val:132.11},{desc:'Natalia Tatuagem',val:53.26},
     {desc:'Renner 8-12',val:59.35},{desc:'Ferreira Costa 7-7',val:51.40},{desc:'Bateria carro div',val:24.95},
     {desc:'Pix Maria Julia 3-6',val:195.77},{desc:'Pix Ruili 3-3',val:65.48},{desc:'Pix CEA Pay 3-5',val:171.00},
     {desc:'Thaís Regina 4-6',val:56.96},{desc:'Pix Ju Souto 3-6',val:47.74},{desc:'Midway 1-6',val:176.78},
     {desc:'Pix Sushi Home div',val:34.08}
   ];
-  m.rc6=[
-    {desc:'iFood Clube',val:7.95},{desc:'PayPal Fusora',val:98.00},{desc:'Apple Bill',val:66.90},
+  julho.rc6=[
+    {desc:'iFood Clube',recorrente:true,val:7.95},{desc:'PayPal Fusora',val:98.00},{desc:'Apple Bill',recorrente:true,val:66.90},
     {desc:'Imaginarium 8-10',val:22.98},{desc:'Melissa 5-6',val:25.74},{desc:'Dafiti 9-10',val:68.94},
     {desc:'Trevo 6-6',val:138.32},{desc:'Enjoei 9-12',val:8.93},{desc:'Enjoei 8-12',val:22.90},
     {desc:'Enjoei 8-10',val:85.20},{desc:'Enjoei 8-10',val:16.50},{desc:'Enjoei 8-10',val:13.42},
-    {desc:'Apple Bill',val:6.90},{desc:'Melissa 5-6',val:89.97},{desc:'Jim Com 4-10',val:300.00},
+    {desc:'Apple Bill',recorrente:true,val:6.90},{desc:'Melissa 5-6',val:89.97},{desc:'Jim Com 4-10',val:300.00},
     {desc:'Zee Now div',val:25.68},{desc:'Zee Now div',val:15.87},{desc:'Boi da Maçuca div',val:18.51},
     {desc:'Store Maju 9-12',val:18.21}
   ];
-  m.fix=[
-    {data:'01/07',desc:'Consórcio',val:437.54},{data:'17/07',desc:'Condomínio',val:330.00},
-    {data:'',desc:'Oh Boxe',val:140.00},{data:'',desc:'C&A Pay 8-10',val:47.00},
-    {data:'02/07',desc:'IPTU',val:138.48},{data:'',desc:'CELPE',val:219.50},
-    {data:'',desc:'MEI',val:86.05}
+  julho.fix=[
+    {data:'01/07',desc:'Consórcio',val:437.54,venc:'1'},{data:'17/07',desc:'Condomínio',val:330.00,venc:'17'},
+    {data:'',desc:'Oh Boxe',val:140.00,venc:''},{data:'',desc:'C&A Pay 8-10',val:47.00,venc:''},
+    {data:'02/07',desc:'IPTU',val:138.48,venc:'2'},{data:'',desc:'CELPE',val:219.50,venc:''},
+    {data:'',desc:'MEI',val:86.05,venc:''}
   ];
-  return {current:0,months:[m]};
+
+  return {current:1,months:[junho,julho]};
 }
 
-function load(){try{const s=localStorage.getItem(SK);if(s)return JSON.parse(s);}catch(e){}return defaultData();}
+function load(){
+  try{
+    // Migrate from old keys
+    const oldKeys=['gastos_v4','gastos_v5','gastos_v6','gastos_v7'];
+    for(const k of oldKeys){
+      const old=localStorage.getItem(k);
+      if(old){
+        const d=JSON.parse(old);
+        if(d&&d.months&&d.months.length>0){
+          localStorage.setItem(SK,old);
+          localStorage.removeItem(k);
+          return d;
+        }
+      }
+    }
+    const s=localStorage.getItem(SK);
+    if(s){const d=JSON.parse(s);if(d&&d.months&&d.months.length>0)return d;}
+  }catch(e){}
+  return defaultData();
+}
+
+function ensureJunho(data){
+  // If Junho 2026 is missing, insert it before Julho
+  const hasJunho=data.months.some(m=>m.name==='Junho 2026');
+  if(!hasJunho){
+    const junho=defaultData().months[0]; // index 0 = Junho in defaultData
+    // Insert at beginning
+    data.months.unshift(junho);
+    // Adjust current index
+    data.current=Math.min(data.current+1, data.months.length-1);
+  }
+  return data;
+}
+
 function save(){try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}}
 
-let G=load();
+let G=ensureJunho(load());
 function M(){return G.months[G.current];}
 const fmt=v=>'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const fmtS=v=>Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-const sum=a=>a.reduce((t,i)=>t+(+i.val||0),0);
+const sum=a=>(a||[]).reduce((t,i)=>t+(+i.val||0),0);
 
-let editingChart=null;
+// ── HELPERS ──
+function keyBg(k){return{mnu:'var(--nu-bg)',mc6:'var(--c6-bg)',rnu:'var(--nu-bg)',rc6:'var(--c6-bg)',fix:'var(--fix-bg)',entradas:'var(--in-bg)'}[k]||'#f1f5f9';}
+function keyEmoji(k){return{mnu:'🟣',mc6:'⚫',rnu:'🟣',rc6:'⚫',fix:'🏠',entradas:'💵'}[k]||'💳';}
 
-/* ---- PAINEL ---- */
+// ── CHARTS ──
+let chartM=null,chartR=null,chartLine=null;
+function drawDonut(canvasId,legendId,data,colors,labels){
+  const ctx=document.getElementById(canvasId);if(!ctx)return;
+  if(canvasId==='chart-donut-m'&&chartM){chartM.destroy();chartM=null;}
+  if(canvasId==='chart-donut-r'&&chartR){chartR.destroy();chartR=null;}
+  const c=new Chart(ctx,{type:'doughnut',data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false},tooltip:{callbacks:{label:i=>` ${i.label}: R$ ${fmtS(i.raw)}`}}}}});
+  if(canvasId==='chart-donut-m')chartM=c;
+  if(canvasId==='chart-donut-r')chartR=c;
+  const leg=document.getElementById(legendId);
+  if(leg)leg.innerHTML=labels.map((l,i)=>`<div class="leg-item"><span class="leg-dot" style="background:${colors[i]}"></span>${l}</div>`).join('');
+}
+function drawLine(labels,vals){
+  const ctx=document.getElementById('chart-line');if(!ctx)return;
+  if(chartLine){chartLine.destroy();chartLine=null;}
+  chartLine=new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:'Total',data:vals,backgroundColor:'#7c3aed30',borderColor:'#7c3aed',borderWidth:1.5,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:i=>`R$ ${fmtS(i.raw)}`}}},scales:{y:{ticks:{callback:v=>'R$'+Math.round(v/1000)+'k',font:{size:10}},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+}
+
+// ── PAINEL ──
 function renderPainel(){
   const m=M();
   const tmu=sum(m.mnu),tmc=sum(m.mc6),tru=sum(m.rnu),trc=sum(m.rc6),tfix=sum(m.fix);
-  const tEnt=sum(m.entradas);
-  const tMarcio=tmu+tmc+tfix;
-  const tRai=tru+trc;
-  const saldo=tEnt-tMarcio;
-  const grand=tMarcio+tRai;
-
-  const heroValClass=saldo>=0?'hero-val':'hero-val neg';
+  const tEnt=sum(m.entradas),tMarcio=tmu+tmc+tfix,tRai=tru+trc,saldo=tEnt-tMarcio,grand=tMarcio+tRai;
 
   let html=`
   <div class="hero">
     <div class="hero-label">Saldo do mês — Márcio</div>
-    <div class="${heroValClass}">${fmt(saldo)}</div>
+    <div class="${saldo>=0?'hero-val':'hero-val neg'}">${fmt(saldo)}</div>
     <div class="hero-sub">Entradas ${fmt(tEnt)} · Gastos ${fmt(tMarcio)}</div>
     <div class="hero-divider"></div>
     <div class="hero-row">
@@ -282,17 +1508,17 @@ function renderPainel(){
   </div>
   <div class="mgrid">
     <div class="mcard" style="border-left:4px solid var(--rai);border-radius:0 var(--radius) var(--radius) 0">
-      <div class="mcard-label"><span class="mcard-emoji">💗</span>Total Raíssa</div>
+      <div class="mcard-label">💗 Total Raíssa</div>
       <div class="mcard-val" style="color:var(--rai)">${fmt(tRai)}</div>
       <div class="mcard-sub">Nu ${fmt(tru)} · C6 ${fmt(trc)}</div>
     </div>
     <div class="mcard" style="border-left:4px solid #6366f1;border-radius:0 var(--radius) var(--radius) 0">
-      <div class="mcard-label"><span class="mcard-emoji">🌐</span>Total geral</div>
+      <div class="mcard-label">🌐 Total geral</div>
       <div class="mcard-val">${fmt(grand)}</div>
       <div class="mcard-sub">${m.entradas.length} entradas</div>
     </div>
   </div>
-  <div class="mgrid">
+  <div class="mgrid" style="margin-bottom:14px">
     <div class="chart-card" style="margin-bottom:0">
       <div class="chart-title">👤 Márcio</div>
       <div class="chart-wrap" style="height:140px"><canvas id="chart-donut-m" height="140"></canvas></div>
@@ -304,27 +1530,16 @@ function renderPainel(){
       <div class="legend" id="legend-r"></div>
     </div>
   </div>
-  <div style="margin-bottom:14px"></div>
-  <div class="chart-card">
-    <div class="chart-title">Categorias</div>`;
+  <div class="chart-card"><div class="chart-title">Categorias</div>`;
 
   const cats=[
-    {l:'Nubank Márcio',v:tmu,color:'#7c3aed'},
-    {l:'C6 Márcio',v:tmc,color:'#3b82f6'},
-    {l:'Fixos',v:tfix,color:'#10b981'},
-    {l:'Nubank Raíssa',v:tru,color:'#f43f5e'},
-    {l:'C6 Raíssa',v:trc,color:'#f97316'},
+    {l:'Nubank Márcio',v:tmu,color:'#7c3aed'},{l:'C6 Márcio',v:tmc,color:'#3b82f6'},
+    {l:'Fixos',v:tfix,color:'#10b981'},{l:'Nubank Raíssa',v:tru,color:'#f43f5e'},{l:'C6 Raíssa',v:trc,color:'#f97316'}
   ];
   const tot=grand||1;
   cats.forEach(c=>{
     const pct=Math.round(c.v/tot*100);
-    html+=`<div class="catbar">
-      <div class="catbar-info">
-        <span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:${c.color};display:inline-block;flex:0 0 8px"></span>${c.l}</span>
-        <span class="catbar-vals">${fmt(c.v)}<span class="catbar-pct">${pct}%</span></span>
-      </div>
-      <div class="track"><div class="fill" style="width:${pct}%;background:${c.color}"></div></div>
-    </div>`;
+    html+=`<div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:${c.color};display:inline-block;margin-right:6px"></span>${c.l}</span><span class="catbar-vals">${fmt(c.v)}<span class="catbar-pct">${pct}%</span></span></div><div class="track"><div class="fill" style="width:${pct}%;background:${c.color}"></div></div></div>`;
   });
   html+=`</div>`;
 
@@ -343,257 +1558,246 @@ function renderPainel(){
   drawDonut('chart-donut-r','legend-r',[tru,trc],['#f43f5e','#f97316'],['Nubank','C6']);
 }
 
-let chartM=null,chartR=null;
-function drawDonut(canvasId,legendId,data,colors,labels){
-  const ctx=document.getElementById(canvasId);
-  if(!ctx)return;
-  if(canvasId==='chart-donut-m'){if(chartM){chartM.destroy();chartM=null;} if(editingChart){editingChart.destroy();editingChart=null;}}
-  if(canvasId==='chart-donut-r'){if(chartR){chartR.destroy();chartR=null;}}
-  const chart=new Chart(ctx,{
-    type:'doughnut',
-    data:{labels,datasets:[{data,backgroundColor:colors,borderWidth:0,hoverOffset:4}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false},tooltip:{callbacks:{label:i=>` ${i.label}: R$ ${fmtS(i.raw)}`}}}}
-  });
-  if(canvasId==='chart-donut-m'){chartM=chart;editingChart=chart;}
-  if(canvasId==='chart-donut-r')chartR=chart;
-  const leg=document.getElementById(legendId);
-  if(leg)leg.innerHTML=labels.map((l,i)=>`<div class="leg-item"><span class="leg-dot" style="background:${colors[i]}"></span>${l}</div>`).join('');
-}
+// ── LIST BUILDER ──
+let editState={key:null,idx:null};
 
-function drawLine(labels,vals){
-  const ctx=document.getElementById('chart-line');
-  if(!ctx)return;
-  new Chart(ctx,{
-    type:'bar',
-    data:{labels,datasets:[{label:'Total gasto',data:vals,backgroundColor:'#7c3aed30',borderColor:'#7c3aed',borderWidth:1.5,borderRadius:6}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:i=>`R$ ${fmtS(i.raw)}`}}},scales:{y:{ticks:{callback:v=>'R$'+Math.round(v/1000)+'k',font:{size:10}},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}
-  });
-}
-
-function keyEmoji(k){return{mnu:'💜',mc6:'🔵',rnu:'💜',rc6:'🔵',fix:'🏠',entradas:'💵'}[k]||'💳';}
-
-function buildListCard(titleHtml,items,key,hasDat){
-  const listItems=items.length?items.map((it,i)=>`
-    <div id="row-${key}-${i}">
-      <div class="item">
-        <div class="item-icon" style="background:${keyBg(key)}">${keyEmoji(key)}</div>
-        <div class="item-body">
-          <div class="item-desc">${it.desc}</div>
-          ${it.data?`<div class="item-date">${it.data}</div>`:''}
-        </div>
-        <div class="item-right">
-          <span class="item-val">${fmt(it.val)}</span>
-          <div class="item-actions">
-            <button class="act-btn edit" onclick="startEdit('${key}',${i})" aria-label="editar">✏️</button>
-            <button class="act-btn del" onclick="confirmDel('${key}',${i})" aria-label="remover">🗑️</button>
-          </div>
+function itemRow(it,i,key){
+  const isRec=!!it.recorrente;
+  return `<div id="row-${key}-${i}">
+    <div class="item" style="${isRec?'background:linear-gradient(to right,#faf5ff,#fff)':''}">
+      <div class="item-icon" style="background:${keyBg(key)}">${keyEmoji(key)}</div>
+      <div class="item-body">
+        <div class="item-desc">${it.desc}</div>
+        ${it.data?`<div class="item-date">${it.data}</div>`:''}
+      </div>
+      <div class="item-right">
+        <span class="item-val">${fmt(it.val)}</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit('${key}',${i})">✏️</button>
+          <button class="act-btn del"  onclick="confirmDel('${key}',${i})">🗑️</button>
         </div>
       </div>
-    </div>`).join(''):`<div class="empty">Nenhum lançamento</div>`;
+    </div>
+  </div>`;
+}
+
+function isParcelado(it){return /\d+-\d+/.test(it.desc);}
+
+function categorizedCard(items,key){
+  const parceladas=items.map((it,i)=>({it,i})).filter(({it})=>isParcelado(it)&&!it.recorrente);
+  const avulsas   =items.map((it,i)=>({it,i})).filter(({it})=>!isParcelado(it)&&!it.recorrente);
+  const recorrentes=items.map((it,i)=>({it,i})).filter(({it})=>!!it.recorrente);
+
+  function section(emoji,label,color,list){
+    if(!list.length)return '';
+    const rows=list.map(({it,i})=>itemRow(it,i,key)).join('');
+    const total=list.reduce((t,{it})=>t+(+it.val||0),0);
+    return `
+      <div style="margin-bottom:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;padding:0 2px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">${emoji}</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">${label}</span>
+            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:${color}22;color:${color}">${list.length}</span>
+          </div>
+          <span style="font-size:13px;font-weight:700;color:${color}">${fmt(total)}</span>
+        </div>
+        <div class="list-card" style="margin-bottom:0">${rows}</div>
+      </div>`;
+  }
+
+  const total=sum(items);
+  return `
+    ${section('📦','Compras Parceladas','#2563eb',parceladas)}
+    ${section('🛍️','Compras Avulsas','#0f172a',avulsas)}
+    ${section('🔄','Assinaturas','#7c3aed',recorrentes)}
+    ${!parceladas.length&&!avulsas.length&&!recorrentes.length?'<div class="empty">Nenhum lançamento</div>':''}
+    <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:4px">
+      <span style="font-size:13px;font-weight:600;color:var(--text2)">Total do cartão</span>
+      <span style="font-size:16px;font-weight:700;color:var(--text)">${fmt(total)}</span>
+    </div>`;
+}
+
+function buildList(items,key){
+  if(!items.length)return '<div class="empty">Nenhum lançamento</div>';
+  return items.map((it,i)=>itemRow(it,i,key)).join('');
+}
+function listCard(titleHtml,items,key){
   return `<div class="list-card">
     <div class="list-head"><div class="list-title">${titleHtml}</div><span style="font-size:11px;color:var(--text3)">${items.length} itens</span></div>
-    <div id="list-body-${key}">${listItems}</div>
+    <div id="list-body-${key}">${buildList(items,key)}</div>
     <div class="list-foot"><span class="foot-lbl">Total</span><span class="foot-val">${fmt(sum(items))}</span></div>
   </div>`;
 }
 
-/* ---- LIST BUILDER ---- */
-let editState={key:null,idx:null};
-function keyBg(k){return{mnu:'var(--nu-bg)',mc6:'var(--c6-bg)',rnu:'var(--nu-bg)',rc6:'var(--c6-bg)',fix:'var(--fix-bg)',entradas:'var(--in-bg)'}[k]||'#f1f5f9';}
-function keyColor(k){return{mnu:'var(--nu-txt)',mc6:'var(--c6-txt)',rnu:'var(--nu-txt)',rc6:'var(--c6-txt)',fix:'var(--fix-txt)',entradas:'var(--in)'}[k]||'var(--text2)';}
-function keyEmoji(k){return{mnu:'💜',mc6:'🔵',rnu:'💜',rc6:'🔵',fix:'🏠',entradas:'💵'}[k]||'💳';}
-
 function startEdit(key,idx){
-  if(editState.key){cancelEdit();}
+  if(editState.key)cancelEdit();
   editState={key,idx};
   const it=M()[key][idx];
-  const row=document.getElementById(`row-${key}-${idx}`);
+  const row=document.getElementById('row-'+key+'-'+idx);
   if(!row)return;
+  const isRec=!!it.recorrente;
+  const canRec=key!=='fix';
   row.innerHTML=`<div class="edit-row">
-    <input id="ei-desc" value="${it.desc}" placeholder="Descrição" style="flex:1">
-    <input class="val-inp" id="ei-date" value="${it.data||''}" placeholder="dd/mm" style="width:70px;flex:0 0 70px">
-    <input class="val-inp" id="ei-val" type="number" value="${it.val}" step="0.01" min="0">
-    <button class="btn-ok" onclick="saveEdit('${key}',${idx})">Ok</button>
+    <input id="ei-desc" value="${it.desc}" placeholder="Descrição">
+    <input class="val-inp" id="ei-date" value="${it.data||''}" placeholder="dd/mm" style="width:68px;flex:0 0 68px">
+    <input class="val-inp" id="ei-val" type="number" value="${it.val}" step="0.01">
+    ${canRec?`<button id="ei-rec-btn" onclick="toggleEditRec()" style="flex:0 0 auto;padding:6px 10px;border-radius:8px;border:2px solid ${isRec?'var(--nu)':'var(--border)'};background:${isRec?'var(--nu-bg)':'#f8fafc'};color:${isRec?'var(--nu-txt)':'var(--text3)'};font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;white-space:nowrap" title="Marcar como recorrente">${isRec?'🔄 Recorrente':'🔄 Normal'}</button>`:''}
+    <button class="btn-ok" onclick="saveEdit()">Ok</button>
     <button class="btn-cancel" onclick="cancelEdit()">✕</button>
   </div>`;
+  window._editRec=isRec;
 }
-
-function saveEdit(key,idx){
+function toggleEditRec(){
+  window._editRec=!window._editRec;
+  const btn=document.getElementById('ei-rec-btn');
+  if(!btn)return;
+  if(window._editRec){
+    btn.style.borderColor='var(--nu)';btn.style.background='var(--nu-bg)';btn.style.color='var(--nu-txt)';btn.textContent='🔄 Recorrente';
+  } else {
+    btn.style.borderColor='var(--border)';btn.style.background='#f8fafc';btn.style.color='var(--text3)';btn.textContent='🔄 Normal';
+  }
+}
+function saveEdit(){
   const desc=document.getElementById('ei-desc').value.trim();
   const val=parseFloat(document.getElementById('ei-val').value);
-  const dateEl=document.getElementById('ei-date');
+  const data=document.getElementById('ei-date').value.trim();
   if(!desc||isNaN(val))return;
-  M()[key][idx].desc=desc;
-  M()[key][idx].val=val;
-  if(dateEl)M()[key][idx].data=dateEl.value.trim();
+  const it=M()[editState.key][editState.idx];
+  it.desc=desc;it.val=val;it.data=data;
+  if(editState.key!=='fix'){
+    if(window._editRec)it.recorrente=true;
+    else delete it.recorrente;
+  }
   editState={key:null,idx:null};
   save();renderAll();
 }
 function cancelEdit(){editState={key:null,idx:null};renderAll();}
 function confirmDel(key,idx){
   const it=M()[key][idx];
-  const row=document.getElementById(`row-${key}-${idx}`);
+  const row=document.getElementById('row-'+key+'-'+idx);
   if(!row)return;
-  row.innerHTML=`<div class="edit-row" style="background:#fef2f2;border-color:#fecaca">
-    <span style="flex:1;font-size:13px;color:#dc2626"><i class="ti ti-alert-triangle"></i> Excluir <b>${it.desc}</b> (${fmt(it.val)})?</span>
+  row.innerHTML=`<div class="edit-row" style="background:#fef2f2">
+    <span style="flex:1;font-size:13px;color:#dc2626">Excluir <b>${it.desc}</b> (${fmt(it.val)})?</span>
     <button class="btn-ok" style="background:#dc2626" onclick="delItem('${key}',${idx})">Excluir</button>
     <button class="btn-cancel" onclick="cancelEdit()">Cancelar</button>
   </div>`;
 }
 function delItem(key,idx){M()[key].splice(idx,1);save();renderAll();}
 
-/* ---- TABS ---- */
-let marcioCard='mnu';
-let raissaCard='rnu';
+// ── TABS ──
+let marcioCard='mnu',raissaCard='rnu';
 
 function renderMarcio(){
   const m=M();
   const cards={
-    mnu:{label:'Nubank',pill:'pill-nu',icon:'🟣',color:'var(--nu)',val:sum(m.mnu),key:'mnu'},
-    mc6:{label:'C6',pill:'pill-c6',icon:'⚫',color:'var(--c6)',val:sum(m.mc6),key:'mc6'},
+    mnu:{label:'Nubank',pill:'pill-nu',icon:'🟣',color:'var(--nu)',val:sum(m.mnu)},
+    mc6:{label:'C6',     pill:'pill-c6',icon:'⚫',color:'var(--c6)',val:sum(m.mc6)}
   };
-  const selector=Object.entries(cards).map(([k,c])=>`
-    <button class="csel-btn${marcioCard===k?' active':''}" style="${marcioCard===k?`background:${c.color};border-color:${c.color}`:''}" onclick="marcioCard='${k}';renderMarcio()">
-      <span class="csel-icon">${c.icon}</span>
-      <span>${c.label}</span>
-      <span class="csel-val">${fmt(c.val)}</span>
+  const sel=Object.entries(cards).map(([k,c])=>`
+    <button class="csel-btn${marcioCard===k?' active':''}" style="${marcioCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="marcioCard='${k}';renderMarcio()">
+      <span class="csel-icon">${c.icon}</span><span>${c.label}</span><span class="csel-val">${fmt(c.val)}</span>
     </button>`).join('');
   const cur=cards[marcioCard];
-  document.getElementById('tab-marcio').innerHTML=`
-    <div>
-      <div class="page-title">👤 Márcio</div>
-      <div class="card-selector">${selector}</div>
-      ${buildListCard(`<span class="pill ${cur.pill}">${cur.label}</span> Márcio`,m[marcioCard],marcioCard,true)}
-    </div>`;
+  document.getElementById('tab-marcio').innerHTML=`<div>
+    <div class="page-title">👤 Márcio</div>
+    <div class="card-selector">${sel}</div>
+    ${categorizedCard(m[marcioCard],marcioCard)}
+  </div>`;
 }
 
 function renderRaissa(){
   const m=M();
   const cards={
-    rnu:{label:'Nubank',pill:'pill-nu',icon:'🟣',color:'var(--nu)',val:sum(m.rnu),key:'rnu'},
-    rc6:{label:'C6',pill:'pill-c6',icon:'⚫',color:'var(--c6)',val:sum(m.rc6),key:'rc6'},
+    rnu:{label:'Nubank',pill:'pill-nu',icon:'🟣',color:'var(--nu)',val:sum(m.rnu)},
+    rc6:{label:'C6',     pill:'pill-c6',icon:'⚫',color:'var(--c6)',val:sum(m.rc6)}
   };
-  const selector=Object.entries(cards).map(([k,c])=>`
-    <button class="csel-btn${raissaCard===k?' active':''}" style="${raissaCard===k?`background:${c.color};border-color:${c.color}`:''}" onclick="raissaCard='${k}';renderRaissa()">
-      <span class="csel-icon">${c.icon}</span>
-      <span>${c.label}</span>
-      <span class="csel-val">${fmt(c.val)}</span>
+  const sel=Object.entries(cards).map(([k,c])=>`
+    <button class="csel-btn${raissaCard===k?' active':''}" style="${raissaCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="raissaCard='${k}';renderRaissa()">
+      <span class="csel-icon">${c.icon}</span><span>${c.label}</span><span class="csel-val">${fmt(c.val)}</span>
     </button>`).join('');
   const cur=cards[raissaCard];
-  document.getElementById('tab-raissa').innerHTML=`
-    <div>
-      <div class="page-title">💜 Raíssa</div>
-      <div class="card-selector">${selector}</div>
-      ${buildListCard(`<span class="pill ${cur.pill}">${cur.label}</span> Raíssa`,m[raissaCard],raissaCard,true)}
-    </div>`;
+  document.getElementById('tab-raissa').innerHTML=`<div>
+    <div class="page-title">💜 Raíssa</div>
+    <div class="card-selector">${sel}</div>
+    ${categorizedCard(m[raissaCard],raissaCard)}
+  </div>`;
 }
+
 function renderFixos(){
   const m=M();
-  const items=m.fix;
-  const today=new Date();
-  const todayDay=today.getDate();
-
-  function vencStatus(venc){
-    if(!venc)return null;
-    const day=parseInt(venc);
-    if(isNaN(day))return null;
-    const diff=day-todayDay;
-    if(diff<0)return{label:'Vencido',color:'#dc2626',bg:'#fee2e2'};
-    if(diff===0)return{label:'Vence hoje',color:'#d97706',bg:'#fef3c7'};
-    if(diff<=3)return{label:`${diff}d`,color:'#d97706',bg:'#fef3c7'};
-    return{label:`dia ${day}`,color:'var(--text3)',bg:'transparent'};
+  const items=m.fix||[];
+  const today=new Date(),todayDay=today.getDate();
+  function vencBadge(venc,pago){
+    if(!venc||pago)return '';
+    const d=parseInt(venc),diff=d-todayDay;
+    if(isNaN(d))return '';
+    const [bg,col]=diff<0?['#fee2e2','#dc2626']:diff<=3?['#fef3c7','#d97706']:['#f1f5f9','#94a3b8'];
+    const lbl=diff<0?'Vencido':diff===0?'Hoje':'dia '+d;
+    return `<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${bg};color:${col};margin-left:6px">📅 ${lbl}</span>`;
   }
-
-  const rows=items.length?items.map((it,i)=>{
-    const pago=!!it.pago;
-    const vs=vencStatus(it.venc);
-    const rowStyle=pago?'opacity:.5':'';
-    return `<div id="row-fix-${i}" style="${rowStyle}">
-      <div class="item" style="${pago?'background:#f8fafc':''}">
-        <div class="item-icon" style="background:${pago?'#f1f5f9':'var(--fix-bg)'}">${pago?'✅':'🏠'}</div>
+  const rows=items.length?items.map((it,i)=>`
+    <div id="row-fix-${i}" style="${it.pago?'opacity:.5':''}">
+      <div class="item" style="${it.pago?'background:#f8fafc':''}">
+        <div class="item-icon" style="background:${it.pago?'#f1f5f9':'var(--fix-bg)'}">${it.pago?'✅':'🏠'}</div>
         <div class="item-body">
-          <div class="item-desc" style="${pago?'text-decoration:line-through;color:var(--text3)':''}">  ${it.desc}</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+          <div class="item-desc" style="${it.pago?'text-decoration:line-through;color:var(--text3)':''}">${it.desc}</div>
+          <div style="display:flex;align-items:center;margin-top:3px">
             ${it.data?`<span style="font-size:11px;color:var(--text3)">${it.data}</span>`:''}
-            ${it.venc?`<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:6px;background:${vs?vs.bg:'transparent'};color:${vs?vs.color:'var(--text3)'}">📅 Vence dia ${it.venc}</span>`:''}
-            ${vs&&vs.label==='Vencido'&&!pago?`<span style="font-size:10px;font-weight:700;color:#dc2626">⚠️ ${vs.label}</span>`:''}
+            ${vencBadge(it.venc,it.pago)}
           </div>
         </div>
         <div class="item-right">
-          <span class="item-val" style="${pago?'color:var(--text3)':''}">${fmt(it.val)}</span>
+          <span class="item-val">${fmt(it.val)}</span>
           <div class="item-actions">
-            <button class="act-btn" style="background:${pago?'#dcfce7':'#f1f5f9'};font-size:15px" onclick="togglePago('fix',${i})" title="${pago?'Desmarcar pagamento':'Confirmar pagamento'}">${pago?'✅':'☑️'}</button>
+            <button class="act-btn" style="background:${it.pago?'#dcfce7':'#f1f5f9'}" onclick="togglePago(${i})">${it.pago?'✅':'☑️'}</button>
             <button class="act-btn edit" onclick="startEditFix(${i})">✏️</button>
-            <button class="act-btn del" onclick="confirmDel('fix',${i})">🗑️</button>
+            <button class="act-btn del"  onclick="confirmDel('fix',${i})">🗑️</button>
           </div>
         </div>
       </div>
-    </div>`;
-  }).join(''):`<div class="empty">Nenhum fixo</div>`;
+    </div>`).join(''):`<div class="empty">Nenhum fixo</div>`;
 
-  const total=sum(items);
-  const totalPago=items.filter(i=>i.pago).reduce((t,i)=>t+(+i.val||0),0);
-  const totalPendente=total-totalPago;
-  const pct=total>0?Math.round(totalPago/total*100):0;
-
-  document.getElementById('tab-fixos').innerHTML=`
-    <div>
-      <div class="page-title">🏠 Fixos</div>
-
-      <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-          <span style="font-size:13px;font-weight:600;color:var(--text)">Progresso do mês</span>
-          <span style="font-size:13px;font-weight:700;color:var(--fix)">${pct}% pago</span>
-        </div>
-        <div class="track"><div class="fill" style="width:${pct}%;background:var(--fix)"></div></div>
-        <div style="display:flex;justify-content:space-between;margin-top:10px">
-          <div style="text-align:center">
-            <div style="font-size:14px;font-weight:700;color:var(--fix)">${fmt(totalPago)}</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px">✅ Pago</div>
-          </div>
-          <div style="text-align:center">
-            <div style="font-size:14px;font-weight:700;color:var(--danger)">${fmt(totalPendente)}</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px">⏳ Pendente</div>
-          </div>
-          <div style="text-align:center">
-            <div style="font-size:14px;font-weight:700;color:var(--text)">${fmt(total)}</div>
-            <div style="font-size:11px;color:var(--text3);margin-top:2px">Total</div>
-          </div>
-        </div>
+  const total=sum(items),pago=items.filter(i=>i.pago).reduce((t,i)=>t+(+i.val||0),0),pct=total>0?Math.round(pago/total*100):0;
+  document.getElementById('tab-fixos').innerHTML=`<div>
+    <div class="page-title">🏠 Fixos</div>
+    <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
+      <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+        <span style="font-size:13px;font-weight:600">Progresso do mês</span>
+        <span style="font-size:13px;font-weight:700;color:var(--fix)">${pct}% pago</span>
       </div>
-
-      <div class="list-card">
-        <div class="list-head">
-          <div class="list-title"><span class="pill pill-fix">Sem cartão</span> Fixos</div>
-          <span style="font-size:11px;color:var(--text3)">${items.length} itens</span>
-        </div>
-        <div id="list-body-fix">${rows}</div>
-        <div class="list-foot"><span class="foot-lbl">Total</span><span class="foot-val">${fmt(total)}</span></div>
+      <div class="track"><div class="fill" style="width:${pct}%;background:var(--fix)"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px">
+        <div style="text-align:center"><div style="font-size:14px;font-weight:700;color:var(--fix)">${fmt(pago)}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">✅ Pago</div></div>
+        <div style="text-align:center"><div style="font-size:14px;font-weight:700;color:var(--danger)">${fmt(total-pago)}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">⏳ Pendente</div></div>
+        <div style="text-align:center"><div style="font-size:14px;font-weight:700">${fmt(total)}</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Total</div></div>
       </div>
-    </div>`;
+    </div>
+    <div class="list-card">
+      <div class="list-head"><div class="list-title"><span class="pill pill-fix">Sem cartão</span> Fixos</div><span style="font-size:11px;color:var(--text3)">${items.length} itens</span></div>
+      <div>${rows}</div>
+      <div class="list-foot"><span class="foot-lbl">Total</span><span class="foot-val">${fmt(total)}</span></div>
+    </div>
+  </div>`;
 }
 
-function togglePago(key,idx){
-  M()[key][idx].pago=!M()[key][idx].pago;
-  save();renderFixos();
-}
+function togglePago(idx){M().fix[idx].pago=!M().fix[idx].pago;save();renderFixos();}
 
 function startEditFix(idx){
-  if(editState.key){cancelEdit();}
+  if(editState.key)cancelEdit();
   editState={key:'fix',idx};
   const it=M().fix[idx];
-  const row=document.getElementById(`row-fix-${idx}`);
+  const row=document.getElementById('row-fix-'+idx);
   if(!row)return;
   row.innerHTML=`<div class="edit-row">
-    <input id="ei-desc" value="${it.desc}" placeholder="Descrição" style="flex:1">
+    <input id="ei-desc" value="${it.desc}" placeholder="Descrição">
     <input class="val-inp" id="ei-date" value="${it.data||''}" placeholder="dd/mm" style="width:68px;flex:0 0 68px">
-    <input class="val-inp" id="ei-venc" type="number" value="${it.venc||''}" placeholder="Dia" min="1" max="31" style="width:58px;flex:0 0 58px" title="Dia de vencimento">
-    <input class="val-inp" id="ei-val" type="number" value="${it.val}" step="0.01" min="0">
+    <input class="val-inp" id="ei-venc" type="number" value="${it.venc||''}" placeholder="Venc." min="1" max="31" style="width:60px;flex:0 0 60px" title="Dia vencimento">
+    <input class="val-inp" id="ei-val" type="number" value="${it.val}" step="0.01">
     <button class="btn-ok" onclick="saveEditFix(${idx})">Ok</button>
     <button class="btn-cancel" onclick="cancelEdit()">✕</button>
   </div>`;
 }
-
 function saveEditFix(idx){
   const desc=document.getElementById('ei-desc').value.trim();
   const val=parseFloat(document.getElementById('ei-val').value);
@@ -601,13 +1805,13 @@ function saveEditFix(idx){
   const venc=document.getElementById('ei-venc').value.trim();
   if(!desc||isNaN(val))return;
   const it=M().fix[idx];
-  it.desc=desc;it.val=val;it.data=data;
-  it.venc=venc||'';
+  it.desc=desc;it.val=val;it.data=data;it.venc=venc;
   editState={key:null,idx:null};
   save();renderFixos();
 }
+
 function renderEntradas(){
-  const ent=M().entradas;
+  const ent=M().entradas||[];
   const rows=ent.length?ent.map((it,i)=>`
     <div id="row-entradas-${i}">
       <div class="item">
@@ -616,116 +1820,153 @@ function renderEntradas(){
         <div class="item-right">
           <span class="item-val pos">${fmt(it.val)}</span>
           <div class="item-actions">
-            <button class="act-btn edit" onclick="startEdit('entradas',${i})" aria-label="editar">✏️</button>
-            <button class="act-btn del" onclick="confirmDel('entradas',${i})" aria-label="remover">🗑️</button>
+            <button class="act-btn edit" onclick="startEdit('entradas',${i})">✏️</button>
+            <button class="act-btn del"  onclick="confirmDel('entradas',${i})">🗑️</button>
           </div>
         </div>
       </div>
     </div>`).join(''):`<div class="empty">Nenhuma entrada</div>`;
-  document.getElementById('tab-entradas').innerHTML=`
-    <div>
-      <div class="page-title">💵 Entradas</div>
-      <div class="list-card">
-        <div class="list-head"><div class="list-title"><span class="pill pill-in">Entradas</span></div><span style="font-size:11px;color:var(--text3)">${ent.length} itens</span></div>
-        <div id="list-body-entradas">${rows}</div>
-        <div class="list-foot"><span class="foot-lbl">Total entradas</span><span class="foot-val" style="color:var(--in)">${fmt(sum(ent))}</span></div>
+  document.getElementById('tab-entradas').innerHTML=`<div>
+    <div class="page-title">💵 Entradas</div>
+    <div class="list-card">
+      <div class="list-head"><div class="list-title"><span class="pill pill-in">Entradas</span></div><span style="font-size:11px;color:var(--text3)">${ent.length} itens</span></div>
+      <div>${rows}</div>
+      <div class="list-foot"><span class="foot-lbl">Total entradas</span><span class="foot-val" style="color:var(--in)">${fmt(sum(ent))}</span></div>
+    </div>
+    <div class="form-card">
+      <div class="form-section">➕ Nova entrada</div>
+      <div class="fg"><label class="flabel">Descrição</label><input id="e-desc" placeholder="Salário, freelance..."></div>
+      <div class="row2">
+        <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="e-val" placeholder="0,00" step="0.01"></div>
+        <div class="fg"><label class="flabel">Data</label><input id="e-data" placeholder="dd/mm"></div>
       </div>
-      <div class="form-card">
-        <div class="form-section">➕ Nova entrada</div>
-        <div class="fg"><label class="flabel">Descrição</label><input id="e-desc" placeholder="Salário, freelance, 13°..."></div>
-        <div class="row2">
-          <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="e-val" placeholder="0,00" step="0.01" min="0"></div>
-          <div class="fg"><label class="flabel">Data</label><input id="e-data" placeholder="dd/mm"></div>
-        </div>
-        <button class="btn-submit" onclick="addEntrada()">Adicionar entrada</button>
-        <div class="toast" id="toast-e">✅ Entrada adicionada!</div>
-      </div>
-    </div>`;
+      <button class="btn-submit" onclick="addEntrada()">Adicionar entrada</button>
+      <div class="toast" id="toast-e">✅ Entrada adicionada!</div>
+    </div>
+  </div>`;
 }
 
 function renderAdd(){
-  document.getElementById('tab-add').innerHTML=`
-    <div>
-      <div class="page-title">➕ Novo lançamento</div>
-      <div class="form-card">
-        <div class="form-section">💸 Novo gasto</div>
-        <div class="row2">
-          <div class="fg"><label class="flabel">Pessoa</label><select id="f-pessoa"><option>Márcio</option><option>Raíssa</option></select></div>
-          <div class="fg"><label class="flabel">Cartão</label><select id="f-tipo" onchange="toggleVenc()" ><option value="nu">🟣 Nubank</option><option value="c6">⚫ C6</option><option value="fix">🏠 Fixo</option></select></div>
-        </div>
-        <div class="fg"><label class="flabel">Descrição</label><input id="f-desc" placeholder="Nome do gasto"></div>
-        <div class="row2">
-          <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="f-val" placeholder="0,00" step="0.01" min="0" oninput="calcParcela()"></div>
-          <div class="fg"><label class="flabel">Data</label><input id="f-data" placeholder="dd/mm"></div>
-        </div>
-        <div class="row2">
-          <div class="fg"><label class="flabel">Parcela atual</label>
-            <input type="number" id="f-parc-atual" placeholder="ex: 1" min="1" oninput="calcParcela()">
-          </div>
-          <div class="fg"><label class="flabel">Total de parcelas</label>
-            <input type="number" id="f-parc-total" placeholder="ex: 12" min="1" oninput="calcParcela()">
-          </div>
-        </div>
-        <div class="fg" id="fg-venc" style="display:none">
-          <label class="flabel">Dia de vencimento</label>
-          <input type="number" id="f-venc" placeholder="ex: 10" min="1" max="31">
-        </div>
-        <div id="parc-preview" style="display:none;background:var(--nu-bg);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--nu-txt);font-weight:500"></div>
-        <button class="btn-submit" onclick="addGasto()">Adicionar gasto</button>
-        <div class="toast" id="toast-g">✅ Lançamento adicionado!</div>
+  document.getElementById('tab-add').innerHTML=`<div>
+    <div class="page-title">➕ Novo lançamento</div>
+    <div class="form-card">
+      <div class="form-section">💸 Novo gasto</div>
+      <div class="row2">
+        <div class="fg"><label class="flabel">Pessoa</label><select id="f-pessoa"><option>Márcio</option><option>Raíssa</option></select></div>
+        <div class="fg"><label class="flabel">Cartão</label><select id="f-tipo" onchange="toggleVenc()"><option value="nu">🟣 Nubank</option><option value="c6">⚫ C6</option><option value="fix">🏠 Fixo</option></select></div>
       </div>
-    </div>`;
+      <div class="fg"><label class="flabel">Descrição</label><input id="f-desc" placeholder="Nome do gasto"></div>
+      <div class="row2">
+        <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="f-val" placeholder="0,00" step="0.01" oninput="calcParcela()"></div>
+        <div class="fg"><label class="flabel">Data</label><input id="f-data" placeholder="dd/mm"></div>
+      </div>
+      <div class="row2">
+        <div class="fg"><label class="flabel">Parcela atual</label><input type="number" id="f-parc-atual" placeholder="ex: 1" min="1" oninput="calcParcela()"></div>
+        <div class="fg"><label class="flabel">Total parcelas</label><input type="number" id="f-parc-total" placeholder="ex: 12" min="1" oninput="calcParcela()"></div>
+      </div>
+      <div id="parc-preview" class="parc-preview"></div>
+      <div class="fg" id="fg-venc" style="display:none"><label class="flabel">Dia de vencimento</label><input type="number" id="f-venc" placeholder="ex: 10" min="1" max="31"></div>
+
+      <div class="fg" id="fg-rec">
+        <div class="flabel">Tipo de cobrança</div>
+        <div style="display:flex;gap:8px">
+          <button id="btn-rec-nao" onclick="setRec(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💳 Normal</button>
+          <button id="btn-rec-sim" onclick="setRec(true)"  style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:#f8fafc;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="rec-hint">Gasto único ou parcelado</div>
+      </div>
+
+      <button class="btn-submit" onclick="addGasto()">Adicionar gasto</button>
+      <div class="toast" id="toast-g">✅ Lançamento adicionado!</div>
+    </div>
+  </div>`;
+  window._recorrente=false;
 }
 
 function renderMeses(){
-  const meses=G.months;
-  const list=meses.map((mo,i)=>{
+  const list=G.months.map((mo,i)=>{
     const t=sum(mo.mnu)+sum(mo.mc6)+sum(mo.rnu)+sum(mo.rc6)+sum(mo.fix);
-    const isCur=i===G.current;
+    const cur=i===G.current;
     return `<div class="month-list-item">
-      <div>
-        <div class="month-name" style="font-weight:${isCur?600:400}">${mo.name}${isCur?' 📌':''}</div>
-        <div class="month-stats">Gasto total ${fmt(t)}</div>
-      </div>
-      <button class="${isCur?'btn-month-sel current':'btn-month-sel'}" onclick="selectMonth(${i})">${isCur?'Atual':'Selecionar'}</button>
+      <div><div class="month-name" style="font-weight:${cur?600:400}">${mo.name}${cur?' 📌':''}</div><div class="month-stats">Total ${fmt(t)}</div></div>
+      <button class="btn-month-sel${cur?' current':''}" onclick="selectMonth(${i})">${cur?'Atual':'Selecionar'}</button>
     </div>`;
   }).join('');
-  document.getElementById('tab-meses').innerHTML=`
-    <div>
-      <div class="page-title">📅 Meses</div>
-      <div class="month-mgr">
-        <div class="form-section">📆 Meses cadastrados</div>
-        ${list||'<div class="empty">Nenhum mês</div>'}
-        <button class="btn-new-month" onclick="addMonth()">➕ Novo mês</button>
-        <button class="btn-new-month" style="margin-top:6px;color:#dc2626;border-color:#fca5a5" onclick="restoreDefault()">🔄 Restaurar dados originais do Julho 2026</button>
-      </div>
-    </div>`;
+  document.getElementById('tab-meses').innerHTML=`<div>
+    <div class="page-title">📅 Meses</div>
+    <div class="month-mgr">
+      <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px">📆 Meses cadastrados</div>
+      ${list||'<div class="empty">Nenhum mês</div>'}
+      <button class="btn-new-month" onclick="addMonth()">➕ Novo mês</button>
+      <button class="btn-new-month" style="margin-top:6px;color:#dc2626;border-color:#fca5a5" onclick="restoreDefault()">🔄 Restaurar dados originais Julho 2026</button>
+    </div>
+  </div>`;
 }
 
-function selectMonth(i){G.current=i;save();renderAll();updateMonthLabel();}
-function prevMonth(){if(G.current>0){G.current--;save();renderAll();updateMonthLabel();}}
-function nextMonth(){if(G.current<G.months.length-1){G.current++;save();renderAll();updateMonthLabel();}}
-function updateMonthLabel(){document.getElementById('month-label').textContent=M().name;}
-
-function addMonth(){
-  const now=new Date();
-  const defaultName=`${MONTHS_NAMES[now.getMonth()]} ${now.getFullYear()}`;
-  const name=prompt('Nome do mês (ex: Agosto 2026):',defaultName);
-  if(!name||!name.trim())return;
-  const nm=blankMonth(name.trim());
-  G.months.push(nm);
-  G.current=G.months.length-1;
-  save();renderAll();updateMonthLabel();goTab('meses');
+// ── ACTIONS ──
+function setRec(val){
+  window._recorrente=val;
+  const btnNao=document.getElementById('btn-rec-nao');
+  const btnSim=document.getElementById('btn-rec-sim');
+  const hint=document.getElementById('rec-hint');
+  if(!btnNao||!btnSim)return;
+  if(val){
+    btnSim.style.background='var(--nu)';btnSim.style.color='#fff';btnSim.style.borderColor='var(--nu)';
+    btnNao.style.background='#f8fafc';btnNao.style.color='var(--text2)';btnNao.style.borderColor='var(--border)';
+    if(hint)hint.textContent='Assinatura cobrada todo mês enquanto ativa';
+  } else {
+    btnNao.style.background='var(--nu)';btnNao.style.color='#fff';btnNao.style.borderColor='var(--nu)';
+    btnSim.style.background='#f8fafc';btnSim.style.color='var(--text2)';btnSim.style.borderColor='var(--border)';
+    if(hint)hint.textContent='Gasto único ou parcelado';
+  }
 }
-
-function restoreDefault(){
-  if(!confirm('Isso vai restaurar todos os lançamentos originais do Julho 2026, substituindo o mês atual. Continuar?'))return;
-  const fresh=defaultData();
-  G.months[G.current]=fresh.months[0];
-  save();renderAll();updateMonthLabel();
-  alert('Lançamentos do Julho 2026 restaurados!');
+function toggleVenc(){
+  const t=document.getElementById('f-tipo');
+  const fg=document.getElementById('fg-venc');
+  const fgRec=document.getElementById('fg-rec');
+  const isFix=t&&t.value==='fix';
+  if(fg)fg.style.display=isFix?'block':'none';
+  if(fgRec)fgRec.style.display=isFix?'none':'block';
+  if(isFix){window._recorrente=false;}
 }
-
+function calcParcela(){
+  const val=parseFloat(document.getElementById('f-val')?.value)||0;
+  const total=parseInt(document.getElementById('f-parc-total')?.value)||0;
+  const atual=parseInt(document.getElementById('f-parc-atual')?.value)||0;
+  const prev=document.getElementById('parc-preview');
+  if(!prev)return;
+  if(val>0&&total>1){
+    prev.style.display='block';
+    prev.textContent='Parcela: '+fmt(val/total)+(atual&&total?' ('+atual+'-'+total+')':'');
+  } else {
+    prev.style.display='none';
+  }
+}
+function addGasto(){
+  const pessoa=document.getElementById('f-pessoa').value;
+  const tipo=document.getElementById('f-tipo').value;
+  const desc=document.getElementById('f-desc').value.trim();
+  const val=parseFloat(document.getElementById('f-val').value);
+  const data=document.getElementById('f-data').value.trim();
+  const pAtual=parseInt(document.getElementById('f-parc-atual')?.value)||0;
+  const pTotal=parseInt(document.getElementById('f-parc-total')?.value)||0;
+  const venc=tipo==='fix'?(document.getElementById('f-venc')?.value.trim()||''):'';
+  const recorrente=tipo!=='fix'&&(window._recorrente||false);
+  if(!desc||isNaN(val)||val<=0)return;
+  const isParc=pTotal>1;
+  const valFinal=isParc?val/pTotal:val;
+  const sufixo=isParc?(pAtual&&pTotal?' '+pAtual+'-'+pTotal:' 1-'+pTotal):'';
+  const key=pessoa==='Márcio'?(tipo==='nu'?'mnu':tipo==='c6'?'mc6':'fix'):(tipo==='nu'?'rnu':'rc6');
+  const item={desc:desc+sufixo,val:parseFloat(valFinal.toFixed(2)),data};
+  if(tipo==='fix'&&venc)item.venc=venc;
+  if(recorrente)item.recorrente=true;
+  M()[key].push(item);
+  save();renderAll();
+  ['f-desc','f-val','f-data','f-parc-atual','f-parc-total','f-venc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  const cb=document.getElementById('f-rec');if(cb)cb.checked=false;;
+  const prev=document.getElementById('parc-preview');if(prev)prev.style.display='none';
+  showToast('toast-g');
+}
 function addEntrada(){
   const desc=document.getElementById('e-desc').value.trim();
   const val=parseFloat(document.getElementById('e-val').value);
@@ -733,82 +1974,43 @@ function addEntrada(){
   if(!desc||isNaN(val)||val<=0)return;
   M().entradas.push({desc,val,data});
   save();renderAll();
-  document.getElementById('e-desc').value='';
-  document.getElementById('e-val').value='';
-  document.getElementById('e-data').value='';
+  ['e-desc','e-val','e-data'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   showToast('toast-e');
 }
-
-function toggleVenc(){
-  const tipo=document.getElementById('f-tipo')?.value;
-  const fg=document.getElementById('fg-venc');
-  if(fg)fg.style.display=tipo==='fix'?'block':'none';
-}
-
-function calcParcela(){
-  const val=parseFloat(document.getElementById('f-val')?.value)||0;
-  const atual=parseInt(document.getElementById('f-parc-atual')?.value)||0;
-  const total=parseInt(document.getElementById('f-parc-total')?.value)||0;
-  const preview=document.getElementById('parc-preview');
-  if(!preview)return;
-  if(val>0&&total>1){
-    const parcVal=val/total;
-    preview.style.display='block';
-    preview.textContent=`Parcela: R$ ${parcVal.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})} ${atual&&total?`(${atual}-${total})`:''}`;
-  } else {
-    preview.style.display='none';
-  }
-}
-
-function addGasto(){
-  const pessoa=document.getElementById('f-pessoa').value;
-  const tipo=document.getElementById('f-tipo').value;
-  const desc=document.getElementById('f-desc').value.trim();
-  const val=parseFloat(document.getElementById('f-val').value);
-  const data=document.getElementById('f-data').value.trim();
-  const parcAtual=parseInt(document.getElementById('f-parc-atual')?.value)||0;
-  const parcTotal=parseInt(document.getElementById('f-parc-total')?.value)||0;
-  if(!desc||isNaN(val)||val<=0)return;
-  const isParcelado=parcTotal>1;
-  const valorFinal=isParcelado?val/parcTotal:val;
-  const sufixo=isParcelado&&parcAtual&&parcTotal?` ${parcAtual}-${parcTotal}`:(isParcelado&&parcTotal?` 1-${parcTotal}`:'');
-  const descFinal=desc+sufixo;
-  const venc=tipo==='fix'?(document.getElementById('f-venc')?.value.trim()||''):'';
-  const key=pessoa==='Márcio'?(tipo==='nu'?'mnu':tipo==='c6'?'mc6':'fix'):(tipo==='nu'?'rnu':'rc6');
-  M()[key].push({desc:descFinal,val:parseFloat(valorFinal.toFixed(2)),data,...(tipo==='fix'&&venc?{venc}:{})});
-  save();renderAll();
-  document.getElementById('f-desc').value='';
-  document.getElementById('f-val').value='';
-  document.getElementById('f-data').value='';
-  document.getElementById('f-parc-atual').value='';
-  document.getElementById('f-parc-total').value='';
-  if(document.getElementById('f-venc'))document.getElementById('f-venc').value='';
-  const preview=document.getElementById('parc-preview');
-  if(preview)preview.style.display='none';
-  showToast('toast-g');
-}
-
 function showToast(id){
-  const el=document.getElementById(id);
-  if(!el)return;
+  const el=document.getElementById(id);if(!el)return;
   el.style.display='block';
-  setTimeout(()=>el.style.display='none',2200);
+  setTimeout(()=>{el.style.display='none';},2200);
+}
+function selectMonth(i){G.current=i;save();renderAll();updateLabel();}
+function prevMonth(){if(G.current>0){G.current--;save();renderAll();updateLabel();}}
+function nextMonth(){if(G.current<G.months.length-1){G.current++;save();renderAll();updateLabel();}}
+function updateLabel(){document.getElementById('month-label').textContent=M().name;}
+function addMonth(){
+  const name=prompt('Nome do mês (ex: Agosto 2026):',MONTH_NAMES[new Date().getMonth()]+' '+new Date().getFullYear());
+  if(!name||!name.trim())return;
+  G.months.push(blankMonth(name.trim()));
+  G.current=G.months.length-1;
+  save();renderAll();updateLabel();goTab('meses');
+}
+function restoreDefault(){
+  if(!confirm('Restaurar todos os lançamentos originais do Julho 2026?'))return;
+  G.months[G.current]=defaultData().months[0];
+  save();renderAll();updateLabel();
 }
 
+// ── ROUTING ──
 let activeTab='painel';
 function goTab(id){
-  ['painel','marcio','raissa','fixos','entradas','add','meses'].forEach(t=>{
+  ['painel','marcio','raissa','add','analise','fixos','meses'].forEach(t=>{
     const b=document.getElementById('bn-'+t);
     if(b)b.classList.toggle('active',t===id);
   });
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   activeTab=id;
-  if(editingChart&&id==='painel'){editingChart.destroy();editingChart=null;}
-  if(chartR&&id!=='painel'){chartR.destroy();chartR=null;}
   renderTab(id);
 }
-
 function renderTab(id){
   if(id==='painel')renderPainel();
   else if(id==='marcio')renderMarcio();
@@ -817,13 +2019,236 @@ function renderTab(id){
   else if(id==='entradas')renderEntradas();
   else if(id==='add')renderAdd();
   else if(id==='meses')renderMeses();
+  else if(id==='analise')renderAnalise();
+}
+let _analiseView='marcio';
+function renderAnalise(){
+  if(G.months.length<2){
+    document.getElementById('tab-analise').innerHTML=`<div>
+      <div class="page-title">📈 Análise</div>
+      <div style="background:var(--surface);border-radius:var(--radius);padding:32px 20px;text-align:center;box-shadow:var(--shadow)">
+        <div style="font-size:36px;margin-bottom:12px">📊</div>
+        <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px">Dados insuficientes</div>
+        <div style="font-size:13px;color:var(--text3)">Adicione pelo menos 2 meses para ver a análise comparativa.</div>
+      </div>
+    </div>`;
+    return;
+  }
+
+  const meses=G.months;
+  const labels=meses.map(mo=>mo.name.split(' ')[0].slice(0,3));
+
+  function diff(a,b){
+    if(b==null)return null;
+    const d=a-b, pct=b>0?Math.round(d/b*100):0;
+    return {d,pct,up:d>0};
+  }
+  function badge(d){
+    if(!d)return '';
+    const col=d.up?'#dc2626':'#16a34a';
+    const bg=d.up?'#fee2e2':'#dcfce7';
+    return `<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:${bg};color:${col}">${d.up?'▲':'▼'} ${Math.abs(d.pct)}%</span>`;
+  }
+  function barRows(key, dadosPessoa){
+    const maxVal=Math.max(...dadosPessoa.map(d=>d[key]),1);
+    return meses.map((mo,i)=>`
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+        <span style="font-size:11px;color:var(--text3);width:32px;flex:0 0 32px">${labels[i]}</span>
+        <div style="flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden">
+          <div style="height:8px;border-radius:4px;background:var(--bar-color,#7c3aed);width:${Math.round(dadosPessoa[i][key]/maxVal*100)}%"></div>
+        </div>
+        <span style="font-size:11px;font-weight:600;color:var(--text);width:76px;text-align:right;flex:0 0 76px">${fmt(dadosPessoa[i][key])}</span>
+      </div>`).join('');
+  }
+
+  function secaoTipos(dadosPessoa, accentColor){
+    const tipos=[
+      {key:'parceladas',label:'📦 Parceladas',color:'#2563eb'},
+      {key:'avulsas',   label:'🛍️ Avulsas',   color:'#475569'},
+      {key:'assinaturas',label:'🔄 Assinaturas',color:'#7c3aed'},
+    ];
+    const last=dadosPessoa[dadosPessoa.length-1];
+    const prev=dadosPessoa[dadosPessoa.length-2];
+    let h='';
+    tipos.forEach(t=>{
+      const d=diff(last[t.key],prev[t.key]);
+      const maxVal=Math.max(...dadosPessoa.map(x=>x[t.key]),1);
+      h+=`<div style="margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+          <span style="font-size:13px;font-weight:600;color:var(--text)">${t.label}</span>
+          ${badge(d)}
+        </div>
+        ${meses.map((mo,i)=>`
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+            <span style="font-size:11px;color:var(--text3);width:32px;flex:0 0 32px">${labels[i]}</span>
+            <div style="flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden">
+              <div style="height:8px;border-radius:4px;background:${t.color};width:${Math.round(dadosPessoa[i][t.key]/maxVal*100)}%"></div>
+            </div>
+            <span style="font-size:11px;font-weight:600;color:var(--text);width:76px;text-align:right;flex:0 0 76px">${fmt(dadosPessoa[i][t.key])}</span>
+          </div>`).join('')}
+      </div>`;
+    });
+    return h;
+  }
+
+  function pessoaBlock(nome, emoji, accentColor, keys){
+    const dadosPessoa=meses.map(mo=>{
+      const itens=keys.flatMap(k=>mo[k]||[]);
+      return {
+        total:  keys.reduce((t,k)=>t+sum(mo[k]),0),
+        nu:     keys.filter(k=>k.includes('nu')||k==='mnu'||k==='rnu').reduce((t,k)=>t+sum(mo[k]),0),
+        c6:     keys.filter(k=>k.includes('c6')||k==='mc6'||k==='rc6').reduce((t,k)=>t+sum(mo[k]),0),
+        parceladas:  itens.filter(i=>isParcelado(i)&&!i.recorrente).reduce((t,i)=>t+(+i.val||0),0),
+        avulsas:     itens.filter(i=>!isParcelado(i)&&!i.recorrente).reduce((t,i)=>t+(+i.val||0),0),
+        assinaturas: itens.filter(i=>i.recorrente).reduce((t,i)=>t+(+i.val||0),0),
+      };
+    });
+    const last=dadosPessoa[dadosPessoa.length-1];
+    const prev=dadosPessoa[dadosPessoa.length-2];
+    const dTotal=diff(last.total,prev.total);
+    const dNu=diff(last.nu,prev.nu);
+    const dC6=diff(last.c6,prev.c6);
+
+    return `
+      <!-- Hero ${nome} -->
+      <div style="background:linear-gradient(135deg,${accentColor}dd,${accentColor});border-radius:var(--radius);padding:20px;margin-bottom:14px;color:#fff">
+        <div style="font-size:11px;font-weight:600;opacity:.65;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">${emoji} ${nome} · ${meses[meses.length-2].name} → ${meses[meses.length-1].name}</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end">
+          <div>
+            <div style="font-size:11px;opacity:.65;margin-bottom:4px">Total de gastos</div>
+            <div style="font-size:28px;font-weight:700;letter-spacing:-1px">${fmt(last.total)}</div>
+            <div style="font-size:12px;opacity:.55;margin-top:4px">Antes: ${fmt(prev.total)}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:20px;font-weight:700">${dTotal&&dTotal.up?'▲':'▼'} ${fmt(Math.abs(last.total-prev.total))}</div>
+            <div style="font-size:12px;opacity:.65">${dTotal?Math.abs(dTotal.pct)+'% de variação':''}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cartões -->
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
+        <div style="background:var(--surface);border-radius:14px;padding:14px;box-shadow:var(--shadow);border-top:3px solid #7c3aed">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;font-weight:600;color:var(--text2)">🟣 Nubank</span>${badge(dNu)}
+          </div>
+          <div style="font-size:18px;font-weight:700">${fmt(last.nu)}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: ${fmt(prev.nu)}</div>
+        </div>
+        <div style="background:var(--surface);border-radius:14px;padding:14px;box-shadow:var(--shadow);border-top:3px solid #1e293b">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;font-weight:600;color:var(--text2)">⚫ C6</span>${badge(dC6)}
+          </div>
+          <div style="font-size:18px;font-weight:700">${fmt(last.c6)}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: ${fmt(prev.c6)}</div>
+        </div>
+      </div>
+
+      <!-- Tipos de gasto -->
+      <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px">Por tipo de gasto</div>
+        ${secaoTipos(dadosPessoa, accentColor)}
+      </div>`;
+  }
+
+  // Dados gerais para aba Geral
+  const dadosGeral=meses.map(mo=>({
+    total: sum(mo.mnu)+sum(mo.mc6)+sum(mo.rnu)+sum(mo.rc6)+sum(mo.fix),
+    marcio: sum(mo.mnu)+sum(mo.mc6)+sum(mo.fix),
+    raissa: sum(mo.rnu)+sum(mo.rc6),
+    fix: sum(mo.fix),
+    entradas: sum(mo.entradas),
+  }));
+  const lastG=dadosGeral[dadosGeral.length-1];
+  const prevG=dadosGeral[dadosGeral.length-2];
+
+  function geralBlock(){
+    let h=`
+      <div style="background:linear-gradient(135deg,#1e1b4b,#4c1d95);border-radius:var(--radius);padding:20px;margin-bottom:14px;color:#fff">
+        <div style="font-size:11px;font-weight:600;opacity:.65;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">🌐 Geral · ${meses[meses.length-2].name} → ${meses[meses.length-1].name}</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end">
+          <div>
+            <div style="font-size:11px;opacity:.65;margin-bottom:4px">Total família</div>
+            <div style="font-size:28px;font-weight:700;letter-spacing:-1px">${fmt(lastG.total)}</div>
+            <div style="font-size:12px;opacity:.55;margin-top:4px">Antes: ${fmt(prevG.total)}</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:20px;font-weight:700">${lastG.total>prevG.total?'▲':'▼'} ${fmt(Math.abs(lastG.total-prevG.total))}</div>
+            <div style="font-size:12px;opacity:.65">${Math.abs(diff(lastG.total,prevG.total).pct)}% de variação</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
+        <div style="background:var(--surface);border-radius:14px;padding:14px;box-shadow:var(--shadow);border-top:3px solid #7c3aed">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+            <span style="font-size:12px;font-weight:600;color:var(--text2)">👤 Márcio</span>${badge(diff(lastG.marcio,prevG.marcio))}
+          </div>
+          <div style="font-size:18px;font-weight:700">${fmt(lastG.marcio)}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: ${fmt(prevG.marcio)}</div>
+        </div>
+        <div style="background:var(--surface);border-radius:14px;padding:14px;box-shadow:var(--shadow);border-top:3px solid #db2777">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+            <span style="font-size:12px;font-weight:600;color:var(--text2)">💜 Raíssa</span>${badge(diff(lastG.raissa,prevG.raissa))}
+          </div>
+          <div style="font-size:18px;font-weight:700">${fmt(lastG.raissa)}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: ${fmt(prevG.raissa)}</div>
+        </div>
+      </div>`;
+
+    // Saldo por mês
+    h+=`<div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px">💡 Controle — Márcio</div>`;
+    meses.forEach((mo,i)=>{
+      const d=dadosGeral[i];
+      const saldo=d.entradas-d.marcio;
+      const pct=d.entradas>0?Math.round(d.marcio/d.entradas*100):0;
+      const col=saldo>=0?'#16a34a':'#dc2626';
+      const bgCol=saldo>=0?'#dcfce7':'#fee2e2';
+      h+=`<div style="margin-bottom:10px;padding:12px 14px;background:#f8fafc;border-radius:12px;border-left:4px solid ${col}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <span style="font-size:13px;font-weight:700">${mo.name}</span>
+          <span style="font-size:11px;font-weight:700;padding:2px 9px;border-radius:8px;background:${bgCol};color:${col}">${saldo>=0?'✅ Sobrou':'❌ Déficit'} ${fmt(Math.abs(saldo))}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:6px">
+          <span>Entradas: <b style="color:var(--in)">${fmt(d.entradas)}</b></span>
+          <span>Gastos: <b style="color:var(--danger)">${fmt(d.marcio)}</b></span>
+          <span>${pct}% comprometido</span>
+        </div>
+        <div style="height:7px;background:#e2e8f0;border-radius:4px;overflow:hidden">
+          <div style="height:7px;border-radius:4px;background:${pct>100?'#dc2626':pct>80?'#f97316':'#16a34a'};width:${Math.min(pct,100)}%"></div>
+        </div>
+      </div>`;
+    });
+    h+=`</div>`;
+    return h;
+  }
+
+  // View selector
+  const views=[
+    {id:'marcio', label:'👤 Márcio'},
+    {id:'raissa', label:'💜 Raíssa'},
+    {id:'geral',  label:'🌐 Geral'},
+  ];
+  const viewSel=views.map(v=>`
+    <button onclick="_analiseView='${v.id}';renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid ${_analiseView===v.id?'var(--nu)':'var(--border)'};background:${_analiseView===v.id?'var(--nu)':'var(--surface)'};color:${_analiseView===v.id?'#fff':'var(--text2)'};font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">
+      ${v.label}
+    </button>`).join('');
+
+  let content='';
+  if(_analiseView==='marcio')      content=pessoaBlock('Márcio','👤','#4c1d95',['mnu','mc6']);
+  else if(_analiseView==='raissa') content=pessoaBlock('Raíssa','💜','#be185d',['rnu','rc6']);
+  else                             content=geralBlock();
+
+  document.getElementById('tab-analise').innerHTML=`<div>
+    <div class="page-title">📈 Análise Comparativa</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">${viewSel}</div>
+    ${content}
+  </div>`;
 }
 
-function renderAll(){
-  if(editingChart){editingChart.destroy();editingChart=null;}
-  renderTab(activeTab);
-  updateMonthLabel();
-}
-
+function renderAll(){renderTab(activeTab);updateLabel();}
 renderAll();
 </script>
+
+
+</body></html>
