@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)file:///C:/Users/Marcio/Downloads/relatorio-mv_5.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório Financeiro MV</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;color:#1e293b;font-size:14px}
+
+.screen-wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px}
+
+/* CONTROLS */
+.controls{background:#fff;border-radius:14px;padding:16px;margin-bottom:16px;border:1px solid #e2e8f0;display:flex;flex-direction:column;gap:12px}
+.control-label{font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+.btn-group{display:flex;gap:8px;flex-wrap:wrap}
+.btn{padding:9px 16px;border-radius:10px;border:none;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn-person{background:#f8fafc;color:#475569;border:2px solid #e2e8f0;flex:1;justify-content:center}
+.btn-person.active-m{background:#4f46e5;color:#fff;border-color:#4f46e5}
+.btn-person.active-r{background:#db2777;color:#fff;border-color:#db2777}
+.btn-person.active-all{background:#1e1b4b;color:#fff;border-color:#1e1b4b}
+.btn-month{background:#f8fafc;color:#475569;border:1.5px solid #e2e8f0;white-space:nowrap}
+.btn-month.active{background:#4f46e5;color:#fff;border-color:#4f46e5}
+.btn-print{background:#4f46e5;color:#fff;width:100%;justify-content:center;padding:12px;font-size:13px;border-radius:12px}
+
+/* HEADER */
+.report-header{background:linear-gradient(135deg,#1e1b4b,#4c1d95);border-radius:14px;padding:20px 24px;margin-bottom:16px;color:#fff}
+.report-header .eyebrow{font-size:10px;font-weight:600;opacity:.6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.report-header h1{font-size:20px;font-weight:700;margin-bottom:12px}
+.report-header .meta-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px}
+.report-header .meta-item{text-align:center}
+.report-header .meta-val{font-size:16px;font-weight:700}
+.report-header .meta-lbl{font-size:10px;opacity:.6;margin-top:2px}
+.report-header .divider{height:1px;background:rgba(255,255,255,.2);margin:12px 0}
+
+/* SUMMARY */
+.summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+@media(min-width:500px){.summary-grid{grid-template-columns:repeat(4,1fr)}}
+.summary-card{background:#fff;border-radius:12px;padding:14px;border:1px solid #e2e8f0}
+.summary-card .lbl{font-size:11px;color:#94a3b8;font-weight:500;margin-bottom:4px}
+.summary-card .val{font-size:15px;font-weight:700}
+
+/* CARD SECTION */
+.card-section{margin-bottom:20px}
+.card-section-title{font-size:13px;font-weight:700;color:#475569;margin-bottom:10px;display:flex;align-items:center;gap:6px;padding-left:2px}
+
+/* TYPE SECTION */
+.type-section{background:#fff;border-radius:12px;margin-bottom:10px;border:1px solid #e2e8f0;overflow:hidden}
+.type-head{padding:12px 16px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between}
+.type-head .type-title{font-size:12px;font-weight:700;display:flex;align-items:center;gap:7px}
+.type-head .type-total{font-size:13px;font-weight:700;color:#1e293b}
+
+table{width:100%;border-collapse:collapse}
+td{padding:9px 14px;font-size:12px;border-bottom:1px solid #f8fafc;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.td-desc{color:#1e293b;font-weight:500;max-width:200px}
+.td-date{color:#94a3b8;font-size:11px;white-space:nowrap}
+.td-cat{white-space:nowrap}
+.td-val{text-align:right;font-weight:600;color:#1e293b;white-space:nowrap}
+.cat-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:6px;display:inline-flex;align-items:center;gap:3px;white-space:nowrap}
+.rec-dot{width:5px;height:5px;border-radius:50%;background:#7c3aed;display:inline-block;margin-right:4px;flex-shrink:0}
+
+.type-foot{padding:9px 14px;background:#f8fafc;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f1f5f9}
+.type-foot .lbl{font-size:11px;color:#64748b;font-weight:500}
+.type-foot .val{font-size:13px;font-weight:700}
+
+.empty-section{padding:20px;text-align:center;color:#94a3b8;font-size:12px}
+.no-data{background:#fff;border-radius:12px;padding:32px;text-align:center;border:1px solid #e2e8f0;color:#94a3b8}
+
+/* PRINT */
+@media print{
+  body{background:#fff;font-size:11px}
+  .no-print{display:none!important}
+  .screen-wrap{max-width:100%;padding:0;margin:0}
+
+  .report-header{
+    background:linear-gradient(135deg,#1e1b4b,#4c1d95)!important;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+    border-radius:6px;
+    margin-bottom:12px;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+
+  .summary-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    margin-bottom:12px;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+  .summary-card{border-radius:4px;padding:10px 12px}
+
+  /* Cada cartão (Nubank, C6...) tenta ficar junto mas pode quebrar entre seções */
+  .card-section{
+    page-break-inside:avoid;
+    break-inside:avoid;
+    margin-bottom:14px;
+  }
+
+  /* Se o card-section for grande demais, pelo menos cada tipo fica junto */
+  .type-section{
+    page-break-inside:avoid;
+    break-inside:avoid;
+    margin-bottom:8px;
+    border-radius:4px;
+  }
+
+  /* Título do cartão sempre junto com o primeiro bloco */
+  .card-section-title{
+    page-break-after:avoid;
+    break-after:avoid;
+    font-size:12px;
+    margin-bottom:6px;
+  }
+
+  td{padding:5px 10px;font-size:10px}
+  .cat-badge{font-size:9px;padding:1px 5px}
+  .type-head{padding:9px 12px}
+  .type-foot{padding:7px 12px}
+  .type-head .type-title{font-size:11px}
+  .type-head .type-total{font-size:12px}
+
+  @page{margin:12mm;size:A4}
+}
+</style>
+</head>
+<body>
+<div class="screen-wrap">
+
+  <!-- CONTROLES (some no PDF) -->
+  <div class="controls no-print">
+
+    <div>
+      <div class="control-label">Mês</div>
+      <div class="btn-group" id="month-btns">
+    <button class="btn btn-month" onclick="setMes(0)">Junho 2026</button>
+  
+    <button class="btn btn-month" onclick="setMes(1)">Julho 2026</button>
+  
+    <button class="btn btn-month active" onclick="setMes(2)">Agosto 2026</button>
+  </div>
+    </div>
+
+    <div>
+      <div class="control-label">Pessoa</div>
+      <div class="btn-group">
+        <button class="btn btn-person active-all" id="btn-all" onclick="setPessoa(&#39;all&#39;)">🏠 Todos</button>
+        <button class="btn btn-person" id="btn-marcio" onclick="setPessoa(&#39;marcio&#39;)">👤 Márcio</button>
+        <button class="btn btn-person" id="btn-raissa" onclick="setPessoa(&#39;raissa&#39;)">💜 Raíssa</button>
+      </div>
+    </div>
+
+    <button class="btn btn-print" onclick="window.print()">🖨️ Salvar como PDF / Imprimir</button>
+    <div id="sync-status" style="display: none; font-size: 12px; font-weight: 600; text-align: center; padding: 6px 0px; border-radius: 8px; color: rgb(22, 163, 74);">☁️ Atualizado da nuvem!</div>
+  </div>
+
+  <!-- RELATÓRIO -->
+  <div id="report">
+    <div class="report-header">
+      <div class="eyebrow">Relatório Financeiro · Família MV</div>
+      <h1>Agosto 2026</h1>
+      <div class="divider"></div>
+      <div class="meta-row">
+      <div class="meta-item"><div class="meta-val">R$ 3.437,01</div><div class="meta-lbl">Márcio</div></div>
+      <div class="meta-item"><div class="meta-val">R$ 1.892,24</div><div class="meta-lbl">Raíssa</div></div>
+      <div class="meta-item"><div class="meta-val">R$ 5.329,25</div><div class="meta-lbl">Total</div></div><div class="meta-item" style="opacity:.6"><div class="meta-val" style="font-size:12px">08/06/2026</div><div class="meta-lbl">Gerado em</div></div></div>
+    </div>
+    
+    <div class="card-section">
+      <div class="card-section-title" style="color:#7c3aed">🟣 Nubank — Márcio <span style="font-size:12px;color:#94a3b8;font-weight:500">· R$ 597,73</span></div>
+      
+    <div class="type-section">
+      <div class="type-head">
+        <div class="type-title"><span>📦</span><span style="color:#2563eb">Compras Parceladas</span><span style="font-size:10px;background:#2563eb18;color:#2563eb;padding:1px 7px;border-radius:8px;font-weight:700">4</span></div>
+        <div class="type-total">R$ 597,73</div>
+      </div>
+      <table><tbody><tr>
+      <td class="td-desc"><span style="">Bateria carro div 10-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#3b82f618;color:#3b82f6">🚗 Transporte</span></td>
+      <td class="td-val" style="">R$ 24,95</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">MV 4-5</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#8b5cf618;color:#8b5cf6">🛍️ Compras</span></td>
+      <td class="td-val" style="">R$ 269,35</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Pix Sushi Home 2-3 div</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#14b8a618;color:#14b8a6">💸 Pix Crédito</span></td>
+      <td class="td-val" style="">R$ 34,08</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Pix MV 4-5</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#14b8a618;color:#14b8a6">💸 Pix Crédito</span></td>
+      <td class="td-val" style="">R$ 269,35</td>
+    </tr></tbody></table>
+      <div class="type-foot">
+        <span class="lbl">Subtotal</span>
+        <span class="val">R$ 597,73</span>
+      </div>
+    </div>
+    </div>
+    <div class="card-section">
+      <div class="card-section-title" style="color:#334155">⚫ C6 — Márcio <span style="font-size:12px;color:#94a3b8;font-weight:500">· R$ 1.440,71</span></div>
+      
+    <div class="type-section">
+      <div class="type-head">
+        <div class="type-title"><span>📦</span><span style="color:#2563eb">Compras Parceladas</span><span style="font-size:10px;background:#2563eb18;color:#2563eb;padding:1px 7px;border-radius:8px;font-weight:700">18</span></div>
+        <div class="type-total">R$ 1.139,90</div>
+      </div>
+      <table><tbody><tr>
+      <td class="td-desc"><span style="">PS5 Amazon 9-12</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#f43f5e18;color:#f43f5e">🎮 Lazer</span></td>
+      <td class="td-val" style="">R$ 249,91</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Boi da Macuca div 10-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#f59e0b18;color:#f59e0b">🍔 Alimentação</span></td>
+      <td class="td-val" style="">R$ 18,51</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Boticário 10-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 56,75</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Perfume 5-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 50,00</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Sócio CNC 9-12</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 67,42</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Mercado Livre 4-11</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#8b5cf618;color:#8b5cf6">🛍️ Compras</span></td>
+      <td class="td-val" style="">R$ 33,71</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Mercado Livre 4-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#8b5cf618;color:#8b5cf6">🛍️ Compras</span></td>
+      <td class="td-val" style="">R$ 34,03</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Rayvson Geladeira 4-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#0ea5e918;color:#0ea5e9">🏠 Casa/Moradia</span></td>
+      <td class="td-val" style="">R$ 269,90</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Clínica Sim 4-4</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#10b98118;color:#10b981">🏥 Saúde</span></td>
+      <td class="td-val" style="">R$ 45,00</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Camisa CNC 4-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 71,65</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Clínica Sim 3-3</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#10b98118;color:#10b981">🏥 Saúde</span></td>
+      <td class="td-val" style="">R$ 40,00</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Shopee short 3-3</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#8b5cf618;color:#8b5cf6">🛍️ Compras</span></td>
+      <td class="td-val" style="">R$ 50,52</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Shopee cadeira 3-7</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#8b5cf618;color:#8b5cf6">🛍️ Compras</span></td>
+      <td class="td-val" style="">R$ 55,13</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">ML óculos 3-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#8b5cf618;color:#8b5cf6">🛍️ Compras</span></td>
+      <td class="td-val" style="">R$ 18,14</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Shopee 3-4</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#8b5cf618;color:#8b5cf6">🛍️ Compras</span></td>
+      <td class="td-val" style="">R$ 12,92</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Shopee 3-5</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#8b5cf618;color:#8b5cf6">🛍️ Compras</span></td>
+      <td class="td-val" style="">R$ 15,77</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">IFOOD CHINA 48 3-3</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#f59e0b18;color:#f59e0b">🍔 Alimentação</span></td>
+      <td class="td-val" style="">R$ 24,43</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">AIRBNB 3-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#06b6d418;color:#06b6d4">✈️ Viagem</span></td>
+      <td class="td-val" style="">R$ 26,11</td>
+    </tr></tbody></table>
+      <div class="type-foot">
+        <span class="lbl">Subtotal</span>
+        <span class="val">R$ 1.139,90</span>
+      </div>
+    </div>
+    <div class="type-section">
+      <div class="type-head">
+        <div class="type-title"><span>🔄</span><span style="color:#7c3aed">Assinaturas</span><span style="font-size:10px;background:#7c3aed18;color:#7c3aed;padding:1px 7px;border-radius:8px;font-weight:700">7</span></div>
+        <div class="type-total">R$ 300,81</div>
+      </div>
+      <table><tbody><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>Google Drive</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 9,99</td>
+    </tr><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>Apple</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 5,90</td>
+    </tr><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>TIM Cel</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 66,99</td>
+    </tr><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>TIM Net</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 59,99</td>
+    </tr><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>Spotify</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 23,90</td>
+    </tr><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>Amazon Prime</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 19,90</td>
+    </tr><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>Claude Mensal</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"></td>
+      <td class="td-val" style="">R$ 114,14</td>
+    </tr></tbody></table>
+      <div class="type-foot">
+        <span class="lbl">Subtotal</span>
+        <span class="val">R$ 300,81</span>
+      </div>
+    </div>
+    </div>
+    <div class="card-section">
+      <div class="card-section-title" style="color:#10b981">🏠 Fixos <span style="font-size:12px;color:#94a3b8;font-weight:500">· R$ 1.398,57</span></div>
+      
+    <div class="type-section">
+      <div class="type-head">
+        <div class="type-title"><span>🏠</span><span style="color:#10b981">Contas Fixas</span><span style="font-size:10px;background:#10b98118;color:#10b981;padding:1px 7px;border-radius:8px;font-weight:700">7</span></div>
+        <div class="type-total">R$ 1.398,57</div>
+      </div>
+      <table><tbody><tr>
+      <td class="td-desc"><span style="">Consórcio</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#0ea5e918;color:#0ea5e9">🏠 Casa/Moradia</span></td>
+      <td class="td-val" style="">R$ 437,54</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Condomínio</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#0ea5e918;color:#0ea5e9">🏠 Casa/Moradia</span></td>
+      <td class="td-val" style="">R$ 330,00</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Oh Boxe</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#22c55e18;color:#22c55e">⚽ Esportes</span></td>
+      <td class="td-val" style="">R$ 140,00</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">C&amp;A Pay 8-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 47,00</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">IPTU</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#0ea5e918;color:#0ea5e9">🏠 Casa/Moradia</span></td>
+      <td class="td-val" style="">R$ 138,48</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">CELPE</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#0ea5e918;color:#0ea5e9">🏠 Casa/Moradia</span></td>
+      <td class="td-val" style="">R$ 219,50</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">MEI</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#0ea5e918;color:#0ea5e9">🏠 Casa/Moradia</span></td>
+      <td class="td-val" style="">R$ 86,05</td>
+    </tr></tbody></table>
+      <div class="type-foot">
+        <span class="lbl">Subtotal</span>
+        <span class="val">R$ 1.398,57</span>
+      </div>
+    </div>
+    </div>
+    <div class="card-section">
+      <div class="card-section-title" style="color:#db2777">🟣 Nubank — Raíssa <span style="font-size:12px;color:#94a3b8;font-weight:500">· R$ 938,82</span></div>
+      
+    <div class="type-section">
+      <div class="type-head">
+        <div class="type-title"><span>📦</span><span style="color:#2563eb">Compras Parceladas</span><span style="font-size:10px;background:#2563eb18;color:#2563eb;padding:1px 7px;border-radius:8px;font-weight:700">9</span></div>
+        <div class="type-total">R$ 917,92</div>
+      </div>
+      <table><tbody><tr>
+      <td class="td-desc"><span style="">Embala Shop 9-12</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#0ea5e918;color:#0ea5e9">🏠 Casa/Moradia</span></td>
+      <td class="td-val" style="">R$ 132,11</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Renner 9-12</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 59,35</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Pix Maria Julia 4-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#14b8a618;color:#14b8a6">💸 Pix Crédito</span></td>
+      <td class="td-val" style="">R$ 195,77</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Pix CEA Pay 4-5</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#14b8a618;color:#14b8a6">💸 Pix Crédito</span></td>
+      <td class="td-val" style="">R$ 171,00</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Thaís Regina 5-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 56,96</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Pix Ju Souto 4-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#14b8a618;color:#14b8a6">💸 Pix Crédito</span></td>
+      <td class="td-val" style="">R$ 47,74</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Midway 2-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#14b8a618;color:#14b8a6">💸 Pix Crédito</span></td>
+      <td class="td-val" style="">R$ 176,78</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Natalia Tatuagem 8-12</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 53,26</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Bateria carro div 10-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#3b82f618;color:#3b82f6">🚗 Transporte</span></td>
+      <td class="td-val" style="">R$ 24,95</td>
+    </tr></tbody></table>
+      <div class="type-foot">
+        <span class="lbl">Subtotal</span>
+        <span class="val">R$ 917,92</span>
+      </div>
+    </div>
+    <div class="type-section">
+      <div class="type-head">
+        <div class="type-title"><span>🔄</span><span style="color:#7c3aed">Assinaturas</span><span style="font-size:10px;background:#7c3aed18;color:#7c3aed;padding:1px 7px;border-radius:8px;font-weight:700">1</span></div>
+        <div class="type-total">R$ 20,90</div>
+      </div>
+      <table><tbody><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>Netflix</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 20,90</td>
+    </tr></tbody></table>
+      <div class="type-foot">
+        <span class="lbl">Subtotal</span>
+        <span class="val">R$ 20,90</span>
+      </div>
+    </div>
+    </div>
+    <div class="card-section">
+      <div class="card-section-title" style="color:#f97316">⚫ C6 — Raíssa <span style="font-size:12px;color:#94a3b8;font-weight:500">· R$ 953,42</span></div>
+      
+    <div class="type-section">
+      <div class="type-head">
+        <div class="type-title"><span>📦</span><span style="color:#2563eb">Compras Parceladas</span><span style="font-size:10px;background:#2563eb18;color:#2563eb;padding:1px 7px;border-radius:8px;font-weight:700">17</span></div>
+        <div class="type-total">R$ 871,67</div>
+      </div>
+      <table><tbody><tr>
+      <td class="td-desc"><span style="">Imaginarium 9-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 22,98</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Melissa 6-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 25,74</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Dafiti 10-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 68,94</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Enjoei 10-12</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 8,93</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Enjoei 9-12</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 22,90</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Enjoei 9-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 85,20</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Enjoei 9-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 16,50</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Enjoei 9-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 13,42</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Melissa 6-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 89,97</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Jim Com 5-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 300,00</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Boi da Macuca 10-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#f59e0b18;color:#f59e0b">🍔 Alimentação</span></td>
+      <td class="td-val" style="">R$ 18,51</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Store Maju 10-12</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 18,21</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Atacado dos Presentes 3-4</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#f59e0b18;color:#f59e0b">🍔 Alimentação</span></td>
+      <td class="td-val" style="">R$ 26,12</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Boi da Macuca div 10-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#f59e0b18;color:#f59e0b">🍔 Alimentação</span></td>
+      <td class="td-val" style="">R$ 18,51</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">Enjoei 8-10</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#ec489918;color:#ec4899">👗 Vestuário</span></td>
+      <td class="td-val" style="">R$ 85,20</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">IFOOD CHINA 48 3-3</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#f59e0b18;color:#f59e0b">🍔 Alimentação</span></td>
+      <td class="td-val" style="">R$ 24,43</td>
+    </tr><tr>
+      <td class="td-desc"><span style="">AIRBNB DIV 3-6</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#06b6d418;color:#06b6d4">✈️ Viagem</span></td>
+      <td class="td-val" style="">R$ 26,11</td>
+    </tr></tbody></table>
+      <div class="type-foot">
+        <span class="lbl">Subtotal</span>
+        <span class="val">R$ 871,67</span>
+      </div>
+    </div>
+    <div class="type-section">
+      <div class="type-head">
+        <div class="type-title"><span>🔄</span><span style="color:#7c3aed">Assinaturas</span><span style="font-size:10px;background:#7c3aed18;color:#7c3aed;padding:1px 7px;border-radius:8px;font-weight:700">3</span></div>
+        <div class="type-total">R$ 81,75</div>
+      </div>
+      <table><tbody><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>iFood Clube</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#f59e0b18;color:#f59e0b">🍔 Alimentação</span></td>
+      <td class="td-val" style="">R$ 7,95</td>
+    </tr><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>Apple Bill</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 66,90</td>
+    </tr><tr>
+      <td class="td-desc"><span style=""><span class="rec-dot"></span>Apple Bill</span></td>
+      <td class="td-date"></td>
+      <td class="td-cat"><span class="cat-badge" style="background:#7c3aed18;color:#7c3aed">📱 Assinaturas</span></td>
+      <td class="td-val" style="">R$ 6,90</td>
+    </tr></tbody></table>
+      <div class="type-foot">
+        <span class="lbl">Subtotal</span>
+        <span class="val">R$ 81,75</span>
+      </div>
+    </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const CATS=[
+  {id:'alimentacao', label:'Alimentação',  emoji:'🍔', color:'#f59e0b'},
+  {id:'transporte',  label:'Transporte',   emoji:'🚗', color:'#3b82f6'},
+  {id:'saude',       label:'Saúde',        emoji:'🏥', color:'#10b981'},
+  {id:'compras',     label:'Compras',      emoji:'🛍️', color:'#8b5cf6'},
+  {id:'lazer',       label:'Lazer',        emoji:'🎮', color:'#f43f5e'},
+  {id:'esportes',    label:'Esportes',     emoji:'⚽', color:'#22c55e'},
+  {id:'casa',        label:'Casa/Moradia', emoji:'🏠', color:'#0ea5e9'},
+  {id:'assinaturas', label:'Assinaturas',  emoji:'📱', color:'#7c3aed'},
+  {id:'vestuario',   label:'Vestuário',    emoji:'👗', color:'#ec4899'},
+  {id:'educacao',    label:'Educação',     emoji:'📚', color:'#6366f1'},
+  {id:'pet',         label:'Pet',          emoji:'🐾', color:'#f97316'},
+  {id:'viagem',      label:'Viagem',       emoji:'✈️', color:'#06b6d4'},
+  {id:'reembolso',   label:'Reembolso',    emoji:'🔁', color:'#84cc16'},
+  {id:'pix_credito', label:'Pix Crédito',  emoji:'💸', color:'#14b8a6'},
+  {id:'outros',      label:'Outros',       emoji:'📦', color:'#64748b'},
+];
+function catByID(id){return CATS.find(c=>c.id===id)||{id:'outros',label:'Outros',emoji:'📦',color:'#64748b'};}
+
+const SK='gastos_mv';
+const CLOUD_URL='https://script.google.com/macros/s/AKfycbyIgx5yPBXXTcM0iNAy7D31DeWjhTjr7Ap1RKOqG6s2pX7cdV89VKxsyQNLlaVdwfzE1g/exec';
+const fmt=v=>'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const sum=a=>(a||[]).reduce((t,i)=>t+(+i.val||0),0);
+const isParc=it=>/\d+-\d+/.test(it.desc);
+
+let G=null;
+let pessoa='all';
+let mesIdx=0;
+
+function showStatus(msg, ok){
+  let el=document.getElementById('sync-status');
+  if(!el) return;
+  el.textContent=msg;
+  el.style.color=ok?'#16a34a':'#dc2626';
+  el.style.display='block';
+  if(ok) setTimeout(()=>{el.style.display='none';},3000);
+}
+
+function loadLocal(){
+  try{
+    const s=localStorage.getItem(SK);
+    if(s){const d=JSON.parse(s);if(d&&d.months)return d;}
+  }catch(e){}
+  return null;
+}
+
+async function loadCloud(){
+  try{
+    showStatus('☁️ Sincronizando dados...', true);
+    const r=await fetch(CLOUD_URL+'?t='+Date.now());
+    const text=await r.text();
+    if(!text||text==='{}') return null;
+    const d=JSON.parse(text);
+    if(d&&d.months&&d.months.length>0){
+      try{localStorage.setItem(SK,JSON.stringify(d));}catch(e){}
+      return d;
+    }
+  }catch(e){console.warn('Cloud load failed:',e);}
+  return null;
+}
+
+async function init(){
+  // 1. Tenta localStorage primeiro para mostrar algo imediatamente
+  G=loadLocal();
+  if(G){
+    mesIdx=G.current;
+    renderMonthBtns();
+    renderReport();
+    showStatus('📱 Dados locais carregados', true);
+  } else {
+    document.getElementById('report').innerHTML=
+      '<div class="no-data">☁️ Carregando dados da nuvem...</div>';
+  }
+
+  // 2. Sempre atualiza da nuvem (para Raíssa e outros dispositivos)
+  const cloud=await loadCloud();
+  if(cloud){
+    G=cloud;
+    mesIdx=G.current;
+    renderMonthBtns();
+    renderReport();
+    showStatus('☁️ Atualizado da nuvem!', true);
+  } else if(!G){
+    document.getElementById('report').innerHTML=
+      '<div class="no-data">⚠️ Sem dados disponíveis.<br><br>Verifique sua conexão ou abra o app principal primeiro.</div>';
+    showStatus('❌ Não foi possível carregar os dados', false);
+  } else {
+    showStatus('⚠️ Nuvem indisponível — usando dados locais', false);
+  }
+}
+
+function M(){return G.months[mesIdx];}
+
+// ── MÊS BUTTONS ──
+function renderMonthBtns(){
+  const wrap=document.getElementById('month-btns');
+  wrap.innerHTML=G.months.map((mo,i)=>`
+    <button class="btn btn-month${i===mesIdx?' active':''}" onclick="setMes(${i})">${mo.name}</button>
+  `).join('');
+}
+
+function setMes(i){
+  mesIdx=i;
+  renderMonthBtns();
+  renderReport();
+}
+
+function setPessoa(p){
+  pessoa=p;
+  ['all','marcio','raissa'].forEach(id=>{
+    const btn=document.getElementById('btn-'+id);
+    if(!btn)return;
+    btn.className='btn btn-person';
+    if(id===p){
+      if(p==='marcio')btn.classList.add('active-m');
+      else if(p==='raissa')btn.classList.add('active-r');
+      else btn.classList.add('active-all');
+    }
+  });
+  renderReport();
+}
+
+// ── TIPO TABLE ──
+function tipoSection(emoji, label, color, items, key){
+  if(!items.length) return '';
+  const rows=items.map(it=>{
+    const cat=it.cat?catByID(it.cat):null;
+    const badge=cat?`<span class="cat-badge" style="background:${cat.color}18;color:${cat.color}">${cat.emoji} ${cat.label}</span>`:'';
+    const rec=it.recorrente?'<span class="rec-dot"></span>':'';
+    const riscado=key==='fix'&&it.pago?'text-decoration:line-through;color:#94a3b8':'';
+    return `<tr>
+      <td class="td-desc"><span style="${riscado}">${rec}${it.desc}</span></td>
+      <td class="td-date">${it.data||''}</td>
+      <td class="td-cat">${badge}</td>
+      <td class="td-val" style="${riscado}">${fmt(it.val)}</td>
+    </tr>`;
+  }).join('');
+  const total=sum(items);
+  return `
+    <div class="type-section">
+      <div class="type-head">
+        <div class="type-title"><span>${emoji}</span><span style="color:${color}">${label}</span><span style="font-size:10px;background:${color}18;color:${color};padding:1px 7px;border-radius:8px;font-weight:700">${items.length}</span></div>
+        <div class="type-total">${fmt(total)}</div>
+      </div>
+      <table><tbody>${rows}</tbody></table>
+      <div class="type-foot">
+        <span class="lbl">Subtotal</span>
+        <span class="val">${fmt(total)}</span>
+      </div>
+    </div>`;
+}
+
+// ── CARD SECTION ──
+function cardSection(title, items, key, color){
+  if(!items.length) return '';
+  const parceladas=items.filter(it=>isParc(it)&&!it.recorrente);
+  const avulsas   =items.filter(it=>!isParc(it)&&!it.recorrente);
+  const assinaturas=items.filter(it=>it.recorrente);
+
+  // Para fixos: sem divisão por tipo
+  let body='';
+  if(key==='fix'){
+    body=tipoSection('🏠','Contas Fixas',color,items,key);
+  } else {
+    body=
+      tipoSection('📦','Compras Parceladas','#2563eb',parceladas,key)+
+      tipoSection('🛍️','Compras Avulsas','#475569',avulsas,key)+
+      tipoSection('🔄','Assinaturas','#7c3aed',assinaturas,key);
+  }
+  if(!body) return '';
+
+  return `
+    <div class="card-section">
+      <div class="card-section-title" style="color:${color}">${title} <span style="font-size:12px;color:#94a3b8;font-weight:500">· ${fmt(sum(items))}</span></div>
+      ${body}
+    </div>`;
+}
+
+// ── RENDER ──
+function renderReport(){
+  if(!G) return;
+  const m=M();
+  const today=new Date().toLocaleDateString('pt-BR');
+  const pessoaLabel=pessoa==='marcio'?'Márcio':pessoa==='raissa'?'Raíssa':'Família MV';
+
+  const tMnu=sum(m.mnu||[]),tMc6=sum(m.mc6||[]),tFix=sum(m.fix||[]);
+  const tRnu=sum(m.rnu||[]),tRc6=sum(m.rc6||[]);
+  const tMarcio=tMnu+tMc6+tFix;
+  const tRaissa=tRnu+tRc6;
+  const tEnt=sum(m.entradas||[]);
+  const saldo=tEnt-tMarcio;
+
+  // Header
+  let headerStats='';
+  if(pessoa==='all'){
+    headerStats=`
+      <div class="meta-item"><div class="meta-val">${fmt(tMarcio)}</div><div class="meta-lbl">Márcio</div></div>
+      <div class="meta-item"><div class="meta-val">${fmt(tRaissa)}</div><div class="meta-lbl">Raíssa</div></div>
+      <div class="meta-item"><div class="meta-val">${fmt(tMarcio+tRaissa)}</div><div class="meta-lbl">Total</div></div>`;
+  } else if(pessoa==='marcio'){
+    headerStats=`
+      <div class="meta-item"><div class="meta-val">${fmt(tEnt)}</div><div class="meta-lbl">Entradas</div></div>
+      <div class="meta-item"><div class="meta-val" style="color:${saldo>=0?'#4ade80':'#f87171'}">${fmt(Math.abs(saldo))}</div><div class="meta-lbl">${saldo>=0?'Sobrou':'Déficit'}</div></div>
+      <div class="meta-item"><div class="meta-val">${fmt(tMarcio)}</div><div class="meta-lbl">Total gastos</div></div>`;
+  } else {
+    headerStats=`
+      <div class="meta-item"><div class="meta-val">${fmt(tRnu)}</div><div class="meta-lbl">Nubank</div></div>
+      <div class="meta-item"><div class="meta-val">${fmt(tRc6)}</div><div class="meta-lbl">C6</div></div>
+      <div class="meta-item"><div class="meta-val">${fmt(tRaissa)}</div><div class="meta-lbl">Total</div></div>`;
+  }
+
+  // Sections
+  let sections='';
+  if(pessoa==='all'||pessoa==='marcio'){
+    sections+=cardSection('🟣 Nubank — Márcio', m.mnu||[], 'mnu', '#7c3aed');
+    sections+=cardSection('⚫ C6 — Márcio',     m.mc6||[], 'mc6', '#334155');
+    sections+=cardSection('🏠 Fixos',           m.fix||[], 'fix', '#10b981');
+  }
+  if(pessoa==='all'||pessoa==='raissa'){
+    sections+=cardSection('🟣 Nubank — Raíssa', m.rnu||[], 'rnu', '#db2777');
+    sections+=cardSection('⚫ C6 — Raíssa',     m.rc6||[], 'rc6', '#f97316');
+  }
+
+  document.getElementById('report').innerHTML=`
+    <div class="report-header">
+      <div class="eyebrow">Relatório Financeiro · ${pessoaLabel}</div>
+      <h1>${m.name}</h1>
+      <div class="divider"></div>
+      <div class="meta-row">${headerStats}<div class="meta-item" style="opacity:.6"><div class="meta-val" style="font-size:12px">${today}</div><div class="meta-lbl">Gerado em</div></div></div>
+    </div>
+    ${sections||'<div class="no-data">Nenhum lançamento encontrado.</div>'}
+  `;
+}
+
+// ── INIT ──
+init();
+</script>
+
+
+</body></html>
