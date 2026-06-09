@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- saved from url=(0057)file:///C:/Users/Marcio/Downloads/planejamento-mv_25.html -->
+<!-- saved from url=(0057)file:///C:/Users/Marcio/Downloads/planejamento-mv_41.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#1e1b4b">
-<title>Planejamento Financeiro MV</title>
+<title>Controle Financeiro MV</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
@@ -25,11 +25,14 @@ html,body{background:var(--bg);font-family:'Inter',system-ui,sans-serif}
 .app{max-width:960px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:90px}
 
 /* HEADER */
-.topbar{position:sticky;top:0;z-index:90;background:linear-gradient(135deg,#0d0d1a 0%,#1a1030 50%,#1e0a3c 100%);padding:20px 20px 14px;border-bottom:1px solid var(--border);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.topbar{position:sticky;top:0;z-index:90;background:#0a0a14;padding:14px 20px 12px;border-bottom:1px solid rgba(139,92,246,.2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.6) 30%,rgba(96,165,250,.6) 70%,transparent)}
 .topbar-row{display:flex;align-items:center;justify-content:space-between}
-.app-title{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
-.month-switcher{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border-radius:24px;padding:5px 10px;border:1px solid rgba(255,255,255,.1)}
-.month-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.7);font-size:20px;line-height:1;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.app-title{display:flex;flex-direction:column;gap:1px}
+.app-title-main{font-size:15px;font-weight:700;letter-spacing:.5px;background:linear-gradient(90deg,#c4b5fd,#93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2}
+.app-title-sub{font-size:10px;font-weight:500;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase}
+.month-switcher{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border-radius:24px;padding:5px 10px;border:1px solid rgba(139,92,246,.25)}
+.month-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.6);font-size:20px;line-height:1;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 .month-label{font-size:13px;font-weight:600;color:#fff;min-width:88px;text-align:center}
 
 /* BOTTOM NAV */
@@ -49,7 +52,6 @@ html,body{background:var(--bg);font-family:'Inter',system-ui,sans-serif}
 
 /* HERO */
 .hero{background:linear-gradient(135deg,#1e1b4b,#4c1d95);border-radius:var(--radius);padding:22px;margin-bottom:14px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:rgba(255,255,255,.07);border-radius:50%}
 .hero-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
 .hero-val{font-size:36px;font-weight:700;line-height:1;margin-bottom:6px;color:#fff;letter-spacing:-1px}
 .hero-val.neg{color:#fca5a5}
@@ -216,52 +218,63 @@ select option{background:var(--surface2);color:var(--text)}
 
 <div class="topbar">
   <div class="topbar-row">
-    <div class="app-title">💰 Planejamento Financeiro MV</div>
+    <div class="app-title">
+      <span class="app-title-main">Finanças Márcio Cavalcanti</span>
+      <span class="app-title-sub">Controle Financeiro</span>
+    </div>
     <div class="month-switcher">
       <button class="month-btn" onclick="prevMonth()">‹</button>
-      <span class="month-label" id="month-label">Junho 2026</span>
+      <span class="month-label" id="month-label">Agosto 2026</span>
       <button class="month-btn" onclick="nextMonth()">›</button>
     </div>
   </div>
 </div>
 
 <div class="content">
-  <div id="tab-painel" class="page">
+  <div id="tab-painel" class="page active">
   <div class="hero">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+    <!-- Linha 1: Saldo + Entradas/Gastos lado a lado -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div>
-        <div class="hero-label">Saldo do mês — Márcio</div>
-        <div class="hero-val neg" style="font-size:28px">R$ -1.282,49</div>
+        <div class="hero-label">Saldo — Márcio</div>
+        <div class="hero-val" style="font-size:26px">R$ 1.712,99</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:4px">✅ No positivo</div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:8px 12px;text-align:right">
-          <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:2px">Entradas</div>
-          <div style="font-size:15px;font-weight:700;color:#4ade80">R$ 5.150,00</div>
+      <div style="display:flex;flex-direction:column;gap:6px;justify-content:center">
+        <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(74,222,128,.3)">
+          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Entradas</span>
+          <span style="font-size:15px;font-weight:700;color:#4ade80">R$ 5.150,00</span>
         </div>
-        <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:8px 12px;text-align:right">
-          <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:2px">Gastos</div>
-          <div style="font-size:15px;font-weight:700;color:#f87171">R$ 6.432,49</div>
+        <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(248,113,113,.3)">
+          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Gastos</span>
+          <span style="font-size:15px;font-weight:700;color:#f87171">R$ 3.437,01</span>
         </div>
       </div>
     </div>
+    <!-- Linha 2: Nubank / C6 / Fixos / Raíssa / Total -->
     <div class="hero-divider"></div>
-    <div class="hero-row">
-      <div class="hero-stat"><div class="hero-stat-val">R$ 2.497,88</div><div class="hero-stat-lbl">🟣 Nubank</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">R$ 3.331,56</div><div class="hero-stat-lbl">⚫ C6</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">R$ 603,05</div><div class="hero-stat-lbl">🏠 Fixos</div></div>
-    </div>
-  </div>
-
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
-    <div class="mcard" style="border-top:3px solid var(--rai)">
-      <div class="mcard-label">💗 Total Raíssa</div>
-      <div class="mcard-val" style="color:var(--rai);font-size:17px">R$ 3.559,79</div>
-      <div class="mcard-sub">🟣 R$ 1.627,01 · ⚫ R$ 1.932,78</div>
-    </div>
-    <div class="mcard" style="border-top:3px solid #6366f1">
-      <div class="mcard-label">🌐 Total geral</div>
-      <div class="mcard-val" style="font-size:17px">R$ 9.992,28</div>
-      <div class="mcard-sub">Márcio + Raíssa</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px">
+      <div style="text-align:center">
+        <div class="hero-stat-val">R$ 597,73</div>
+        <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> Nubank MV</div>
+      </div>
+      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
+        <div class="hero-stat-val">R$ 1.440,71</div>
+        <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> C6 MV</div>
+      </div>
+      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
+        <div class="hero-stat-val">R$ 1.398,57</div>
+        <div class="hero-stat-lbl">🏠 Fixos</div>
+      </div>
+      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
+        <div class="hero-stat-val" style="color:#f472b6">R$ 1.892,24</div>
+        <div class="hero-stat-lbl" style="color:rgba(244,114,182,.7)">💜 Raíssa</div>
+        <div class="hero-stat-lbl" style="font-size:10px;display:flex;align-items:center;justify-content:center;gap:3px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> R$ 938,82 · <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> R$ 953,42</div>
+      </div>
+      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
+        <div class="hero-stat-val" style="color:#a5b4fc">R$ 5.329,25</div>
+        <div class="hero-stat-lbl">🌐 Total</div>
+      </div>
     </div>
   </div>
 
@@ -278,16 +291,15 @@ select option{background:var(--surface2);color:var(--text)}
     </div>
   </div>
 
-  <div class="chart-card"><div class="chart-title">📊 Categorias</div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#7c3aed;display:inline-block;margin-right:6px"></span>Nubank Márcio</span><span class="catbar-vals">R$ 2.497,88<span class="catbar-pct">25%</span></span></div><div class="track"><div class="fill" style="width:25%;background:#7c3aed"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;display:inline-block;margin-right:6px"></span>C6 Márcio</span><span class="catbar-vals">R$ 3.331,56<span class="catbar-pct">33%</span></span></div><div class="track"><div class="fill" style="width:33%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;display:inline-block;margin-right:6px"></span>Fixos</span><span class="catbar-vals">R$ 603,05<span class="catbar-pct">6%</span></span></div><div class="track"><div class="fill" style="width:6%;background:#10b981"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f43f5e;display:inline-block;margin-right:6px"></span>Nubank Raíssa</span><span class="catbar-vals">R$ 1.627,01<span class="catbar-pct">16%</span></span></div><div class="track"><div class="fill" style="width:16%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:#f97316;display:inline-block;margin-right:6px"></span>C6 Raíssa</span><span class="catbar-vals">R$ 1.932,78<span class="catbar-pct">19%</span></span></div><div class="track"><div class="fill" style="width:19%;background:#f97316"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="894" style="display: block; box-sizing: border-box; height: 140px; width: 894px;"></canvas></div></div></div>
-  <div id="tab-marcio" class="page"></div>
-  <div id="tab-raissa" class="page active"><div>
-    <div class="page-title">💜 Raíssa</div>
+  <div class="chart-card"><div class="chart-title">🏷️ Gastos por categoria <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🏠</span>Casa/Moradia</span><span class="catbar-vals">R$ 1.211,57<span class="catbar-pct">38%</span></span></div><div class="track"><div class="fill" style="width:38%;background:#0ea5e9"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🛍️</span>Compras</span><span class="catbar-vals">R$ 489,57<span class="catbar-pct">15%</span></span></div><div class="track"><div class="fill" style="width:15%;background:#8b5cf6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">💸</span>Pix Crédito</span><span class="catbar-vals">R$ 303,43<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#14b8a6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🔁</span>Reembolso</span><span class="catbar-vals">R$ 269,90<span class="catbar-pct">9%</span></span></div><div class="track"><div class="fill" style="width:9%;background:#84cc16"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🎮</span>Lazer</span><span class="catbar-vals">R$ 268,42<span class="catbar-pct">8%</span></span></div><div class="track"><div class="fill" style="width:8%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">📱</span>Assinaturas</span><span class="catbar-vals">R$ 254,09<span class="catbar-pct">8%</span></span></div><div class="track"><div class="fill" style="width:8%;background:#7c3aed"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">👗</span>Vestuário</span><span class="catbar-vals">R$ 225,40<span class="catbar-pct">7%</span></span></div><div class="track"><div class="fill" style="width:7%;background:#ec4899"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">⚽</span>Esportes</span><span class="catbar-vals">R$ 140,00<span class="catbar-pct">4%</span></span></div><div class="track"><div class="fill" style="width:4%;background:#22c55e"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="894" style="display: block; box-sizing: border-box; height: 140px; width: 894px;"></canvas></div></div></div>
+  <div id="tab-marcio" class="page"><div>
+    <div class="page-title">👤 Márcio</div>
     <div class="card-selector">
-    <button class="csel-btn active" style="background:var(--nu);border-color:var(--nu)" onclick="raissaCard=&#39;rnu&#39;;renderRaissa()">
-      <span class="csel-icon">🟣</span><span>Nubank</span><span class="csel-val">R$ 1.627,01</span>
+    <button class="csel-btn" style="" onclick="marcioCard=&#39;mnu&#39;;renderMarcio()">
+      <span class="csel-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#820AD1"></circle><text x="14" y="18.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="white">NU</text></svg></span><span>Nubank</span><span class="csel-val">R$ 597,73</span>
     </button>
-    <button class="csel-btn" style="" onclick="raissaCard=&#39;rc6&#39;;renderRaissa()">
-      <span class="csel-icon">⚫</span><span>C6</span><span class="csel-val">R$ 1.932,78</span>
+    <button class="csel-btn active" style="background:var(--c6);border-color:var(--c6)" onclick="marcioCard=&#39;mc6&#39;;renderMarcio()">
+      <span class="csel-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#242424"></circle><text x="14" y="19" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="white">C6</text></svg></span><span>C6</span><span class="csel-val">R$ 1.440,71</span>
     </button></div>
     
     
@@ -298,329 +310,329 @@ select option{background:var(--surface2);color:var(--text)}
             <span style="font-size:13px;font-weight:700;color:var(--text)">Compras Parceladas</span>
             <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#2563eb22;color:#2563eb">18</span>
           </div>
-          <span style="font-size:13px;font-weight:700;color:#2563eb">R$ 1.606,11</span>
+          <span style="font-size:13px;font-weight:700;color:#2563eb">R$ 1.139,90</span>
         </div>
-        <div class="list-card" style="margin-bottom:0"><div id="row-rnu-1">
+        <div class="list-card" style="margin-bottom:0"><div id="row-mc6-2">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Renner 6-6</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
-          
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#ec489922;color:#ec4899">👗 Vestuário</span>
-        </div>
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 112,84</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,1)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,1)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-rnu-2">
-    <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
-      <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Embala Shop 7-12</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
-          
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
-        </div>
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 132,11</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,2)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,2)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-rnu-3">
-    <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
-      <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Natalia Tatuagem 6-12</div>
+        <div class="item-desc" style="color:var(--text)">PS5 Amazon 9-12</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
           <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#f43f5e22;color:#f43f5e">🎮 Lazer</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 53,26</span>
+        <span class="item-val">R$ 249,91</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,3)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,3)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,2)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,2)">🗑️</button>
         </div>
       </div>
     </div>
-  </div><div id="row-rnu-4">
+  </div><div id="row-mc6-3">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Renner 7-12</div>
+        <div class="item-desc" style="color:var(--text)">Boi da Macuca div 10-10</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#f43f5e22;color:#f43f5e">🎮 Lazer</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 18,51</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,3)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,3)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-6">
+    <div class="item" style="">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">Boticário 10-10</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
           <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#ec489922;color:#ec4899">👗 Vestuário</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 59,35</span>
+        <span class="item-val">R$ 56,75</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,4)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,4)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,6)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,6)">🗑️</button>
         </div>
       </div>
     </div>
-  </div><div id="row-rnu-5">
+  </div><div id="row-mc6-7">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Ferreira Costa 6-7</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
-          
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
-        </div>
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 51,40</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,5)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,5)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-rnu-6">
-    <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
-      <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Jim Com 6-6</div>
+        <div class="item-desc" style="color:var(--text)">Perfume 5-6</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
           <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#ec489922;color:#ec4899">👗 Vestuário</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 43,11</span>
+        <span class="item-val">R$ 50,00</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,6)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,6)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,7)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,7)">🗑️</button>
         </div>
       </div>
     </div>
-  </div><div id="row-rnu-7">
+  </div><div id="row-mc6-8">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Bateria carro div 8-10</div>
+        <div class="item-desc" style="color:var(--text)">Sócio CNC 9-12</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#3b82f622;color:#3b82f6">🚗 Transporte</span>
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#7c3aed22;color:#7c3aed">📱 Assinaturas</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 24,95</span>
+        <span class="item-val">R$ 67,42</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,7)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,7)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,8)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,8)">🗑️</button>
         </div>
       </div>
     </div>
-  </div><div id="row-rnu-8">
+  </div><div id="row-mc6-11">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Pix Maria Julia 2-6</div>
+        <div class="item-desc" style="color:var(--text)">Mercado Livre 4-11</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#14b8a622;color:#14b8a6">💸 Pix Crédito</span>
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#8b5cf622;color:#8b5cf6">🛍️ Compras</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 195,77</span>
+        <span class="item-val">R$ 33,71</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,8)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,8)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,11)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,11)">🗑️</button>
         </div>
       </div>
     </div>
-  </div><div id="row-rnu-9">
+  </div><div id="row-mc6-12">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Odonto 2-2</div>
+        <div class="item-desc" style="color:var(--text)">Mercado Livre 4-6</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#8b5cf622;color:#8b5cf6">🛍️ Compras</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 34,03</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,12)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,12)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-13">
+    <div class="item" style="">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">Rayvson Geladeira 4-10</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#84cc1622;color:#84cc16">🔁 Reembolso</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 269,90</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,13)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,13)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-14">
+    <div class="item" style="">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">Clínica Sim 4-4</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
           <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#10b98122;color:#10b981">🏥 Saúde</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 266,67</span>
+        <span class="item-val">R$ 45,00</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,9)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,9)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,14)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,14)">🗑️</button>
         </div>
       </div>
     </div>
-  </div><div id="row-rnu-10">
+  </div><div id="row-mc6-15">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Pix Ruili 2-3</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
-          
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#14b8a622;color:#14b8a6">💸 Pix Crédito</span>
-        </div>
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 65,48</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,10)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,10)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-rnu-11">
-    <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
-      <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Va Long iFood 2-2</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
-          
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#14b8a622;color:#14b8a6">💸 Pix Crédito</span>
-        </div>
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 45,63</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,11)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,11)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-rnu-12">
-    <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
-      <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Raissa Pix 3-3</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
-          
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#14b8a622;color:#14b8a6">💸 Pix Crédito</span>
-        </div>
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 96,63</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,12)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,12)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-rnu-13">
-    <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
-      <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Raissa Pix 3-3</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
-          
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#14b8a622;color:#14b8a6">💸 Pix Crédito</span>
-        </div>
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 93,65</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,13)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,13)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-rnu-14">
-    <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
-      <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Pix CEA Pay 2-5</div>
-        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
-          
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#14b8a622;color:#14b8a6">💸 Pix Crédito</span>
-        </div>
-      </div>
-      <div class="item-right">
-        <span class="item-val">R$ 171,00</span>
-        <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,14)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,14)">🗑️</button>
-        </div>
-      </div>
-    </div>
-  </div><div id="row-rnu-15">
-    <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
-      <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Thaís Regina 3-6</div>
+        <div class="item-desc" style="color:var(--text)">Camisa CNC 4-6</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
           <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#ec489922;color:#ec4899">👗 Vestuário</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 56,96</span>
+        <span class="item-val">R$ 71,65</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,15)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,15)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,15)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,15)">🗑️</button>
         </div>
       </div>
     </div>
-  </div><div id="row-rnu-16">
+  </div><div id="row-mc6-16">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Cia do Clima 3-3</div>
+        <div class="item-desc" style="color:var(--text)">Clínica Sim 3-3</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#10b98122;color:#10b981">🏥 Saúde</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 41,24</span>
+        <span class="item-val">R$ 40,00</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,16)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,16)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,16)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,16)">🗑️</button>
         </div>
       </div>
     </div>
-  </div><div id="row-rnu-17">
+  </div><div id="row-mc6-17">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Pix iFood China 48 2-2</div>
+        <div class="item-desc" style="color:var(--text)">Shopee short 3-3</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#14b8a622;color:#14b8a6">💸 Pix Crédito</span>
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#8b5cf622;color:#8b5cf6">🛍️ Compras</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 48,32</span>
+        <span class="item-val">R$ 50,52</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,17)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,17)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,17)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,17)">🗑️</button>
         </div>
       </div>
     </div>
-  </div><div id="row-rnu-18">
+  </div><div id="row-mc6-18">
     <div class="item" style="">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Pix Ju Souto 2-6</div>
+        <div class="item-desc" style="color:var(--text)">Shopee cadeira 3-7</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
-          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#14b8a622;color:#14b8a6">💸 Pix Crédito</span>
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#8b5cf622;color:#8b5cf6">🛍️ Compras</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 47,74</span>
+        <span class="item-val">R$ 55,13</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,18)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,18)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,18)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,18)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-19">
+    <div class="item" style="">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">ML óculos 3-10</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#8b5cf622;color:#8b5cf6">🛍️ Compras</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 18,14</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,19)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,19)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-20">
+    <div class="item" style="">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">Shopee 3-4</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#8b5cf622;color:#8b5cf6">🛍️ Compras</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 12,92</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,20)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,20)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-21">
+    <div class="item" style="">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">Shopee 3-5</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#8b5cf622;color:#8b5cf6">🛍️ Compras</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 15,77</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,21)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,21)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-23">
+    <div class="item" style="">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">IFOOD CHINA 48 3-3</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#f59e0b22;color:#f59e0b">🍔 Alimentação</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 24,43</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,23)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,23)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-24">
+    <div class="item" style="">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">AIRBNB 3-6</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#06b6d422;color:#06b6d4">✈️ Viagem</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 26,11</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,24)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,24)">🗑️</button>
         </div>
       </div>
     </div>
@@ -633,25 +645,133 @@ select option{background:var(--surface2);color:var(--text)}
           <div style="display:flex;align-items:center;gap:7px">
             <span style="font-size:16px">🔄</span>
             <span style="font-size:13px;font-weight:700;color:var(--text)">Assinaturas</span>
-            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#7c3aed22;color:#7c3aed">1</span>
+            <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:#7c3aed22;color:#7c3aed">7</span>
           </div>
-          <span style="font-size:13px;font-weight:700;color:#7c3aed">R$ 20,90</span>
+          <span style="font-size:13px;font-weight:700;color:#7c3aed">R$ 300,81</span>
         </div>
-        <div class="list-card" style="margin-bottom:0"><div id="row-rnu-0">
+        <div class="list-card" style="margin-bottom:0"><div id="row-mc6-0">
     <div class="item" style="background:linear-gradient(to right,#1e1530,#1a1a24)">
-      <div class="item-icon" style="background:#2d1f5e">🟣</div>
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">Netflix</div>
+        <div class="item-desc" style="color:var(--text)">Google Drive</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           
           <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#7c3aed22;color:#7c3aed">📱 Assinaturas</span>
         </div>
       </div>
       <div class="item-right">
-        <span class="item-val">R$ 20,90</span>
+        <span class="item-val">R$ 9,99</span>
         <div class="item-actions">
-          <button class="act-btn edit" onclick="startEdit(&#39;rnu&#39;,0)">✏️</button>
-          <button class="act-btn del" onclick="confirmDel(&#39;rnu&#39;,0)">🗑️</button>
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,0)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,0)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-1">
+    <div class="item" style="background:linear-gradient(to right,#1e1530,#1a1a24)">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">Apple</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#7c3aed22;color:#7c3aed">📱 Assinaturas</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 5,90</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,1)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,1)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-4">
+    <div class="item" style="background:linear-gradient(to right,#1e1530,#1a1a24)">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">TIM Cel</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#7c3aed22;color:#7c3aed">📱 Assinaturas</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 66,99</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,4)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,4)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-5">
+    <div class="item" style="background:linear-gradient(to right,#1e1530,#1a1a24)">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">TIM Net</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#7c3aed22;color:#7c3aed">📱 Assinaturas</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 59,99</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,5)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,5)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-9">
+    <div class="item" style="background:linear-gradient(to right,#1e1530,#1a1a24)">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">Spotify</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#7c3aed22;color:#7c3aed">📱 Assinaturas</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 23,90</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,9)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,9)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-10">
+    <div class="item" style="background:linear-gradient(to right,#1e1530,#1a1a24)">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">Amazon Prime</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#7c3aed22;color:#7c3aed">📱 Assinaturas</span>
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 19,90</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,10)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,10)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div><div id="row-mc6-22">
+    <div class="item" style="background:linear-gradient(to right,#1e1530,#1a1a24)">
+      <div class="item-icon" style="background:#1a1a1a;overflow:hidden"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg></div>
+      <div class="item-body">
+        <div class="item-desc" style="color:var(--text)">Claude Mensal</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
+          
+          
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-val">R$ 114,14</span>
+        <div class="item-actions">
+          <button class="act-btn edit" onclick="startEdit(&#39;mc6&#39;,22)">✏️</button>
+          <button class="act-btn del" onclick="confirmDel(&#39;mc6&#39;,22)">🗑️</button>
         </div>
       </div>
     </div>
@@ -660,20 +780,696 @@ select option{background:var(--surface2);color:var(--text)}
     
     <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:4px">
       <span style="font-size:13px;font-weight:600;color:var(--text2)">Total do cartão</span>
-      <span style="font-size:16px;font-weight:700;color:var(--text)">R$ 1.627,01</span>
+      <span style="font-size:16px;font-weight:700;color:var(--text)">R$ 1.440,71</span>
     </div>
   </div></div>
+  <div id="tab-raissa" class="page"></div>
   <div id="tab-entradas" class="page"></div>
   <div id="tab-add" class="page"></div>
-  <div id="tab-fixos" class="page"></div>
-  <div id="tab-meses" class="page"></div>
-  <div id="tab-analise" class="page"></div>
+  <div id="tab-fixos" class="page"><div>
+    <div class="page-title">🏠 Fixos</div>
+    <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
+      <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+        <span style="font-size:13px;font-weight:600">Progresso do mês</span>
+        <span style="font-size:13px;font-weight:700;color:var(--fix)">0% pago</span>
+      </div>
+      <div class="track"><div class="fill" style="width:0%;background:var(--fix)"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:10px">
+        <div style="text-align:center"><div style="font-size:14px;font-weight:700;color:var(--fix)">R$ 0,00</div><div style="font-size:11px;color:var(--text3);margin-top:2px">✅ Pago</div></div>
+        <div style="text-align:center"><div style="font-size:14px;font-weight:700;color:var(--danger)">R$ 1.398,57</div><div style="font-size:11px;color:var(--text3);margin-top:2px">⏳ Pendente</div></div>
+        <div style="text-align:center"><div style="font-size:14px;font-weight:700">R$ 1.398,57</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Total</div></div>
+      </div>
+    </div>
+    <div class="list-card">
+      <div class="list-head"><div class="list-title"><span class="pill pill-fix">Sem cartão</span> Fixos</div><span style="font-size:11px;color:var(--text3)">7 itens</span></div>
+      <div>
+    <div id="row-fix-0" style="">
+      <div class="item" style="">
+        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
+        <div class="item-body">
+          <div class="item-desc" style="">Consórcio</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
+            
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 15</span>
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
+          </div>
+        </div>
+        <div class="item-right">
+          <span class="item-val">R$ 437,54</span>
+          <div class="item-actions">
+            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(0)">☑️</button>
+            <div class="action-menu-wrap">
+              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-0&#39;)">⋯</button>
+              <div class="action-menu" id="menu-fix-0">
+                <button class="action-menu-item" onclick="closeMenu();startEditFix(0)">✏️ Editar</button>
+                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,0)">🗑️ Excluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="row-fix-1" style="">
+      <div class="item" style="">
+        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
+        <div class="item-body">
+          <div class="item-desc" style="">Condomínio</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
+            
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 30</span>
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
+          </div>
+        </div>
+        <div class="item-right">
+          <span class="item-val">R$ 330,00</span>
+          <div class="item-actions">
+            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(1)">☑️</button>
+            <div class="action-menu-wrap">
+              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-1&#39;)">⋯</button>
+              <div class="action-menu" id="menu-fix-1">
+                <button class="action-menu-item" onclick="closeMenu();startEditFix(1)">✏️ Editar</button>
+                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,1)">🗑️ Excluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="row-fix-2" style="">
+      <div class="item" style="">
+        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
+        <div class="item-body">
+          <div class="item-desc" style="">Oh Boxe</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
+            
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 10</span>
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#22c55e22;color:#22c55e">⚽ Esportes</span>
+          </div>
+        </div>
+        <div class="item-right">
+          <span class="item-val">R$ 140,00</span>
+          <div class="item-actions">
+            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(2)">☑️</button>
+            <div class="action-menu-wrap">
+              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-2&#39;)">⋯</button>
+              <div class="action-menu" id="menu-fix-2">
+                <button class="action-menu-item" onclick="closeMenu();startEditFix(2)">✏️ Editar</button>
+                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,2)">🗑️ Excluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="row-fix-3" style="">
+      <div class="item" style="">
+        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
+        <div class="item-body">
+          <div class="item-desc" style="">C&amp;A Pay 8-10</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
+            
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 20</span>
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#ec489922;color:#ec4899">👗 Vestuário</span>
+          </div>
+        </div>
+        <div class="item-right">
+          <span class="item-val">R$ 47,00</span>
+          <div class="item-actions">
+            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(3)">☑️</button>
+            <div class="action-menu-wrap">
+              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-3&#39;)">⋯</button>
+              <div class="action-menu" id="menu-fix-3">
+                <button class="action-menu-item" onclick="closeMenu();startEditFix(3)">✏️ Editar</button>
+                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,3)">🗑️ Excluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="row-fix-4" style="">
+      <div class="item" style="">
+        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
+        <div class="item-body">
+          <div class="item-desc" style="">IPTU</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
+            
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 10</span>
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
+          </div>
+        </div>
+        <div class="item-right">
+          <span class="item-val">R$ 138,48</span>
+          <div class="item-actions">
+            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(4)">☑️</button>
+            <div class="action-menu-wrap">
+              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-4&#39;)">⋯</button>
+              <div class="action-menu" id="menu-fix-4">
+                <button class="action-menu-item" onclick="closeMenu();startEditFix(4)">✏️ Editar</button>
+                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,4)">🗑️ Excluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="row-fix-5" style="">
+      <div class="item" style="">
+        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
+        <div class="item-body">
+          <div class="item-desc" style="">CELPE</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
+            
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 6</span>
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
+          </div>
+        </div>
+        <div class="item-right">
+          <span class="item-val">R$ 219,50</span>
+          <div class="item-actions">
+            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(5)">☑️</button>
+            <div class="action-menu-wrap">
+              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-5&#39;)">⋯</button>
+              <div class="action-menu" id="menu-fix-5">
+                <button class="action-menu-item" onclick="closeMenu();startEditFix(5)">✏️ Editar</button>
+                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,5)">🗑️ Excluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="row-fix-6" style="">
+      <div class="item" style="">
+        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
+        <div class="item-body">
+          <div class="item-desc" style="">MEI</div>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
+            
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 20</span>
+            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
+          </div>
+        </div>
+        <div class="item-right">
+          <span class="item-val">R$ 86,05</span>
+          <div class="item-actions">
+            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(6)">☑️</button>
+            <div class="action-menu-wrap">
+              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-6&#39;)">⋯</button>
+              <div class="action-menu" id="menu-fix-6">
+                <button class="action-menu-item" onclick="closeMenu();startEditFix(6)">✏️ Editar</button>
+                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,6)">🗑️ Excluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+      <div class="list-foot"><span class="foot-lbl">Total</span><span class="foot-val">R$ 1.398,57</span></div>
+    </div>
+  </div></div>
+  <div id="tab-meses" class="page"><div>
+    <div class="page-title">📅 Meses</div>
+
+    <div style="background:linear-gradient(135deg,#1e1b4b,#4c1d95);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
+      <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px">Relatório Financeiro</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.8);margin-bottom:14px">Veja e compartilhe a lista completa de gastos por mês.</div>
+      <a href="file:///C:/Users/Marcio/Downloads/relatorio-mv.html" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:12px;border:none;background:rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;text-decoration:none;backdrop-filter:blur(4px)">📊 Abrir relatório</a>
+    </div>
+
+    <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">☁️ Sincronização na nuvem</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:14px">Dados salvos automaticamente a cada alteração.</div>
+      <div style="display:flex;gap:8px">
+        <button onclick="loadFromCloud()" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">☁️ Sincronizar agora</button>
+        <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">💾 Backup local</button>
+      </div>
+      <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)">
+      <div id="sync-msg" style="display:none;margin-top:10px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:500;text-align:center"></div>
+    </div>
+    <div class="month-mgr">
+      <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px">📆 Meses cadastrados</div>
+      <div class="month-list-item">
+      <div><div class="month-name" style="font-weight:400">Junho 2026</div><div class="month-stats">Total R$ 9.992,28</div></div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button class="btn-month-sel" onclick="selectMonth(0)">Selecionar</button>
+        <button onclick="deleteMonth(0)" style="background:var(--danger-bg);color:var(--danger);border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">🗑️</button>
+      </div>
+    </div><div class="month-list-item">
+      <div><div class="month-name" style="font-weight:400">Julho 2026</div><div class="month-stats">Total R$ 7.847,25</div></div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button class="btn-month-sel" onclick="selectMonth(1)">Selecionar</button>
+        <button onclick="deleteMonth(1)" style="background:var(--danger-bg);color:var(--danger);border:none;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center">🗑️</button>
+      </div>
+    </div><div class="month-list-item">
+      <div><div class="month-name" style="font-weight:600">Agosto 2026 📌</div><div class="month-stats">Total R$ 5.329,25</div></div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <button class="btn-month-sel current" onclick="selectMonth(2)">Atual</button>
+        
+      </div>
+    </div>
+      <button class="btn-new-month" onclick="addMonth()">➕ Novo mês</button>
+      <button class="btn-new-month" style="margin-top:6px;color:#dc2626;border-color:#fca5a5" onclick="restoreDefault()">🔄 Restaurar dados originais</button>
+    </div>
+  </div></div>
+  <div id="tab-analise" class="page"><div>
+    <div class="page-title">📈 Análise Comparativa</div>
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+    <button onclick="_analiseView=&#39;marcio&#39;;renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">
+      👤 Márcio
+    </button>
+    <button onclick="_analiseView=&#39;raissa&#39;;renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">
+      💜 Raíssa
+    </button>
+    <button onclick="_analiseView=&#39;geral&#39;;renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">
+      🌐 Geral
+    </button></div>
+    
+      <div style="background:linear-gradient(135deg,#4c1d95dd,#4c1d95);border-radius:var(--radius);padding:20px;margin-bottom:14px;color:#fff">
+        <div style="font-size:11px;font-weight:600;opacity:.65;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">👤 Márcio · Julho 2026 → Agosto 2026</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end">
+          <div>
+            <div style="font-size:11px;opacity:.65;margin-bottom:4px">Total de gastos</div>
+            <div style="font-size:28px;font-weight:700;letter-spacing:-1px">R$ 2.038,44</div>
+            <div style="font-size:12px;opacity:.55;margin-top:4px">Antes: R$ 3.823,42</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:20px;font-weight:700">▼ R$ 1.784,98</div>
+            <div style="font-size:12px;opacity:.65">47% de variação</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
+        <div style="background:var(--surface);border-radius:14px;padding:14px;box-shadow:var(--shadow);border-top:3px solid #7c3aed">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;font-weight:600;color:var(--text2)">🟣 Nubank</span><span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:#dcfce7;color:#16a34a">▼ 69%</span>
+          </div>
+          <div style="font-size:18px;font-weight:700;color:var(--text)">R$ 597,73</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: R$ 1.920,52</div>
+        </div>
+        <div style="background:var(--surface);border-radius:14px;padding:14px;box-shadow:var(--shadow);border-top:3px solid #1e293b">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;font-weight:600;color:var(--text2)">⚫ C6</span><span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:#dcfce7;color:#16a34a">▼ 24%</span>
+          </div>
+          <div style="font-size:18px;font-weight:700;color:var(--text)">R$ 1.440,71</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: R$ 1.902,90</div>
+        </div>
+      </div>
+      <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px">📦 Por tipo de gasto</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px"><div style="background:var(--surface2);border-radius:12px;padding:12px 14px;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <span style="font-size:16px">📦</span>
+          <span style="font-size:12px;font-weight:600;color:var(--text2)">Parceladas</span>
+        </div>
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px">R$ 1.737,63</div>
+        <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(34,197,94,.12);border-radius:6px;padding:2px 8px">
+          <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 39%</span>
+          <span style="font-size:10px;color:var(--text3)">R$ 1.096,93</span>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">Antes: R$ 2.834,56</div>
+      </div><div style="background:var(--surface2);border-radius:12px;padding:12px 14px;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <span style="font-size:16px">🛍️</span>
+          <span style="font-size:12px;font-weight:600;color:var(--text2)">Avulsas</span>
+        </div>
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px">R$ 0,00</div>
+        <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(34,197,94,.12);border-radius:6px;padding:2px 8px">
+          <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 100%</span>
+          <span style="font-size:10px;color:var(--text3)">R$ 688,05</span>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">Antes: R$ 688,05</div>
+      </div><div style="background:var(--surface2);border-radius:12px;padding:12px 14px;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <span style="font-size:16px">🔄</span>
+          <span style="font-size:12px;font-weight:600;color:var(--text2)">Assinaturas</span>
+        </div>
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px">R$ 300,81</div>
+        <div style="display:inline-flex;align-items:center;gap:4px;background:rgba(34,197,94,.12);border-radius:6px;padding:2px 8px">
+          <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 0%</span>
+          <span style="font-size:10px;color:var(--text3)">R$ 0,00</span>
+        </div>
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">Antes: R$ 300,81</div>
+      </div></div>
+    <div style="border-top:1px solid var(--border);padding-top:14px"><div style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <span style="width:10px;height:10px;border-radius:50%;background:#2563eb;display:inline-block"></span>
+          <span style="font-size:12px;font-weight:700;color:var(--text)">📦 Parceladas</span>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#2563eb;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 3.251,51</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#2563eb;width:87%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 2.834,56</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#2563eb;width:53%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 1.737,63</span>
+        </div>
+      </div><div style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <span style="width:10px;height:10px;border-radius:50%;background:#7c3aed;display:inline-block"></span>
+          <span style="font-size:12px;font-weight:700;color:var(--text)">🛍️ Avulsas</span>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#7c3aed;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 2.277,12</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#7c3aed;width:30%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 688,05</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#7c3aed;width:0%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 0,00</span>
+        </div>
+      </div><div style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <span style="width:10px;height:10px;border-radius:50%;background:#0ea5e9;display:inline-block"></span>
+          <span style="font-size:12px;font-weight:700;color:var(--text)">🔄 Assinaturas</span>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#0ea5e9;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 300,81</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#0ea5e9;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 300,81</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#0ea5e9;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 300,81</span>
+        </div>
+      </div></div>
+      </div>
+      <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">📊 Categorias mês a mês</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:16px">Variação por categoria · último mês em destaque</div>
+      <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">💸</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Pix Crédito</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 66%</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">R$ 303,43</span>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#14b8a6;width:81%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 720,90</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#14b8a6;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 887,33</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#14b8a6;width:34%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 303,43</span>
+        </div>
+      </div><div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">🔁</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Reembolso</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 37%</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">R$ 269,90</span>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#84cc16;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 848,91</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#84cc16;width:50%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 426,75</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#84cc16;width:32%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 269,90</span>
+        </div>
+      </div><div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">🛍️</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Compras</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 9%</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">R$ 489,57</span>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#8b5cf6;width:54%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 287,74</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#8b5cf6;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 536,89</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#8b5cf6;width:91%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 489,57</span>
+        </div>
+      </div><div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">🎮</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Lazer</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 47%</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">R$ 268,42</span>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#f43f5e;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 502,39</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#f43f5e;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 502,39</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#f43f5e;width:53%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 268,42</span>
+        </div>
+      </div><div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">📚</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Educação</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 100%</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">R$ 0,00</span>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#6366f1;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 534,61</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#6366f1;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 534,61</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#6366f1;width:0%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 0,00</span>
+        </div>
+      </div><div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">🏠</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Casa/Moradia</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 0%</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">R$ 0,00</span>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#0ea5e9;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 942,38</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#0ea5e9;width:0%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 0,00</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#0ea5e9;width:0%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 0,00</span>
+        </div>
+      </div><div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">📱</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Assinaturas</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 0%</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">R$ 254,09</span>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#7c3aed;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 431,53</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#7c3aed;width:59%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 254,09</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#7c3aed;width:59%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 254,09</span>
+        </div>
+      </div><div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">🚗</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">Transporte</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:11px;font-weight:700;color:#22c55e">▼ 86%</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">R$ 24,95</span>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jun</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#3b82f6;width:100%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 485,60</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Jul</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#3b82f6;width:38%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 183,13</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">Ago</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:#3b82f6;width:5%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">R$ 24,95</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
+  <button class="bnav-btn active" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
   <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="bicon">👤</span>Márcio</button>
-  <button class="bnav-btn active" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
+  <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
   <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="bicon-wrap">➕</span>Adicionar</button>
   <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="bicon">📈</span>Análise</button>
   <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
@@ -1044,7 +1840,7 @@ const CAT_RULES=[
   // 📱 Assinaturas
   {cat:'assinaturas', terms:['spotify','netflix','amazon prime','google drive','apple','tim cel','tim','ifood clube','paypal fusora','socio cnc','sócio cnc']},
   // 🏠 Casa/Moradia
-  {cat:'casa', terms:['celpe','condominio','condomínio','iptu','mei','consorcio','consórcio','rayvson geladeira','cia do clima','ferreira costa','embala shop']},
+  {cat:'casa', terms:['celpe','condominio','condomínio','iptu','mei','consorcio','consórcio','rayvson geladeira','cia do clima','ferreira costa']},
   // 👗 Vestuário
   {cat:'vestuario', terms:['renner','dafiti','c&a pay','cea pay','timbushop','enjoei','store maju','melissa','camisa cnc','boticario','boticário','perfume','marcela salao','marcela salão','thais regina','thaís regina','jim com','trevo','imaginarium','paypal fusora']},
   // ⚽ Esportes
@@ -1052,7 +1848,7 @@ const CAT_RULES=[
   // 🎮 Lazer
   {cat:'lazer', terms:['ps5','black pantera','estelita sympla','algo hits','pura vida','socio cnc','sócio cnc','boi da macuca','natalia tatuagem']},
   // 🛍️ Compras
-  {cat:'compras', terms:['shopee','mercado livre','amazon','ml oculos','ml óculos','mv ']},
+  {cat:'compras', terms:['shopee','mercado livre','amazon','ml oculos','ml óculos','mv ','embala shop']},
   // 📚 Educação
   {cat:'educacao', terms:['fies']},
 ];
@@ -1067,23 +1863,32 @@ function guessCat(desc){
   return null;
 }
 
+// Versão das regras — incrementar aqui força recategorização na próxima abertura
+const CAT_RULES_VERSION=6;
+
 // Todas as categorias geradas por regra automática (não manual)
 const AUTO_CATS=new Set(['alimentacao','transporte','saude','compras','lazer','casa','assinaturas','vestuario','educacao','pet','viagem','reembolso','pix_credito','esportes','outros']);
 
 function autoCategorize(data){
   let changed=0;
+  const savedVersion=data._catRulesVersion||0;
+  const forceAll=savedVersion<CAT_RULES_VERSION;
   for(const mo of data.months){
     for(const key of ['mnu','mc6','rnu','rc6','fix']){
       for(const it of (mo[key]||[])){
         const novaCat=guessCat(it.desc);
         if(!novaCat) continue;
-        // Sempre aplica se não tem categoria ou se veio de regra automática
+        // Se as regras mudaram (nova versão), recategoriza tudo que é automático
+        // Se não mudou, só aplica em itens sem categoria
         if(!it.cat || AUTO_CATS.has(it.cat)){
-          it.cat=novaCat; changed++;
+          if(forceAll || !it.cat){
+            it.cat=novaCat; changed++;
+          }
         }
       }
     }
   }
+  if(forceAll) data._catRulesVersion=CAT_RULES_VERSION;
   return changed;
 }
 
@@ -1129,8 +1934,26 @@ const fmtS=v=>Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumF
 const sum=a=>(a||[]).reduce((t,i)=>t+(+i.val||0),0);
 
 // ── HELPERS ──
-function keyBg(k){return{mnu:'#2d1f5e',mc6:'#1e3358',rnu:'#2d1f5e',rc6:'#1e3358',fix:'#064e3b',entradas:'#14532d'}[k]||'#22222f';}
-function keyEmoji(k){return{mnu:'🟣',mc6:'⚫',rnu:'🟣',rc6:'⚫',fix:'🏠',entradas:'💵'}[k]||'💳';}
+function keyBg(k){return{mnu:'#2d1f5e',mc6:'#1a1a1a',rnu:'#3b0f40',rc6:'#1a1a1a',fix:'#064e3b',entradas:'#14532d'}[k]||'#22222f';}
+
+// Ícones estilizados para cada cartão
+const KEY_ICONS={
+  mnu:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"/><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg>`,
+  mc6:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"/><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg>`,
+  rnu:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"/><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg>`,
+  rc6:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"/><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg>`,
+  fix:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#064e3b"/><text x="10" y="14.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="13" fill="white">🏠</text></svg>`,
+  entradas:`<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#14532d"/><text x="10" y="14.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="white">$</text></svg>`,
+};
+function keyIcon(k){return KEY_ICONS[k]||KEY_ICONS.entradas;}
+
+// Ícones maiores para os seletores de cartão
+const KEY_ICONS_LG={
+  mnu:`<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#820AD1"/><text x="14" y="18.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="white">NU</text></svg>`,
+  mc6:`<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#242424"/><text x="14" y="19" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="white">C6</text></svg>`,
+  rnu:`<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#820AD1"/><text x="14" y="18.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="white">NU</text></svg>`,
+  rc6:`<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#242424"/><text x="14" y="19" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="white">C6</text></svg>`,
+};
 
 // ── CHARTS ──
 let chartM=null,chartR=null,chartLine=null;
@@ -1158,40 +1981,48 @@ function renderPainel(){
 
   let html=`
   <div class="hero">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+    <!-- Linha 1: Saldo + Entradas/Gastos lado a lado -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div>
-        <div class="hero-label">Saldo do mês — Márcio</div>
-        <div class="${saldo>=0?'hero-val':'hero-val neg'}" style="font-size:28px">${fmt(saldo)}</div>
+        <div class="hero-label">Saldo — Márcio</div>
+        <div class="${saldo>=0?'hero-val':'hero-val neg'}" style="font-size:26px">${fmt(saldo)}</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:4px">${saldo>=0?'✅ No positivo':'❌ Déficit no mês'}</div>
       </div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:8px 12px;text-align:right">
-          <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:2px">Entradas</div>
-          <div style="font-size:15px;font-weight:700;color:#4ade80">${fmt(tEnt)}</div>
+      <div style="display:flex;flex-direction:column;gap:6px;justify-content:center">
+        <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(74,222,128,.3)">
+          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Entradas</span>
+          <span style="font-size:15px;font-weight:700;color:#4ade80">${fmt(tEnt)}</span>
         </div>
-        <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:8px 12px;text-align:right">
-          <div style="font-size:11px;color:rgba(255,255,255,.7);margin-bottom:2px">Gastos</div>
-          <div style="font-size:15px;font-weight:700;color:#f87171">${fmt(tMarcio)}</div>
+        <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(248,113,113,.3)">
+          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Gastos</span>
+          <span style="font-size:15px;font-weight:700;color:#f87171">${fmt(tMarcio)}</span>
         </div>
       </div>
     </div>
+    <!-- Linha 2: Nubank / C6 / Fixos / Raíssa / Total -->
     <div class="hero-divider"></div>
-    <div class="hero-row">
-      <div class="hero-stat"><div class="hero-stat-val">${fmt(tmu)}</div><div class="hero-stat-lbl">🟣 Nubank</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">${fmt(tmc)}</div><div class="hero-stat-lbl">⚫ C6</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">${fmt(tfix)}</div><div class="hero-stat-lbl">🏠 Fixos</div></div>
-    </div>
-  </div>
-
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
-    <div class="mcard" style="border-top:3px solid var(--rai)">
-      <div class="mcard-label">💗 Total Raíssa</div>
-      <div class="mcard-val" style="color:var(--rai);font-size:17px">${fmt(tRai)}</div>
-      <div class="mcard-sub">🟣 ${fmt(tru)} · ⚫ ${fmt(trc)}</div>
-    </div>
-    <div class="mcard" style="border-top:3px solid #6366f1">
-      <div class="mcard-label">🌐 Total geral</div>
-      <div class="mcard-val" style="font-size:17px">${fmt(grand)}</div>
-      <div class="mcard-sub">Márcio + Raíssa</div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px">
+      <div style="text-align:center">
+        <div class="hero-stat-val">${fmt(tmu)}</div>
+        <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px">${KEY_ICONS.mnu} Nubank MV</div>
+      </div>
+      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
+        <div class="hero-stat-val">${fmt(tmc)}</div>
+        <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px">${KEY_ICONS.mc6} C6 MV</div>
+      </div>
+      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
+        <div class="hero-stat-val">${fmt(tfix)}</div>
+        <div class="hero-stat-lbl">🏠 Fixos</div>
+      </div>
+      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
+        <div class="hero-stat-val" style="color:#f472b6">${fmt(tRai)}</div>
+        <div class="hero-stat-lbl" style="color:rgba(244,114,182,.7)">💜 Raíssa</div>
+        <div class="hero-stat-lbl" style="font-size:10px;display:flex;align-items:center;justify-content:center;gap:3px">${KEY_ICONS.rnu} ${fmt(tru)} · ${KEY_ICONS.rc6} ${fmt(trc)}</div>
+      </div>
+      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
+        <div class="hero-stat-val" style="color:#a5b4fc">${fmt(grand)}</div>
+        <div class="hero-stat-lbl">🌐 Total</div>
+      </div>
     </div>
   </div>
 
@@ -1208,17 +2039,23 @@ function renderPainel(){
     </div>
   </div>
 
-  <div class="chart-card"><div class="chart-title">📊 Categorias</div>`;
+  <div class="chart-card"><div class="chart-title">🏷️ Gastos por categoria <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div>`;
 
-  const cats=[
-    {l:'Nubank Márcio',v:tmu,color:'#7c3aed'},{l:'C6 Márcio',v:tmc,color:'#3b82f6'},
-    {l:'Fixos',v:tfix,color:'#10b981'},{l:'Nubank Raíssa',v:tru,color:'#f43f5e'},{l:'C6 Raíssa',v:trc,color:'#f97316'}
-  ];
-  const tot=grand||1;
-  cats.forEach(c=>{
-    const pct=Math.round(c.v/tot*100);
-    html+=`<div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="width:8px;height:8px;border-radius:50%;background:${c.color};display:inline-block;margin-right:6px"></span>${c.l}</span><span class="catbar-vals">${fmt(c.v)}<span class="catbar-pct">${pct}%</span></span></div><div class="track"><div class="fill" style="width:${pct}%;background:${c.color}"></div></div></div>`;
+  // Coleta só os itens de Márcio
+  const allItems=[...(m.mnu||[]),...(m.mc6||[]),...(m.fix||[])];
+  const catMap={};
+  allItems.forEach(it=>{
+    const id=it.cat||'outros';
+    catMap[id]=(catMap[id]||0)+(+it.val||0);
   });
+  const catSorted=Object.entries(catMap).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const totCat=catSorted.reduce((t,[,v])=>t+v,0)||1;
+  catSorted.forEach(([id,val],idx)=>{
+    const c=catByID(id);
+    const pct=Math.round(val/totCat*100);
+    html+=`<div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">${c.emoji}</span>${c.label}</span><span class="catbar-vals">${fmt(val)}<span class="catbar-pct">${pct}%</span></span></div><div class="track"><div class="fill" style="width:${pct}%;background:${c.color}"></div></div></div>`;
+  });
+  if(!catSorted.length) html+=`<div class="empty">Nenhum lançamento categorizado</div>`;
   html+=`</div>`;
 
   if(G.months.length>1){
@@ -1244,7 +2081,7 @@ function itemRow(it,i,key){
   const cat=it.cat?catByID(it.cat):null;
   return `<div id="row-${key}-${i}">
     <div class="item" style="${isRec?'background:linear-gradient(to right,#1e1530,#1a1a24)':''}">
-      <div class="item-icon" style="background:${keyBg(key)}">${keyEmoji(key)}</div>
+      <div class="item-icon" style="background:${keyBg(key)};overflow:hidden">${keyIcon(key)}</div>
       <div class="item-body">
         <div class="item-desc" style="color:var(--text)">${it.desc}</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
@@ -1401,8 +2238,8 @@ let marcioCard='mnu',raissaCard='rnu';
 function renderMarcio(){
   const m=M();
   const cards={
-    mnu:{label:'Nubank',pill:'pill-nu',icon:'🟣',color:'var(--nu)',val:sum(m.mnu)},
-    mc6:{label:'C6',     pill:'pill-c6',icon:'⚫',color:'var(--c6)',val:sum(m.mc6)}
+    mnu:{label:'Nubank',pill:'pill-nu',icon:KEY_ICONS_LG.mnu,color:'var(--nu)',val:sum(m.mnu)},
+    mc6:{label:'C6',     pill:'pill-c6',icon:KEY_ICONS_LG.mc6,color:'var(--c6)',val:sum(m.mc6)}
   };
   const sel=Object.entries(cards).map(([k,c])=>`
     <button class="csel-btn${marcioCard===k?' active':''}" style="${marcioCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="marcioCard='${k}';renderMarcio()">
@@ -1418,8 +2255,8 @@ function renderMarcio(){
 function renderRaissa(){
   const m=M();
   const cards={
-    rnu:{label:'Nubank',pill:'pill-nu',icon:'🟣',color:'var(--nu)',val:sum(m.rnu)},
-    rc6:{label:'C6',     pill:'pill-c6',icon:'⚫',color:'var(--c6)',val:sum(m.rc6)}
+    rnu:{label:'Nubank',pill:'pill-nu',icon:KEY_ICONS_LG.rnu,color:'var(--nu)',val:sum(m.rnu)},
+    rc6:{label:'C6',     pill:'pill-c6',icon:KEY_ICONS_LG.rc6,color:'var(--c6)',val:sum(m.rc6)}
   };
   const sel=Object.entries(cards).map(([k,c])=>`
     <button class="csel-btn${raissaCard===k?' active':''}" style="${raissaCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="raissaCard='${k}';renderRaissa()">
@@ -2023,7 +2860,7 @@ function catRankingBlock(keys, monthRef){
 
   return `<div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)">
     <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">🏷️ Ranking por categoria</div>
-    <div style="font-size:12px;color:var(--text3);margin-bottom:16px">${cur.name} · gastos categorizados</div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:16px">${cur.name} · Márcio</div>
     ${rows}
   </div>`;
 }
@@ -2059,31 +2896,111 @@ function renderAnalise(){
 
   function secaoTipos(dadosPessoa,accentColor){
     const tipos=[
-      {key:'parceladas',label:'📦 Parceladas',color:'#2563eb'},
-      {key:'avulsas',   label:'🛍️ Avulsas',   color:'#475569'},
-      {key:'assinaturas',label:'🔄 Assinaturas',color:'#7c3aed'},
+      {key:'parceladas',  label:'Parceladas',  emoji:'📦', color:'#2563eb'},
+      {key:'avulsas',     label:'Avulsas',     emoji:'🛍️', color:'#7c3aed'},
+      {key:'assinaturas', label:'Assinaturas', emoji:'🔄', color:'#0ea5e9'},
     ];
     const last=dadosPessoa[dadosPessoa.length-1];
     const prev=dadosPessoa[dadosPessoa.length-2];
-    let h='';
-    tipos.forEach(t=>{
+
+    // Cards de tipo com variação
+    const cards=tipos.map(t=>{
       const d=diff(last[t.key],prev[t.key]);
-      const maxVal=Math.max(...dadosPessoa.map(x=>x[t.key]),1);
-      h+=`<div style="margin-bottom:14px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
-          <span style="font-size:13px;font-weight:600;color:var(--text)">${t.label}</span>${badge(d)}
+      const up=d&&d.up;
+      const col=d?(up?'#ef4444':'#22c55e'):'var(--text3)';
+      const bgCol=d?(up?'rgba(239,68,68,.12)':'rgba(34,197,94,.12)'):'transparent';
+      return `<div style="background:var(--surface2);border-radius:12px;padding:12px 14px;border:1px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <span style="font-size:16px">${t.emoji}</span>
+          <span style="font-size:12px;font-weight:600;color:var(--text2)">${t.label}</span>
         </div>
-        ${meses.map((mo,i)=>`
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-            <span style="font-size:11px;color:var(--text3);width:32px;flex:0 0 32px">${labels[i]}</span>
-            <div style="flex:1;height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden">
-              <div style="height:8px;border-radius:4px;background:${t.color};width:${Math.round(dadosPessoa[i][t.key]/maxVal*100)}%"></div>
-            </div>
-            <span style="font-size:11px;font-weight:600;color:var(--text);width:76px;text-align:right;flex:0 0 76px">${fmt(dadosPessoa[i][t.key])}</span>
-          </div>`).join('')}
+        <div style="font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px">${fmt(last[t.key])}</div>
+        ${d?`<div style="display:inline-flex;align-items:center;gap:4px;background:${bgCol};border-radius:6px;padding:2px 8px">
+          <span style="font-size:11px;font-weight:700;color:${col}">${up?'▲':'▼'} ${Math.abs(d.pct)}%</span>
+          <span style="font-size:10px;color:var(--text3)">${fmt(Math.abs(d.d))}</span>
+        </div>`:''}
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">Antes: ${fmt(prev[t.key])}</div>
       </div>`;
+    }).join('');
+
+    // Barras mês a mês por tipo
+    const bars=tipos.map(t=>{
+      const maxVal=Math.max(...dadosPessoa.map(x=>x[t.key]),1);
+      const barRows=meses.map((mo,i)=>`
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">${labels[i]}</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:${t.color};width:${Math.round(dadosPessoa[i][t.key]/maxVal*100)}%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">${fmt(dadosPessoa[i][t.key])}</span>
+        </div>`).join('');
+      return `<div style="margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+          <span style="width:10px;height:10px;border-radius:50%;background:${t.color};display:inline-block"></span>
+          <span style="font-size:12px;font-weight:700;color:var(--text)">${t.emoji} ${t.label}</span>
+        </div>
+        ${barRows}
+      </div>`;
+    }).join('');
+
+    return `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">${cards}</div>
+    <div style="border-top:1px solid var(--border);padding-top:14px">${bars}</div>`;
+  }
+
+  function secaoCategorias(keys){
+    // Comparativo por categoria mês a mês
+    const catIds=new Set();
+    meses.forEach(mo=>keys.flatMap(k=>mo[k]||[]).forEach(it=>catIds.add(it.cat||'outros')));
+    const sorted=[...catIds].sort((a,b)=>{
+      const totB=meses.reduce((t,mo)=>t+keys.flatMap(k=>mo[k]||[]).filter(i=>(i.cat||'outros')===b).reduce((s,i)=>s+(+i.val||0),0),0);
+      const totA=meses.reduce((t,mo)=>t+keys.flatMap(k=>mo[k]||[]).filter(i=>(i.cat||'outros')===a).reduce((s,i)=>s+(+i.val||0),0),0);
+      return totB-totA;
+    }).slice(0,8);
+
+    if(!sorted.length) return '';
+
+    const dadosCat=sorted.map(id=>{
+      const vals=meses.map(mo=>keys.flatMap(k=>mo[k]||[]).filter(i=>(i.cat||'outros')===id).reduce((t,i)=>t+(+i.val||0),0));
+      const last=vals[vals.length-1];
+      const prev=vals[vals.length-2];
+      const d=diff(last,prev);
+      const maxVal=Math.max(...vals,1);
+      return {id,vals,last,prev,d,maxVal};
     });
-    return h;
+
+    const rows=dadosCat.map(({id,vals,last,prev,d,maxVal})=>{
+      const c=catByID(id);
+      const up=d&&d.up;
+      const col=d?(up?'#ef4444':'#22c55e'):'var(--text3)';
+      const barRows=meses.map((mo,i)=>`
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px">
+          <span style="font-size:11px;color:var(--text3);width:28px;flex:0 0 28px">${labels[i]}</span>
+          <div style="flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+            <div style="height:6px;border-radius:3px;background:${c.color};width:${Math.round(vals[i]/maxVal*100)}%;transition:width .5s"></div>
+          </div>
+          <span style="font-size:11px;font-weight:600;color:var(--text);width:80px;text-align:right;flex:0 0 80px">${fmt(vals[i])}</span>
+        </div>`).join('');
+
+      return `<div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="font-size:16px">${c.emoji}</span>
+            <span style="font-size:13px;font-weight:700;color:var(--text)">${c.label}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            ${d?`<span style="font-size:11px;font-weight:700;color:${col}">${up?'▲':'▼'} ${Math.abs(d.pct)}%</span>`:''}
+            <span style="font-size:13px;font-weight:700;color:var(--text)">${fmt(last)}</span>
+          </div>
+        </div>
+        ${barRows}
+      </div>`;
+    }).join('');
+
+    return `<div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">📊 Categorias mês a mês</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:16px">Variação por categoria · último mês em destaque</div>
+      ${rows}
+    </div>`;
   }
 
   function pessoaBlock(nome,emoji,accentColor,keys){
@@ -2124,22 +3041,22 @@ function renderAnalise(){
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
             <span style="font-size:12px;font-weight:600;color:var(--text2)">🟣 Nubank</span>${badge(dNu)}
           </div>
-          <div style="font-size:18px;font-weight:700">${fmt(last.nu)}</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text)">${fmt(last.nu)}</div>
           <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: ${fmt(prev.nu)}</div>
         </div>
         <div style="background:var(--surface);border-radius:14px;padding:14px;box-shadow:var(--shadow);border-top:3px solid #1e293b">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
             <span style="font-size:12px;font-weight:600;color:var(--text2)">⚫ C6</span>${badge(dC6)}
           </div>
-          <div style="font-size:18px;font-weight:700">${fmt(last.c6)}</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text)">${fmt(last.c6)}</div>
           <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: ${fmt(prev.c6)}</div>
         </div>
       </div>
       <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
-        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px">Por tipo de gasto</div>
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:14px">📦 Por tipo de gasto</div>
         ${secaoTipos(dadosPessoa,accentColor)}
       </div>
-      ${catRankingBlock(keys, M())}`;
+      ${secaoCategorias(keys)}`;
   }
 
   const dadosGeral=meses.map(mo=>({
@@ -2173,14 +3090,14 @@ function renderAnalise(){
           <div style="display:flex;justify-content:space-between;margin-bottom:6px">
             <span style="font-size:12px;font-weight:600;color:var(--text2)">👤 Márcio</span>${badge(diff(lastG.marcio,prevG.marcio))}
           </div>
-          <div style="font-size:18px;font-weight:700">${fmt(lastG.marcio)}</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text)">${fmt(lastG.marcio)}</div>
           <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: ${fmt(prevG.marcio)}</div>
         </div>
         <div style="background:var(--surface);border-radius:14px;padding:14px;box-shadow:var(--shadow);border-top:3px solid #db2777">
           <div style="display:flex;justify-content:space-between;margin-bottom:6px">
             <span style="font-size:12px;font-weight:600;color:var(--text2)">💜 Raíssa</span>${badge(diff(lastG.raissa,prevG.raissa))}
           </div>
-          <div style="font-size:18px;font-weight:700">${fmt(lastG.raissa)}</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text)">${fmt(lastG.raissa)}</div>
           <div style="font-size:11px;color:var(--text3);margin-top:3px">Antes: ${fmt(prevG.raissa)}</div>
         </div>
       </div>`;
@@ -2208,7 +3125,6 @@ function renderAnalise(){
       </div>`;
     });
     h+=`</div>`;
-    h+=catRankingBlock(['mnu','mc6','rnu','rc6','fix'], M());
     return h;
   }
 
