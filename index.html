@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/Marcio/Downloads/index_12.html -->
+<!-- saved from url=(0047)file:///C:/Users/Marcio/Downloads/index_13.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -274,7 +274,7 @@ select option{background:var(--surface2);color:var(--text)}
 </div>
 
 <div class="content">
-  <div id="tab-painel" class="page">
+  <div id="tab-painel" class="page active">
   <div class="hero">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div>
@@ -389,104 +389,18 @@ select option{background:var(--surface2);color:var(--text)}
   <div id="tab-fixos" class="page"></div>
   <div id="tab-meses" class="page"></div>
   <div id="tab-analise" class="page"></div>
-  <div id="tab-conferencia" class="page active"><div>
-    <div class="page-title">🔍 Conferência de Lançamentos</div>
-
-    <div style="background:linear-gradient(135deg,#1e1b4b,#4c1d95);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow)">
-      <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px">📅 Mês de referência no banco</div>
-      <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px">Lançamentos de <span style="color:#c4b5fd">Julho 2026</span> → <span style="color:#4ade80">Fatura Agosto 2026</span></div>
-      <div style="display:flex;gap:10px">
-        <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg>
-          <div>
-            <div style="font-size:11px;color:rgba(255,255,255,.5)">Nubank vence</div>
-            <div style="font-size:14px;font-weight:700;color:#c4b5fd">10/08</div>
-          </div>
-        </div>
-        <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg>
-          <div>
-            <div style="font-size:11px;color:rgba(255,255,255,.5)">C6 vence</div>
-            <div style="font-size:14px;font-weight:700;color:#93c5fd">05/08</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div style="background:var(--surface);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)">
-      <div style="font-size:12px;color:var(--text3);margin-bottom:8px">📋 Compare com o app do banco · Julho 2026</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-        <div style="text-align:center;padding:10px;background:var(--surface2);border-radius:10px">
-          <div style="font-size:18px;font-weight:700;color:var(--text)">120</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px">Total</div>
-        </div>
-        <div style="text-align:center;padding:10px;background:#052e16;border-radius:10px">
-          <div style="font-size:18px;font-weight:700;color:#4ade80">0</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px">✓ Conferidos</div>
-        </div>
-        <div style="text-align:center;padding:10px;background:var(--surface2);border-radius:10px">
-          <div style="font-size:18px;font-weight:700;color:var(--text3)">0</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px">✗ Divergências</div>
-        </div>
-      </div>
-      
-    </div>
-
-    <div class="conf-bank-block">
-      <div class="conf-bank-header" onclick="toggleExpand(&#39;bank_nu&#39;)" style="cursor:pointer;user-select:none">
-        <div class="conf-bank-title">
-          <span style="font-size:18px;display:inline-block;transform:rotate(0deg);transition:transform .2s;margin-right:2px">›</span>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> Nubank
-        </div>
-        <div style="font-size:12px;color:var(--text3)">0/47 · <span style="color:#4ade80">0%</span></div>
-      </div>
-      <div class="conf-progress-bar"><div class="conf-progress-fill" style="width:0%"></div></div>
-      
-      <div class="conf-summary">
-        <div><div class="conf-total-lbl">Total da fatura</div><div class="conf-total-val">R$ 3.606,12</div></div>
-        <div style="text-align:right"><div class="conf-total-lbl">Conferido</div><div style="font-size:13px;font-weight:700;color:#4ade80">R$ 0,00</div></div>
-      </div>
-    </div>
-    <div class="conf-bank-block">
-      <div class="conf-bank-header" onclick="toggleExpand(&#39;bank_c6&#39;)" style="cursor:pointer;user-select:none">
-        <div class="conf-bank-title">
-          <span style="font-size:18px;display:inline-block;transform:rotate(0deg);transition:transform .2s;margin-right:2px">›</span>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> C6
-        </div>
-        <div style="font-size:12px;color:var(--text3)">0/73 · <span style="color:#4ade80">0%</span></div>
-      </div>
-      <div class="conf-progress-bar"><div class="conf-progress-fill" style="width:0%"></div></div>
-      
-      <div class="conf-summary">
-        <div><div class="conf-total-lbl">Total da fatura</div><div class="conf-total-val">R$ 3.699,38</div></div>
-        <div style="text-align:right"><div class="conf-total-lbl">Conferido</div><div style="font-size:13px;font-weight:700;color:#4ade80">R$ 0,00</div></div>
-      </div>
-    </div>
-
-    <div style="background:var(--surface);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)">
-      <div style="font-size:12px;color:var(--text3);margin-bottom:10px">💡 Dicas de uso</div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.6">
-        · Abra o app do banco ao lado<br>
-        · Toque <b style="color:#4ade80">✓</b> quando o valor bater<br>
-        · Toque <b style="color:#f87171">✗</b> quando houver divergência<br>
-        · O progresso fica salvo automaticamente<br>
-        · Toque de novo para desmarcar
-      </div>
-    </div>
-
-    <button onclick="clearConf()" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;margin-bottom:14px">🗑️ Limpar conferência deste mês</button>
-  </div></div>
+  <div id="tab-conferencia" class="page"></div>
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
+  <button class="bnav-btn active" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
   <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="bicon">👤</span>Márcio</button>
   <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
   <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="bicon-wrap">➕</span>Adicionar</button>
   <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="bicon">📈</span>Análise</button>
   <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
   <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><span class="bicon">📅</span>Meses</button>
-  <button class="bnav-btn active" id="bn-conferencia" onclick="goTab(&#39;conferencia&#39;)"><span class="bicon">🔍</span>Conferir</button>
+  <button class="bnav-btn" id="bn-conferencia" onclick="goTab(&#39;conferencia&#39;)"><span class="bicon">🔍</span>Conferir</button>
 </nav>
 
 </div>
@@ -1862,17 +1776,17 @@ function infoFaturaBanco(){
   return {nomeFatura, vencNU:fmtData(vencNU), vencC6:fmtData(vencC6)};
 }
 
+// Estado de colapso da conferência — global para ser acessível pelo onclick
+window._confExpanded = window._confExpanded || {};
+function toggleExpand(id){
+  window._confExpanded[id]=!window._confExpanded[id];
+  renderConferencia();
+}
+
 function renderConferencia(){
   const m=M();
   const conf=loadConf();
   const infoFatura=infoFaturaBanco();
-
-  if(!window._confExpanded) window._confExpanded={};
-
-  function toggleExpand(id){
-    window._confExpanded[id]=!window._confExpanded[id];
-    renderConferencia();
-  }
 
   function buildBankSection(titulo,icone,banco,itensM,itensR,keyM,keyR){
     const todos=[
