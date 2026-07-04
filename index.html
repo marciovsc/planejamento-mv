@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/Marcio/Downloads/index_9.html -->
+<!-- saved from url=(0047)file:///C:/Users/Marcio/Downloads/index_10.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -737,10 +737,14 @@ async function loadFromCloud(){
   if(cloud){
     G=ensureJunho(cloud);applyOverrides(G);repararParcelas(G);
     const changed=autoCategorize(G);
+    const syncCartoes=sincronizarCartoes();
     try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}
     goHome();
-    if(changed>0){showSyncStatus('☁️ Corrigindo categorias...',true);await cloudSave(G);showSyncStatus('☁️ Categorias atualizadas na nuvem!',true);}
-    else{showSyncStatus('☁️ Sincronizado!',true);}
+    if(changed>0||syncCartoes>0){
+      showSyncStatus('☁️ Sincronizando dados...',true);
+      await cloudSave(G);
+      showSyncStatus('☁️ Dados atualizados!',true);
+    } else {showSyncStatus('☁️ Sincronizado!',true);}
   }else{showSyncStatus('☁️ Sem dados na nuvem',false);}
 }
 
@@ -840,6 +844,7 @@ function repararParcelas(data){
 let G=ensureJunho(load());
 applyOverrides(G);repararParcelas(G);
 const _autoCatCount=autoCategorize(G);
+sincronizarCartoes();
 if(_autoCatCount>0){try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}}
 // Atualiza label imediatamente com dados do localStorage (antes do sync)
 document.addEventListener('DOMContentLoaded',()=>{
@@ -1153,25 +1158,21 @@ function toggleEditRec(){
   else{btn.style.borderColor='var(--border)';btn.style.background='#f8fafc';btn.style.color='var(--text3)';btn.textContent='🔄 Normal';}
 }
 function propagarEdicao(key, itemDesc, campos, mesOrigemIdx){
-  // campos = { cat, cartao, data } — propaga para parcelas/recorrentes nos meses seguintes
+  // campos = { cat, cartao, data } -- propaga para parcelas/recorrentes nos meses seguintes
   let descAtual=itemDesc;
   for(let i=mesOrigemIdx+1;i<G.months.length;i++){
     const mo=G.months[i];
     const proxDesc=isParcelado({desc:descAtual})?nextParcel(descAtual):null;
     const alvo=mo[key]?.find(it=>it.desc===(proxDesc||descAtual));
     if(alvo){
-      // Categoria
       if(campos.cat!==undefined){
         if(campos.cat){alvo.cat=campos.cat;alvo._catManual=true;}
         else{delete alvo.cat;delete alvo._catManual;}
       }
-      // Cartão
       if(campos.cartao!==undefined){
         if(campos.cartao)alvo.cartao=campos.cartao;
         else delete alvo.cartao;
       }
-      // Data: só propaga se não parcelado (parcelado cada mês tem data própria)
-      // Para recorrentes propaga, para parcelados não (cada parcela tem data diferente)
       if(campos.data!==undefined && !isParcelado(alvo)){
         if(campos.data)alvo.data=campos.data;
         else delete alvo.data;
@@ -1179,6 +1180,32 @@ function propagarEdicao(key, itemDesc, campos, mesOrigemIdx){
     }
     if(proxDesc)descAtual=proxDesc;else break;
   }
+}
+
+// Varre TODOS os meses e propaga cartão de parcelas com cartão para as seguintes sem cartão
+function sincronizarCartoes(){
+  let total=0;
+  for(let i=0;i<G.months.length-1;i++){
+    const origem=G.months[i];
+    for(const key of ['mnu','mc6','rnu','rc6']){
+      for(const it of (origem[key]||[])){
+        if(!it.cartao||!isParcelado(it)||it.recorrente) continue;
+        // Tem cartão e é parcelado — propaga para meses seguintes
+        let descAtual=it.desc;
+        for(let j=i+1;j<G.months.length;j++){
+          const proxDesc=nextParcel(descAtual);
+          if(!proxDesc) break;
+          const alvo=G.months[j][key]?.find(x=>x.desc===proxDesc);
+          if(alvo&&!alvo.cartao){
+            alvo.cartao=it.cartao;
+            total++;
+          }
+          descAtual=proxDesc;
+        }
+      }
+    }
+  }
+  return total;
 }
 // Mantém compatibilidade com chamadas antigas
 function propagarCategoria(key,itemDesc,novaCat,mesOrigemIdx){
