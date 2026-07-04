@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/Marcio/Downloads/index_13.html -->
+<!-- saved from url=(0047)file:///C:/Users/Marcio/Downloads/index_19.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1782,6 +1782,17 @@ function toggleExpand(id){
   window._confExpanded[id]=!window._confExpanded[id];
   renderConferencia();
 }
+// Event delegation para os botões de colapso da conferência
+document.addEventListener('click',function(e){
+  const el=e.target.closest('[data-expand]');
+  if(el){
+    e.stopPropagation();
+    e.preventDefault();
+    const id=el.getAttribute('data-expand');
+    window._confExpanded[id]=!window._confExpanded[id];
+    renderConferencia();
+  }
+});
 
 function renderConferencia(){
   const m=M();
@@ -1845,10 +1856,11 @@ function renderConferencia(){
       const subTotal=g.itens.reduce((t,{it})=>t+(+it.val||0),0);
       const subConf=g.itens.filter(({key,i})=>conf[key+'_'+i]==='ok').length;
       const subDiv=g.itens.filter(({key,i})=>conf[key+'_'+i]==='div').length;
-      const grpExpanded=!!window._confExpanded['grp_'+g.id];
+      const grpKey='grp_'+g.id;
+      const grpExpanded=!!window._confExpanded[grpKey];
       if(!g.label) return buildRows(g.itens);
       return `<div style="border-bottom:1px solid var(--border)">
-        <div onclick="toggleExpand('grp_${g.id}')" style="padding:11px 16px;background:var(--surface2);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none">
+        <div data-expand="${grpKey}" style="padding:11px 16px;background:var(--surface2);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none">
           <div style="display:flex;align-items:center;gap:8px">
             <span style="font-size:16px;display:inline-block;transform:rotate(${grpExpanded?90:0}deg);transition:transform .2s">›</span>
             <span style="font-size:12px;font-weight:700;color:var(--text2)">💳 ${g.label}</span>
@@ -1863,7 +1875,7 @@ function renderConferencia(){
     }).join(''):'';
 
     return `<div class="conf-bank-block">
-      <div class="conf-bank-header" onclick="toggleExpand('bank_${banco}')" style="cursor:pointer;user-select:none">
+      <div class="conf-bank-header" data-expand="bank_${banco}" style="cursor:pointer;user-select:none">
         <div class="conf-bank-title">
           <span style="font-size:18px;display:inline-block;transform:rotate(${bankExpanded?90:0}deg);transition:transform .2s;margin-right:2px">›</span>
           ${icone} ${titulo}
@@ -1942,6 +1954,15 @@ function renderConferencia(){
 
     <button onclick="clearConf()" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;margin-bottom:14px">🗑️ Limpar conferência deste mês</button>
   </div>`;
+  // Adiciona listeners diretamente nos elementos após renderizar
+  document.querySelectorAll('[data-expand]').forEach(el=>{
+    el.addEventListener('click',function(e){
+      e.stopPropagation();
+      const id=this.getAttribute('data-expand');
+      window._confExpanded[id]=!window._confExpanded[id];
+      renderConferencia();
+    });
+  });
 }
 
 function exportData(){
