@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/Marcio/Downloads/index_23.html -->
+<!-- saved from url=(0047)file:///C:/Users/Marcio/Downloads/index_24.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -274,7 +274,7 @@ select option{background:var(--surface2);color:var(--text)}
 </div>
 
 <div class="content">
-  <div id="tab-painel" class="page">
+  <div id="tab-painel" class="page active">
   <div class="hero">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div>
@@ -385,233 +385,22 @@ select option{background:var(--surface2);color:var(--text)}
   <div id="tab-marcio" class="page"></div>
   <div id="tab-raissa" class="page"></div>
   <div id="tab-entradas" class="page"></div>
-  <div id="tab-add" class="page"><div>
-    <div class="page-title">➕ Novo lançamento</div>
-    <div class="form-card">
-      <div class="fg">
-        <div class="flabel">Tipo de lançamento</div>
-        <div style="display:flex;gap:8px">
-          <button id="btn-tipo-gasto" onclick="setTipoLanc(&#39;gasto&#39;)" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💸 Gasto</button>
-          <button id="btn-tipo-entrada" onclick="setTipoLanc(&#39;entrada&#39;)" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💵 Entrada</button>
-        </div>
-      </div>
-
-      <div id="fields-gasto">
-        <div class="form-section">💸 Novo gasto</div>
-        <div class="row2">
-          <div class="fg"><label class="flabel">Pessoa</label><select id="f-pessoa" onchange="toggleDivisao()"><option>Márcio</option><option>Raíssa</option></select></div>
-          <div class="fg"><label class="flabel">Banco</label><select id="f-tipo" onchange="toggleVenc();atualizaCartaoSelect()"><option value="nu">🟣 Nubank</option><option value="c6">⚫ C6</option><option value="fix">🏠 Fixo</option></select></div>
-        </div>
-        <div class="fg" id="fg-cartao-sel" style="display: none;">
-          <label class="flabel">Cartão usado</label>
-          <select id="f-cartao" style="width:100%"><option value="">— Selecione o cartão —</option></select>
-        </div>
-        <div class="fg"><label class="flabel">Descrição</label><input id="f-desc" placeholder="Nome do gasto"></div>
-        <div class="fg"><label class="flabel">Categoria</label><select id="f-cat"><option value="">— Sem categoria —</option><option value="alimentacao">🍔 Alimentação</option><option value="transporte">🚗 Transporte</option><option value="saude">🏥 Saúde</option><option value="compras">🛍️ Compras</option><option value="lazer">🎮 Lazer</option><option value="casa">🏠 Casa/Moradia</option><option value="assinaturas">📱 Assinaturas</option><option value="vestuario">👗 Vestuário</option><option value="educacao">📚 Educação</option><option value="pix_credito">💸 Pix Crédito</option><option value="esportes">⚽ Esportes</option><option value="pet">🐾 Pet</option><option value="viagem">✈️ Viagem</option><option value="reembolso">🔁 Reembolso</option><option value="outros">📦 Outros</option></select></div>
-        <div class="row2">
-          <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="f-val" placeholder="0,00" step="0.01" oninput="calcParcela();atualizaDivisao()"></div>
-          <div class="fg"><label class="flabel">Data</label><input id="f-data" placeholder="dd/mm"></div>
-        </div>
-        <div class="row2">
-          <div class="fg"><label class="flabel">Parcela atual</label><input type="number" id="f-parc-atual" placeholder="ex: 1" min="1" oninput="calcParcela()"></div>
-          <div class="fg"><label class="flabel">Total parcelas</label><input type="number" id="f-parc-total" placeholder="ex: 12" min="1" oninput="calcParcela();atualizaDivisao()"></div>
-        </div>
-        <div id="parc-preview" class="parc-preview"></div>
-        <div class="fg" id="fg-venc" style="display:none"><label class="flabel">Dia de vencimento</label><input type="number" id="f-venc" placeholder="ex: 10" min="1" max="31"></div>
-        <div class="fg" id="fg-rec">
-          <div class="flabel">Tipo de cobrança</div>
-          <div style="display:flex;gap:8px">
-            <button id="btn-rec-nao" onclick="setRec(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💳 Normal</button>
-            <button id="btn-rec-sim" onclick="setRec(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
-          </div>
-          <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="rec-hint">Gasto único ou parcelado</div>
-        </div>
-
-        <!-- DIVISÃO COM RAÍSSA -->
-        <div class="fg" id="fg-divisao" style="display: block;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <div class="flabel" style="margin-bottom:0">✂️ Dividir com Raíssa</div>
-            <button id="btn-dividir" onclick="toggleDivisaoAtiva()" style="padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">Ativar</button>
-          </div>
-          <div class="divisao-box" id="divisao-box">
-            <div class="divisao-title">✂️ Valores divididos · mesmo cartão</div>
-            <div class="row2">
-              <div class="fg" style="margin-bottom:8px">
-                <label class="flabel" style="color:#c4b5fd">👤 Valor Márcio (R$)</label>
-                <input type="number" id="f-val-m" placeholder="0,00" step="0.01" oninput="calcDivisaoRaissa()">
-              </div>
-              <div class="fg" style="margin-bottom:8px">
-                <label class="flabel" style="color:#fbcfe8">💜 Valor Raíssa (R$)</label>
-                <input type="number" id="f-val-r" placeholder="0,00" step="0.01">
-              </div>
-            </div>
-            <div id="divisao-preview" style="font-size:11px;color:var(--text3);text-align:center;margin-top:4px"></div>
-          </div>
-        </div>
-
-        <button class="btn-submit" onclick="addGasto()">Adicionar gasto</button>
-      </div>
-
-      <div id="fields-entrada" style="display:none">
-        <div class="form-section">💵 Nova entrada</div>
-        <div class="fg"><label class="flabel">Descrição</label><input id="e-desc" placeholder="Salário, freelance, 13°..."></div>
-        <div class="row2">
-          <div class="fg"><label class="flabel">Valor (R$)</label><input type="number" id="e-val" placeholder="0,00" step="0.01"></div>
-          <div class="fg"><label class="flabel">Data</label><input id="e-data" placeholder="dd/mm"></div>
-        </div>
-        <div class="fg">
-          <div class="flabel">Tipo de cobrança</div>
-          <div style="display:flex;gap:8px">
-            <button id="btn-erec-nao" onclick="setRecEntrada(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid #16a34a;background:#16a34a;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💵 Normal</button>
-            <button id="btn-erec-sim" onclick="setRecEntrada(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
-          </div>
-          <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="erec-hint">Entrada única</div>
-        </div>
-        <button class="btn-submit" style="background:linear-gradient(135deg,#16a34a,#15803d)" onclick="addEntrada()">Adicionar entrada</button>
-      </div>
-
-      <div class="toast" id="toast-g">✅ Lançamento adicionado!</div>
-    </div>
-
-    <div class="list-card">
-        <div class="list-head"><div class="list-title"><span class="pill pill-in">Entradas</span></div><span style="font-size:11px;color:var(--text3)">2 itens</span></div>
-        <div>
-        <div id="row-entradas-0">
-          <div class="item">
-            <div class="item-icon" style="background:var(--in-bg)">💵</div>
-            <div class="item-body"><div class="item-desc" style="color:var(--text)">Salário</div></div>
-            <div class="item-right">
-              <span class="item-val pos">R$ 4.917,60</span>
-              <div class="action-menu-wrap">
-                <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-eadd-0&#39;)">⋯</button>
-                <div class="action-menu" id="menu-eadd-0">
-                  <button class="action-menu-item" onclick="closeMenu();startEdit(&#39;entradas&#39;,0)">✏️ Editar</button>
-                  <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;entradas&#39;,0)">🗑️ Excluir</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="row-entradas-1">
-          <div class="item">
-            <div class="item-icon" style="background:var(--in-bg)">💵</div>
-            <div class="item-body"><div class="item-desc" style="color:var(--text)">Ajuda de Custo</div><div class="item-date">10/06</div></div>
-            <div class="item-right">
-              <span class="item-val pos">R$ 150,00</span>
-              <div class="action-menu-wrap">
-                <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-eadd-1&#39;)">⋯</button>
-                <div class="action-menu" id="menu-eadd-1">
-                  <button class="action-menu-item" onclick="closeMenu();startEdit(&#39;entradas&#39;,1)">✏️ Editar</button>
-                  <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;entradas&#39;,1)">🗑️ Excluir</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div></div>
-        <div class="list-foot"><span class="foot-lbl">Total entradas</span><span class="foot-val" style="color:var(--in)">R$ 5.067,60</span></div>
-      </div>
-  </div></div>
+  <div id="tab-add" class="page"></div>
   <div id="tab-fixos" class="page"></div>
   <div id="tab-meses" class="page"></div>
   <div id="tab-analise" class="page"></div>
-  <div id="tab-conferencia" class="page active"><div>
-    <div class="page-title">🔍 Conferência de Lançamentos</div>
-
-    <div style="background:linear-gradient(135deg,#1e1b4b,#4c1d95);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow)">
-      <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px">📅 Mês de referência no banco</div>
-      <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:10px">Lançamentos de <span style="color:#c4b5fd">Julho 2026</span> → <span style="color:#4ade80">Fatura Agosto 2026</span></div>
-      <div style="display:flex;gap:10px">
-        <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg>
-          <div>
-            <div style="font-size:11px;color:rgba(255,255,255,.5)">Nubank vence</div>
-            <div style="font-size:14px;font-weight:700;color:#c4b5fd">10/08</div>
-          </div>
-        </div>
-        <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg>
-          <div>
-            <div style="font-size:11px;color:rgba(255,255,255,.5)">C6 vence</div>
-            <div style="font-size:14px;font-weight:700;color:#93c5fd">05/08</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div style="background:var(--surface);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)">
-      <div style="font-size:12px;color:var(--text3);margin-bottom:8px">📋 Compare com o app do banco · Julho 2026</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
-        <div style="text-align:center;padding:10px;background:var(--surface2);border-radius:10px">
-          <div style="font-size:18px;font-weight:700;color:var(--text)">122</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px">Total</div>
-        </div>
-        <div style="text-align:center;padding:10px;background:#052e16;border-radius:10px">
-          <div style="font-size:18px;font-weight:700;color:#4ade80">0</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px">✓ Conferidos</div>
-        </div>
-        <div style="text-align:center;padding:10px;background:var(--surface2);border-radius:10px">
-          <div style="font-size:18px;font-weight:700;color:var(--text3)">0</div>
-          <div style="font-size:10px;color:var(--text3);margin-top:2px">✗ Divergências</div>
-        </div>
-      </div>
-      
-    </div>
-
-    <div class="conf-bank-block">
-      <div class="conf-bank-header" data-expand="bank_nu" style="cursor:pointer;user-select:none">
-        <div class="conf-bank-title">
-          <span style="font-size:18px;display:inline-block;transform:rotate(0deg);transition:transform .2s;margin-right:2px">›</span>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> Nubank
-        </div>
-        <div style="font-size:12px;color:var(--text3)">0/52 · <span style="color:#4ade80">0%</span></div>
-      </div>
-      <div class="conf-progress-bar"><div class="conf-progress-fill" style="width:0%"></div></div>
-      
-      <div class="conf-summary">
-        <div><div class="conf-total-lbl">Total da fatura</div><div class="conf-total-val">R$ 3.974,86</div></div>
-        <div style="text-align:right"><div class="conf-total-lbl">Conferido</div><div style="font-size:13px;font-weight:700;color:#4ade80">R$ 0,00</div></div>
-      </div>
-    </div>
-    <div class="conf-bank-block">
-      <div class="conf-bank-header" data-expand="bank_c6" style="cursor:pointer;user-select:none">
-        <div class="conf-bank-title">
-          <span style="font-size:18px;display:inline-block;transform:rotate(0deg);transition:transform .2s;margin-right:2px">›</span>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> C6
-        </div>
-        <div style="font-size:12px;color:var(--text3)">0/70 · <span style="color:#4ade80">0%</span></div>
-      </div>
-      <div class="conf-progress-bar"><div class="conf-progress-fill" style="width:0%"></div></div>
-      
-      <div class="conf-summary">
-        <div><div class="conf-total-lbl">Total da fatura</div><div class="conf-total-val">R$ 3.629,23</div></div>
-        <div style="text-align:right"><div class="conf-total-lbl">Conferido</div><div style="font-size:13px;font-weight:700;color:#4ade80">R$ 0,00</div></div>
-      </div>
-    </div>
-
-    <div style="background:var(--surface);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)">
-      <div style="font-size:12px;color:var(--text3);margin-bottom:10px">💡 Dicas de uso</div>
-      <div style="font-size:12px;color:var(--text2);line-height:1.6">
-        · Abra o app do banco ao lado<br>
-        · Toque <b style="color:#4ade80">✓</b> quando o valor bater<br>
-        · Toque <b style="color:#f87171">✗</b> quando houver divergência<br>
-        · O progresso fica salvo automaticamente<br>
-        · Toque de novo para desmarcar
-      </div>
-    </div>
-
-    <button onclick="clearConf()" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;margin-bottom:14px">🗑️ Limpar conferência deste mês</button>
-  </div></div>
+  <div id="tab-conferencia" class="page"></div>
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
+  <button class="bnav-btn active" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
   <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="bicon">👤</span>Márcio</button>
   <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
   <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="bicon-wrap">➕</span>Adicionar</button>
   <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="bicon">📈</span>Análise</button>
   <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
   <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><span class="bicon">📅</span>Meses</button>
-  <button class="bnav-btn active" id="bn-conferencia" onclick="goTab(&#39;conferencia&#39;)"><span class="bicon">🔍</span>Conferir</button>
+  <button class="bnav-btn" id="bn-conferencia" onclick="goTab(&#39;conferencia&#39;)"><span class="bicon">🔍</span>Conferir</button>
 </nav>
 
 </div>
@@ -949,7 +738,9 @@ async function loadFromCloud(){
   showSyncStatus('☁️ Sincronizando...',true);
   const cloud=await cloudLoad();
   if(cloud){
-    G=ensureJunho(cloud);applyOverrides(G);repararParcelas(G);
+    G=ensureJunho(cloud);
+    if(!G.cartoes) G.cartoes=[];
+    applyOverrides(G);repararParcelas(G);
     const changed=autoCategorize(G);
     const syncCartoes=sincronizarCartoes();
     const syncDatas=sincronizarDatas();
@@ -1058,17 +849,25 @@ function repararParcelas(data){
 
 let G=ensureJunho(load());
 // Migra cartões do localStorage antigo para dentro do G (para sincronizar na nuvem)
-if(!G.cartoes){
+let _cartoesMigrados=false;
+if(!G.cartoes||G.cartoes.length===0){
   try{
     const oldCartoes=localStorage.getItem(CARTOES_SK);
-    G.cartoes=oldCartoes?JSON.parse(oldCartoes):[];
+    const parsed=oldCartoes?JSON.parse(oldCartoes):[];
+    if(parsed.length>0){G.cartoes=parsed;_cartoesMigrados=true;}
+    else G.cartoes=[];
   }catch(e){G.cartoes=[];}
 }
 applyOverrides(G);repararParcelas(G);
 const _autoCatCount=autoCategorize(G);
 sincronizarCartoes();
 sincronizarDatas();
-if(_autoCatCount>0){try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}}
+// Salva sempre que houve migração de cartões ou mudanças de categoria
+if(_autoCatCount>0||_cartoesMigrados){
+  try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}
+  // Salva na nuvem para celular pegar os cartões
+  if(_cartoesMigrados) cloudSave(G);
+}
 // Atualiza label imediatamente com dados do localStorage (antes do sync)
 document.addEventListener('DOMContentLoaded',()=>{
   const el=document.getElementById('month-label');
