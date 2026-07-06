@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/Marcio/Downloads/index_28.html -->
+<!-- saved from url=(0047)file:///C:/Users/Marcio/Downloads/index_29.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -739,8 +739,16 @@ async function loadFromCloud(){
   showSyncStatus('☁️ Sincronizando...',true);
   const cloud=await cloudLoad();
   if(cloud){
+    // Preserva cartões locais antes de sobrescrever G
+    const cartoesLocais=G.cartoes&&G.cartoes.length>0?G.cartoes:null;
     G=ensureJunho(cloud);
-    if(!G.cartoes) G.cartoes=[];
+    // Se a nuvem não tem cartões mas o local tem, usa os locais
+    if(!G.cartoes||G.cartoes.length===0){
+      if(cartoesLocais) G.cartoes=cartoesLocais;
+      else{
+        try{const s=localStorage.getItem(CARTOES_SK);G.cartoes=s?JSON.parse(s):[];}catch(e){G.cartoes=[];}
+      }
+    }
     applyOverrides(G);repararParcelas(G);
     const changed=autoCategorize(G);
     const syncCartoes=sincronizarCartoes();
@@ -849,26 +857,19 @@ function repararParcelas(data){
 }
 
 let G=ensureJunho(load());
-// Migra cartões do localStorage antigo para dentro do G (para sincronizar na nuvem)
-let _cartoesMigrados=false;
+// Garante que G.cartoes existe — migra do localStorage antigo se necessário
 if(!G.cartoes||G.cartoes.length===0){
   try{
     const oldCartoes=localStorage.getItem(CARTOES_SK);
     const parsed=oldCartoes?JSON.parse(oldCartoes):[];
-    if(parsed.length>0){G.cartoes=parsed;_cartoesMigrados=true;}
-    else G.cartoes=[];
+    G.cartoes=parsed.length>0?parsed:[];
   }catch(e){G.cartoes=[];}
 }
 applyOverrides(G);repararParcelas(G);
 const _autoCatCount=autoCategorize(G);
 sincronizarCartoes();
 sincronizarDatas();
-// Salva sempre que houve migração de cartões ou mudanças de categoria
-if(_autoCatCount>0||_cartoesMigrados){
-  try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}
-  // Salva na nuvem para celular pegar os cartões
-  if(_cartoesMigrados) cloudSave(G);
-}
+try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}
 // Atualiza label imediatamente com dados do localStorage (antes do sync)
 document.addEventListener('DOMContentLoaded',()=>{
   const el=document.getElementById('month-label');
