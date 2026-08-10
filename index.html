@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/Marcio/Downloads/index_3.html -->
+<!-- saved from url=(0046)file:///C:/Users/Marcio/Downloads/index_4.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -266,10 +266,10 @@ select option{background:var(--surface2);color:var(--text)}
       <span class="app-title-sub">Controle Financeiro</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px">
-      <span id="sync-indicator" title="Sincronizado com a nuvem" style="font-size: 16px; cursor: pointer; transition: opacity 0.3s; color: rgb(74, 222, 128); opacity: 1;" onclick="loadFromCloud()">☁️</span>
+      <span id="sync-indicator" title="Status da nuvem" style="font-size:16px;cursor:pointer;transition:opacity .3s" onclick="loadFromCloud()">☁️</span>
       <div class="month-switcher">
         <button class="month-btn" onclick="prevMonth()">‹</button>
-        <span class="month-label" id="month-label">Setembro 2026</span>
+        <span class="month-label" id="month-label">Agosto 2026</span>
         <button class="month-btn" onclick="nextMonth()">›</button>
       </div>
     </div>
@@ -282,8 +282,8 @@ select option{background:var(--surface2);color:var(--text)}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div>
         <div class="hero-label">Saldo — Márcio</div>
-        <div class="hero-val" style="font-size:26px">R$ 599,59</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:4px">✅ No positivo</div>
+        <div class="hero-val neg" style="font-size:26px">R$ -1.450,71</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:4px">❌ Déficit no mês</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;justify-content:center">
         <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(74,222,128,.3)">
@@ -292,31 +292,31 @@ select option{background:var(--surface2);color:var(--text)}
         </div>
         <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(248,113,113,.3)">
           <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Gastos</span>
-          <span style="font-size:15px;font-weight:700;color:#f87171">R$ 4.550,41</span>
+          <span style="font-size:15px;font-weight:700;color:#f87171">R$ 6.600,71</span>
         </div>
       </div>
     </div>
     <div class="hero-divider"></div>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px">
       <div style="text-align:center">
-        <div class="hero-stat-val">R$ 587,63</div>
+        <div class="hero-stat-val">R$ 2.473,22</div>
         <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> Nubank MV</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val">R$ 1.810,49</div>
+        <div class="hero-stat-val">R$ 2.897,05</div>
         <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> C6 MV</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val">R$ 2.152,29</div>
+        <div class="hero-stat-val">R$ 1.230,44</div>
         <div class="hero-stat-lbl">🏠 Fixos</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val" style="color:#f472b6">R$ 3.166,31</div>
+        <div class="hero-stat-val" style="color:#f472b6">R$ 4.072,36</div>
         <div class="hero-stat-lbl" style="color:rgba(244,114,182,.7)">💜 Raíssa</div>
-        <div class="hero-stat-lbl" style="font-size:10px;display:flex;align-items:center;justify-content:center;gap:3px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> R$ 1.642,04 · <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> R$ 1.524,27</div>
+        <div class="hero-stat-lbl" style="font-size:10px;display:flex;align-items:center;justify-content:center;gap:3px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> R$ 1.789,09 · <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> R$ 2.283,27</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val" style="color:#a5b4fc">R$ 7.716,72</div>
+        <div class="hero-stat-val" style="color:#a5b4fc">R$ 10.673,07</div>
         <div class="hero-stat-lbl">🌐 Total</div>
       </div>
     </div>
@@ -334,39 +334,39 @@ select option{background:var(--surface2);color:var(--text)}
       <div class="fatura-bank-label"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> Nubank Total</div>
       <div class="fatura-detail">
         <span>👤 Márcio</span>
-        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 587,63</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 2.473,22</span>
       </div>
       
       <div class="fatura-detail">
         <span>💜 Raíssa</span>
-        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 1.642,04</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 1.789,09</span>
       </div>
       <div class="fatura-total-row" style="margin-top:8px">
         <span class="fatura-total-label">Fatura total</span>
-        <span class="fatura-total-val">R$ 2.229,67</span>
+        <span class="fatura-total-val">R$ 4.262,31</span>
       </div>
     </div>
     <div class="fatura-card fatura-card-c6">
       <div class="fatura-bank-label"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> C6 Total</div>
       <div class="fatura-detail">
         <span>👤 Márcio</span>
-        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 1.810,49</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 2.897,05</span>
       </div>
       <div class="fatura-detail" style="padding-left:12px">
         <span style="color:rgba(255,255,255,.35)">💳 Líquido</span>
-        <span style="color:#4ade80;font-weight:600">R$ 1.426,45</span>
+        <span style="color:#4ade80;font-weight:600">R$ 2.282,71</span>
       </div>
       <div class="fatura-detail" style="padding-left:12px;margin-bottom:6px">
         <span style="color:rgba(255,255,255,.25)">🔁 Reembolso</span>
-        <span style="color:rgba(255,255,255,.35)">R$ 384,04</span>
+        <span style="color:rgba(255,255,255,.35)">R$ 614,34</span>
       </div>
       <div class="fatura-detail">
         <span>💜 Raíssa</span>
-        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 1.524,27</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 2.283,27</span>
       </div>
       <div class="fatura-total-row" style="margin-top:8px">
         <span class="fatura-total-label">Fatura total</span>
-        <span class="fatura-total-val">R$ 3.334,76</span>
+        <span class="fatura-total-val">R$ 5.180,32</span>
       </div>
     </div>
   </div>
@@ -384,7 +384,7 @@ select option{background:var(--surface2);color:var(--text)}
     </div>
   </div>
 
-  <div class="chart-card"><div class="chart-title">🏷️ Gastos por categoria <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🏠</span>Casa/Moradia</span><span class="catbar-vals">R$ 1.038,32<span class="catbar-pct">28%</span></span></div><div class="track"><div class="fill" style="width:28%;background:#0ea5e9"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">💸</span>Pix Crédito</span><span class="catbar-vals">R$ 487,37<span class="catbar-pct">13%</span></span></div><div class="track"><div class="fill" style="width:13%;background:#14b8a6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">📚</span>Educação</span><span class="catbar-vals">R$ 477,78<span class="catbar-pct">13%</span></span></div><div class="track"><div class="fill" style="width:13%;background:#6366f1"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🚗</span>Transporte</span><span class="catbar-vals">R$ 445,82<span class="catbar-pct">12%</span></span></div><div class="track"><div class="fill" style="width:12%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🔁</span>Reembolso</span><span class="catbar-vals">R$ 384,04<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#84cc16"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🎮</span>Lazer</span><span class="catbar-vals">R$ 317,33<span class="catbar-pct">9%</span></span></div><div class="track"><div class="fill" style="width:9%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">⚽</span>Esportes</span><span class="catbar-vals">R$ 313,34<span class="catbar-pct">8%</span></span></div><div class="track"><div class="fill" style="width:8%;background:#22c55e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🛍️</span>Compras</span><span class="catbar-vals">R$ 259,40<span class="catbar-pct">7%</span></span></div><div class="track"><div class="fill" style="width:7%;background:#8b5cf6"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="894" style="display: block; box-sizing: border-box; height: 140px; width: 894px;"></canvas></div></div></div>
+  <div class="chart-card"><div class="chart-title">🏷️ Gastos por categoria <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🏠</span>Casa/Moradia</span><span class="catbar-vals">R$ 1.288,47<span class="catbar-pct">24%</span></span></div><div class="track"><div class="fill" style="width:24%;background:#0ea5e9"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">💸</span>Pix Crédito</span><span class="catbar-vals">R$ 844,89<span class="catbar-pct">16%</span></span></div><div class="track"><div class="fill" style="width:16%;background:#14b8a6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🍔</span>Alimentação</span><span class="catbar-vals">R$ 651,11<span class="catbar-pct">12%</span></span></div><div class="track"><div class="fill" style="width:12%;background:#f59e0b"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🔁</span>Reembolso</span><span class="catbar-vals">R$ 614,34<span class="catbar-pct">11%</span></span></div><div class="track"><div class="fill" style="width:11%;background:#84cc16"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🚗</span>Transporte</span><span class="catbar-vals">R$ 581,09<span class="catbar-pct">11%</span></span></div><div class="track"><div class="fill" style="width:11%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">📚</span>Educação</span><span class="catbar-vals">R$ 530,09<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#6366f1"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🎮</span>Lazer</span><span class="catbar-vals">R$ 511,99<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">⚽</span>Esportes</span><span class="catbar-vals">R$ 325,26<span class="catbar-pct">6%</span></span></div><div class="track"><div class="fill" style="width:6%;background:#22c55e"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="894" style="display: block; box-sizing: border-box; height: 140px; width: 894px;"></canvas></div></div></div>
 
 <nav class="bottom-nav">
   <button class="bnav-btn active" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
@@ -908,7 +908,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   const el=document.getElementById('month-label');
   if(el&&G&&G.months&&G.months[G.current])el.textContent=G.months[G.current].name;
 });
-window.addEventListener('load',()=>loadFromCloud());
+window.addEventListener('load',()=>{goHome();updateLabel();loadFromCloud();});
 function M(){return G.months[G.current];}
 const fmt=v=>'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const fmtS=v=>Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -2584,11 +2584,8 @@ function renderTab(id){
   else if(id==='analise')renderAnalise();
   else if(id==='conferencia')renderConferencia();
 }
-
-goHome();
-updateLabel();
 </script>
 
-<div id="cloud-status" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 9999; transition: opacity 0.4s; white-space: nowrap; font-family: Inter, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px; opacity: 0; background: rgb(220, 252, 231); color: rgb(22, 163, 74);">☁️ Salvo na nuvem</div>
+<div id="cloud-status" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 9999; transition: opacity 0.4s; white-space: nowrap; font-family: Inter, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px; opacity: 0; background: rgb(254, 226, 226); color: rgb(220, 38, 38);">☁️ Sem dados na nuvem</div>
 
 </div></body></html>
