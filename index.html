@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/Marcio/Downloads/index_1.html -->
+<!-- saved from url=(0046)file:///C:/Users/Marcio/Downloads/index_2.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -265,16 +265,19 @@ select option{background:var(--surface2);color:var(--text)}
       <span class="app-title-main">Finanças Márcio Cavalcanti</span>
       <span class="app-title-sub">Controle Financeiro</span>
     </div>
-    <div class="month-switcher">
-      <button class="month-btn" onclick="prevMonth()">‹</button>
-      <span class="month-label" id="month-label">Setembro 2026</span>
-      <button class="month-btn" onclick="nextMonth()">›</button>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span id="sync-indicator" title="Status da nuvem" style="font-size:16px;cursor:pointer;transition:opacity .3s" onclick="loadFromCloud()">☁️</span>
+      <div class="month-switcher">
+        <button class="month-btn" onclick="prevMonth()">‹</button>
+        <span class="month-label" id="month-label">Agosto 2026</span>
+        <button class="month-btn" onclick="nextMonth()">›</button>
+      </div>
     </div>
   </div>
 </div>
 
 <div class="content">
-  <div id="tab-painel" class="page">
+  <div id="tab-painel" class="page active">
   <div class="hero">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div>
@@ -371,22 +374,22 @@ select option{background:var(--surface2);color:var(--text)}
   <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
     <div class="chart-card" style="margin-bottom:0;padding:14px">
       <div class="chart-title" style="font-size:13px">👤 Márcio</div>
-      <div class="chart-wrap" style="height:130px"><canvas id="chart-donut-m" height="130" style="display: block; box-sizing: border-box; height: 130px; width: 429px;" width="429"></canvas></div>
-      <div class="legend" id="legend-m"><div class="leg-item"><span class="leg-dot" style="background:#7c3aed"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#3b82f6"></span>C6</div><div class="leg-item"><span class="leg-dot" style="background:#10b981"></span>Fixos</div></div>
+      <div class="chart-wrap" style="height:130px"><canvas id="chart-donut-m" height="130"></canvas></div>
+      <div class="legend" id="legend-m"></div>
     </div>
     <div class="chart-card" style="margin-bottom:0;padding:14px">
       <div class="chart-title" style="font-size:13px">💜 Raíssa</div>
-      <div class="chart-wrap" style="height:130px"><canvas id="chart-donut-r" height="130" width="429" style="display: block; box-sizing: border-box; height: 130px; width: 429px;"></canvas></div>
-      <div class="legend" id="legend-r"><div class="leg-item"><span class="leg-dot" style="background:#f43f5e"></span>Nubank</div><div class="leg-item"><span class="leg-dot" style="background:#f97316"></span>C6</div></div>
+      <div class="chart-wrap" style="height:130px"><canvas id="chart-donut-r" height="130"></canvas></div>
+      <div class="legend" id="legend-r"></div>
     </div>
   </div>
 
-  <div class="chart-card"><div class="chart-title">🏷️ Gastos por categoria <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🏠</span>Casa/Moradia</span><span class="catbar-vals">R$ 1.288,47<span class="catbar-pct">24%</span></span></div><div class="track"><div class="fill" style="width:24%;background:#0ea5e9"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">💸</span>Pix Crédito</span><span class="catbar-vals">R$ 844,89<span class="catbar-pct">16%</span></span></div><div class="track"><div class="fill" style="width:16%;background:#14b8a6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🍔</span>Alimentação</span><span class="catbar-vals">R$ 651,11<span class="catbar-pct">12%</span></span></div><div class="track"><div class="fill" style="width:12%;background:#f59e0b"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🔁</span>Reembolso</span><span class="catbar-vals">R$ 614,34<span class="catbar-pct">11%</span></span></div><div class="track"><div class="fill" style="width:11%;background:#84cc16"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🚗</span>Transporte</span><span class="catbar-vals">R$ 581,09<span class="catbar-pct">11%</span></span></div><div class="track"><div class="fill" style="width:11%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">📚</span>Educação</span><span class="catbar-vals">R$ 530,09<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#6366f1"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🎮</span>Lazer</span><span class="catbar-vals">R$ 511,99<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">⚽</span>Esportes</span><span class="catbar-vals">R$ 325,26<span class="catbar-pct">6%</span></span></div><div class="track"><div class="fill" style="width:6%;background:#22c55e"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="894" style="display: block; box-sizing: border-box; height: 140px; width: 894px;"></canvas></div></div></div>
+  <div class="chart-card"><div class="chart-title">🏷️ Gastos por categoria <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🏠</span>Casa/Moradia</span><span class="catbar-vals">R$ 1.288,47<span class="catbar-pct">24%</span></span></div><div class="track"><div class="fill" style="width:24%;background:#0ea5e9"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">💸</span>Pix Crédito</span><span class="catbar-vals">R$ 844,89<span class="catbar-pct">16%</span></span></div><div class="track"><div class="fill" style="width:16%;background:#14b8a6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🍔</span>Alimentação</span><span class="catbar-vals">R$ 651,11<span class="catbar-pct">12%</span></span></div><div class="track"><div class="fill" style="width:12%;background:#f59e0b"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🔁</span>Reembolso</span><span class="catbar-vals">R$ 614,34<span class="catbar-pct">11%</span></span></div><div class="track"><div class="fill" style="width:11%;background:#84cc16"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🚗</span>Transporte</span><span class="catbar-vals">R$ 581,09<span class="catbar-pct">11%</span></span></div><div class="track"><div class="fill" style="width:11%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">📚</span>Educação</span><span class="catbar-vals">R$ 530,09<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#6366f1"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🎮</span>Lazer</span><span class="catbar-vals">R$ 511,99<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">⚽</span>Esportes</span><span class="catbar-vals">R$ 325,26<span class="catbar-pct">6%</span></span></div><div class="track"><div class="fill" style="width:6%;background:#22c55e"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140"></canvas></div></div></div>
   <div id="tab-marcio" class="page"></div>
   <div id="tab-raissa" class="page"></div>
   <div id="tab-entradas" class="page"></div>
   <div id="tab-add" class="page"></div>
-  <div id="tab-fixos" class="page active"><div>
+  <div id="tab-fixos" class="page"><div>
     <div class="page-title">🏠 Fixos</div>
     <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
       <div style="display:flex;justify-content:space-between;margin-bottom:10px">
@@ -673,19 +676,19 @@ select option{background:var(--surface2);color:var(--text)}
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
+  <button class="bnav-btn active" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
   <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="bicon">👤</span>Márcio</button>
   <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
   <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="bicon-wrap">➕</span>Adicionar</button>
   <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="bicon">📈</span>Análise</button>
-  <button class="bnav-btn active" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
+  <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
   <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><span class="bicon">📅</span>Meses</button>
   <button class="bnav-btn" id="bn-conferencia" onclick="goTab(&#39;conferencia&#39;)"><span class="bicon">🔍</span>Conferir</button>
 </nav>
 
 </div>
 
-<script src="./index_files/chart.umd.min.js.download"></script>
+<script src="file:///C:/Users/Marcio/Downloads/index_files/chart.umd.min.js.download"></script>
 <script>
 const SK='gastos_mv';
 
@@ -712,8 +715,30 @@ function catByID(id){return CATS.find(c=>c.id===id)||{id:'outros',label:'Outros'
 const CLOUD_URL='https://script.google.com/macros/s/AKfycbyIgx5yPBXXTcM0iNAy7D31DeWjhTjr7Ap1RKOqG6s2pX7cdV89VKxsyQNLlaVdwfzE1g/exec';
 
 // -- CLOUD SYNC --
+// -- FILA DE SALVAMENTO NA NUVEM --
+let _syncPendente=false;
+let _syncTimer=null;
+let _syncStatus='ok'; // 'ok' | 'pendente' | 'erro'
+
+function setSyncStatus(status){
+  _syncStatus=status;
+  const el=document.getElementById('sync-indicator');
+  if(!el)return;
+  if(status==='ok'){el.textContent='☁️';el.title='Sincronizado com a nuvem';el.style.color='#4ade80';el.style.opacity='1';}
+  else if(status==='pendente'){el.textContent='🔄';el.title='Salvando na nuvem...';el.style.color='#fbbf24';el.style.opacity='1';}
+  else if(status==='erro'){el.textContent='⚠️';el.title='Erro ao salvar na nuvem — dados salvos localmente';el.style.color='#f87171';el.style.opacity='1';}
+}
+
 async function cloudSave(data){
-  try{await fetch(CLOUD_URL,{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'text/plain'}});}catch(e){console.warn('Cloud save failed:',e);}
+  try{
+    await fetch(CLOUD_URL,{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'text/plain'}});
+    setSyncStatus('ok');
+    return true;
+  }catch(e){
+    console.warn('Cloud save failed:',e);
+    setSyncStatus('erro');
+    return false;
+  }
 }
 async function cloudLoad(){
   try{
@@ -1015,7 +1040,21 @@ function ensureJunho(data){
 
 function save(){
   try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}
-  cloudSave(G).then(()=>showSyncStatus('☁️ Salvo na nuvem',true)).catch(()=>{});
+  // Cancela timer anterior e agenda novo save (debounce 1s)
+  if(_syncTimer) clearTimeout(_syncTimer);
+  setSyncStatus('pendente');
+  _syncTimer=setTimeout(async()=>{
+    const ok=await cloudSave(G);
+    if(!ok){
+      // Retry após 30s se falhar
+      setTimeout(async()=>{
+        const ok2=await cloudSave(G);
+        if(ok2) showSyncStatus('☁️ Salvo na nuvem',true);
+      },30000);
+    } else {
+      showSyncStatus('☁️ Salvo na nuvem',true);
+    }
+  },1000);
 }
 
 async function loadFromCloud(){
@@ -1388,7 +1427,24 @@ function itemRow(it,i,key){
   </div>`;
 }
 
-function categorizedCard(items,key){
+function categorizedCard(items,key,search){
+  // Se há busca ativa, mostra lista plana com resultados
+  if(search){
+    const rows=items.map((it,i)=>{
+      const allItems=M()[key];
+      const realIdx=allItems.indexOf(it);
+      return itemRow(it,realIdx>=0?realIdx:i,key,search);
+    }).join('');
+    const total=sum(items);
+    return `
+      <div style="font-size:12px;color:var(--text3);margin-bottom:10px">${items.length} resultado(s) para "<b style="color:var(--text)">${search}</b>"</div>
+      <div class="list-card" style="margin-bottom:12px">${rows||'<div class="empty">Nenhum resultado</div>'}</div>
+      <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow)">
+        <span style="font-size:13px;font-weight:600;color:var(--text2)">Total filtrado</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text)">${fmt(total)}</span>
+      </div>`;
+  }
+
   const parceladas=items.map((it,i)=>({it,i})).filter(({it})=>isParcelado(it)&&!it.recorrente);
   const avulsas=items.map((it,i)=>({it,i})).filter(({it})=>!isParcelado(it)&&!it.recorrente);
   const recorrentes=items.map((it,i)=>({it,i})).filter(({it})=>!!it.recorrente);
@@ -1609,6 +1665,7 @@ function delItem(key,idx){
 
 // -- TABS --
 let marcioCard='mnu',raissaCard='rnu';
+let marcioSearch='',raissaSearch='';
 
 function renderMarcio(){
   const m=M();
@@ -1617,14 +1674,23 @@ function renderMarcio(){
     mc6:{label:'C6',icon:KEY_ICONS_LG.mc6,color:'var(--c6)',val:sum(m.mc6)}
   };
   const sel=Object.entries(cards).map(([k,c])=>`
-    <button class="csel-btn${marcioCard===k?' active':''}" style="${marcioCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="marcioCard='${k}';renderMarcio()">
+    <button class="csel-btn${marcioCard===k?' active':''}" style="${marcioCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="marcioCard='${k}';marcioSearch='';renderMarcio()">
       <span class="csel-icon">${c.icon}</span><span>${c.label}</span><span class="csel-val">${fmt(c.val)}</span>
     </button>`).join('');
+  const itens=m[marcioCard];
+  const itensFiltrados=marcioSearch?itens.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):itens;
   document.getElementById('tab-marcio').innerHTML=`<div>
     <div class="page-title">👤 Márcio</div>
     <div class="card-selector">${sel}</div>
-    ${categorizedCard(m[marcioCard],marcioCard)}
+    <div style="position:relative;margin-bottom:14px">
+      <input id="busca-marcio" placeholder="🔍 Buscar lançamento..." value="${marcioSearch}"
+        oninput="marcioSearch=this.value;renderMarcio()"
+        style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:Inter,sans-serif">
+      ${marcioSearch?`<button onclick="marcioSearch='';renderMarcio()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px">✕</button>`:''}
+    </div>
+    ${marcioSearch&&!itensFiltrados.length?'<div class="empty">Nenhum resultado para "'+marcioSearch+'"</div>':categorizedCard(itensFiltrados,marcioCard,marcioSearch)}
   </div>`;
+  if(marcioSearch){const el=document.getElementById('busca-marcio');if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);}}
 }
 
 function renderRaissa(){
@@ -1634,14 +1700,23 @@ function renderRaissa(){
     rc6:{label:'C6',icon:KEY_ICONS_LG.rc6,color:'var(--c6)',val:sum(m.rc6)}
   };
   const sel=Object.entries(cards).map(([k,c])=>`
-    <button class="csel-btn${raissaCard===k?' active':''}" style="${raissaCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="raissaCard='${k}';renderRaissa()">
+    <button class="csel-btn${raissaCard===k?' active':''}" style="${raissaCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="raissaCard='${k}';raissaSearch='';renderRaissa()">
       <span class="csel-icon">${c.icon}</span><span>${c.label}</span><span class="csel-val">${fmt(c.val)}</span>
     </button>`).join('');
+  const itens=m[raissaCard];
+  const itensFiltrados=raissaSearch?itens.filter(it=>it.desc.toLowerCase().includes(raissaSearch.toLowerCase())):itens;
   document.getElementById('tab-raissa').innerHTML=`<div>
     <div class="page-title">💜 Raíssa</div>
     <div class="card-selector">${sel}</div>
-    ${categorizedCard(m[raissaCard],raissaCard)}
+    <div style="position:relative;margin-bottom:14px">
+      <input id="busca-raissa" placeholder="🔍 Buscar lançamento..." value="${raissaSearch}"
+        oninput="raissaSearch=this.value;renderRaissa()"
+        style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:Inter,sans-serif">
+      ${raissaSearch?`<button onclick="raissaSearch='';renderRaissa()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px">✕</button>`:''}
+    </div>
+    ${raissaSearch&&!itensFiltrados.length?'<div class="empty">Nenhum resultado para "'+raissaSearch+'"</div>':categorizedCard(itensFiltrados,raissaCard,raissaSearch)}
   </div>`;
+  if(raissaSearch){const el=document.getElementById('busca-raissa');if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);}}
 }
 
 function renderFixos(){
@@ -2349,6 +2424,21 @@ function exportData(){
   const date=new Date().toLocaleDateString('pt-BR').replace(/\//g,'-');
   a.href=url;a.download='planejamento-mv-'+date+'.json';
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  // Registra data do último backup
+  localStorage.setItem('ultimo_backup_mv',Date.now().toString());
+  showSyncStatus('💾 Backup salvo!',true);
+}
+
+function verificarLembreteBackup(){
+  const ultimo=localStorage.getItem('ultimo_backup_mv');
+  if(!ultimo) return; // nunca fez backup — não incomoda
+  const diasPassados=(Date.now()-parseInt(ultimo))/(1000*60*60*24);
+  if(diasPassados>=14){
+    // Mostra aviso discreto após 2s
+    setTimeout(()=>{
+      showSyncStatus('💾 Lembrete: faça um backup local!',true);
+    },2000);
+  }
 }
 
 function importData(event){
@@ -2766,11 +2856,11 @@ function goHome(){
   const hoje=new Date();
   const nomeMesAtual=MESES_PT[hoje.getMonth()]+' '+hoje.getFullYear();
   const idxAtual=G.months.findIndex(m=>m.name===nomeMesAtual);
-  // Se encontrou o mês atual usa ele, senão usa o último da lista
   G.current=idxAtual>=0?idxAtual:G.months.length-1;
   activeTab='painel';
   goTab('painel');
   updateLabel();
+  verificarLembreteBackup();
 }
 function renderTab(id){
   if(id==='painel')renderPainel();
@@ -2788,6 +2878,6 @@ goHome();
 updateLabel();
 </script>
 
-<div id="cloud-status" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 9999; transition: opacity 0.4s; white-space: nowrap; font-family: Inter, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px; opacity: 0; background: rgb(220, 252, 231); color: rgb(22, 163, 74);">☁️ Salvo na nuvem</div>
+<div id="cloud-status" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 9999; transition: opacity 0.4s; white-space: nowrap; font-family: Inter, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px; opacity: 0; background: rgb(220, 252, 231); color: rgb(22, 163, 74);">☁️ Sincronizando...</div>
 
 </body></html>
