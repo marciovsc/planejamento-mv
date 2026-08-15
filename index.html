@@ -1,30 +1,31 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/Marcio/Downloads/index_7.html -->
+<!-- saved from url=(0046)file:///C:/Users/Marcio/Downloads/index_9.html -->
 <html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#1e1b4b">
 <title>Controle Financeiro MV</title>
+<link rel="stylesheet" href="./index_files/tabler-icons.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --nu:#a78bfa;--nu-bg:#2d1f5e;--nu-txt:#c4b5fd;
-  --c6:#60a5fa;--c6-bg:#1e3a5f;--c6-txt:#93c5fd;
-  --fix:#34d399;--fix-bg:#064e3b;--fix-txt:#6ee7b7;
-  --rai:#f472b6;--rai-bg:#500724;--rai-txt:#fbcfe8;
-  --in:#4ade80;--in-bg:#14532d;
-  --danger:#f87171;--danger-bg:#450a0a;
-  --bg:#0f0f13;--surface:#1a1a24;--surface2:#22222f;--border:#2e2e3e;
-  --text:#f1f5f9;--text2:#94a3b8;--text3:#475569;
-  --radius:16px;--shadow:0 1px 3px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  --nu:#a78bfa;--nu-bg:#1e1433;--nu-txt:#c4b5fd;
+  --c6:#79c0ff;--c6-bg:#0d1b2e;--c6-txt:#79c0ff;
+  --fix:#4ade80;--fix-bg:#0a1f0a;--fix-txt:#4ade80;
+  --rai:#f472b6;--rai-bg:#1a0a12;--rai-txt:#fbcfe8;
+  --in:#4ade80;--in-bg:#0a1f0a;
+  --danger:#f87171;--danger-bg:#1f0a0a;
+  --bg:#0d1117;--surface:#161b22;--surface2:#0d1117;--border:#30363d;
+  --text:#e6edf3;--text2:#8b949e;--text3:#6e7681;
+  --radius:14px;--shadow:0 1px 3px rgba(0,0,0,.5),0 4px 16px rgba(0,0,0,.4);
 }
-html,body{background:var(--bg);font-family:'Inter',system-ui,sans-serif}
+html,body{background:var(--bg);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
 .app{max-width:960px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:90px}
 
 /* HEADER */
-.topbar{position:sticky;top:0;z-index:90;background:#0a0a14;padding:14px 20px 12px;border-bottom:1px solid rgba(139,92,246,.2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.topbar{position:sticky;top:0;z-index:90;background:#090d13;padding:14px 20px 12px;border-bottom:1px solid rgba(139,92,246,.2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.6) 30%,rgba(96,165,250,.6) 70%,transparent)}
 .topbar-row{display:flex;align-items:center;justify-content:space-between}
 .app-title{display:flex;flex-direction:column;gap:1px}
@@ -36,12 +37,12 @@ html,body{background:var(--bg);font-family:'Inter',system-ui,sans-serif}
 
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:960px;background:#13131e;border-top:1px solid var(--border);display:flex;z-index:100;padding:6px 4px 8px;box-shadow:0 -4px 20px rgba(0,0,0,.4)}
-.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 2px;border:none;background:none;cursor:pointer;color:var(--text3);font-size:10px;font-weight:500;font-family:'Inter',sans-serif}
-.bnav-btn .bicon{font-size:20px;line-height:1}
+.bnav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 2px;border:none;background:none;cursor:pointer;color:var(--text3);font-size:10px;font-weight:500;font-family:'Plus Jakarta Sans',sans-serif}
+.bnav-btn .bicon{font-size:22px;line-height:1}.bnav-btn .bicon-wrap-icon{font-size:20px;color:#fff}
 .bnav-btn.active{color:var(--nu)}
 .bnav-btn.active::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:32px;height:3px;background:var(--nu);border-radius:0 0 4px 4px}
 .bnav-btn{position:relative}
-.add-btn .bicon-wrap{background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:14px;width:44px;height:32px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 12px rgba(124,58,237,.5)}
+.add-btn .bicon-wrap-icon{background:linear-gradient(135deg,#388bfd,#1d4ed8);border-radius:14px;width:44px;height:32px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 12px rgba(56,139,253,.4)}
 .add-btn{color:#fff!important}
 
 /* CONTENT */
@@ -131,21 +132,21 @@ canvas{display:block}
 
 /* EDIT ROW */
 .edit-row{display:flex;align-items:center;gap:6px;padding:10px 16px;background:var(--surface2);border-bottom:1px solid var(--border);flex-wrap:wrap}
-.edit-row input{flex:1;min-width:80px;padding:8px 10px;font-size:13px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif}
+.edit-row input{flex:1;min-width:80px;padding:8px 10px;font-size:13px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif}
 .edit-row input.val-inp{width:90px;flex:0 0 90px}
-.btn-ok{background:var(--nu);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
-.btn-cancel{background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12px;cursor:pointer;color:var(--text2);font-family:'Inter',sans-serif}
+.btn-ok{background:var(--nu);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-cancel{background:none;border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;font-size:12px;cursor:pointer;color:var(--text2);font-family:'Plus Jakarta Sans',sans-serif}
 
 /* FORM */
 .form-card{background:var(--surface);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:var(--shadow);border:1px solid var(--border)}
 .form-section{font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:14px}
 .fg{margin-bottom:14px}
 .flabel{font-size:12px;color:var(--text2);display:block;margin-bottom:6px;font-weight:500}
-input,select{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-size:14px;font-family:'Inter',sans-serif}
+input,select{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif}
 input:focus,select:focus{outline:none;border-color:var(--nu)}
 select option{background:var(--surface2);color:var(--text)}
 .row2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--nu),var(--c6));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;margin-top:6px;box-shadow:0 4px 14px rgba(124,58,237,.35)}
+.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,var(--nu),var(--c6));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-top:6px;box-shadow:0 4px 14px rgba(124,58,237,.35)}
 .toast{font-size:12px;color:var(--in);background:var(--in-bg);border-radius:10px;padding:10px 14px;text-align:center;margin-top:12px;display:none;font-weight:500}
 .parc-preview{background:var(--nu-bg);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:13px;color:var(--nu-txt);font-weight:500;display:none}
 
@@ -156,7 +157,7 @@ select option{background:var(--surface2);color:var(--text)}
 
 /* CARD SELECTOR */
 .card-selector{display:flex;gap:10px;margin-bottom:14px}
-.csel-btn{flex:1;padding:12px 8px;border-radius:14px;border:2px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:var(--shadow)}
+.csel-btn{flex:1;padding:12px 8px;border-radius:14px;border:2px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:var(--shadow)}
 .csel-btn.active{border-color:transparent;color:#fff}
 .csel-btn .csel-icon{font-size:20px}
 .csel-btn .csel-val{font-size:11px;opacity:.85}
@@ -167,16 +168,16 @@ select option{background:var(--surface2);color:var(--text)}
 .month-list-item:last-child{border-bottom:none}
 .month-name{font-size:14px;color:var(--text);font-weight:500}
 .month-stats{font-size:11px;color:var(--text3);margin-top:2px}
-.btn-month-sel{background:var(--nu);color:#fff;border:none;border-radius:10px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif}
+.btn-month-sel{background:var(--nu);color:#fff;border:none;border-radius:10px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif}
 .btn-month-sel.current{background:var(--nu-bg);color:var(--nu-txt)}
-.btn-new-month{width:100%;padding:12px;border:2px dashed var(--border);border-radius:12px;background:transparent;color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-new-month{width:100%;padding:12px;border:2px dashed var(--border);border-radius:12px;background:transparent;color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px}
 
 /* ACTION MENU */
 .action-menu-wrap{position:relative;flex:0 0 auto}
-.action-menu-btn{background:var(--surface2);border:1px solid var(--border);cursor:pointer;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text2);font-family:Inter,sans-serif}
+.action-menu-btn{background:var(--surface2);border:1px solid var(--border);cursor:pointer;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text2);font-family:'Plus Jakarta Sans',sans-serif}
 .action-menu{display:none;position:absolute;right:0;top:36px;background:#1e1e2e;border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:999;min-width:140px;overflow:hidden}
 .action-menu.open{display:block}
-.action-menu-item{display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text);font-family:Inter,sans-serif;border:none;background:none;width:100%;text-align:left}
+.action-menu-item{display:flex;align-items:center;gap:10px;padding:12px 16px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;border:none;background:none;width:100%;text-align:left}
 .action-menu-item:hover{background:var(--surface2)}
 .action-menu-item.danger{color:var(--danger)}
 .action-menu-item.danger:hover{background:var(--danger-bg)}
@@ -266,7 +267,7 @@ select option{background:var(--surface2);color:var(--text)}
       <span class="app-title-sub">Controle Financeiro</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px">
-      <span id="sync-indicator" title="Sincronizado com a nuvem" style="font-size: 16px; cursor: pointer; transition: opacity 0.3s; color: rgb(74, 222, 128); opacity: 1;" onclick="loadFromCloud()">☁️</span>
+      <span id="sync-indicator" title="Sincronizado com a nuvem" style="font-size:18px;cursor:pointer;transition:opacity .3s;color:#4ade80;opacity:1" onclick="loadFromCloud()"><i class="ti ti-cloud-check"></i></span>
       <div class="month-switcher">
         <button class="month-btn" onclick="prevMonth()">‹</button>
         <span class="month-label" id="month-label">Agosto 2026</span>
@@ -277,46 +278,46 @@ select option{background:var(--surface2);color:var(--text)}
 </div>
 
 <div class="content">
-  <div id="tab-painel" class="page">
+  <div id="tab-painel" class="page active">
   <div class="hero">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div>
-        <div class="hero-label">Saldo — Márcio</div>
-        <div class="hero-val neg" style="font-size:26px">R$ -1.450,71</div>
+        <div class="hero-label"><i class="ti ti-wallet" style="font-size:12px;margin-right:4px"></i>Saldo — Márcio</div>
+        <div class="hero-val neg" style="font-size:26px">R$ -1.715,73</div>
         <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:4px">❌ Déficit no mês</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;justify-content:center">
         <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(74,222,128,.3)">
-          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Entradas</span>
+          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px"><i class="ti ti-arrow-down-circle" style="font-size:12px;margin-right:3px;color:#4ade80"></i>Entradas</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80">R$ 5.150,00</span>
         </div>
         <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(248,113,113,.3)">
-          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Gastos</span>
-          <span style="font-size:15px;font-weight:700;color:#f87171">R$ 6.600,71</span>
+          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px"><i class="ti ti-arrow-up-circle" style="font-size:12px;margin-right:3px;color:#f87171"></i>Gastos</span>
+          <span style="font-size:15px;font-weight:700;color:#f87171">R$ 6.865,73</span>
         </div>
       </div>
     </div>
     <div class="hero-divider"></div>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px">
       <div style="text-align:center">
-        <div class="hero-stat-val">R$ 2.473,22</div>
+        <div class="hero-stat-val">R$ 3.025,07</div>
         <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> Nubank MV</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val">R$ 2.897,05</div>
+        <div class="hero-stat-val">R$ 3.056,04</div>
         <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> C6 MV</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val">R$ 1.230,44</div>
+        <div class="hero-stat-val">R$ 784,62</div>
         <div class="hero-stat-lbl">🏠 Fixos</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val" style="color:#f472b6">R$ 4.072,36</div>
+        <div class="hero-stat-val" style="color:#f472b6">R$ 4.428,02</div>
         <div class="hero-stat-lbl" style="color:rgba(244,114,182,.7)">💜 Raíssa</div>
-        <div class="hero-stat-lbl" style="font-size:10px;display:flex;align-items:center;justify-content:center;gap:3px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> R$ 1.789,09 · <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> R$ 2.283,27</div>
+        <div class="hero-stat-lbl" style="font-size:10px;display:flex;align-items:center;justify-content:center;gap:3px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> R$ 2.073,98 · <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> R$ 2.354,04</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val" style="color:#a5b4fc">R$ 10.673,07</div>
+        <div class="hero-stat-val" style="color:#a5b4fc">R$ 11.293,75</div>
         <div class="hero-stat-lbl">🌐 Total</div>
       </div>
     </div>
@@ -325,7 +326,7 @@ select option{background:var(--surface2);color:var(--text)}
   <!-- TOTAIS DA FATURA POR BANCO -->
   <div style="margin-bottom:6px;padding:0 2px">
     <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:6px">
-      <span>🏦</span> Totais da Fatura
+      <i class="ti ti-building-bank" style="font-size:14px"></i> Totais da Fatura
       <span style="font-size:10px;font-weight:500;color:var(--text3);text-transform:none;letter-spacing:0">· Márcio + Raíssa · clique em 🔍 Conferir para validar</span>
     </div>
   </div>
@@ -334,39 +335,39 @@ select option{background:var(--surface2);color:var(--text)}
       <div class="fatura-bank-label"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#820AD1"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">NU</text></svg> Nubank Total</div>
       <div class="fatura-detail">
         <span>👤 Márcio</span>
-        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 2.473,22</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 3.025,07</span>
       </div>
       
       <div class="fatura-detail">
         <span>💜 Raíssa</span>
-        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 1.789,09</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 2.073,98</span>
       </div>
       <div class="fatura-total-row" style="margin-top:8px">
         <span class="fatura-total-label">Fatura total</span>
-        <span class="fatura-total-val">R$ 4.262,31</span>
+        <span class="fatura-total-val">R$ 5.099,05</span>
       </div>
     </div>
     <div class="fatura-card fatura-card-c6">
       <div class="fatura-bank-label"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#242424"></circle><text x="10" y="14" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="white">C6</text></svg> C6 Total</div>
       <div class="fatura-detail">
         <span>👤 Márcio</span>
-        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 2.897,05</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 3.056,04</span>
       </div>
       <div class="fatura-detail" style="padding-left:12px">
         <span style="color:rgba(255,255,255,.35)">💳 Líquido</span>
-        <span style="color:#4ade80;font-weight:600">R$ 2.282,71</span>
+        <span style="color:#4ade80;font-weight:600">R$ 2.430,20</span>
       </div>
       <div class="fatura-detail" style="padding-left:12px;margin-bottom:6px">
         <span style="color:rgba(255,255,255,.25)">🔁 Reembolso</span>
-        <span style="color:rgba(255,255,255,.35)">R$ 614,34</span>
+        <span style="color:rgba(255,255,255,.35)">R$ 625,84</span>
       </div>
       <div class="fatura-detail">
         <span>💜 Raíssa</span>
-        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 2.283,27</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">R$ 2.354,04</span>
       </div>
       <div class="fatura-total-row" style="margin-top:8px">
         <span class="fatura-total-label">Fatura total</span>
-        <span class="fatura-total-val">R$ 5.180,32</span>
+        <span class="fatura-total-val">R$ 5.410,08</span>
       </div>
     </div>
   </div>
@@ -384,7 +385,7 @@ select option{background:var(--surface2);color:var(--text)}
     </div>
   </div>
 
-  <div class="chart-card"><div class="chart-title">🏷️ Gastos por categoria <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🏠</span>Casa/Moradia</span><span class="catbar-vals">R$ 1.288,47<span class="catbar-pct">24%</span></span></div><div class="track"><div class="fill" style="width:24%;background:#0ea5e9"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">💸</span>Pix Crédito</span><span class="catbar-vals">R$ 844,89<span class="catbar-pct">16%</span></span></div><div class="track"><div class="fill" style="width:16%;background:#14b8a6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🍔</span>Alimentação</span><span class="catbar-vals">R$ 651,11<span class="catbar-pct">12%</span></span></div><div class="track"><div class="fill" style="width:12%;background:#f59e0b"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🔁</span>Reembolso</span><span class="catbar-vals">R$ 614,34<span class="catbar-pct">11%</span></span></div><div class="track"><div class="fill" style="width:11%;background:#84cc16"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🚗</span>Transporte</span><span class="catbar-vals">R$ 581,09<span class="catbar-pct">11%</span></span></div><div class="track"><div class="fill" style="width:11%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">📚</span>Educação</span><span class="catbar-vals">R$ 530,09<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#6366f1"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🎮</span>Lazer</span><span class="catbar-vals">R$ 511,99<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">⚽</span>Esportes</span><span class="catbar-vals">R$ 325,26<span class="catbar-pct">6%</span></span></div><div class="track"><div class="fill" style="width:6%;background:#22c55e"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="894" style="display: block; box-sizing: border-box; height: 140px; width: 894px;"></canvas></div></div></div>
+  <div class="chart-card"><div class="chart-title">🏷️ Gastos por categoria <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🏠</span>Casa/Moradia</span><span class="catbar-vals">R$ 1.288,47<span class="catbar-pct">23%</span></span></div><div class="track"><div class="fill" style="width:23%;background:#0ea5e9"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">💸</span>Pix Crédito</span><span class="catbar-vals">R$ 844,89<span class="catbar-pct">15%</span></span></div><div class="track"><div class="fill" style="width:15%;background:#14b8a6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🍔</span>Alimentação</span><span class="catbar-vals">R$ 700,44<span class="catbar-pct">13%</span></span></div><div class="track"><div class="fill" style="width:13%;background:#f59e0b"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🚗</span>Transporte</span><span class="catbar-vals">R$ 638,82<span class="catbar-pct">12%</span></span></div><div class="track"><div class="fill" style="width:12%;background:#3b82f6"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🔁</span>Reembolso</span><span class="catbar-vals">R$ 625,84<span class="catbar-pct">11%</span></span></div><div class="track"><div class="fill" style="width:11%;background:#84cc16"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">📚</span>Educação</span><span class="catbar-vals">R$ 530,09<span class="catbar-pct">10%</span></span></div><div class="track"><div class="fill" style="width:10%;background:#6366f1"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">🎮</span>Lazer</span><span class="catbar-vals">R$ 511,99<span class="catbar-pct">9%</span></span></div><div class="track"><div class="fill" style="width:9%;background:#f43f5e"></div></div></div><div class="catbar"><div class="catbar-info"><span class="catbar-name"><span style="font-size:13px;margin-right:6px">⚽</span>Esportes</span><span class="catbar-vals">R$ 348,47<span class="catbar-pct">6%</span></span></div><div class="track"><div class="fill" style="width:6%;background:#22c55e"></div></div></div></div><div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140" width="894" style="display: block; box-sizing: border-box; height: 140px; width: 894px;"></canvas></div></div></div>
   <div id="tab-marcio" class="page"><div>
     <div class="page-title">👤 Márcio</div>
     <div class="card-selector">
@@ -395,7 +396,7 @@ select option{background:var(--surface2);color:var(--text)}
       <span class="csel-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#242424"></circle><text x="14" y="19" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="white">C6</text></svg></span><span>C6</span><span class="csel-val">R$ 1.810,49</span>
     </button></div>
     <div style="position:relative;margin-bottom:14px">
-      <input id="busca-marcio" placeholder="🔍 Buscar lançamento..." value="" oninput="marcioSearch=this.value;renderMarcio()" style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:Inter,sans-serif">
+      <input id="busca-marcio" placeholder="🔍 Buscar lançamento..." value="" oninput="marcioSearch=this.value;renderMarcio()" style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:&#39;Plus Jakarta Sans&#39;,sans-serif">
       
     </div>
     
@@ -571,7 +572,7 @@ select option{background:var(--surface2);color:var(--text)}
       <span class="csel-icon"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="14" fill="#242424"></circle><text x="14" y="19" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="12" fill="white">C6</text></svg></span><span>C6</span><span class="csel-val">R$ 2.283,27</span>
     </button></div>
     <div style="position:relative;margin-bottom:14px">
-      <input id="busca-raissa" placeholder="🔍 Buscar lançamento..." value="" oninput="raissaSearch=this.value;renderRaissa()" style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:Inter,sans-serif">
+      <input id="busca-raissa" placeholder="🔍 Buscar lançamento..." value="" oninput="raissaSearch=this.value;renderRaissa()" style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:&#39;Plus Jakarta Sans&#39;,sans-serif">
       
     </div>
     
@@ -1110,289 +1111,9 @@ select option{background:var(--surface2);color:var(--text)}
   </div></div>
   <div id="tab-entradas" class="page"></div>
   <div id="tab-add" class="page"></div>
-  <div id="tab-fixos" class="page active"><div>
-    <div class="page-title">🏠 Fixos</div>
-    <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
-      <div style="display:flex;justify-content:space-between;margin-bottom:10px">
-        <span style="font-size:13px;font-weight:600">Progresso do mês</span>
-        <span style="font-size:13px;font-weight:700;color:var(--fix)">26% pago</span>
-      </div>
-      <div class="track"><div class="fill" style="width:26%;background:var(--fix)"></div></div>
-      <div style="display:flex;justify-content:space-between;margin-top:10px">
-        <div style="text-align:center"><div style="font-size:14px;font-weight:700;color:var(--fix)">R$ 321,57</div><div style="font-size:11px;color:var(--text3);margin-top:2px">✅ Pago</div></div>
-        <div style="text-align:center"><div style="font-size:14px;font-weight:700;color:var(--danger)">R$ 908,87</div><div style="font-size:11px;color:var(--text3);margin-top:2px">⏳ Pendente</div></div>
-        <div style="text-align:center"><div style="font-size:14px;font-weight:700">R$ 1.230,44</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Total</div></div>
-      </div>
-    </div>
-    <div class="list-card">
-      <div class="list-head"><div class="list-title"><span class="pill pill-fix">Sem cartão</span> Fixos</div><span style="font-size:11px;color:var(--text3)">10 itens</span></div>
-      <div>
-    <div id="row-fix-0" style="">
-      <div class="item" style="">
-        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
-        <div class="item-body">
-          <div class="item-desc" style="">Consórcio</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 15</span>
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#3b82f622;color:#3b82f6">🚗 Transporte</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 445,82</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(0)">☑️</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-0&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-0">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(0)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,0)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="row-fix-1" style="">
-      <div class="item" style="">
-        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
-        <div class="item-body">
-          <div class="item-desc" style="">Condomínio</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 30</span>
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 330,00</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(1)">☑️</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-1&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-1">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(1)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,1)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="row-fix-2" style="opacity:.5">
-      <div class="item" style="background:#f8fafc">
-        <div class="item-icon" style="background:#f1f5f9">✅</div>
-        <div class="item-body">
-          <div class="item-desc" style="text-decoration:line-through;color:var(--text3)">Oh Boxe</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#22c55e22;color:#22c55e">⚽ Esportes</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 140,00</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:#14532d;border:1px solid #16a34a" onclick="togglePago(2)">✅</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-2&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-2">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(2)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,2)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="row-fix-3" style="">
-      <div class="item" style="">
-        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
-        <div class="item-body">
-          <div class="item-desc" style="">C&amp;A Pay 8-10</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 20</span>
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#ec489922;color:#ec4899">👗 Vestuário</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 47,00</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(3)">☑️</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-3&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-3">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(3)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,3)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="row-fix-4" style="opacity:.5">
-      <div class="item" style="background:#f8fafc">
-        <div class="item-icon" style="background:#f1f5f9">✅</div>
-        <div class="item-body">
-          <div class="item-desc" style="text-decoration:line-through;color:var(--text3)">IPTU</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 0,00</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:#14532d;border:1px solid #16a34a" onclick="togglePago(4)">✅</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-4&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-4">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(4)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,4)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="row-fix-5" style="opacity:.5">
-      <div class="item" style="background:#f8fafc">
-        <div class="item-icon" style="background:#f1f5f9">✅</div>
-        <div class="item-body">
-          <div class="item-desc" style="text-decoration:line-through;color:var(--text3)">CELPE</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 0,00</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:#14532d;border:1px solid #16a34a" onclick="togglePago(5)">✅</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-5&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-5">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(5)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,5)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="row-fix-6" style="">
-      <div class="item" style="">
-        <div class="item-icon" style="background:var(--fix-bg)">🏠</div>
-        <div class="item-body">
-          <div class="item-desc" style="">MEI</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b;margin-left:6px">📅 dia 20</span>
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 86,05</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:var(--surface2);border:1px solid var(--border)" onclick="togglePago(6)">☑️</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-6&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-6">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(6)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,6)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="row-fix-7" style="opacity:.5">
-      <div class="item" style="background:#f8fafc">
-        <div class="item-icon" style="background:#f1f5f9">✅</div>
-        <div class="item-body">
-          <div class="item-desc" style="text-decoration:line-through;color:var(--text3)">PELADA</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#22c55e22;color:#22c55e">⚽ Esportes</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 0,00</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:#14532d;border:1px solid #16a34a" onclick="togglePago(7)">✅</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-7&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-7">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(7)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,7)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="row-fix-8" style="opacity:.5">
-      <div class="item" style="background:#f8fafc">
-        <div class="item-icon" style="background:#f1f5f9">✅</div>
-        <div class="item-body">
-          <div class="item-desc" style="text-decoration:line-through;color:var(--text3)">FIES</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#6366f122;color:#6366f1">📚 Educação</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 0,00</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:#14532d;border:1px solid #16a34a" onclick="togglePago(8)">✅</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-8&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-8">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(8)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,8)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="row-fix-9" style="opacity:.5">
-      <div class="item" style="background:#f8fafc">
-        <div class="item-icon" style="background:#f1f5f9">✅</div>
-        <div class="item-body">
-          <div class="item-desc" style="text-decoration:line-through;color:var(--text3)">CARTAO PASSAI 1-3</div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            
-            
-            <span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#0ea5e922;color:#0ea5e9">🏠 Casa/Moradia</span>
-          </div>
-        </div>
-        <div class="item-right">
-          <span class="item-val">R$ 181,57</span>
-          <div class="item-actions">
-            <button class="act-btn" style="background:#14532d;border:1px solid #16a34a" onclick="togglePago(9)">✅</button>
-            <div class="action-menu-wrap">
-              <button class="action-menu-btn" onclick="toggleMenu(event,&#39;menu-fix-9&#39;)">⋯</button>
-              <div class="action-menu" id="menu-fix-9">
-                <button class="action-menu-item" onclick="closeMenu();startEditFix(9)">✏️ Editar</button>
-                <button class="action-menu-item danger" onclick="closeMenu();confirmDel(&#39;fix&#39;,9)">🗑️ Excluir</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div></div>
-      <div class="list-foot"><span class="foot-lbl">Total</span><span class="foot-val">R$ 1.230,44</span></div>
-    </div>
-    <button onclick="sincronizarFixos()" style="width:100%;padding:12px;border-radius:12px;border:2px dashed var(--fix-bg);background:transparent;color:var(--fix);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;margin-top:4px">🔄 Sincronizar fixos do mês anterior</button>
-  </div></div>
+  <div id="tab-fixos" class="page"></div>
   <div id="tab-meses" class="page"></div>
-  <div id="tab-analise" class="page"><div><div class="page-title">📈 Análise Comparativa</div><div style="display:flex;gap:8px;margin-bottom:16px"><button onclick="_analiseView=&#39;marcio&#39;;renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">👤 Márcio</button><button onclick="_analiseView=&#39;raissa&#39;;renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💜 Raíssa</button><button onclick="_analiseView=&#39;geral&#39;;renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🌐 Geral</button></div>
+  <div id="tab-analise" class="page"><div><div class="page-title">📈 Análise Comparativa</div><div style="display:flex;gap:8px;margin-bottom:16px"><button onclick="_analiseView=&#39;marcio&#39;;renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:&#39;Plus Jakarta Sans&#39;,sans-serif">👤 Márcio</button><button onclick="_analiseView=&#39;raissa&#39;;renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:&#39;Plus Jakarta Sans&#39;,sans-serif">💜 Raíssa</button><button onclick="_analiseView=&#39;geral&#39;;renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:&#39;Plus Jakarta Sans&#39;,sans-serif">🌐 Geral</button></div>
       <div style="background:linear-gradient(135deg,#4c1d95dd,#4c1d95);border-radius:var(--radius);padding:20px;margin-bottom:14px;color:#fff">
         <div style="font-size:11px;font-weight:600;opacity:.65;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">👤 Márcio · Agosto 2026 → Setembro 2026</div>
         <div style="display:flex;justify-content:space-between;align-items:flex-end">
@@ -1476,14 +1197,14 @@ select option{background:var(--surface2);color:var(--text)}
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="bicon">📊</span>Painel</button>
-  <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="bicon">👤</span>Márcio</button>
-  <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="bicon">💜</span>Raíssa</button>
-  <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="bicon-wrap">➕</span>Adicionar</button>
-  <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="bicon">📈</span>Análise</button>
-  <button class="bnav-btn active" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="bicon">🏠</span>Fixos</button>
-  <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><span class="bicon">📅</span>Meses</button>
-  <button class="bnav-btn" id="bn-conferencia" onclick="goTab(&#39;conferencia&#39;)"><span class="bicon">🔍</span>Conferir</button>
+  <button class="bnav-btn active" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><i class="ti ti-chart-bar bicon"></i>Painel</button>
+  <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><i class="ti ti-user bicon"></i>Márcio</button>
+  <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><i class="ti ti-heart bicon"></i>Raíssa</button>
+  <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><i class="ti ti-plus bicon-wrap-icon"></i>Adicionar</button>
+  <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><i class="ti ti-trending-up bicon"></i>Análise</button>
+  <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><i class="ti ti-home bicon"></i>Fixos</button>
+  <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><i class="ti ti-calendar bicon"></i>Meses</button>
+  <button class="bnav-btn" id="bn-conferencia" onclick="goTab(&#39;conferencia&#39;)"><i class="ti ti-list-check bicon"></i>Conferir</button>
 </nav>
 
 </div>
@@ -1510,6 +1231,27 @@ const CATS=[
   {id:'reembolso',   label:'Reembolso',    emoji:'🔁', color:'#84cc16'},
   {id:'outros',      label:'Outros',       emoji:'📦', color:'#64748b'},
 ];
+
+// -- ÍCONES POR CATEGORIA --
+const CAT_ICONS={
+  alimentacao:'ti-tools-kitchen-2',
+  transporte:'ti-car',
+  saude:'ti-heart-rate-monitor',
+  compras:'ti-shopping-bag',
+  lazer:'ti-device-gamepad-2',
+  casa:'ti-home-2',
+  assinaturas:'ti-refresh',
+  vestuario:'ti-shirt',
+  educacao:'ti-book',
+  pix_credito:'ti-currency-dollar',
+  esportes:'ti-ball-football',
+  pet:'ti-paw',
+  viagem:'ti-plane',
+  reembolso:'ti-arrow-back-up',
+  outros:'ti-package',
+};
+function catIcon(id){return CAT_ICONS[id]||'ti-package';}
+
 function catByID(id){return CATS.find(c=>c.id===id)||{id:'outros',label:'Outros',emoji:'📦',color:'#64748b'};}
 
 const CLOUD_URL='https://script.google.com/macros/s/AKfycbyIgx5yPBXXTcM0iNAy7D31DeWjhTjr7Ap1RKOqG6s2pX7cdV89VKxsyQNLlaVdwfzE1g/exec';
@@ -1524,9 +1266,9 @@ function setSyncStatus(status){
   _syncStatus=status;
   const el=document.getElementById('sync-indicator');
   if(!el)return;
-  if(status==='ok'){el.textContent='☁️';el.title='Sincronizado com a nuvem';el.style.color='#4ade80';el.style.opacity='1';}
-  else if(status==='pendente'){el.textContent='🔄';el.title='Salvando na nuvem...';el.style.color='#fbbf24';el.style.opacity='1';}
-  else if(status==='erro'){el.textContent='⚠️';el.title='Erro ao salvar na nuvem — dados salvos localmente';el.style.color='#f87171';el.style.opacity='1';}
+  if(status==='ok'){el.innerHTML='<i class="ti ti-cloud-check"></i>';el.title='Sincronizado com a nuvem';el.style.color='#4ade80';el.style.opacity='1';}
+  else if(status==='pendente'){el.innerHTML='<i class="ti ti-cloud-upload"></i>';el.title='Salvando na nuvem...';el.style.color='#fbbf24';el.style.opacity='1';}
+  else if(status==='erro'){el.innerHTML='<i class="ti ti-cloud-off"></i>';el.title='Erro ao salvar na nuvem — dados salvos localmente';el.style.color='#f87171';el.style.opacity='1';}
 }
 
 async function cloudSave(data){
@@ -2071,17 +1813,17 @@ function renderPainel(){
   <div class="hero">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div>
-        <div class="hero-label">Saldo — Márcio</div>
+        <div class="hero-label"><i class="ti ti-wallet" style="font-size:12px;margin-right:4px"></i>Saldo — Márcio</div>
         <div class="${saldo>=0?'hero-val':'hero-val neg'}" style="font-size:26px">${fmt(saldo)}</div>
         <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:4px">${saldo>=0?'✅ No positivo':'❌ Déficit no mês'}</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;justify-content:center">
         <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(74,222,128,.3)">
-          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Entradas</span>
+          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px"><i class="ti ti-arrow-down-circle" style="font-size:12px;margin-right:3px;color:#4ade80"></i>Entradas</span>
           <span style="font-size:15px;font-weight:700;color:#4ade80">${fmt(tEnt)}</span>
         </div>
         <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(248,113,113,.3)">
-          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px">Gastos</span>
+          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px"><i class="ti ti-arrow-up-circle" style="font-size:12px;margin-right:3px;color:#f87171"></i>Gastos</span>
           <span style="font-size:15px;font-weight:700;color:#f87171">${fmt(tMarcio)}</span>
         </div>
       </div>
@@ -2115,7 +1857,7 @@ function renderPainel(){
   <!-- TOTAIS DA FATURA POR BANCO -->
   <div style="margin-bottom:6px;padding:0 2px">
     <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:6px">
-      <span>🏦</span> Totais da Fatura
+      <i class="ti ti-building-bank" style="font-size:14px"></i> Totais da Fatura
       <span style="font-size:10px;font-weight:500;color:var(--text3);text-transform:none;letter-spacing:0">· Márcio + Raíssa · clique em 🔍 Conferir para validar</span>
     </div>
   </div>
@@ -2217,7 +1959,7 @@ function itemRow(it,i,key){
   const cat=it.cat?catByID(it.cat):null;
   return `<div id="row-${key}-${i}">
     <div class="item" style="${isRec?'background:linear-gradient(to right,#1e1530,#1a1a24)':''}">
-      <div class="item-icon" style="background:${keyBg(key)};overflow:hidden">${keyIcon(key)}</div>
+      <div class="item-icon" style="background:${keyBg(key)};overflow:hidden;display:flex;align-items:center;justify-content:center">${it.cat?`<i class="ti ${catIcon(it.cat)}" style="font-size:17px;color:${catByID(it.cat).color}"></i>`:`<i class="ti ti-package" style="font-size:17px;color:#8b949e"></i>`}</div>
       <div class="item-body">
         <div class="item-desc" style="color:var(--text)">${it.desc}</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
@@ -2318,7 +2060,7 @@ function startEdit(key,idx){
     <input class="val-inp" id="ei-val" type="number" value="${it.val}" step="0.01">
     <select id="ei-cat" style="width:130px;flex:0 0 130px;padding:8px 8px;font-size:12px"><option value="">Categoria</option>${catOpts}</select>
     ${banco?`<select id="ei-cartao" style="width:110px;flex:0 0 110px;padding:8px 8px;font-size:12px">${cartaoOpts}</select>`:''}
-    ${canRec?`<button id="ei-rec-btn" onclick="toggleEditRec()" style="flex:0 0 auto;padding:6px 10px;border-radius:8px;border:2px solid ${isRec?'var(--nu)':'var(--border)'};background:${isRec?'var(--nu-bg)':'#f8fafc'};color:${isRec?'var(--nu-txt)':'var(--text3)'};font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;white-space:nowrap">${isRec?'🔄 Recorrente':'🔄 Normal'}</button>`:''}
+    ${canRec?`<button id="ei-rec-btn" onclick="toggleEditRec()" style="flex:0 0 auto;padding:6px 10px;border-radius:8px;border:2px solid ${isRec?'var(--nu)':'var(--border)'};background:${isRec?'var(--nu-bg)':'#f8fafc'};color:${isRec?'var(--nu-txt)':'var(--text3)'};font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap">${isRec?'🔄 Recorrente':'🔄 Normal'}</button>`:''}
     <button class="btn-ok" onclick="saveEdit()">Ok</button>
     <button class="btn-cancel" onclick="cancelEdit()">✕</button>
   </div>`;
@@ -2495,7 +2237,7 @@ function renderMarcio(){
     <div style="position:relative;margin-bottom:14px">
       <input id="busca-marcio" placeholder="🔍 Buscar lançamento..." value="${marcioSearch}"
         oninput="marcioSearch=this.value;renderMarcio()"
-        style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:Inter,sans-serif">
+        style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif">
       ${marcioSearch?`<button onclick="marcioSearch='';renderMarcio()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px">✕</button>`:''}
     </div>
     ${marcioSearch&&!itensFiltrados.length?'<div class="empty">Nenhum resultado para "'+marcioSearch+'"</div>':categorizedCard(itensFiltrados,marcioCard,marcioSearch)}
@@ -2521,7 +2263,7 @@ function renderRaissa(){
     <div style="position:relative;margin-bottom:14px">
       <input id="busca-raissa" placeholder="🔍 Buscar lançamento..." value="${raissaSearch}"
         oninput="raissaSearch=this.value;renderRaissa()"
-        style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:Inter,sans-serif">
+        style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif">
       ${raissaSearch?`<button onclick="raissaSearch='';renderRaissa()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px">✕</button>`:''}
     </div>
     ${raissaSearch&&!itensFiltrados.length?'<div class="empty">Nenhum resultado para "'+raissaSearch+'"</div>':categorizedCard(itensFiltrados,raissaCard,raissaSearch)}
@@ -2599,7 +2341,7 @@ function renderFixos(){
       <div>${rows}</div>
       <div class="list-foot"><span class="foot-lbl">Total</span><span class="foot-val">${fmt(total)}</span></div>
     </div>
-    ${G.current>0?`<button onclick="sincronizarFixos()" style="width:100%;padding:12px;border-radius:12px;border:2px dashed var(--fix-bg);background:transparent;color:var(--fix);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;margin-top:4px">🔄 Sincronizar fixos do mês anterior</button>`:''}
+    ${G.current>0?`<button onclick="sincronizarFixos()" style="width:100%;padding:12px;border-radius:12px;border:2px dashed var(--fix-bg);background:transparent;color:var(--fix);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-top:4px">🔄 Sincronizar fixos do mês anterior</button>`:''}
   </div>`;
 }
 
@@ -2703,8 +2445,8 @@ function renderAdd(){
       <div class="fg">
         <div class="flabel">Tipo de lançamento</div>
         <div style="display:flex;gap:8px">
-          <button id="btn-tipo-gasto" onclick="setTipoLanc('gasto')" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💸 Gasto</button>
-          <button id="btn-tipo-entrada" onclick="setTipoLanc('entrada')" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💵 Entrada</button>
+          <button id="btn-tipo-gasto" onclick="setTipoLanc('gasto')" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">💸 Gasto</button>
+          <button id="btn-tipo-entrada" onclick="setTipoLanc('entrada')" style="flex:1;padding:11px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">💵 Entrada</button>
         </div>
       </div>
 
@@ -2733,8 +2475,8 @@ function renderAdd(){
         <div class="fg" id="fg-rec">
           <div class="flabel">Tipo de cobrança</div>
           <div style="display:flex;gap:8px">
-            <button id="btn-rec-nao" onclick="setRec(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💳 Normal</button>
-            <button id="btn-rec-sim" onclick="setRec(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
+            <button id="btn-rec-nao" onclick="setRec(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--nu);background:var(--nu);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">💳 Normal</button>
+            <button id="btn-rec-sim" onclick="setRec(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">🔄 Recorrente</button>
           </div>
           <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="rec-hint">Gasto único ou parcelado</div>
         </div>
@@ -2743,7 +2485,7 @@ function renderAdd(){
         <div class="fg" id="fg-divisao" style="display:none">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
             <div class="flabel" style="margin-bottom:0">✂️ Dividir com Raíssa</div>
-            <button id="btn-dividir" onclick="toggleDivisaoAtiva()" style="padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">Ativar</button>
+            <button id="btn-dividir" onclick="toggleDivisaoAtiva()" style="padding:6px 14px;border-radius:8px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">Ativar</button>
           </div>
           <div class="divisao-box" id="divisao-box">
             <div class="divisao-title">✂️ Valores divididos · mesmo cartão</div>
@@ -2774,8 +2516,8 @@ function renderAdd(){
         <div class="fg">
           <div class="flabel">Tipo de cobrança</div>
           <div style="display:flex;gap:8px">
-            <button id="btn-erec-nao" onclick="setRecEntrada(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid #16a34a;background:#16a34a;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">💵 Normal</button>
-            <button id="btn-erec-sim" onclick="setRecEntrada(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">🔄 Recorrente</button>
+            <button id="btn-erec-nao" onclick="setRecEntrada(false)" style="flex:1;padding:10px;border-radius:10px;border:2px solid #16a34a;background:#16a34a;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">💵 Normal</button>
+            <button id="btn-erec-sim" onclick="setRecEntrada(true)" style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:var(--surface2);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">🔄 Recorrente</button>
           </div>
           <div style="font-size:11px;color:var(--text3);margin-top:6px;text-align:center" id="erec-hint">Entrada única</div>
         </div>
@@ -2900,14 +2642,14 @@ function renderMeses(){
     <div style="background:linear-gradient(135deg,#1e1b4b,#4c1d95);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
       <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px">Relatório Financeiro</div>
       <div style="font-size:13px;color:rgba(255,255,255,.8);margin-bottom:14px">Veja e compartilhe a lista completa de gastos por mês.</div>
-      <a href="relatorio-mv.html" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:12px;border:none;background:rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif;text-decoration:none;backdrop-filter:blur(4px)">📊 Abrir relatório</a>
+      <a href="relatorio-mv.html" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:12px;border:none;background:rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;text-decoration:none;backdrop-filter:blur(4px)">📊 Abrir relatório</a>
     </div>
     <div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)">
       <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">☁️ Sincronização na nuvem</div>
       <div style="font-size:12px;color:var(--text3);margin-bottom:14px">Dados salvos automaticamente a cada alteração.</div>
       <div style="display:flex;gap:8px">
-        <button onclick="loadFromCloud()" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">☁️ Sincronizar agora</button>
-        <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;font-family:Inter,sans-serif">💾 Backup local</button>
+        <button onclick="loadFromCloud()" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">☁️ Sincronizar agora</button>
+        <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">💾 Backup local</button>
       </div>
       <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)">
       <div id="sync-msg" style="display:none;margin-top:10px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:500;text-align:center"></div>
@@ -2944,7 +2686,7 @@ function renderCartoesBlock(){
       </div>
       ${lista.map((c,i)=>cardRow(c,i)).join('')}
       ${!lista.length?`<div style="font-size:12px;color:var(--text3);padding:8px 0">Nenhum cartão cadastrado</div>`:''}
-      <button onclick="addCartao('${banco}')" style="margin-top:8px;width:100%;padding:10px;border:2px dashed var(--border);border-radius:10px;background:transparent;color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">➕ Adicionar cartão ${label}</button>
+      <button onclick="addCartao('${banco}')" style="margin-top:8px;width:100%;padding:10px;border:2px dashed var(--border);border-radius:10px;background:transparent;color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">➕ Adicionar cartão ${label}</button>
     </div>`;
   }
 
@@ -3037,6 +2779,62 @@ function infoFaturaBanco(){
   return {nomeFatura, vencNU:fmtData(vencNU), vencC6:fmtData(vencC6)};
 }
 
+function editarCartaoConf(key, idx, banco){
+  // Busca o item no mês atual
+  const it = M()[key][idx];
+  if(!it) return;
+
+  // Monta opções de cartão do banco
+  const cartoes = getCartoes(banco);
+  if(!cartoes.length){
+    showSyncStatus('Nenhum cartão cadastrado para este banco', false);
+    return;
+  }
+
+  // Cria modal inline
+  const existing = document.getElementById('conf-cartao-modal');
+  if(existing) existing.remove();
+
+  const opts = `<option value="">— Sem cartão —</option>` +
+    cartoes.map(c=>`<option value="${c.digitos}"${it.cartao===c.digitos?' selected':''}>${cartaoLabel(c.digitos)}</option>`).join('');
+
+  const modal = document.createElement('div');
+  modal.id = 'conf-cartao-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.innerHTML = `
+    <div style="background:var(--surface);border-radius:16px;padding:20px;width:100%;max-width:320px;border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,.4)">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Editar forma de pagamento</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${it.desc}</div>
+      <select id="conf-cartao-sel" style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-size:14px;margin-bottom:14px">${opts}</select>
+      <div style="display:flex;gap:8px">
+        <button onclick="salvarCartaoConf('${key}',${idx})" style="flex:1;padding:11px;background:var(--nu);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer">Salvar</button>
+        <button onclick="document.getElementById('conf-cartao-modal').remove()" style="flex:1;padding:11px;background:var(--surface2);color:var(--text2);border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer">Cancelar</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) modal.remove(); });
+}
+
+function salvarCartaoConf(key, idx){
+  const sel = document.getElementById('conf-cartao-sel');
+  if(!sel) return;
+  const novoCartao = sel.value;
+  const it = M()[key][idx];
+  if(!it) return;
+
+  // Atualiza o lançamento original
+  if(novoCartao){ it.cartao = novoCartao; it._cartaoManual = true; }
+  else { delete it.cartao; delete it._cartaoManual; }
+
+  document.getElementById('conf-cartao-modal')?.remove();
+  save();
+  showSyncStatus('✅ Cartão atualizado!', true);
+  renderConferencia();
+  // Atualiza também a aba de Márcio/Raíssa se estiver ativa
+  if(activeTab==='marcio') renderMarcio();
+  if(activeTab==='raissa') renderRaissa();
+}
+
 // Estado de colapso da conferência — global para ser acessível pelo onclick
 window._confExpanded = window._confExpanded || {};
 function toggleExpand(id){
@@ -3091,6 +2889,8 @@ function renderConferencia(){
         const estado=conf[key+'_'+i]||'';
         const cat=it.cat?catByID(it.cat):null;
         const isM=pessoa==='M';
+        const banco=(key==='mnu'||key==='rnu')?'nu':'c6';
+        const cartaoAtual=it.cartao?cartaoLabel(it.cartao):'Sem cartão';
         return `<div class="conf-item${estado==='ok'?' conf-ok':estado==='div'?' conf-div':''}">
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
@@ -3100,13 +2900,15 @@ function renderConferencia(){
             <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
               ${it.data?`<span style="font-size:10px;color:var(--text3)">${it.data}</span>`:''}
               ${cat?`<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:5px;background:${cat.color}22;color:${cat.color}">${cat.emoji} ${cat.label}</span>`:''}
-              ${it.recorrente?`<span style="font-size:10px;color:var(--text3)">🔄</span>`:''}
+              ${it.cartao?`<span style="font-size:10px;color:var(--text3);display:flex;align-items:center;gap:2px"><i class="ti ti-credit-card" style="font-size:11px"></i>${cartaoLabel(it.cartao)}</span>`:''}
+              ${it.recorrente?`<span style="font-size:10px;color:var(--text3)"><i class="ti ti-refresh" style="font-size:11px"></i></span>`:''}
             </div>
           </div>
-          <span style="font-size:13px;font-weight:700;color:var(--text);margin:0 10px;white-space:nowrap">${fmt(it.val)}</span>
-          <div style="display:flex;gap:5px">
-            <div class="conf-check${estado==='ok'?' ok':''}" onclick="toggleConfItem('${key}',${i},'ok')" title="Conferido ✓">✓</div>
-            <div class="conf-check${estado==='div'?' div':''}" onclick="toggleConfItem('${key}',${i},'div')" title="Divergência ✗">✗</div>
+          <span style="font-size:13px;font-weight:700;color:var(--text);margin:0 8px;white-space:nowrap">${fmt(it.val)}</span>
+          <div style="display:flex;gap:5px;align-items:center">
+            <div class="conf-check${estado==='ok'?' ok':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'ok')" title="Conferido ✓">✓</div>
+            <div class="conf-check${estado==='div'?' div':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'div')" title="Divergência ✗">✗</div>
+            <div class="conf-check" onclick="editarCartaoConf('${key}',${i},'${banco}')" title="Editar cartão" style="font-size:13px"><i class="ti ti-credit-card"></i></div>
           </div>
         </div>`;
       }).join('');
@@ -3213,7 +3015,7 @@ function renderConferencia(){
       </div>
     </div>
 
-    <button onclick="clearConf()" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;margin-bottom:14px">🗑️ Limpar conferência deste mês</button>
+    <button onclick="clearConf()" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:14px">🗑️ Limpar conferência deste mês</button>
   </div>`;
   // Adiciona listeners diretamente nos elementos após renderizar
   document.querySelectorAll('[data-expand]').forEach(el=>{
@@ -3636,7 +3438,7 @@ function renderAnalise(){
   }
 
   const views=[{id:'marcio',label:'👤 Márcio'},{id:'raissa',label:'💜 Raíssa'},{id:'geral',label:'🌐 Geral'}];
-  const viewSel=views.map(v=>`<button onclick="_analiseView='${v.id}';renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid ${_analiseView===v.id?'var(--nu)':'var(--border)'};background:${_analiseView===v.id?'var(--nu)':'var(--surface)'};color:${_analiseView===v.id?'#fff':'var(--text2)'};font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif">${v.label}</button>`).join('');
+  const viewSel=views.map(v=>`<button onclick="_analiseView='${v.id}';renderAnalise()" style="flex:1;padding:9px 6px;border-radius:10px;border:2px solid ${_analiseView===v.id?'var(--nu)':'var(--border)'};background:${_analiseView===v.id?'var(--nu)':'var(--surface)'};color:${_analiseView===v.id?'#fff':'var(--text2)'};font-size:12px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">${v.label}</button>`).join('');
   let content='';
   if(_analiseView==='marcio')content=pessoaBlock('Márcio','👤','#4c1d95',['mnu','mc6']);
   else if(_analiseView==='raissa')content=pessoaBlock('Raíssa','💜','#be185d',['rnu','rc6']);
@@ -3685,6 +3487,6 @@ function renderTab(id){
 }
 </script>
 
-<div id="cloud-status" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 9999; transition: opacity 0.4s; white-space: nowrap; font-family: Inter, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px; opacity: 0; background: rgb(220, 252, 231); color: rgb(22, 163, 74);">☁️ Salvo na nuvem</div>
+<div id="cloud-status" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 9999; transition: opacity 0.4s; white-space: nowrap; font-family: &quot;Plus Jakarta Sans&quot;, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px; opacity: 0; background: rgb(220, 252, 231); color: rgb(22, 163, 74);">☁️ Dados atualizados!</div>
 
 </body></html>
