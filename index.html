@@ -3069,6 +3069,68 @@ function infoFaturaBanco(){
   return {nomeFatura, vencNU:fmtData(vencNU), vencC6:fmtData(vencC6)};
 }
 
+function editarValorConf(key, idx){
+  const it = M()[key][idx];
+  if(!it) return;
+
+  const existing = document.getElementById('conf-valor-modal');
+  if(existing) existing.remove();
+
+  const modal = document.createElement('div');
+  modal.id = 'conf-valor-modal';
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  modal.innerHTML = `
+    <div style="background:var(--surface);border-radius:16px;padding:20px;width:100%;max-width:320px;border:1px solid var(--border);box-shadow:0 8px 32px rgba(0,0,0,.4)">
+      <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">✏️ Editar valor da parcela</div>
+      <div style="font-size:12px;color:var(--text3);margin-bottom:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${it.desc}</div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:6px">Valor atual: <b style="color:var(--text)">${fmt(it.val)}</b></div>
+      <input type="number" id="conf-valor-input" value="${it.val}" step="0.01"
+        style="width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-size:16px;margin-bottom:10px">
+      ${isParcelado(it)&&!it.recorrente?`<div style="font-size:11px;color:var(--text3);margin-bottom:14px">🔄 O novo valor será propagado para as parcelas seguintes</div>`:''}
+      <div style="display:flex;gap:8px">
+        <button onclick="salvarValorConf('${key}',${idx})" style="flex:1;padding:11px;background:var(--nu);color:#fff;border:none;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer">Salvar</button>
+        <button onclick="document.getElementById('conf-valor-modal').remove()" style="flex:1;padding:11px;background:var(--surface2);color:var(--text2);border:1.5px solid var(--border);border-radius:10px;font-size:13px;font-weight:600;cursor:pointer">Cancelar</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) modal.remove(); });
+  // Foca no input e seleciona tudo
+  setTimeout(()=>{ const el=document.getElementById('conf-valor-input'); if(el){el.focus();el.select();} }, 100);
+}
+
+function salvarValorConf(key, idx){
+  const input = document.getElementById('conf-valor-input');
+  if(!input) return;
+  const novoVal = parseFloat(input.value);
+  if(isNaN(novoVal)||novoVal<=0){ alert('Valor inválido!'); return; }
+
+  const it = M()[key][idx];
+  if(!it) return;
+
+  it.val = parseFloat(novoVal.toFixed(2));
+
+  // Propaga para parcelas seguintes se for parcelado
+  if(isParcelado(it)&&!it.recorrente){
+    propagarEdicao(key, it.desc, {}, G.current); // mantém outros campos
+    // Propaga valor manualmente
+    let descAtual = it.desc;
+    for(let j=G.current+1; j<G.months.length; j++){
+      const proxDesc = nextParcel(descAtual);
+      if(!proxDesc) break;
+      const alvo = G.months[j][key]?.find(x=>x.desc===proxDesc);
+      if(alvo) alvo.val = it.val;
+      descAtual = proxDesc;
+    }
+  }
+
+  document.getElementById('conf-valor-modal')?.remove();
+  save();
+  showSyncStatus('✅ Valor atualizado!', true);
+  renderConferencia();
+  if(activeTab==='marcio') renderMarcio();
+  if(activeTab==='raissa') renderRaissa();
+}
+
 function editarCartaoConf(key, idx, banco){
   // Busca o item no mês atual
   const it = M()[key][idx];
@@ -3202,7 +3264,8 @@ function renderConferencia(){
           <div style="display:flex;gap:5px;align-items:center">
             <div class="conf-check${estado==='ok'?' ok':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'ok')" title="Conferido ✓">✓</div>
             <div class="conf-check${estado==='div'?' div':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'div')" title="Divergência ✗">✗</div>
-            <div class="conf-check" onclick="editarCartaoConf('${key}',${i},'${banco}')" title="Editar cartão" style="font-size:13px"><span class="ti-svg" ><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span></div>
+            <div class="conf-check" onclick="editarValorConf('${key}',${i})" title="Editar valor" style="font-size:12px;font-weight:700">R$</div>
+            <div class="conf-check" onclick="editarCartaoConf('${key}',${i},'${banco}')" title="Editar cartão" style="font-size:13px">💳</div>
           </div>
         </div>`;
       }).join('');
