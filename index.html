@@ -2594,11 +2594,13 @@ function renderFixos(){
     }
   }
   function fixRow(it,i){
-    return `<div id="row-fix-${i}" style="${it.pago?'opacity:.5':''}">
-      <div class="item" style="${it.pago?'background:#f8fafc':''}">
-        <div class="item-icon" style="background:${it.pago?'#f1f5f9':'var(--fix-bg)'}">${it.pago?'✅':'🏠'}</div>
+    return `<div id="row-fix-${i}">
+      <div class="item" style="${it.pago?'border-color:rgba(22,163,74,0.2)':''}">
+        <div class="item-icon" style="background:${it.pago?'rgba(22,163,74,0.12)':'var(--fix-bg)'}">${it.pago?'✅':'🏠'}</div>
         <div class="item-body">
-          <div class="item-desc" style="${it.pago?'text-decoration:line-through;color:var(--text3)':''}">${it.desc}</div>
+          <div class="item-desc" style="${it.pago?'text-decoration:line-through;color:var(--text3)':''}">
+            ${it.desc}${it.pago?'<span style="font-size:9px;font-weight:800;letter-spacing:.06em;background:rgba(22,163,74,0.15);color:#22c55e;border:1px solid rgba(22,163,74,0.3);padding:1px 6px;border-radius:5px;margin-left:6px;vertical-align:middle">PAGO</span>':''}
+          </div>
           <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
             ${it.data?`<span style="font-size:11px;color:var(--text3)">${it.data}</span>`:''}
             ${vencBadge(it.venc,it.pago)}
@@ -2607,9 +2609,9 @@ function renderFixos(){
           </div>
         </div>
         <div class="item-right">
-          <span class="item-val">${fmt(it.val)}</span>
+          <span class="item-val" style="${it.pago?'color:var(--text3)':''}">${fmt(it.val)}</span>
           <div class="item-actions">
-            <button class="act-btn" style="background:${it.pago?'#14532d':'var(--surface2)'};border:1px solid ${it.pago?'#16a34a':'var(--border)'}" onclick="togglePago(${i})">${it.pago?'✅':'☑️'}</button>
+            <button class="act-btn" style="background:${it.pago?'rgba(22,163,74,0.15)':'var(--surface2)'};border:1px solid ${it.pago?'#16a34a':'var(--border)'}" onclick="togglePago(${i})">${it.pago?'✅':'☑️'}</button>
             <div class="action-menu-wrap">
               <button class="action-menu-btn" onclick="toggleMenu(event,'menu-fix-${i}')">⋯</button>
               <div class="action-menu" id="menu-fix-${i}">
