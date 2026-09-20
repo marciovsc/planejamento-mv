@@ -2589,16 +2589,14 @@ function renderMarcio(){
 function renderRaissa(){
   const m=M();
   const cards={
-    rnu:{label:'Nubank',icon:KEY_ICONS_LG.rnu,color:'var(--nu)',val:sum(m.rnu)+fixosSumBanco('nu')},
-    rc6:{label:'C6',icon:KEY_ICONS_LG.rc6,color:'var(--c6)',val:sum(m.rc6)+fixosSumBanco('c6')}
+    rnu:{label:'Nubank',icon:KEY_ICONS_LG.rnu,color:'var(--nu)',val:sum(m.rnu)},
+    rc6:{label:'C6',icon:KEY_ICONS_LG.rc6,color:'var(--c6)',val:sum(m.rc6)}
   };
   const sel=Object.entries(cards).map(([k,c])=>`
     <button class="csel-btn${raissaCard===k?' active':''}" style="${raissaCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="raissaCard='${k}';raissaSearch='';renderRaissa()">
       <span class="csel-icon">${c.icon}</span><span>${c.label}</span><span class="csel-val">${fmt(c.val)}</span>
     </button>`).join('');
-  const fixBanco=raissaCard==='rnu'?fixosPorBanco('nu'):fixosPorBanco('c6');
-  const fixComBadge=fixBanco.map(it=>({...it,_isFixo:true}));
-  const itens=[...(m[raissaCard]||[]),...fixComBadge];
+  const itens=m[raissaCard]||[];
   const itensFiltrados=raissaSearch?itens.filter(it=>it.desc.toLowerCase().includes(raissaSearch.toLowerCase())):itens;
   document.getElementById('tab-raissa').innerHTML=`<div>
     <div class="page-title">💜 Raíssa</div>
