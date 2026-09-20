@@ -2556,7 +2556,7 @@ function fixosSumBanco(banco){
 
 // -- TABS --
 let marcioCard='mnu',raissaCard='rnu';
-let marcioSearch='',raissaSearch='';
+let marcioSearch='',raissaSearch='',confSearch='';
 
 function renderMarcio(){
   const m=M();
@@ -3288,15 +3288,24 @@ function renderConferencia(){
   const m=M();
   const conf=loadConf();
   const infoFatura=infoFaturaBanco();
+  const sq=confSearch.toLowerCase().trim();
 
-  // FEATURE 3: fixos com cartao aparecem na conferencia
+  function highlightMatch(text){
+    if(!sq)return text;
+    const idx=text.toLowerCase().indexOf(sq);
+    if(idx<0)return text;
+    return text.slice(0,idx)+'<mark style="background:rgba(167,139,250,.35);color:var(--text);border-radius:2px;padding:0 1px">'+text.slice(idx,idx+sq.length)+'</mark>'+text.slice(idx+sq.length);
+  }
+
   function buildBankSection(titulo,icone,banco,itensM,itensR,keyM,keyR,fixItems){
     fixItems=fixItems||[];
-    const todos=[
+    let todos=[
       ...itensM.map((it,i)=>({it,i,key:keyM,pessoa:'M'})),
       ...itensR.map((it,i)=>({it,i,key:keyR,pessoa:'R'})),
       ...fixItems.map((it)=>({it,i:(M().fix||[]).indexOf(it),key:'fix',pessoa:'F'})),
     ].sort((a,b)=>b.it.val-a.it.val);
+    if(sq) todos=todos.filter(({it})=>it.desc.toLowerCase().includes(sq));
+    if(sq&&!todos.length)return '';
 
     const cartoesBanco=getCartoes(banco);
     const grupos=[];
@@ -3316,7 +3325,7 @@ function renderConferencia(){
     const totalDivGeral=todos.filter(({key,it})=>conf[confItemKey(key,it)]==='div').length;
     const qtdConfGeral=todos.filter(({key,it})=>conf[confItemKey(key,it)]==='ok').length;
     const pct=todos.length>0?Math.round(qtdConfGeral/todos.length*100):0;
-    const bankExpanded=!!window._confExpanded['bank_'+banco];
+    const bankExpanded=sq?true:!!window._confExpanded['bank_'+banco];
 
     function buildRows(lista){
       return lista.map(({it,i,key,pessoa})=>{
@@ -3331,7 +3340,7 @@ function renderConferencia(){
             +'<div style="flex:1;min-width:0">'
             +'<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
             +'<span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;background:#d97706;color:#fff">🏠 Fixo</span>'
-            +'<span style="font-size:13px;font-weight:600;color:var(--text)">'+it.desc+'</span>'
+            +'<span style="font-size:13px;font-weight:600;color:var(--text)">'+highlightMatch(it.desc)+'</span>'
             +'</div>'
             +'<div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">'
             +(it.data?'<span style="font-size:10px;color:var(--text3)">'+it.data+'</span>':'')
@@ -3349,7 +3358,7 @@ function renderConferencia(){
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
               <span class="conf-person-badge ${isM?'conf-badge-m':'conf-badge-r'}">${isM?'👤 Márcio':'💜 Raíssa'}</span>
-              <span style="font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px">${it.desc}</span>
+              <span style="font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px">${highlightMatch(it.desc)}</span>
             </div>
             <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
               ${it.data?`<span style="font-size:10px;color:var(--text3)">${it.data}</span>`:''}
@@ -3375,7 +3384,7 @@ function renderConferencia(){
       const subConf=g.itens.filter(({key,it})=>conf[confItemKey(key,it)]==='ok').length;
       const subDiv=g.itens.filter(({key,it})=>conf[confItemKey(key,it)]==='div').length;
       const grpKey='grp_'+g.id;
-      const grpExpanded=!!window._confExpanded[grpKey];
+      const grpExpanded=sq?true:!!window._confExpanded[grpKey];
       if(!g.label) return buildRows(g.itens);
       return `<div style="border-bottom:1px solid var(--border)">
         <div data-expand="${grpKey}" style="padding:11px 16px;background:var(--surface2);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none">
@@ -3416,6 +3425,13 @@ function renderConferencia(){
 
   document.getElementById('tab-conferencia').innerHTML=`<div>
     <div class="page-title">🔍 Conferência de Lançamentos</div>
+
+    <div style="position:relative;margin-bottom:14px">
+      <input id="busca-conf" type="text" placeholder="Buscar lançamento…" value="${confSearch.replace(/"/g,'&quot;')}"
+        oninput="confSearch=this.value;renderConferencia()"
+        style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;-webkit-appearance:none">
+      ${confSearch?`<button onclick="confSearch='';renderConferencia()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text3);line-height:1;padding:2px">✕</button>`:'<span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text3);pointer-events:none">🔍</span>'}
+    </div>
 
     ${infoFatura?`<div style="background:linear-gradient(135deg,#1e1b4b,#4c1d95);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow)">
       <div style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px">📅 Mês de referência no banco</div>
@@ -3473,6 +3489,11 @@ function renderConferencia(){
 
     <button onclick="clearConf()" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:14px">🗑️ Limpar conferência deste mês</button>
   </div>`;
+  // Restaura foco no campo de busca após re-render
+  if(confSearch){
+    const inp=document.getElementById('busca-conf');
+    if(inp){const len=confSearch.length;inp.focus();try{inp.setSelectionRange(len,len);}catch(e){}}
+  }
   // Adiciona listeners diretamente nos elementos após renderizar
   document.querySelectorAll('[data-expand]').forEach(el=>{
     el.addEventListener('click',function(e){
