@@ -2089,8 +2089,10 @@ function renderPainel(){
   const tEnt=sum(m.entradas),tMarcio=tmu+tmc+tfix,tRai=tru+trc,saldo=tEnt-tMarcio,grand=tMarcio+tRai;
 
   // Totais por banco (Márcio + Raíssa) - bruto e líquido
-  const nuBruto=tmu+tru;
-  const c6Bruto=tmc+trc;
+  const fixNu=fixosSumBanco('nu');
+  const fixC6=fixosSumBanco('c6');
+  const nuBruto=tmu+tru+fixNu;
+  const c6Bruto=tmc+trc+fixC6;
   // Reembolso só de Márcio (Raíssa não tem reembolsos)
   const nuReembM=sumReembolso(m.mnu);
   const c6ReembM=sumReembolso(m.mc6);
@@ -2294,13 +2296,34 @@ function categorizedCard(items,key,search){
       </div>`;
   }
 
-  const parceladas=items.map((it,i)=>({it,i})).filter(({it})=>isParcelado(it)&&!it.recorrente);
-  const avulsas=items.map((it,i)=>({it,i})).filter(({it})=>!isParcelado(it)&&!it.recorrente);
-  const recorrentes=items.map((it,i)=>({it,i})).filter(({it})=>!!it.recorrente);
+  const all=items.map((it,i)=>({it,i}));
+  const fixos=all.filter(({it})=>it._isFixo);
+  const normais=all.filter(({it})=>!it._isFixo);
+  const parceladas=normais.filter(({it})=>isParcelado(it)&&!it.recorrente);
+  const avulsas=normais.filter(({it})=>!isParcelado(it)&&!it.recorrente);
+  const recorrentes=normais.filter(({it})=>!!it.recorrente);
+
+  function fixoReadRow(it){
+    const pagoStyle=it.pago?'text-decoration:line-through;color:var(--text3)':'';
+    const badge=it.pago?'<span style="font-size:9px;font-weight:800;letter-spacing:.06em;background:rgba(22,163,74,0.15);color:#22c55e;border:1px solid rgba(22,163,74,0.3);padding:1px 6px;border-radius:5px;margin-left:6px;vertical-align:middle">PAGO</span>':'';
+    const cat=it.cat?catByID(it.cat):null;
+    return '<div class="item" style="'+(it.pago?'border-color:rgba(22,163,74,0.2)':'')+'">'
+      +'<div class="item-icon" style="background:'+(it.pago?'rgba(22,163,74,0.12)':'var(--surface2)')+'">🏠</div>'
+      +'<div class="item-body">'
+      +'<div class="item-desc" style="'+pagoStyle+'">'+it.desc+badge+'</div>'
+      +'<div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">'
+      +(it.data?'<span style="font-size:11px;color:var(--text3)">'+it.data+'</span>':'')
+      +(it.venc?'<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:#1e2a3a;color:#64748b">📅 dia '+it.venc+'</span>':'')
+      +(cat?'<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:'+cat.color+'22;color:'+cat.color+'">'+cat.emoji+' '+cat.label+'</span>':'')
+      +(it.cartao?'<span style="font-size:10px;color:var(--text3)">💳 '+cartaoLabel(it.cartao)+'</span>':'')
+      +'</div></div>'
+      +'<div class="item-right"><span class="item-val" style="'+(it.pago?'color:var(--text3)':'')+'">'+fmt(it.val)+'</span></div>'
+      +'</div>';
+  }
 
   function section(sectionId,emoji,label,color,list){
     if(!list.length)return '';
-    const rows=list.map(({it,i})=>itemRow(it,i,key)).join('');
+    const rows=list.map(({it,i})=>it._isFixo?fixoReadRow(it):itemRow(it,i,key)).join('');
     const total=list.reduce((t,{it})=>t+(+it.val||0),0);
     const expanded=!!window._catExpanded[sectionId];
     const arrow=`<span style="font-size:16px;display:inline-block;transform:rotate(${expanded?90:0}deg);transition:transform .2s;color:var(--text3)">›</span>`;
@@ -2323,7 +2346,8 @@ function categorizedCard(items,key,search){
     ${section(key+'_parc','📦','Compras Parceladas','#2563eb',parceladas)}
     ${section(key+'_avul','🛍️','Compras Avulsas','#0f172a',avulsas)}
     ${section(key+'_rec','🔄','Assinaturas','#7c3aed',recorrentes)}
-    ${!parceladas.length&&!avulsas.length&&!recorrentes.length?'<div class="empty">Nenhum lançamento</div>':''}
+    ${section(key+'_fix','🏠','Fixos','#4ade80',fixos)}
+    ${!parceladas.length&&!avulsas.length&&!recorrentes.length&&!fixos.length?'<div class="empty">Nenhum lançamento</div>':''}
     <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:4px">
       <span style="font-size:13px;font-weight:600;color:var(--text2)">Total do cartão</span>
       <span style="font-size:16px;font-weight:700;color:var(--text)">${fmt(total)}</span>
@@ -2515,6 +2539,21 @@ function delItem(key,idx){
   save();renderAll();
 }
 
+// -- FIXOS HELPERS --
+function fixosPorBanco(banco,pessoa){
+  const fix=(M().fix||[]);
+  const cartoesBanco=(G.cartoes||[]).filter(c=>c.banco===banco);
+  const digitosBanco=cartoesBanco.map(c=>c.digitos);
+  if(banco===''){
+    const todosDigitos=(G.cartoes||[]).map(c=>c.digitos);
+    return fix.filter(it=>!it.cartao||!todosDigitos.includes(it.cartao));
+  }
+  return fix.filter(it=>digitosBanco.includes(it.cartao));
+}
+function fixosSumBanco(banco){
+  return fixosPorBanco(banco,'all').reduce((t,it)=>t+(+it.val||0),0);
+}
+
 // -- TABS --
 let marcioCard='mnu',raissaCard='rnu';
 let marcioSearch='',raissaSearch='';
@@ -2522,14 +2561,16 @@ let marcioSearch='',raissaSearch='';
 function renderMarcio(){
   const m=M();
   const cards={
-    mnu:{label:'Nubank',icon:KEY_ICONS_LG.mnu,color:'var(--nu)',val:sum(m.mnu)},
-    mc6:{label:'C6',icon:KEY_ICONS_LG.mc6,color:'var(--c6)',val:sum(m.mc6)}
+    mnu:{label:'Nubank',icon:KEY_ICONS_LG.mnu,color:'var(--nu)',val:sum(m.mnu)+fixosSumBanco('nu')},
+    mc6:{label:'C6',icon:KEY_ICONS_LG.mc6,color:'var(--c6)',val:sum(m.mc6)+fixosSumBanco('c6')}
   };
   const sel=Object.entries(cards).map(([k,c])=>`
     <button class="csel-btn${marcioCard===k?' active':''}" style="${marcioCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="marcioCard='${k}';marcioSearch='';renderMarcio()">
       <span class="csel-icon">${c.icon}</span><span>${c.label}</span><span class="csel-val">${fmt(c.val)}</span>
     </button>`).join('');
-  const itens=m[marcioCard];
+  const fixBanco=marcioCard==='mnu'?fixosPorBanco('nu'):fixosPorBanco('c6');
+  const fixComBadge=fixBanco.map(it=>({...it,_isFixo:true}));
+  const itens=[...(m[marcioCard]||[]),...fixComBadge];
   const itensFiltrados=marcioSearch?itens.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):itens;
   document.getElementById('tab-marcio').innerHTML=`<div>
     <div class="page-title">👤 Márcio</div>
@@ -2548,14 +2589,16 @@ function renderMarcio(){
 function renderRaissa(){
   const m=M();
   const cards={
-    rnu:{label:'Nubank',icon:KEY_ICONS_LG.rnu,color:'var(--nu)',val:sum(m.rnu)},
-    rc6:{label:'C6',icon:KEY_ICONS_LG.rc6,color:'var(--c6)',val:sum(m.rc6)}
+    rnu:{label:'Nubank',icon:KEY_ICONS_LG.rnu,color:'var(--nu)',val:sum(m.rnu)+fixosSumBanco('nu')},
+    rc6:{label:'C6',icon:KEY_ICONS_LG.rc6,color:'var(--c6)',val:sum(m.rc6)+fixosSumBanco('c6')}
   };
   const sel=Object.entries(cards).map(([k,c])=>`
     <button class="csel-btn${raissaCard===k?' active':''}" style="${raissaCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="raissaCard='${k}';raissaSearch='';renderRaissa()">
       <span class="csel-icon">${c.icon}</span><span>${c.label}</span><span class="csel-val">${fmt(c.val)}</span>
     </button>`).join('');
-  const itens=m[raissaCard];
+  const fixBanco=raissaCard==='rnu'?fixosPorBanco('nu'):fixosPorBanco('c6');
+  const fixComBadge=fixBanco.map(it=>({...it,_isFixo:true}));
+  const itens=[...(m[raissaCard]||[]),...fixComBadge];
   const itensFiltrados=raissaSearch?itens.filter(it=>it.desc.toLowerCase().includes(raissaSearch.toLowerCase())):itens;
   document.getElementById('tab-raissa').innerHTML=`<div>
     <div class="page-title">💜 Raíssa</div>
@@ -3249,61 +3292,12 @@ function renderConferencia(){
   const infoFatura=infoFaturaBanco();
 
   // FEATURE 3: fixos com cartao aparecem na conferencia
-  function buildFixosConf(fixItems){
-    // Separa fixos com cartao nubank, c6, ou sem cartao
-    const fixComCartao=fixItems.filter(it=>it.cartao&&(G.cartoes||[]).some(c=>c.digitos===it.cartao));
-    if(!fixComCartao.length)return '';
-    const confFix=conf;
-    function fixRow(it,i){
-      const estado=confFix[confItemKey('fix',it)]||'';
-      const cat=it.cat?catByID(it.cat):null;
-      const c=it.cartao?(G.cartoes||[]).find(c=>c.digitos===it.cartao):null;
-      const bancoC=c?((G.cartoes||[]).find(x=>x.digitos===c.digitos)?.banco||'nu'):'nu';
-      return `<div class="conf-item${estado==='ok'?' conf-ok':estado==='div'?' conf-div':''}">
-        <div style="flex:1;min-width:0">
-          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-            <span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;background:#d97706;color:#fff">🏠 Fixo</span>
-            <span style="font-size:13px;font-weight:600;color:var(--text)">${it.desc}</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            ${it.data?`<span style="font-size:10px;color:var(--text3)">${it.data}</span>`:''}
-            ${cat?`<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:5px;background:${cat.color}22;color:${cat.color}">${cat.emoji} ${cat.label}</span>`:''}
-            ${it.cartao?`<span style="font-size:10px;color:var(--text3)">💳 ${cartaoLabel(it.cartao)}</span>`:''}
-          </div>
-        </div>
-        <span style="font-size:13px;font-weight:700;color:var(--text);margin:0 8px">${fmt(it.val)}</span>
-        <div style="display:flex;gap:5px;align-items:center">
-          <div class="conf-check${estado==='ok'?' ok':''}" onclick="toggleConfItem('fix',${i},'ok')">✓</div>
-          <div class="conf-check${estado==='div'?' div':''}" onclick="toggleConfItem('fix',${i},'div')">✗</div>
-        </div>
-      </div>`;
-    }
-    const total=fixComCartao.reduce((t,it)=>t+(+it.val||0),0);
-    const confOk=fixComCartao.filter(it=>confFix[confItemKey('fix',it)]==='ok').length;
-    const pct=fixComCartao.length>0?Math.round(confOk/fixComCartao.length*100):0;
-    const expanded=!!window._confExpanded['bank_fix'];
-    const rows=fixComCartao.map((it,i)=>fixRow(it,fixItems.indexOf(it))).join('');
-    return `<div class="conf-bank-block">
-      <div class="conf-bank-header" data-expand="bank_fix" style="cursor:pointer;user-select:none">
-        <div class="conf-bank-title">
-          <span style="font-size:18px;display:inline-block;transform:rotate(${expanded?90:0}deg);transition:transform .2s;margin-right:2px">›</span>
-          🏠 Fixos no cartão
-        </div>
-        <div style="font-size:12px;color:var(--text3)">${confOk}/${fixComCartao.length} · <span style="color:#4ade80">${pct}%</span></div>
-      </div>
-      <div class="conf-progress-bar"><div class="conf-progress-fill" style="width:${pct}%"></div></div>
-      ${expanded?(rows||'<div class="empty" style="padding:16px">Sem fixos com cartão</div>'):''}
-      <div class="conf-summary">
-        <div><div class="conf-total-lbl">Total fixos no cartão</div><div class="conf-total-val">${fmt(total)}</div></div>
-        <div style="text-align:right"><div class="conf-total-lbl">Conferido</div><div style="font-size:13px;font-weight:700;color:#4ade80">${fmt(fixComCartao.filter(it=>confFix[confItemKey('fix',it)]==='ok').reduce((t,it)=>t+(+it.val||0),0))}</div></div>
-      </div>
-    </div>`;
-  }
-
-  function buildBankSection(titulo,icone,banco,itensM,itensR,keyM,keyR){
+  function buildBankSection(titulo,icone,banco,itensM,itensR,keyM,keyR,fixItems){
+    fixItems=fixItems||[];
     const todos=[
       ...itensM.map((it,i)=>({it,i,key:keyM,pessoa:'M'})),
       ...itensR.map((it,i)=>({it,i,key:keyR,pessoa:'R'})),
+      ...fixItems.map((it)=>({it,i:(M().fix||[]).indexOf(it),key:'fix',pessoa:'F'})),
     ].sort((a,b)=>b.it.val-a.it.val);
 
     const cartoesBanco=getCartoes(banco);
@@ -3330,9 +3324,29 @@ function renderConferencia(){
       return lista.map(({it,i,key,pessoa})=>{
         const estado=conf[confItemKey(key,it)]||'';
         const cat=it.cat?catByID(it.cat):null;
+        const isF=pessoa==='F';
         const isM=pessoa==='M';
-        const banco=(key==='mnu'||key==='rnu')?'nu':'c6';
+        const bancoLocal=(key==='mnu'||key==='rnu')?'nu':'c6';
         const cartaoAtual=it.cartao?cartaoLabel(it.cartao):'Sem cartão';
+        if(isF){
+          return '<div class="conf-item'+(estado==='ok'?' conf-ok':estado==='div'?' conf-div':'')+'">'
+            +'<div style="flex:1;min-width:0">'
+            +'<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
+            +'<span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;background:#d97706;color:#fff">🏠 Fixo</span>'
+            +'<span style="font-size:13px;font-weight:600;color:var(--text)">'+it.desc+'</span>'
+            +'</div>'
+            +'<div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">'
+            +(it.data?'<span style="font-size:10px;color:var(--text3)">'+it.data+'</span>':'')
+            +(cat?'<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:5px;background:'+cat.color+'22;color:'+cat.color+'">'+cat.emoji+' '+cat.label+'</span>':'')
+            +(it.cartao?'<span style="font-size:10px;color:var(--text3)">💳 '+cartaoLabel(it.cartao)+'</span>':'')
+            +'</div></div>'
+            +'<span style="font-size:13px;font-weight:700;color:var(--text);margin:0 8px;white-space:nowrap">'+fmt(it.val)+'</span>'
+            +'<div style="display:flex;gap:5px;align-items:center">'
+            +'<div class="conf-check'+(estado==='ok'?' ok':'')+'" data-expand="" onclick="toggleConfItem(\'fix\','+i+',\'ok\')" title="Conferido ✓">✓</div>'
+            +'<div class="conf-check'+(estado==='div'?' div':'')+'" data-expand="" onclick="toggleConfItem(\'fix\','+i+',\'div\')" title="Divergência ✗">✗</div>'
+            +'</div>'
+            +'</div>';
+        }
         return `<div class="conf-item${estado==='ok'?' conf-ok':estado==='div'?' conf-div':''}">
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
@@ -3351,7 +3365,7 @@ function renderConferencia(){
             <div class="conf-check${estado==='ok'?' ok':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'ok')" title="Conferido ✓">✓</div>
             <div class="conf-check${estado==='div'?' div':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'div')" title="Divergência ✗">✗</div>
             <div class="conf-check" onclick="editarValorConf('${key}',${i})" title="Editar valor" style="font-size:12px;font-weight:700">R$</div>
-            <div class="conf-check" onclick="editarCartaoConf('${key}',${i},'${banco}')" title="Editar cartão" style="font-size:13px">💳</div>
+            <div class="conf-check" onclick="editarCartaoConf('${key}',${i},'${bancoLocal}')" title="Editar cartão" style="font-size:13px">💳</div>
           </div>
         </div>`;
       }).join('');
@@ -3397,7 +3411,8 @@ function renderConferencia(){
     </div>`;
   }
 
-  const totalItens=(m.mnu||[]).length+(m.mc6||[]).length+(m.rnu||[]).length+(m.rc6||[]).length;
+  const fixComCartao=(m.fix||[]).filter(it=>it.cartao&&(G.cartoes||[]).some(c=>c.digitos===it.cartao));
+  const totalItens=(m.mnu||[]).length+(m.mc6||[]).length+(m.rnu||[]).length+(m.rc6||[]).length+fixComCartao.length;
   const totalConf=Object.values(conf).filter(v=>v==='ok').length;
   const totalDiv=Object.values(conf).filter(v=>v==='div').length;
 
@@ -3444,9 +3459,8 @@ function renderConferencia(){
       ${totalDiv>0?`<div style="margin-top:10px;padding:10px 12px;background:#450a0a;border-radius:10px;font-size:12px;color:#f87171;font-weight:600">⚠️ Você marcou ${totalDiv} item(ns) com divergência. Acesse as abas Márcio/Raíssa para corrigir os valores.</div>`:''}
     </div>
 
-    ${buildBankSection('Nubank',KEY_ICONS.mnu,'nu',m.mnu||[],m.rnu||[],'mnu','rnu')}
-    ${buildBankSection('C6',KEY_ICONS.mc6,'c6',m.mc6||[],m.rc6||[],'mc6','rc6')}
-    ${buildFixosConf(m.fix||[])}
+    ${buildBankSection('Nubank',KEY_ICONS.mnu,'nu',m.mnu||[],m.rnu||[],'mnu','rnu',fixosPorBanco('nu'))}
+    ${buildBankSection('C6',KEY_ICONS.mc6,'c6',m.mc6||[],m.rc6||[],'mc6','rc6',fixosPorBanco('c6'))}
 
     <div style="background:var(--surface);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)">
       <div style="font-size:12px;color:var(--text3);margin-bottom:10px">💡 Dicas de uso</div>
