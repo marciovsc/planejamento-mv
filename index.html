@@ -1626,7 +1626,7 @@ function defaultData(){
     {data:'19/06',desc:'Mercado Livre 2-6',val:34.03,cat:'compras'},
     {data:'20/06',desc:'Cobasi div 2-2',val:52.80,cat:'pet'},
     {data:'19/06',desc:'Estelita Sympla 2-3',val:29.53,cat:'lazer'},
-    {data:'',desc:'Rayvson Geladeira 2-10',val:269.90,cat:'reembolso',_catManual:true},
+    {data:'',desc:'Rayvson Geladeira 2-10',val:269.90,cat:'outros',_catManual:true},
     {data:'26/06',desc:'Marcela Salão 2-3',val:156.85,cat:'reembolso',_catManual:true},
     {data:'27/06',desc:'Clínica Sim 2-4',val:45.00,cat:'saude'},
     {data:'27/06',desc:'Algo Hits 2-3',val:55.00,cat:'lazer'},
@@ -1759,7 +1759,7 @@ function defaultData(){
     {data:'13/07',desc:'Mercado Livre 3-11',val:33.71,cat:'compras'},
     {data:'14/07',desc:'Mercado Livre 3-6',val:34.03,cat:'compras'},
     {data:'14/07',desc:'Estelita Sympla 3-3',val:29.53,cat:'lazer'},
-    {data:'',desc:'Rayvson Geladeira 3-10',val:269.90,cat:'reembolso',_catManual:true},
+    {data:'',desc:'Rayvson Geladeira 3-10',val:269.90,cat:'outros',_catManual:true},
     {data:'21/07',desc:'Marcela Salão 3-3',val:156.85,cat:'reembolso',_catManual:true},
     {data:'22/07',desc:'Clínica Sim 3-4',val:45.00,cat:'saude'},
     {data:'22/07',desc:'Algo Hits 3-3',val:55.00,cat:'lazer'},
@@ -1917,7 +1917,7 @@ async function loadFromCloud(){
 
 // -- AUTO-CATEGORIZAÇÃO --
 const CAT_RULES=[
-  {cat:'reembolso', terms:['reembolso','reimburso','rayvson geladeira','marcela salao','marcela salão','pura vida']},
+  {cat:'reembolso', terms:['reembolso','reimburso','marcela salao','marcela salão','pura vida']},
   {cat:'viagem', terms:['hotel','passagem','aeroporto','airbnb','booking','hostel','viagem']},
   {cat:'pix_credito', terms:['pix mariana','pix oh boxe','pix wilma','pix maria julia','pix ruili','pix cea pay','pix ju souto','pix ze','pix zé','pix mv','pix sushi','pix ifood','raissa pix','va long','midway']},
   {cat:'saude', terms:['clinica sim','clínica sim','drogaria','odonto','farmacia','farmácia']},
@@ -1940,7 +1940,7 @@ function guessCat(desc){
 }
 
 const CAT_RULES_VERSION=7;
-const CAT_OVERRIDES={'RAYVSON GELADEIRA':'reembolso','MARCELA SALAO':'reembolso','PURA VIDA':'reembolso'};
+const CAT_OVERRIDES={'MARCELA SALAO':'reembolso','PURA VIDA':'reembolso'};
 
 function applyOverrides(data){
   for(const mo of data.months){
@@ -2344,7 +2344,7 @@ function categorizedCard(items,key,search){
   const total=sum(items);
   return `
     ${section(key+'_parc','📦','Compras Parceladas','#2563eb',parceladas)}
-    ${section(key+'_avul','🛍️','Compras Avulsas','#0f172a',avulsas)}
+    ${section(key+'_avul','🛍️','Compras Avulsas','#94a3b8',avulsas)}
     ${section(key+'_rec','🔄','Assinaturas','#7c3aed',recorrentes)}
     ${section(key+'_fix','🏠','Fixos','#4ade80',fixos)}
     ${!parceladas.length&&!avulsas.length&&!recorrentes.length&&!fixos.length?'<div class="empty">Nenhum lançamento</div>':''}
@@ -2556,7 +2556,7 @@ function fixosSumBanco(banco){
 
 // -- TABS --
 let marcioCard='mnu',raissaCard='rnu';
-let marcioSearch='',raissaSearch='',confSearch='';
+let marcioSearch='',raissaSearch='',confSearchNu='',confSearchC6='';
 
 function renderMarcio(){
   const m=M();
@@ -3288,49 +3288,59 @@ function renderConferencia(){
   const m=M();
   const conf=loadConf();
   const infoFatura=infoFaturaBanco();
-  const sq=confSearch.toLowerCase().trim();
 
-  function highlightMatch(text){
-    if(!sq)return text;
-    const idx=text.toLowerCase().indexOf(sq);
-    if(idx<0)return text;
-    return text.slice(0,idx)+'<mark style="background:rgba(167,139,250,.35);color:var(--text);border-radius:2px;padding:0 1px">'+text.slice(idx,idx+sq.length)+'</mark>'+text.slice(idx+sq.length);
-  }
-
-  function buildBankSection(titulo,icone,banco,itensM,itensR,keyM,keyR,fixItems){
+  function buildBankSection(titulo,icone,banco,itensM,itensR,keyM,keyR,fixItems,sqRaw){
+    const sq=(sqRaw||'').toLowerCase().trim();
     fixItems=fixItems||[];
+
+    function highlightMatch(text){
+      if(!sq)return text;
+      const idx=text.toLowerCase().indexOf(sq);
+      if(idx<0)return text;
+      return text.slice(0,idx)+'<mark style="background:rgba(167,139,250,.35);color:var(--text);border-radius:2px;padding:0 1px">'+text.slice(idx,idx+sq.length)+'</mark>'+text.slice(idx+sq.length);
+    }
+
     let todos=[
       ...itensM.map((it,i)=>({it,i,key:keyM,pessoa:'M'})),
       ...itensR.map((it,i)=>({it,i,key:keyR,pessoa:'R'})),
       ...fixItems.map((it)=>({it,i:(M().fix||[]).indexOf(it),key:'fix',pessoa:'F'})),
     ].sort((a,b)=>b.it.val-a.it.val);
-    if(sq) todos=todos.filter(({it})=>{
+    let todosFiltered=todos;
+    if(sq) todosFiltered=todos.filter(({it})=>{
       const descMatch=it.desc.toLowerCase().includes(sq);
-      const valStr=fmtS(it.val||0);// "1.800,00"
+      const valStr=fmtS(it.val||0);
       const valMatch=valStr.includes(sq)||('r$ '+valStr).includes(sq);
       return descMatch||valMatch;
     });
-    if(sq&&!todos.length)return '';
 
     const cartoesBanco=getCartoes(banco);
     const grupos=[];
     if(cartoesBanco.length>0){
       cartoesBanco.forEach(c=>{
-        const itens=todos.filter(({it})=>it.cartao===c.digitos);
+        const itens=todosFiltered.filter(({it})=>it.cartao===c.digitos);
         grupos.push({label:cartaoLabel(c.digitos),id:banco+'_'+c.digitos,itens});
       });
-      const semCartao=todos.filter(({it})=>!it.cartao||!cartoesBanco.some(c=>c.digitos===it.cartao));
+      const semCartao=todosFiltered.filter(({it})=>!it.cartao||!cartoesBanco.some(c=>c.digitos===it.cartao));
       if(semCartao.length>0) grupos.push({label:'Sem cartão definido',id:banco+'_sem',itens:semCartao});
     } else {
-      grupos.push({label:'',id:banco+'_todos',itens:todos});
+      grupos.push({label:'',id:banco+'_todos',itens:todosFiltered});
     }
 
+    // totais sempre sobre todos (sem filtro), barra de busca não altera contagem geral
     const total=todos.reduce((t,{it})=>t+(+it.val||0),0);
     const totalConfGeral=todos.filter(({key,it})=>conf[confItemKey(key,it)]==='ok').reduce((t,{it})=>t+(+it.val||0),0);
     const totalDivGeral=todos.filter(({key,it})=>conf[confItemKey(key,it)]==='div').length;
     const qtdConfGeral=todos.filter(({key,it})=>conf[confItemKey(key,it)]==='ok').length;
     const pct=todos.length>0?Math.round(qtdConfGeral/todos.length*100):0;
     const bankExpanded=sq?true:!!window._confExpanded['bank_'+banco];
+    const inputId='busca-conf-'+banco;
+    const accentColor=banco==='nu'?'var(--nu)':'var(--c6)';
+    const buscarHTML=`<div style="position:relative;padding:10px 12px;border-bottom:1px solid var(--border)">
+      <input id="${inputId}" type="text" placeholder="Buscar em ${titulo}…" value="${(sqRaw||'').replace(/"/g,'&quot;')}"
+        oninput="conf${banco==='nu'?'SearchNu':'SearchC6'}=this.value;renderConferencia()"
+        style="width:100%;padding:9px 34px 9px 12px;border-radius:10px;border:1px solid ${sq?accentColor:'var(--border)'};background:var(--surface2);color:var(--text);font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;-webkit-appearance:none">
+      ${sq?`<button onclick="conf${banco==='nu'?'SearchNu':'SearchC6'}='';renderConferencia()" style="position:absolute;right:20px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:15px;color:var(--text3);line-height:1;padding:2px">✕</button>`:`<span style="position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--text3);pointer-events:none">🔍</span>`}
+    </div>`;
 
     function buildRows(lista){
       return lista.map(({it,i,key,pessoa})=>{
@@ -3406,6 +3416,7 @@ function renderConferencia(){
       </div>`;
     }).join(''):'';
 
+    const semResultado=sq&&!todosFiltered.length?`<div style="padding:14px 16px;font-size:13px;color:var(--text3);text-align:center">Nenhum resultado para "<b style="color:var(--text)">${sq}</b>"</div>`:'';
     return `<div class="conf-bank-block">
       <div class="conf-bank-header" data-expand="bank_${banco}" style="cursor:pointer;user-select:none">
         <div class="conf-bank-title">
@@ -3415,7 +3426,7 @@ function renderConferencia(){
         <div style="font-size:12px;color:var(--text3)">${qtdConfGeral}/${todos.length} · ${totalDivGeral>0?`<span style="color:#f87171">${totalDivGeral} ✗</span> · `:''}<span style="color:#4ade80">${pct}%</span></div>
       </div>
       <div class="conf-progress-bar"><div class="conf-progress-fill" style="width:${pct}%"></div></div>
-      ${bankExpanded?(gruposHTML||'<div class="empty" style="padding:16px">Sem lançamentos</div>'):''}
+      ${bankExpanded?(buscarHTML+(semResultado||(gruposHTML||'<div class="empty" style="padding:16px">Sem lançamentos</div>'))):''}
       <div class="conf-summary">
         <div><div class="conf-total-lbl">Total da fatura</div><div class="conf-total-val">${fmt(total)}</div></div>
         <div style="text-align:right"><div class="conf-total-lbl">Conferido</div><div style="font-size:13px;font-weight:700;color:#4ade80">${fmt(totalConfGeral)}</div></div>
@@ -3471,15 +3482,8 @@ function renderConferencia(){
       ${totalDiv>0?`<div style="margin-top:10px;padding:10px 12px;background:#450a0a;border-radius:10px;font-size:12px;color:#f87171;font-weight:600">⚠️ Você marcou ${totalDiv} item(ns) com divergência. Acesse as abas Márcio/Raíssa para corrigir os valores.</div>`:''}
     </div>
 
-    <div style="position:relative;margin-bottom:14px">
-      <input id="busca-conf" type="text" placeholder="Buscar lançamento…" value="${confSearch.replace(/"/g,'&quot;')}"
-        oninput="confSearch=this.value;renderConferencia()"
-        style="width:100%;padding:11px 38px 11px 14px;border-radius:12px;border:1px solid ${confSearch?'var(--nu)':'var(--border)'};background:var(--surface);color:var(--text);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;-webkit-appearance:none">
-      ${confSearch?`<button onclick="confSearch='';renderConferencia()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;color:var(--text3);line-height:1;padding:2px">✕</button>`:'<span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--text3);pointer-events:none">🔍</span>'}
-    </div>
-
-    ${buildBankSection('Nubank',KEY_ICONS.mnu,'nu',m.mnu||[],m.rnu||[],'mnu','rnu',fixosPorBanco('nu'))}
-    ${buildBankSection('C6',KEY_ICONS.mc6,'c6',m.mc6||[],m.rc6||[],'mc6','rc6',fixosPorBanco('c6'))}
+    ${buildBankSection('Nubank',KEY_ICONS.mnu,'nu',m.mnu||[],m.rnu||[],'mnu','rnu',fixosPorBanco('nu'),confSearchNu)}
+    ${buildBankSection('C6',KEY_ICONS.mc6,'c6',m.mc6||[],m.rc6||[],'mc6','rc6',fixosPorBanco('c6'),confSearchC6)}
 
     <div style="background:var(--surface);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)">
       <div style="font-size:12px;color:var(--text3);margin-bottom:10px">💡 Dicas de uso</div>
@@ -3494,10 +3498,13 @@ function renderConferencia(){
 
     <button onclick="clearConf()" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:14px">🗑️ Limpar conferência deste mês</button>
   </div>`;
-  // Restaura foco no campo de busca após re-render
-  if(confSearch){
-    const inp=document.getElementById('busca-conf');
-    if(inp){const len=confSearch.length;inp.focus();try{inp.setSelectionRange(len,len);}catch(e){}}
+  // Restaura foco no campo de busca ativo após re-render
+  if(confSearchNu){
+    const inp=document.getElementById('busca-conf-nu');
+    if(inp){const len=confSearchNu.length;inp.focus();try{inp.setSelectionRange(len,len);}catch(e){}}
+  } else if(confSearchC6){
+    const inp=document.getElementById('busca-conf-c6');
+    if(inp){const len=confSearchC6.length;inp.focus();try{inp.setSelectionRange(len,len);}catch(e){}}
   }
   // Adiciona listeners diretamente nos elementos após renderizar
   document.querySelectorAll('[data-expand]').forEach(el=>{
