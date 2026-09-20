@@ -3304,7 +3304,12 @@ function renderConferencia(){
       ...itensR.map((it,i)=>({it,i,key:keyR,pessoa:'R'})),
       ...fixItems.map((it)=>({it,i:(M().fix||[]).indexOf(it),key:'fix',pessoa:'F'})),
     ].sort((a,b)=>b.it.val-a.it.val);
-    if(sq) todos=todos.filter(({it})=>it.desc.toLowerCase().includes(sq));
+    if(sq) todos=todos.filter(({it})=>{
+      const descMatch=it.desc.toLowerCase().includes(sq);
+      const valStr=fmtS(it.val||0);// "1.800,00"
+      const valMatch=valStr.includes(sq)||('r$ '+valStr).includes(sq);
+      return descMatch||valMatch;
+    });
     if(sq&&!todos.length)return '';
 
     const cartoesBanco=getCartoes(banco);
@@ -3347,7 +3352,7 @@ function renderConferencia(){
             +(cat?'<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:5px;background:'+cat.color+'22;color:'+cat.color+'">'+cat.emoji+' '+cat.label+'</span>':'')
             +(it.cartao?'<span style="font-size:10px;color:var(--text3)">💳 '+cartaoLabel(it.cartao)+'</span>':'')
             +'</div></div>'
-            +'<span style="font-size:13px;font-weight:700;color:var(--text);margin:0 8px;white-space:nowrap">'+fmt(it.val)+'</span>'
+            +'<span style="font-size:13px;font-weight:700;color:var(--text);margin:0 8px;white-space:nowrap">'+highlightMatch(fmt(it.val))+'</span>'
             +'<div style="display:flex;gap:5px;align-items:center">'
             +'<div class="conf-check'+(estado==='ok'?' ok':'')+'" data-expand="" onclick="toggleConfItem(\'fix\','+i+',\'ok\')" title="Conferido ✓">✓</div>'
             +'<div class="conf-check'+(estado==='div'?' div':'')+'" data-expand="" onclick="toggleConfItem(\'fix\','+i+',\'div\')" title="Divergência ✗">✗</div>'
@@ -3367,7 +3372,7 @@ function renderConferencia(){
               ${it.recorrente?`<span style="font-size:10px;color:var(--text3)"><span class="ti-svg"  style="font-size:11px"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></span></span>`:''}
             </div>
           </div>
-          <span style="font-size:13px;font-weight:700;color:var(--text);margin:0 8px;white-space:nowrap">${fmt(it.val)}</span>
+          <span style="font-size:13px;font-weight:700;color:var(--text);margin:0 8px;white-space:nowrap">${highlightMatch(fmt(it.val))}</span>
           <div style="display:flex;gap:5px;align-items:center">
             <div class="conf-check${estado==='ok'?' ok':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'ok')" title="Conferido ✓">✓</div>
             <div class="conf-check${estado==='div'?' div':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'div')" title="Divergência ✗">✗</div>
