@@ -2162,9 +2162,9 @@ function renderPainel(){
         <span style="color:rgba(255,255,255,.35)">💳 Líquido</span>
         <span style="color:#4ade80;font-weight:600">${fmt(nuLiquidoM)}</span>
       </div>
-      <div class="fatura-detail" style="padding-left:12px;margin-bottom:6px">
-        <span style="color:rgba(255,255,255,.25)">🔁 Reembolso</span>
-        <span style="color:rgba(255,255,255,.35)">${fmt(nuReembM)}</span>
+      <div class="fatura-detail" onclick="openReembolsoModal()" style="padding-left:8px;margin-bottom:6px;cursor:pointer;border-radius:8px;padding:4px 8px;transition:background .15s" onmouseenter="this.style.background='rgba(132,204,22,.08)'" onmouseleave="this.style.background=''">
+        <span style="color:rgba(132,204,22,.6)">🔁 Reembolso</span>
+        <span style="color:rgba(132,204,22,.8);font-weight:600">${fmt(nuReembM)} <span style="font-size:9px;opacity:.7">ver →</span></span>
       </div>`:''}
       <div class="fatura-detail">
         <span>💜 Raíssa</span>
@@ -2185,9 +2185,9 @@ function renderPainel(){
         <span style="color:rgba(255,255,255,.35)">💳 Líquido</span>
         <span style="color:#4ade80;font-weight:600">${fmt(c6LiquidoM)}</span>
       </div>
-      <div class="fatura-detail" style="padding-left:12px;margin-bottom:6px">
-        <span style="color:rgba(255,255,255,.25)">🔁 Reembolso</span>
-        <span style="color:rgba(255,255,255,.35)">${fmt(c6ReembM)}</span>
+      <div class="fatura-detail" onclick="openReembolsoModal()" style="padding-left:8px;margin-bottom:6px;cursor:pointer;border-radius:8px;padding:4px 8px;transition:background .15s" onmouseenter="this.style.background='rgba(132,204,22,.08)'" onmouseleave="this.style.background=''">
+        <span style="color:rgba(132,204,22,.6)">🔁 Reembolso</span>
+        <span style="color:rgba(132,204,22,.8);font-weight:600">${fmt(c6ReembM)} <span style="font-size:9px;opacity:.7">ver →</span></span>
       </div>`:''}
       <div class="fatura-detail">
         <span>💜 Raíssa</span>
@@ -3528,6 +3528,92 @@ function exportData(){
   // Registra data do último backup
   localStorage.setItem('ultimo_backup_mv',Date.now().toString());
   showSyncStatus('💾 Backup salvo!',true);
+}
+
+function openReembolsoModal(){
+  const m=M();
+  const mesNome=m.name;
+  const nuItems=(m.mnu||[]).filter(i=>i.cat==='reembolso').map(i=>({...i,banco:'Nubank'}));
+  const c6Items=(m.mc6||[]).filter(i=>i.cat==='reembolso').map(i=>({...i,banco:'C6'}));
+  const rnuItems=(m.rnu||[]).filter(i=>i.cat==='reembolso').map(i=>({...i,banco:'Nubank (Raíssa)'}));
+  const rc6Items=(m.rc6||[]).filter(i=>i.cat==='reembolso').map(i=>({...i,banco:'C6 (Raíssa)'}));
+  const allItems=[...nuItems,...c6Items,...rnuItems,...rc6Items].sort((a,b)=>{
+    if(!a.data&&!b.data)return 0; if(!a.data)return 1; if(!b.data)return -1;
+    const pd=d=>{const[dy,mo]=(d||'').split('/');return (parseInt(mo)||0)*100+(parseInt(dy)||0);};
+    return pd(a.data)-pd(b.data);
+  });
+  const total=allItems.reduce((t,i)=>t+(+i.val||0),0);
+
+  const rows=allItems.length?allItems.map((it,idx)=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:11px 0;${idx<allItems.length-1?'border-bottom:1px solid var(--border)':''}">
+      <div style="flex-shrink:0;width:34px;height:34px;border-radius:10px;background:rgba(132,204,22,.12);display:flex;align-items:center;justify-content:center;font-size:14px">🔁</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${it.desc}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">${it.data||'—'} · ${it.banco}</div>
+      </div>
+      <div style="font-size:14px;font-weight:700;color:#84cc16;flex-shrink:0">${fmt(it.val)}</div>
+    </div>`).join('')
+  :'<div style="padding:28px 0;text-align:center;font-size:14px;color:var(--text3)">Nenhum reembolso este mês</div>';
+
+  const textLines=[`REEMBOLSOS — ${mesNome.toUpperCase()}`,''];
+  allItems.forEach((it,i)=>{textLines.push(`${i+1}. ${it.data||'—'} · ${it.desc} (${it.banco}) · ${fmt(it.val)}`);});
+  if(allItems.length){textLines.push('');textLines.push(`Total: ${fmt(total)}`);}
+  const textContent=textLines.join('\n');
+
+  const csvLines=['Data;Descrição;Banco;Valor (R$)'];
+  allItems.forEach(it=>{
+    const valStr=(it.val||0).toFixed(2).replace('.',',');
+    const safeDesc=(it.desc||'').replace(/;/g,' ');
+    csvLines.push(`${it.data||''};${safeDesc};${it.banco};${valStr}`);
+  });
+  if(allItems.length){csvLines.push(`;;Total;${total.toFixed(2).replace('.',',')}`);}
+  const csvContent=csvLines.join('\n');
+  const fileSlug=mesNome.toLowerCase().replace(/\s+/g,'-');
+
+  const existing=document.getElementById('reemb-modal');
+  if(existing)existing.remove();
+
+  const modal=document.createElement('div');
+  modal.id='reemb-modal';
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999;display:flex;align-items:flex-end';
+  modal.innerHTML=`
+    <div style="background:var(--surface);width:100%;max-height:85vh;border-radius:20px 20px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -8px 32px rgba(0,0,0,.4)">
+      <div style="padding:16px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+        <div>
+          <div style="font-size:16px;font-weight:800;color:var(--text)">🔁 Reembolsos</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px">${mesNome} · ${allItems.length} lançamento(s)</div>
+        </div>
+        <button onclick="document.getElementById('reemb-modal').remove()" style="background:var(--surface2);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--text3);display:flex;align-items:center;justify-content:center;font-family:inherit">✕</button>
+      </div>
+      <div style="overflow-y:auto;flex:1;padding:0 16px">
+        <div style="padding-bottom:4px">${rows}</div>
+        ${allItems.length?`<div style="margin:10px 0 16px;padding:12px 14px;background:var(--bg);border-radius:12px;border:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:700;color:var(--text2)">Total</span>
+          <span style="font-size:20px;font-weight:800;color:#84cc16">${fmt(total)}</span>
+        </div>`:''}
+      </div>
+      ${allItems.length?`<div style="padding:12px 16px;display:flex;gap:10px;border-top:1px solid var(--border);flex-shrink:0;padding-bottom:max(12px,env(safe-area-inset-bottom,12px))">
+        <button id="btn-copiar-reemb" style="flex:1;padding:12px;background:var(--surface2);color:var(--text);border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">📋 Copiar lista</button>
+        <button id="btn-csv-reemb" style="flex:1;padding:12px;background:#052e16;color:#4ade80;border:1.5px solid #166534;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">⬇️ Baixar CSV</button>
+      </div>`:''}
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click',e=>{if(e.target===modal)modal.remove();});
+  const btnC=document.getElementById('btn-copiar-reemb');
+  if(btnC)btnC.onclick=()=>{
+    navigator.clipboard.writeText(textContent)
+      .then(()=>showSyncStatus('✅ Lista copiada!',true))
+      .catch(()=>showSyncStatus('❌ Erro ao copiar',false));
+  };
+  const btnD=document.getElementById('btn-csv-reemb');
+  if(btnD)btnD.onclick=()=>{
+    const blob=new Blob(['﻿'+csvContent],{type:'text/csv;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;a.download='reembolsos-'+fileSlug+'.csv';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+    showSyncStatus('✅ CSV baixado!',true);
+  };
 }
 
 function verificarLembreteBackup(){
