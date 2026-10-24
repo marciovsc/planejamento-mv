@@ -2124,11 +2124,11 @@ function renderPainel(){
     <div class="hero-divider"></div>
     <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px">
       <div style="text-align:center">
-        <div class="hero-stat-val">${fmt(tmu)}</div>
+        <div class="hero-stat-val">${fmt(tmu+tFixNu)}</div>
         <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px">${KEY_ICONS.mnu} Nubank MV</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val">${fmt(tmc)}</div>
+        <div class="hero-stat-val">${fmt(tmc+tFixC6)}</div>
         <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px">${KEY_ICONS.mc6} C6 MV</div>
       </div>
       <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
