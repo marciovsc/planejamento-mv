@@ -2089,8 +2089,11 @@ function renderPainel(){
   const tEnt=sum(m.entradas),tMarcio=tmu+tmc+tfix,tRai=tru+trc,saldo=tEnt-tMarcio,grand=tMarcio+tRai;
 
   // Totais por banco (Márcio + Raíssa + fixos com cartão daquele banco) - bruto e líquido
-  const tFixNu=sum(fixosPorBanco('nu'));
-  const tFixC6=sum(fixosPorBanco('c6'));
+  const cartoes=G.cartoes||[];
+  const digitosNu=cartoes.filter(c=>c.banco==='nu').map(c=>c.digitos);
+  const digitosC6=cartoes.filter(c=>c.banco==='c6').map(c=>c.digitos);
+  const tFixNu=sum((m.fix||[]).filter(it=>digitosNu.includes(it.cartao)));
+  const tFixC6=sum((m.fix||[]).filter(it=>digitosC6.includes(it.cartao)));
   const nuBruto=tmu+tru+tFixNu;
   const c6Bruto=tmc+trc+tFixC6;
   // Reembolso só de Márcio (Raíssa não tem reembolsos)
