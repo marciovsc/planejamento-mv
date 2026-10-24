@@ -2535,53 +2535,75 @@ let marcioSearch='',raissaSearch='';
 function renderMarcio(){
   const m=M();
   const cartoes=G.cartoes||[];
-  const fixComCartao=(m.fix||[]).filter(it=>it.cartao&&cartoes.some(c=>c.digitos===it.cartao));
-  const tFix=sum(fixComCartao);
+  // Fixos separados por banco
+  const digitosNu=cartoes.filter(c=>c.banco==='nu').map(c=>c.digitos);
+  const digitosC6=cartoes.filter(c=>c.banco==='c6').map(c=>c.digitos);
+  const fixNu=(m.fix||[]).filter(it=>digitosNu.includes(it.cartao));
+  const fixC6=(m.fix||[]).filter(it=>digitosC6.includes(it.cartao));
+  const fixTodos=(m.fix||[]);
+  const tFixNu=sum(fixNu), tFixC6=sum(fixC6);
+
+  // Valor exibido no botão = variável + fixos daquele banco
   const cards={
-    mnu:{label:'Nubank',icon:KEY_ICONS_LG.mnu,color:'var(--nu)',val:sum(m.mnu)},
-    mc6:{label:'C6',icon:KEY_ICONS_LG.mc6,color:'var(--c6)',val:sum(m.mc6)},
-    ...(fixComCartao.length>0?{fix:{label:'Fixos',icon:'<span style="font-size:22px">🏠</span>',color:'#065f46',val:tFix}}:{})
+    mnu:{label:'Nubank',icon:KEY_ICONS_LG.mnu,color:'var(--nu)',val:sum(m.mnu)+tFixNu},
+    mc6:{label:'C6',icon:KEY_ICONS_LG.mc6,color:'var(--c6)',val:sum(m.mc6)+tFixC6},
+    fix:{label:'Fixos',icon:'<span style="font-size:22px">🏠</span>',color:'#065f46',val:sum(fixTodos)}
   };
   const sel=Object.entries(cards).map(([k,c])=>`
     <button class="csel-btn${marcioCard===k?' active':''}" style="${marcioCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="marcioCard='${k}';marcioSearch='';renderMarcio()">
       <span class="csel-icon">${c.icon}</span><span>${c.label}</span><span class="csel-val">${fmt(c.val)}</span>
     </button>`).join('');
-  // Se card selecionado é 'fix', mostra fixos com cartão; senão mostra lançamentos normais
-  let itens, itensFiltrados, listaHTML;
+
+  let listaHTML;
   if(marcioCard==='fix'){
-    itens=fixComCartao;
-    itensFiltrados=marcioSearch?itens.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):itens;
-    // Renderiza fixos com cartão agrupados por cartão
+    // Aba fixos: lista todos os fixos (referência completa)
+    const itensFiltrados=marcioSearch?fixTodos.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):fixTodos;
     if(marcioSearch&&!itensFiltrados.length){
       listaHTML='<div class="empty">Nenhum resultado para "'+marcioSearch+'"</div>';
     } else {
-      const cartaoLabel=d=>{const c=cartoes.find(x=>x.digitos===d);return c?(c.banco==='nu'?'Nubank':'C6')+' ····'+d:d;};
-      // Agrupa por cartão
-      const grupos={};
-      itensFiltrados.forEach(it=>{
-        const k=it.cartao||'sem';
-        if(!grupos[k])grupos[k]=[];
-        grupos[k].push(it);
-      });
-      listaHTML=Object.entries(grupos).map(([dig,its])=>`
-        <div style="margin-bottom:12px">
-          <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;padding:0 4px">${cartaoLabel(dig)}</div>
-          <div class="list-card">${its.map(it=>{
-            const realIdx=(m.fix||[]).indexOf(it);
-            return itemRow(it,realIdx,'fix',marcioSearch);
-          }).join('')}</div>
-        </div>`).join('');
-      const total=sum(itensFiltrados);
-      listaHTML+=`<div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:4px">
-        <span style="font-size:13px;font-weight:600;color:var(--text2)">Total fixos no cartão</span>
-        <span style="font-size:16px;font-weight:700;color:var(--text)">${fmt(total)}</span>
+      listaHTML=`<div class="list-card">${itensFiltrados.map(it=>{
+        const realIdx=fixTodos.indexOf(it);
+        return itemRow(it,realIdx,'fix',marcioSearch);
+      }).join('')||'<div class="empty">Nenhum fixo cadastrado</div>'}</div>
+      <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:8px">
+        <span style="font-size:13px;font-weight:600;color:var(--text2)">Total fixos</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text)">${fmt(sum(itensFiltrados))}</span>
       </div>`;
     }
   } else {
-    itens=m[marcioCard]||[];
-    itensFiltrados=marcioSearch?itens.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):itens;
-    listaHTML=marcioSearch&&!itensFiltrados.length?'<div class="empty">Nenhum resultado para "'+marcioSearch+'"</div>':categorizedCard(itensFiltrados,marcioCard,marcioSearch);
+    // Aba Nubank ou C6: variáveis + bloco de fixos daquele banco ao final
+    const varKey=marcioCard; // 'mnu' ou 'mc6'
+    const fixDoCartao=marcioCard==='mnu'?fixNu:fixC6;
+    const itensVar=m[varKey]||[];
+    const itensFiltrados=marcioSearch?itensVar.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):itensVar;
+    const fixFiltrados=marcioSearch?fixDoCartao.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):fixDoCartao;
+
+    // Bloco de variáveis (categorized)
+    const varHTML=marcioSearch&&!itensFiltrados.length&&!fixFiltrados.length
+      ?'<div class="empty">Nenhum resultado para "'+marcioSearch+'"</div>'
+      :categorizedCard(itensFiltrados,varKey,marcioSearch);
+
+    // Bloco de fixos deste banco ao final, se existirem
+    let fixBlocoHTML='';
+    if(fixDoCartao.length>0){
+      const fixRows=fixFiltrados.map(it=>{
+        const realIdx=fixTodos.indexOf(it);
+        return itemRow(it,realIdx,'fix',marcioSearch);
+      }).join('');
+      fixBlocoHTML=`
+        <div style="margin-top:16px;margin-bottom:4px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.7px">🏠 Fixos neste cartão</span>
+          <span style="font-size:11px;color:var(--text3)">${fmt(sum(fixFiltrados))}</span>
+        </div>
+        <div class="list-card">${fixRows||'<div class="empty" style="font-size:13px">Nenhum fixo neste cartão</div>'}</div>
+        <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:8px">
+          <span style="font-size:13px;font-weight:600;color:var(--text2)">Total ${marcioCard==='mnu'?'Nubank':'C6'} (variável + fixos)</span>
+          <span style="font-size:16px;font-weight:700;color:var(--text)">${fmt(sum(itensFiltrados)+sum(fixFiltrados))}</span>
+        </div>`;
+    }
+    listaHTML=varHTML+fixBlocoHTML;
   }
+
   document.getElementById('tab-marcio').innerHTML=`<div>
     <div class="page-title">👤 Márcio</div>
     <div class="card-selector">${sel}</div>
