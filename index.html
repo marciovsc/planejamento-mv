@@ -2667,9 +2667,9 @@ function renderFixos(){
     }
   }
   function fixRow(it,i){
-    return `<div id="row-fix-${i}" style="${it.pago?'opacity:.5':''}">
-      <div class="item" style="${it.pago?'background:#f8fafc':''}">
-        <div class="item-icon" style="background:${it.pago?'#f1f5f9':'var(--fix-bg)'}">${it.pago?'✅':'🏠'}</div>
+    return `<div id="row-fix-${i}" style="${it.pago?'opacity:.55':''}">
+      <div class="item">
+        <div class="item-icon" style="background:${it.pago?'var(--surface2)':'var(--fix-bg)'}">${it.pago?'✅':'🏠'}</div>
         <div class="item-body">
           <div class="item-desc" style="${it.pago?'text-decoration:line-through;color:var(--text3)':''}">${it.desc}</div>
           <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
