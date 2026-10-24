@@ -3372,12 +3372,17 @@ function renderConferencia(){
   }
 
   function buildBankSection(titulo,icone,banco,itensM,itensR,keyM,keyR){
+    // Inclui fixos deste banco como itens extras
+    const cartoesBanco=getCartoes(banco);
+    const digitosBanco=cartoesBanco.map(c=>c.digitos);
+    const fixDosBanco=(m.fix||[]).filter(it=>it.cartao&&digitosBanco.includes(it.cartao));
+
     const todos=[
       ...itensM.map((it,i)=>({it,i,key:keyM,pessoa:'M'})),
       ...itensR.map((it,i)=>({it,i,key:keyR,pessoa:'R'})),
+      ...fixDosBanco.map((it,i)=>({it,i,key:'fix',pessoa:'F'})),
     ].sort((a,b)=>b.it.val-a.it.val);
 
-    const cartoesBanco=getCartoes(banco);
     const grupos=[];
     if(cartoesBanco.length>0){
       cartoesBanco.forEach(c=>{
@@ -3401,28 +3406,33 @@ function renderConferencia(){
       return lista.map(({it,i,key,pessoa})=>{
         const estado=conf[confItemKey(key,it)]||'';
         const cat=it.cat?catByID(it.cat):null;
+        const isFixo=pessoa==='F';
         const isM=pessoa==='M';
-        const banco=(key==='mnu'||key==='rnu')?'nu':'c6';
-        const cartaoAtual=it.cartao?cartaoLabel(it.cartao):'Sem cartão';
+        const bancoCur=(key==='mnu'||key==='rnu')?'nu':'c6';
+        const badgeHtml=isFixo
+          ?`<span style="font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;background:#d97706;color:#fff">🏠 Fixo</span>`
+          :`<span class="conf-person-badge ${isM?'conf-badge-m':'conf-badge-r'}">${isM?'👤 Márcio':'💜 Raíssa'}</span>`;
+        const editBtns=isFixo?'':`
+            <div class="conf-check" onclick="editarValorConf('${key}',${i})" title="Editar valor" style="font-size:12px;font-weight:700">R$</div>
+            <div class="conf-check" onclick="editarCartaoConf('${key}',${i},'${bancoCur}')" title="Editar cartão" style="font-size:13px">💳</div>`;
         return `<div class="conf-item${estado==='ok'?' conf-ok':estado==='div'?' conf-div':''}">
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-              <span class="conf-person-badge ${isM?'conf-badge-m':'conf-badge-r'}">${isM?'👤 Márcio':'💜 Raíssa'}</span>
+              ${badgeHtml}
               <span style="font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px">${it.desc}</span>
             </div>
             <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
               ${it.data?`<span style="font-size:10px;color:var(--text3)">${it.data}</span>`:''}
               ${cat?`<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:5px;background:${cat.color}22;color:${cat.color}">${cat.emoji} ${cat.label}</span>`:''}
-              ${it.cartao?`<span style="font-size:10px;color:var(--text3);display:flex;align-items:center;gap:2px"><span class="ti-svg"  style="font-size:11px"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>${cartaoLabel(it.cartao)}</span>`:''}
-              ${it.recorrente?`<span style="font-size:10px;color:var(--text3)"><span class="ti-svg"  style="font-size:11px"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></span></span>`:''}
+              ${it.cartao?`<span style="font-size:10px;color:var(--text3);display:flex;align-items:center;gap:2px"><span class="ti-svg" style="font-size:11px"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>${cartaoLabel(it.cartao)}</span>`:''}
+              ${it.recorrente?`<span style="font-size:10px;color:var(--text3)"><span class="ti-svg" style="font-size:11px"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></span></span>`:''}
             </div>
           </div>
           <span style="font-size:13px;font-weight:700;color:var(--text);margin:0 8px;white-space:nowrap">${fmt(it.val)}</span>
           <div style="display:flex;gap:5px;align-items:center">
             <div class="conf-check${estado==='ok'?' ok':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'ok')" title="Conferido ✓">✓</div>
             <div class="conf-check${estado==='div'?' div':''}" data-expand="" onclick="toggleConfItem('${key}',${i},'div')" title="Divergência ✗">✗</div>
-            <div class="conf-check" onclick="editarValorConf('${key}',${i})" title="Editar valor" style="font-size:12px;font-weight:700">R$</div>
-            <div class="conf-check" onclick="editarCartaoConf('${key}',${i},'${banco}')" title="Editar cartão" style="font-size:13px">💳</div>
+            ${editBtns}
           </div>
         </div>`;
       }).join('');
@@ -3517,7 +3527,6 @@ function renderConferencia(){
 
     ${buildBankSection('Nubank',KEY_ICONS.mnu,'nu',m.mnu||[],m.rnu||[],'mnu','rnu')}
     ${buildBankSection('C6',KEY_ICONS.mc6,'c6',m.mc6||[],m.rc6||[],'mc6','rc6')}
-    ${buildFixosConf(m.fix||[])}
 
     <div style="background:var(--surface);border-radius:var(--radius);padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)">
       <div style="font-size:12px;color:var(--text3);margin-bottom:10px">💡 Dicas de uso</div>
