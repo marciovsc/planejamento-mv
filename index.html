@@ -3373,14 +3373,16 @@ function renderConferencia(){
 
   function buildBankSection(titulo,icone,banco,itensM,itensR,keyM,keyR){
     // Inclui fixos deste banco como itens extras
-    const cartoesBanco=getCartoes(banco);
+    const cartoesBanco=(G.cartoes||[]).filter(c=>c.banco===banco);
     const digitosBanco=cartoesBanco.map(c=>c.digitos);
     const fixDosBanco=(m.fix||[]).filter(it=>it.cartao&&digitosBanco.includes(it.cartao));
+    // índice real em m.fix para o toggleConfItem funcionar corretamente
+    const fixDosBancoIdx=fixDosBanco.map(it=>(m.fix||[]).indexOf(it));
 
     const todos=[
       ...itensM.map((it,i)=>({it,i,key:keyM,pessoa:'M'})),
       ...itensR.map((it,i)=>({it,i,key:keyR,pessoa:'R'})),
-      ...fixDosBanco.map((it,i)=>({it,i,key:'fix',pessoa:'F'})),
+      ...fixDosBanco.map((it,j)=>({it,i:fixDosBancoIdx[j],key:'fix',pessoa:'F'})),
     ].sort((a,b)=>b.it.val-a.it.val);
 
     const grupos=[];
