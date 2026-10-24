@@ -2534,16 +2534,54 @@ let marcioSearch='',raissaSearch='';
 
 function renderMarcio(){
   const m=M();
+  const cartoes=G.cartoes||[];
+  const fixComCartao=(m.fix||[]).filter(it=>it.cartao&&cartoes.some(c=>c.digitos===it.cartao));
+  const tFix=sum(fixComCartao);
   const cards={
     mnu:{label:'Nubank',icon:KEY_ICONS_LG.mnu,color:'var(--nu)',val:sum(m.mnu)},
-    mc6:{label:'C6',icon:KEY_ICONS_LG.mc6,color:'var(--c6)',val:sum(m.mc6)}
+    mc6:{label:'C6',icon:KEY_ICONS_LG.mc6,color:'var(--c6)',val:sum(m.mc6)},
+    ...(fixComCartao.length>0?{fix:{label:'Fixos',icon:'<span style="font-size:22px">🏠</span>',color:'#065f46',val:tFix}}:{})
   };
   const sel=Object.entries(cards).map(([k,c])=>`
     <button class="csel-btn${marcioCard===k?' active':''}" style="${marcioCard===k?'background:'+c.color+';border-color:'+c.color:''}" onclick="marcioCard='${k}';marcioSearch='';renderMarcio()">
       <span class="csel-icon">${c.icon}</span><span>${c.label}</span><span class="csel-val">${fmt(c.val)}</span>
     </button>`).join('');
-  const itens=m[marcioCard];
-  const itensFiltrados=marcioSearch?itens.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):itens;
+  // Se card selecionado é 'fix', mostra fixos com cartão; senão mostra lançamentos normais
+  let itens, itensFiltrados, listaHTML;
+  if(marcioCard==='fix'){
+    itens=fixComCartao;
+    itensFiltrados=marcioSearch?itens.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):itens;
+    // Renderiza fixos com cartão agrupados por cartão
+    if(marcioSearch&&!itensFiltrados.length){
+      listaHTML='<div class="empty">Nenhum resultado para "'+marcioSearch+'"</div>';
+    } else {
+      const cartaoLabel=d=>{const c=cartoes.find(x=>x.digitos===d);return c?(c.banco==='nu'?'Nubank':'C6')+' ····'+d:d;};
+      // Agrupa por cartão
+      const grupos={};
+      itensFiltrados.forEach(it=>{
+        const k=it.cartao||'sem';
+        if(!grupos[k])grupos[k]=[];
+        grupos[k].push(it);
+      });
+      listaHTML=Object.entries(grupos).map(([dig,its])=>`
+        <div style="margin-bottom:12px">
+          <div style="font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;padding:0 4px">${cartaoLabel(dig)}</div>
+          <div class="list-card">${its.map(it=>{
+            const realIdx=(m.fix||[]).indexOf(it);
+            return itemRow(it,realIdx,'fix',marcioSearch);
+          }).join('')}</div>
+        </div>`).join('');
+      const total=sum(itensFiltrados);
+      listaHTML+=`<div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);margin-top:4px">
+        <span style="font-size:13px;font-weight:600;color:var(--text2)">Total fixos no cartão</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text)">${fmt(total)}</span>
+      </div>`;
+    }
+  } else {
+    itens=m[marcioCard]||[];
+    itensFiltrados=marcioSearch?itens.filter(it=>it.desc.toLowerCase().includes(marcioSearch.toLowerCase())):itens;
+    listaHTML=marcioSearch&&!itensFiltrados.length?'<div class="empty">Nenhum resultado para "'+marcioSearch+'"</div>':categorizedCard(itensFiltrados,marcioCard,marcioSearch);
+  }
   document.getElementById('tab-marcio').innerHTML=`<div>
     <div class="page-title">👤 Márcio</div>
     <div class="card-selector">${sel}</div>
@@ -2553,7 +2591,7 @@ function renderMarcio(){
         style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif">
       ${marcioSearch?`<button onclick="marcioSearch='';renderMarcio()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px">✕</button>`:''}
     </div>
-    ${marcioSearch&&!itensFiltrados.length?'<div class="empty">Nenhum resultado para "'+marcioSearch+'"</div>':categorizedCard(itensFiltrados,marcioCard,marcioSearch)}
+    ${listaHTML}
   </div>`;
   if(marcioSearch){const el=document.getElementById('busca-marcio');if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);}}
 }
