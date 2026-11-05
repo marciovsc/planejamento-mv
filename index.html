@@ -2201,7 +2201,22 @@ function drawDonut(canvasId,legendId,data,colors,labels){
 function drawLine(labels,vals){
   const ctx=document.getElementById('chart-line');if(!ctx)return;
   if(chartLine){chartLine.destroy();chartLine=null;}
-  chartLine=new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:'Total',data:vals,backgroundColor:'#7c3aed30',borderColor:'#7c3aed',borderWidth:1.5,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:i=>`R$ ${fmtS(i.raw)}`}}},scales:{y:{ticks:{callback:v=>'R$'+Math.round(v/1000)+'k',font:{size:10}},grid:{color:'rgba(0,0,0,.05)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+  const max=Math.max(...vals)||1;
+  const min=Math.min(...vals)||0;
+  const range=max-min||1;
+  const bgColors=vals.map(v=>{
+    const pct=(v-min)/range;
+    if(pct>=0.66)return'#ef444460';
+    if(pct>=0.33)return'#eab30860';
+    return'#22c55e60';
+  });
+  const bdColors=vals.map(v=>{
+    const pct=(v-min)/range;
+    if(pct>=0.66)return'#ef4444';
+    if(pct>=0.33)return'#eab308';
+    return'#22c55e';
+  });
+  chartLine=new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:'Márcio',data:vals,backgroundColor:bgColors,borderColor:bdColors,borderWidth:1.5,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:i=>`R$ ${fmtS(i.raw)}`}}},scales:{y:{ticks:{callback:v=>'R$'+Math.round(v/1000)+'k',font:{size:10}},grid:{color:'rgba(128,128,128,.1)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
 }
 
 // -- PAINEL --
@@ -2333,18 +2348,6 @@ function renderPainel(){
     </div>
   </div>
 
-  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px">
-    <div class="chart-card" style="margin-bottom:0;padding:14px">
-      <div class="chart-title" style="font-size:13px">👤 Márcio</div>
-      <div class="chart-wrap" style="height:130px"><canvas id="chart-donut-m" height="130"></canvas></div>
-      <div class="legend" id="legend-m"></div>
-    </div>
-    <div class="chart-card" style="margin-bottom:0;padding:14px">
-      <div class="chart-title" style="font-size:13px">💜 Raíssa</div>
-      <div class="chart-wrap" style="height:130px"><canvas id="chart-donut-r" height="130"></canvas></div>
-      <div class="legend" id="legend-r"></div>
-    </div>
-  </div>
 
   <div class="chart-card"><div class="chart-title">🏷️ Gastos por categoria <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div>`;
 
@@ -2362,16 +2365,12 @@ function renderPainel(){
 
   if(G.months.length>1){
     const labels=G.months.map(mo=>mo.name.split(' ')[0].slice(0,3));
-    const vals=G.months.map(mo=>+(sum(mo.mnu)+sum(mo.mc6)+sum(mo.fix)+sum(mo.rnu)+sum(mo.rc6)).toFixed(2));
-    html+=`<div class="chart-card"><div class="chart-title">Evolução mensal</div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140"></canvas></div></div>`;
+    const vals=G.months.map(mo=>+(sum(mo.mnu)+sum(mo.mc6)+sum(mo.fix)).toFixed(2));
+    html+=`<div class="chart-card"><div class="chart-title">Evolução mensal <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140"></canvas></div></div>`;
     document.getElementById('tab-painel').innerHTML=html;
-    drawDonut('chart-donut-m','legend-m',[tmu,tmc,tfix],['#7c3aed','#3b82f6','#10b981'],['Nubank','C6','Fixos']);
-    drawDonut('chart-donut-r','legend-r',[tru,trc],['#f43f5e','#f97316'],['Nubank','C6']);
     drawLine(labels,vals);return;
   }
   document.getElementById('tab-painel').innerHTML=html;
-  drawDonut('chart-donut-m','legend-m',[tmu,tmc,tfix],['#7c3aed','#3b82f6','#10b981'],['Nubank','C6','Fixos']);
-  drawDonut('chart-donut-r','legend-r',[tru,trc],['#f43f5e','#f97316'],['Nubank','C6']);
 }
 
 // -- LIST BUILDER --
