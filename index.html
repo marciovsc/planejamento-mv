@@ -2061,12 +2061,13 @@ function guessCat(desc){
 }
 
 const CAT_RULES_VERSION=7;
-const CAT_OVERRIDES={'RAYVSON GELADEIRA':'reembolso','MARCELA SALAO':'reembolso','PURA VIDA':'reembolso'};
+const CAT_OVERRIDES={'MARCELA SALAO':'reembolso','PURA VIDA':'reembolso'};
 
 function applyOverrides(data){
   for(const mo of data.months){
     for(const key of ['mnu','mc6','rnu','rc6','fix']){
       for(const it of (mo[key]||[])){
+        if(it._catManual)continue;
         const descUp=it.desc.toUpperCase();
         for(const [term,cat] of Object.entries(CAT_OVERRIDES)){if(descUp.includes(term)){it.cat=cat;it._catManual=true;break;}}
       }
