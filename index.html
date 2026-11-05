@@ -1962,6 +1962,7 @@ function getCartoes(banco){
 }
 function cartaoLabel(digitos){
   if(digitos==='PIX_CREDITO') return '💸 Pix Crédito';
+  if(digitos==='BOLETO_CREDITO') return '📄 Boleto Crédito';
   return digitos?`•••• ${digitos}`:'Sem cartão';
 }
 function cartaoSelectOpts(banco, selectedDigitos){
@@ -2386,7 +2387,7 @@ function itemRow(it,i,key){
         <div class="item-desc" style="color:var(--text)">${it.desc}</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           ${it.data?`<span style="font-size:11px;color:var(--text3)">${it.data}</span>`:''}
-          ${it.cartao?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${it.cartao==='PIX_CREDITO'?'#0f2a2a':'#1e293b'};color:${it.cartao==='PIX_CREDITO'?'#14b8a6':'#94a3b8'}">${cartaoLabel(it.cartao)}</span>`:''}
+          ${it.cartao?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${it.cartao==='PIX_CREDITO'?'#0f2a2a':it.cartao==='BOLETO_CREDITO'?'#1a1a0a':'#1e293b'};color:${it.cartao==='PIX_CREDITO'?'#14b8a6':it.cartao==='BOLETO_CREDITO'?'#ca8a04':'#94a3b8'}">${cartaoLabel(it.cartao)}</span>`:''}
           ${cat?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${cat.color}22;color:${cat.color}">${cat.emoji} ${cat.label}</span>`:''}
         </div>
       </div>
@@ -3228,13 +3229,19 @@ function addCartao(banco){
   if(banco==='nu'){
     const cartoes=loadCartoes();
     const temPix=cartoes.some(c=>c.banco==='nu'&&c.digitos==='PIX_CREDITO');
+    const temBoleto=cartoes.some(c=>c.banco==='nu'&&c.digitos==='BOLETO_CREDITO');
     const opcao=prompt(
-      'Nubank — o que deseja adicionar?\n\n1 = Pix no Crédito\n2 = Cartão físico (4 dígitos)\n\nDigite 1 ou 2:'
+      'Nubank — o que deseja adicionar?\n\n1 = Pix no Crédito\n2 = Boleto no Crédito\n3 = Cartão físico (4 dígitos)\n\nDigite 1, 2 ou 3:'
     );
     if(!opcao||!opcao.trim())return;
     if(opcao.trim()==='1'){
       if(temPix){alert('Pix Crédito já cadastrado!');return;}
       cartoes.push({id:'nu_PIX_CREDITO_'+Date.now(),banco:'nu',digitos:'PIX_CREDITO'});
+      saveCartoes(cartoes);renderMeses();return;
+    }
+    if(opcao.trim()==='2'){
+      if(temBoleto){alert('Boleto Crédito já cadastrado!');return;}
+      cartoes.push({id:'nu_BOLETO_CREDITO_'+Date.now(),banco:'nu',digitos:'BOLETO_CREDITO'});
       saveCartoes(cartoes);renderMeses();return;
     }
   }
