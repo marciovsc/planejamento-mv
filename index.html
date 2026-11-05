@@ -2296,7 +2296,7 @@ function renderPainel(){
     <div class="fatura-card fatura-card-nu">
       <div class="fatura-bank-label">${KEY_ICONS.mnu} Nubank Total</div>
       <div class="fatura-detail">
-        <span>👤 Márcio</span>
+        <span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:6px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)">💳 Variáveis</span>
         <span style="color:rgba(255,255,255,.7);font-weight:600">${fmt(tmu)}</span>
       </div>
       ${nuReembM>0?`<div class="fatura-detail" style="padding-left:12px">
@@ -2307,15 +2307,16 @@ function renderPainel(){
         <span style="color:rgba(255,255,255,.25)">🔁 Reembolso</span>
         <span style="color:rgba(255,255,255,.35)">${fmt(nuReembM)}</span>
       </div>`:''}
+      ${tFixNu>0?`<div class="fatura-detail">
+        <span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:6px;background:rgba(34,197,94,.12);color:#4ade80">🏠 Fixos</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">${fmt(tFixNu)}</span>
+      </div>`:''}
+      <div style="border-top:1px solid rgba(255,255,255,.08);margin:8px 0"></div>
       <div class="fatura-detail">
         <span>💜 Raíssa</span>
         <span style="color:rgba(255,255,255,.7);font-weight:600">${fmt(tru)}</span>
       </div>
-      ${tFixNu>0?`<div class="fatura-detail">
-        <span style="color:rgba(255,255,255,.55)">🏠 Fixos</span>
-        <span style="color:rgba(255,255,255,.55);font-weight:600">${fmt(tFixNu)}</span>
-      </div>`:''}
-      <div class="fatura-total-row" style="margin-top:8px">
+      <div class="fatura-total-row" style="margin-top:8px;border-top:1px solid rgba(255,255,255,.1);padding-top:8px">
         <span class="fatura-total-label">Fatura total</span>
         <span class="fatura-total-val">${fmt(nuBruto)}</span>
       </div>
@@ -2323,7 +2324,7 @@ function renderPainel(){
     <div class="fatura-card fatura-card-c6">
       <div class="fatura-bank-label">${KEY_ICONS.mc6} C6 Total</div>
       <div class="fatura-detail">
-        <span>👤 Márcio</span>
+        <span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:6px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)">💳 Variáveis</span>
         <span style="color:rgba(255,255,255,.7);font-weight:600">${fmt(tmc)}</span>
       </div>
       ${c6ReembM>0?`<div class="fatura-detail" style="padding-left:12px">
@@ -2334,15 +2335,16 @@ function renderPainel(){
         <span style="color:rgba(255,255,255,.25)">🔁 Reembolso</span>
         <span style="color:rgba(255,255,255,.35)">${fmt(c6ReembM)}</span>
       </div>`:''}
+      ${tFixC6>0?`<div class="fatura-detail">
+        <span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:6px;background:rgba(34,197,94,.12);color:#4ade80">🏠 Fixos</span>
+        <span style="color:rgba(255,255,255,.7);font-weight:600">${fmt(tFixC6)}</span>
+      </div>`:''}
+      <div style="border-top:1px solid rgba(255,255,255,.08);margin:8px 0"></div>
       <div class="fatura-detail">
         <span>💜 Raíssa</span>
         <span style="color:rgba(255,255,255,.7);font-weight:600">${fmt(trc)}</span>
       </div>
-      ${tFixC6>0?`<div class="fatura-detail">
-        <span style="color:rgba(255,255,255,.55)">🏠 Fixos</span>
-        <span style="color:rgba(255,255,255,.55);font-weight:600">${fmt(tFixC6)}</span>
-      </div>`:''}
-      <div class="fatura-total-row" style="margin-top:8px">
+      <div class="fatura-total-row" style="margin-top:8px;border-top:1px solid rgba(255,255,255,.1);padding-top:8px">
         <span class="fatura-total-label">Fatura total</span>
         <span class="fatura-total-val">${fmt(c6Bruto)}</span>
       </div>
