@@ -1747,7 +1747,7 @@ function defaultData(){
     {data:'19/06',desc:'Mercado Livre 2-6',val:34.03,cat:'compras'},
     {data:'20/06',desc:'Cobasi div 2-2',val:52.80,cat:'pet'},
     {data:'19/06',desc:'Estelita Sympla 2-3',val:29.53,cat:'lazer'},
-    {data:'',desc:'Rayvson Geladeira 2-10',val:269.90,cat:'reembolso',_catManual:true},
+    {data:'',desc:'Rayvson Geladeira 2-10',val:269.90,cat:'compras',_catManual:true},
     {data:'26/06',desc:'Marcela Salão 2-3',val:156.85,cat:'reembolso',_catManual:true},
     {data:'27/06',desc:'Clínica Sim 2-4',val:45.00,cat:'saude'},
     {data:'27/06',desc:'Algo Hits 2-3',val:55.00,cat:'lazer'},
@@ -1880,7 +1880,7 @@ function defaultData(){
     {data:'13/07',desc:'Mercado Livre 3-11',val:33.71,cat:'compras'},
     {data:'14/07',desc:'Mercado Livre 3-6',val:34.03,cat:'compras'},
     {data:'14/07',desc:'Estelita Sympla 3-3',val:29.53,cat:'lazer'},
-    {data:'',desc:'Rayvson Geladeira 3-10',val:269.90,cat:'reembolso',_catManual:true},
+    {data:'',desc:'Rayvson Geladeira 3-10',val:269.90,cat:'compras',_catManual:true},
     {data:'21/07',desc:'Marcela Salão 3-3',val:156.85,cat:'reembolso',_catManual:true},
     {data:'22/07',desc:'Clínica Sim 3-4',val:45.00,cat:'saude'},
     {data:'22/07',desc:'Algo Hits 3-3',val:55.00,cat:'lazer'},
@@ -2038,7 +2038,7 @@ async function loadFromCloud(){
 
 // -- AUTO-CATEGORIZAÇÃO --
 const CAT_RULES=[
-  {cat:'reembolso', terms:['reembolso','reimburso','rayvson geladeira','marcela salao','marcela salão','pura vida']},
+  {cat:'reembolso', terms:['reembolso','reimburso','marcela salao','marcela salão','pura vida']},
   {cat:'viagem', terms:['hotel','passagem','aeroporto','airbnb','booking','hostel','viagem']},
   {cat:'pix_credito', terms:['pix mariana','pix oh boxe','pix wilma','pix maria julia','pix ruili','pix cea pay','pix ju souto','pix ze','pix zé','pix mv','pix sushi','pix ifood','raissa pix','va long','midway']},
   {cat:'saude', terms:['clinica sim','clínica sim','drogaria','odonto','farmacia','farmácia']},
