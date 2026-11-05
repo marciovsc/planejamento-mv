@@ -1588,6 +1588,127 @@ function showSyncStatus(msg,ok){
 }
 const MONTH_NAMES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
+function gerarRelatorioReembolso(){
+  const m=M();
+  const todos=[...(m.mnu||[]),...(m.mc6||[]),...(m.rnu||[]),...(m.rc6||[])];
+  const itens=todos.filter(it=>it.cat==='reembolso');
+  if(!itens.length){showSyncStatus('Nenhum item de reembolso neste mês',false);return;}
+  const total=itens.reduce((t,it)=>t+(+it.val||0),0);
+  const hoje=new Date();
+  const dataEmissao=hoje.toLocaleDateString('pt-BR');
+
+  // Gera HTML do PDF em nova janela para impressão
+  const linhasHTML=itens.map((it,i)=>`
+    <tr style="background:${i%2===0?'#f9fafb':'#fff'}">
+      <td style="padding:10px 14px;font-size:13px;color:#1e293b;border-bottom:1px solid #e2e8f0">${String(i+1).padStart(2,'0')}</td>
+      <td style="padding:10px 14px;font-size:13px;color:#1e293b;border-bottom:1px solid #e2e8f0">${it.data||'—'}</td>
+      <td style="padding:10px 14px;font-size:13px;color:#1e293b;border-bottom:1px solid #e2e8f0;font-weight:500">${it.desc}</td>
+      <td style="padding:10px 14px;font-size:13px;color:#1e293b;border-bottom:1px solid #e2e8f0;text-align:right;font-weight:600;font-variant-numeric:tabular-nums">${fmt(it.val)}</td>
+    </tr>`).join('');
+
+  const htmlPDF=`<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Reembolso ${m.name} — Márcio Cavalcanti</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#1e293b;padding:40px 48px}
+  @media print{body{padding:24px 32px}@page{margin:1.5cm}}
+  .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:20px;border-bottom:2px solid #6d28d9}
+  .header-left h1{font-size:22px;font-weight:700;color:#6d28d9;margin-bottom:4px}
+  .header-left p{font-size:13px;color:#64748b}
+  .header-right{text-align:right;font-size:12px;color:#64748b;line-height:1.8}
+  .header-right strong{color:#1e293b;font-size:13px}
+  .section-title{font-size:11px;font-weight:700;color:#6d28d9;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+  table{width:100%;border-collapse:collapse;margin-bottom:24px;border-radius:10px;overflow:hidden;border:1px solid #e2e8f0}
+  thead tr{background:#6d28d9}
+  thead th{padding:11px 14px;font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.5px;text-align:left}
+  thead th:last-child{text-align:right}
+  .total-row{background:#f1f5f9;border-top:2px solid #6d28d9}
+  .total-row td{padding:12px 14px;font-size:14px;font-weight:700;color:#1e293b}
+  .total-row td:last-child{text-align:right;color:#6d28d9;font-size:16px}
+  .footer{margin-top:40px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11px;color:#94a3b8;display:flex;justify-content:space-between}
+  .assinatura{margin-top:48px;display:flex;gap:48px}
+  .assinatura-bloco{flex:1}
+  .assinatura-bloco .linha{border-top:1px solid #94a3b8;margin-bottom:6px}
+  .assinatura-bloco p{font-size:11px;color:#64748b;text-align:center}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;background:#f0fdf4;color:#16a34a;font-size:11px;font-weight:700;border:1px solid #bbf7d0}
+  .print-btn{position:fixed;bottom:24px;right:24px;padding:12px 24px;background:#6d28d9;color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(109,40,217,.4)}
+  .print-btn:hover{background:#5b21b6}
+  @media print{.print-btn{display:none}}
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-left">
+      <h1>Solicitação de Reembolso</h1>
+      <p>Despesas corporativas pagas com cartão pessoal</p>
+    </div>
+    <div class="header-right">
+      <strong>Márcio Cavalcanti</strong><br>
+      Emitido em: ${dataEmissao}<br>
+      Referência: ${m.name}<br>
+      <span class="badge">✓ ${itens.length} item(s)</span>
+    </div>
+  </div>
+
+  <div class="section-title">Detalhamento das despesas</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:40px">#</th>
+        <th style="width:90px">Data</th>
+        <th>Descrição</th>
+        <th style="width:120px;text-align:right">Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${linhasHTML}
+      <tr class="total-row">
+        <td colspan="3">Total a reembolsar</td>
+        <td>${fmt(total)}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="assinatura">
+    <div class="assinatura-bloco">
+      <div class="linha"></div>
+      <p>Solicitante: Márcio Cavalcanti</p>
+    </div>
+    <div class="assinatura-bloco">
+      <div class="linha"></div>
+      <p>Aprovação / Financeiro</p>
+    </div>
+    <div class="assinatura-bloco">
+      <div class="linha"></div>
+      <p>Data de pagamento</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Documento gerado em ${dataEmissao} · Finanças MV</span>
+    <span>Referência: ${m.name}</span>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">🖨️ Salvar / Imprimir PDF</button>
+</body>
+</html>`;
+
+  const blob=new Blob([htmlPDF],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const win=window.open(url,'_blank');
+  if(!win){
+    // fallback: download direto
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=`reembolso-${m.name.replace(' ','-').toLowerCase()}.html`;
+    a.click();
+  }
+  showSyncStatus('✅ Relatório gerado!',true);
+}
+
 function blankMonth(name){return{name,entradas:[],mnu:[],mc6:[],rnu:[],rc6:[],fix:[]};}
 
 function defaultData(){
@@ -2323,9 +2444,9 @@ function categorizedCard(items,key,search){
           ${arrow}
           <span style="font-size:16px">${emoji}</span>
           <span style="font-size:13px;font-weight:700;color:var(--text)">${label}</span>
-          <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:${color}22;color:${color}">${list.length}</span>
+          <span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;background:var(--surface);color:var(--text2);border:1px solid var(--border)">${list.length}</span>
         </div>
-        <span style="font-size:13px;font-weight:700;color:${color}">${fmt(total)}</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text)">${fmt(total)}</span>
       </div>
       ${expanded?`<div class="list-card" style="margin-bottom:0;margin-top:6px;border-radius:10px">${rows}</div>`:''}
     </div>`;
@@ -2604,6 +2725,13 @@ function renderMarcio(){
     listaHTML=varHTML+fixBlocoHTML;
   }
 
+  // Verifica se há itens de reembolso no mês
+  const totalReembolso=(()=>{
+    const todos=[...(m.mnu||[]),...(m.mc6||[])];
+    const itens=todos.filter(it=>it.cat==='reembolso');
+    return {qtd:itens.length,val:itens.reduce((t,it)=>t+(+it.val||0),0)};
+  })();
+
   document.getElementById('tab-marcio').innerHTML=`<div>
     <div class="page-title">👤 Márcio</div>
     <div class="card-selector">${sel}</div>
@@ -2614,6 +2742,13 @@ function renderMarcio(){
       ${marcioSearch?`<button onclick="marcioSearch='';renderMarcio()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px">✕</button>`:''}
     </div>
     ${listaHTML}
+    ${totalReembolso.qtd>0?`
+    <div style="margin-top:16px">
+      <button onclick="gerarRelatorioReembolso()" style="width:100%;padding:13px 16px;border-radius:14px;border:1.5px solid #84cc16;background:transparent;color:#84cc16;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:space-between">
+        <span>🔁 Relatório de Reembolso</span>
+        <span style="font-size:12px;opacity:.8">${totalReembolso.qtd} item(s) · ${fmt(totalReembolso.val)}</span>
+      </button>
+    </div>`:''}
   </div>`;
   if(marcioSearch){const el=document.getElementById('busca-marcio');if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);}}
 }
