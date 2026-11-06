@@ -2105,6 +2105,7 @@ function nextParcel(desc){
 }
 
 function isParcelado(it){return /\d+-\d+/.test(it.desc);}
+function descDisplay(desc){return desc.replace(/\s+\d+-\d+$/,'').trim();}
 
 function repararParcelas(data){
   for(let i=0;i<data.months.length-1;i++){
@@ -2386,7 +2387,7 @@ function itemRow(it,i,key){
     <div class="item" style="${isRec?'background:linear-gradient(to right,#1e1530,#1a1a24)':''}">
       <div class="item-icon" style="background:${keyBg(key)};overflow:hidden">${keyIcon(key)}</div>
       <div class="item-body">
-        <div class="item-desc" style="color:var(--text)">${it.desc}</div>
+        <div class="item-desc" style="color:var(--text)">${descDisplay(it.desc)}</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           ${(()=>{const pm=it.desc.match(/(\d+)-(\d+)/);const parc=pm?`${pm[1]}/${pm[2]}`:null;if(it.data&&parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(255,255,255,.05)"><span style="font-size:12px;color:#94a3b8;padding:3px 9px">${it.data}</span><span style="width:1px;background:#334155;align-self:stretch"></span><span style="font-size:11px;font-weight:700;color:#60a5fa;padding:3px 9px;background:rgba(37,99,235,.18)">${parc}</span></span>`;if(parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(37,99,235,.18)"><span style="font-size:11px;font-weight:700;color:#60a5fa;padding:3px 9px">${parc}</span></span>`;if(it.data)return`<span style="font-size:11px;color:#64748b">${it.data}</span>`;return'';})()}
           ${it.cartao?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${it.cartao==='PIX_CREDITO'?'#0f2a2a':it.cartao==='BOLETO_CREDITO'?'#1a1a0a':'#1e293b'};color:${it.cartao==='PIX_CREDITO'?'#14b8a6':it.cartao==='BOLETO_CREDITO'?'#ca8a04':'#94a3b8'}">${cartaoLabel(it.cartao)}</span>`:''}
@@ -2809,9 +2810,9 @@ function renderFixos(){
       <div class="item">
         <div class="item-icon" style="background:${it.pago?'var(--surface2)':'var(--fix-bg)'}">${it.pago?'✅':'🏠'}</div>
         <div class="item-body">
-          <div class="item-desc" style="${it.pago?'text-decoration:line-through;color:var(--text3)':''}">${it.desc}</div>
+          <div class="item-desc" style="${it.pago?'text-decoration:line-through;color:var(--text3)':''}">${descDisplay(it.desc)}</div>
           <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-            ${it.data?`<span style="font-size:11px;color:var(--text3)">${it.data}</span>`:''}
+            ${(()=>{const pm=it.desc.match(/(\d+)-(\d+)/);const parc=pm?`${pm[1]}/${pm[2]}`:null;if(it.data&&parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(255,255,255,.05)"><span style="font-size:12px;color:#94a3b8;padding:3px 9px">${it.data}</span><span style="width:1px;background:#334155;align-self:stretch"></span><span style="font-size:11px;font-weight:700;color:#60a5fa;padding:3px 9px;background:rgba(37,99,235,.18)">${parc}</span></span>`;if(parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(37,99,235,.18)"><span style="font-size:11px;font-weight:700;color:#60a5fa;padding:3px 9px">${parc}</span></span>`;if(it.data)return`<span style="font-size:11px;color:#64748b">${it.data}</span>`;return'';})()}
             ${vencBadge(it.venc,it.pago)}
             ${it.cat?(()=>{const c=catByID(it.cat);return `<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${c.color}22;color:${c.color}">${c.emoji} ${c.label}</span>`;})():''}
             ${it.cartao?`<span style="font-size:10px;color:var(--text3)">💳 ${cartaoLabel(it.cartao)}</span>`:''}
@@ -3565,10 +3566,10 @@ function renderConferencia(){
           <div style="flex:1;min-width:0">
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
               ${badgeHtml}
-              <span style="font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px">${it.desc}</span>
+              <span style="font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px">${descDisplay(it.desc)}</span>
             </div>
             <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
-              ${it.data?`<span style="font-size:10px;color:var(--text3)">${it.data}</span>`:''}
+              ${(()=>{const pm=it.desc.match(/(\d+)-(\d+)/);const parc=pm?`${pm[1]}/${pm[2]}`:null;if(it.data&&parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(255,255,255,.05)"><span style="font-size:12px;color:#94a3b8;padding:3px 9px">${it.data}</span><span style="width:1px;background:#334155;align-self:stretch"></span><span style="font-size:11px;font-weight:700;color:#60a5fa;padding:3px 9px;background:rgba(37,99,235,.18)">${parc}</span></span>`;if(parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(37,99,235,.18)"><span style="font-size:11px;font-weight:700;color:#60a5fa;padding:3px 9px">${parc}</span></span>`;if(it.data)return`<span style="font-size:10px;color:var(--text3)">${it.data}</span>`;return'';})()}
               ${cat?`<span style="font-size:10px;font-weight:600;padding:1px 6px;border-radius:5px;background:${cat.color}22;color:${cat.color}">${cat.emoji} ${cat.label}</span>`:''}
               ${it.cartao?`<span style="font-size:10px;color:var(--text3);display:flex;align-items:center;gap:2px"><span class="ti-svg" style="font-size:11px"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></span>${cartaoLabel(it.cartao)}</span>`:''}
               ${it.recorrente?`<span style="font-size:10px;color:var(--text3)"><span class="ti-svg" style="font-size:11px"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></span></span>`:''}
