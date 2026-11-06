@@ -2388,7 +2388,7 @@ function itemRow(it,i,key){
       <div class="item-body">
         <div class="item-desc" style="color:var(--text)">${it.desc}</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
-          ${it.data?`<span style="font-size:11px;color:var(--text3)">${it.data}</span>`:''}
+          ${(()=>{const pm=it.desc.match(/(\d+)-(\d+)/);const parc=pm?`${pm[1]}/${pm[2]}`:null;if(it.data&&parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(255,255,255,.05)"><span style="font-size:12px;color:#94a3b8;padding:3px 9px">${it.data}</span><span style="width:1px;background:#334155;align-self:stretch"></span><span style="font-size:11px;font-weight:700;color:#60a5fa;padding:3px 9px;background:rgba(37,99,235,.18)">${parc}</span></span>`;if(parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(37,99,235,.18)"><span style="font-size:11px;font-weight:700;color:#60a5fa;padding:3px 9px">${parc}</span></span>`;if(it.data)return`<span style="font-size:11px;color:#64748b">${it.data}</span>`;return'';})()}
           ${it.cartao?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${it.cartao==='PIX_CREDITO'?'#0f2a2a':it.cartao==='BOLETO_CREDITO'?'#1a1a0a':'#1e293b'};color:${it.cartao==='PIX_CREDITO'?'#14b8a6':it.cartao==='BOLETO_CREDITO'?'#ca8a04':'#94a3b8'}">${cartaoLabel(it.cartao)}</span>`:''}
           ${cat?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${cat.color}22;color:${cat.color}">${cat.emoji} ${cat.label}</span>`:''}
         </div>
