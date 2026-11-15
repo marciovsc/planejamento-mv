@@ -340,6 +340,26 @@ body.more-open .more-sheet{transform:translate(-50%,0)}
 .bchip.on{background:rgba(167,139,250,.18);border-color:var(--nu);color:#ddd6fe}
 .bselect{flex:1 1 auto;width:100%;padding:7px 12px;border-radius:999px;font-size:12px!important;font-weight:600;color:var(--text2);background:var(--surface)}
 .bselect.on{border-color:var(--nu);color:#ddd6fe}
+.proj-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.proj-kpis>div{background:var(--bg);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:10px 12px;min-width:0}
+.proj-kpis span{display:block;font-size:11px;color:var(--text2)}
+.proj-kpis b{display:block;font-size:17px;color:var(--text);margin-top:3px;white-space:nowrap}
+.proj-kpis b.neg{color:#fca5a5}
+.proj-kpis small{display:block;font-size:10px;color:var(--text3);margin-top:2px}
+.proj-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:10px;font-size:11px;color:var(--text2)}
+.proj-legend span{display:inline-flex;align-items:center;gap:6px}
+.proj-legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.proj-legend i.dash{width:16px;height:0;border-top:2px dashed #8b949e;border-radius:0}
+.proj-fins-t{margin:18px 0 6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3)}
+.proj-fim{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-top:1px solid rgba(255,255,255,.06)}
+.proj-fim-mes{flex:0 0 58px;font-size:12px;font-weight:700;color:#c4b5fd;background:rgba(144,133,233,.14);border-radius:8px;text-align:center;padding:5px 0}
+.proj-fim-body{min-width:0}
+.proj-fim-nomes{font-size:13px;color:var(--text);font-weight:600}
+.proj-fim-sub{font-size:11px;color:var(--text2);margin-top:2px}
+.proj-fim-sub b{color:var(--text)}
+.proj-mais summary{cursor:pointer;list-style:none;font-size:12px;font-weight:600;color:#c4b5fd;padding:10px 0 2px;border-top:1px solid rgba(255,255,255,.06)}
+.proj-mais summary::-webkit-details-marker{display:none}
+.proj-mais[open] summary{display:none}
 .filtro-chip{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;padding:8px 8px 8px 14px;border-radius:12px;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.4);font-size:13px;color:#ddd6fe}
 .filtro-chip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .filtro-chip button{flex:0 0 auto;width:30px;height:30px;border:none;border-radius:9px;background:rgba(255,255,255,.08);color:var(--text);cursor:pointer;font-size:13px}
@@ -2524,14 +2544,17 @@ function renderPainel(){
   if(!catSorted.length)html+=`<div class="empty">Nenhum lançamento categorizado</div>`;
   html+=`</div>`;
 
+  html+=htmlProjecao();
+
   if(G.months.length>1){
     const labels=G.months.map(mo=>mo.name.split(' ')[0].slice(0,3));
     const vals=G.months.map(mo=>+(sum(mo.mnu)+sum(mo.mc6)+sum(mo.fix)).toFixed(2));
     html+=`<div class="chart-card"><div class="chart-title">Evolução mensal <span style="font-size:11px;color:var(--text3);font-weight:400">— Márcio</span></div><div class="chart-wrap" style="height:140px"><canvas id="chart-line" height="140"></canvas></div></div>`;
     document.getElementById('tab-painel').innerHTML=html;
-    drawLine(labels,vals);return;
+    drawLine(labels,vals);drawProjecao();return;
   }
   document.getElementById('tab-painel').innerHTML=html;
+  drawProjecao();
 }
 
 // -- LIST BUILDER --
@@ -4389,6 +4412,87 @@ function renderTab(id){
   else if(id==='analise')renderAnalise();
   else if(id==='conferencia')renderConferencia();
   else if(id==='busca')renderBusca();
+}
+
+// -- PRÓXIMOS MESES: quanto já está comprometido (só Márcio) --
+// Parte do mês aberto: parcelas que ainda faltam + fixos + recorrentes. Só lê os dados.
+const PROJ_MESES=6;
+const PROJ_CORES={fixos:'#3987e5',recorrentes:'#d95926',parcelas:'#9085e9'};
+const MES_CURTO=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+let chartProj=null;
+function rotuloMes(ord){return MES_CURTO[ord%12]+'/'+String(Math.floor(ord/12)).slice(-2);}
+function calcProjecao(){
+  const m=M();const base=mesOrdinal(m.name);
+  if(base===null)return null;
+  const fixos=Array(PROJ_MESES).fill(0),recorrentes=Array(PROJ_MESES).fill(0),parcelas=Array(PROJ_MESES).fill(0);
+  const fins=[];
+  ['mnu','mc6','fix'].forEach(key=>(m[key]||[]).forEach(it=>{
+    const v=+it.val||0;if(!v)return;
+    const pm=String(it.desc||'').match(/(\d+)\s*-\s*(\d+)\s*$/);
+    if(pm){
+      const n=+pm[1],t=+pm[2],resta=t-n;
+      for(let k=1;k<=PROJ_MESES;k++)if(k<=resta)parcelas[k-1]+=v;
+      if(resta>=1)fins.push({desc:descDisplay(it.desc),val:v,fim:base+resta,resta});
+    }else if(key==='fix')fixos.forEach((_,i)=>fixos[i]+=v);
+    else if(it.recorrente)recorrentes.forEach((_,i)=>recorrentes[i]+=v);
+  }));
+  const entR=(m.entradas||[]).filter(e=>e.recorrente);
+  const entrada=entR.length?sum(entR):sum(m.entradas);
+  const labels=Array.from({length:PROJ_MESES},(_,i)=>rotuloMes(base+i+1));
+  const totais=labels.map((_,i)=>fixos[i]+recorrentes[i]+parcelas[i]);
+  return {base,labels,fixos,recorrentes,parcelas,totais,entrada,fins};
+}
+function htmlProjecao(){
+  const P=calcProjecao();
+  if(!P)return'';
+  const prox=P.totais[0],pct=P.entrada>0?Math.round(prox/P.entrada*100):null;
+  const livre=P.entrada-prox;
+  // agrupa términos por mês
+  const porFim={};P.fins.forEach(f=>{(porFim[f.fim]=porFim[f.fim]||[]).push(f);});
+  const fimKeys=Object.keys(porFim).map(Number).sort((a,b)=>a-b);
+  const linhasArr=fimKeys.map(fim=>{
+    const libera=porFim[fim].reduce((t,f)=>t+f.val,0);
+    const agr={};porFim[fim].forEach(f=>{agr[f.desc]=(agr[f.desc]||0)+f.val;});
+    const lst=Object.entries(agr).sort((a,b)=>b[1]-a[1]).map(([d])=>d);
+    const nomes=lst.slice(0,4).map(escHtml).join(', ')+(lst.length>4?` e mais ${lst.length-4}`:'');
+    return `<div class="proj-fim"><div class="proj-fim-mes">${rotuloMes(fim)}</div><div class="proj-fim-body"><div class="proj-fim-nomes">${nomes}</div><div class="proj-fim-sub">Última parcela · libera <b>${fmt(libera)}/mês</b> a partir de ${rotuloMes(fim+1)}</div></div></div>`;
+  });
+  const linhas=linhasArr.slice(0,4).join('');
+  const resto=linhasArr.length>4?`<details class="proj-mais"><summary>Ver todos (${linhasArr.length} meses)</summary>${linhasArr.slice(4).join('')}</details>`:'';
+  return `<div class="chart-card proj-card">
+    <div class="chart-title">📆 Próximos meses <span style="font-size:11px;color:var(--text3);font-weight:400">— já comprometido · Márcio</span></div>
+    <div class="proj-kpis">
+      <div><span>Comprometido em ${P.labels[0]}</span><b>${fmt(prox)}</b>${pct!==null?`<small>${pct}% das entradas</small>`:''}</div>
+      <div><span>Livre estimado em ${P.labels[0]}</span><b class="${livre<0?'neg':''}">${P.entrada>0?fmt(livre):'—'}</b><small>${P.entrada>0?'antes de novos gastos':'sem entradas lançadas'}</small></div>
+    </div>
+    <div class="chart-wrap" style="height:210px"><canvas id="chart-proj" aria-label="Gráfico de gastos já comprometidos nos próximos ${PROJ_MESES} meses"></canvas></div>
+    <div class="proj-legend">
+      <span><i style="background:${PROJ_CORES.fixos}"></i>Fixos</span>
+      <span><i style="background:${PROJ_CORES.recorrentes}"></i>Recorrentes</span>
+      <span><i style="background:${PROJ_CORES.parcelas}"></i>Parcelas</span>
+      ${P.entrada>0?`<span><i class="dash"></i>Entradas (${fmt(P.entrada)})</span>`:''}
+    </div>
+    ${linhas?`<div class="proj-fins-t">Quando as parcelas terminam</div>${linhas}${resto}`:'<div class="empty" style="padding:14px 0 4px">Nenhuma compra parcelada em andamento 🎉</div>'}
+  </div>`;
+}
+function drawProjecao(){
+  const ctx=document.getElementById('chart-proj');
+  if(chartProj){chartProj.destroy();chartProj=null;}
+  if(!ctx||typeof Chart==='undefined')return;
+  const P=calcProjecao();if(!P)return;
+  const SURF='#161b22';
+  const barra=(label,data,cor,topo)=>({type:'bar',label,data,backgroundColor:cor,borderColor:SURF,borderWidth:{top:2,bottom:0,left:0,right:0},borderSkipped:false,borderRadius:topo?{topLeft:4,topRight:4}:0,stack:'s',maxBarThickness:34});
+  const ds=[barra('Fixos',P.fixos,PROJ_CORES.fixos,false),barra('Recorrentes',P.recorrentes,PROJ_CORES.recorrentes,false),barra('Parcelas',P.parcelas,PROJ_CORES.parcelas,true)];
+  if(P.entrada>0)ds.push({type:'line',label:'Entradas',data:P.labels.map(()=>P.entrada),borderColor:'#8b949e',borderWidth:2,borderDash:[6,5],pointRadius:0,pointHoverRadius:0,fill:false,order:-1});
+  chartProj=new Chart(ctx,{data:{labels:P.labels,datasets:ds},options:{
+    responsive:true,maintainAspectRatio:false,animation:{duration:500},
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{display:false},tooltip:{backgroundColor:'#1f2430',borderColor:'#30363d',borderWidth:1,titleColor:'#e6edf3',bodyColor:'#c9d1d9',padding:10,
+      filter:i=>i.dataset.label!=='Entradas',
+      callbacks:{label:i=>` ${i.dataset.label}: ${fmt(i.raw)}`,footer:items=>{const t=P.totais[items[0].dataIndex];const l=P.entrada-t;return P.entrada>0?[`Total: ${fmt(t)}`,`Livre: ${fmt(l)}`]:`Total: ${fmt(t)}`;}}}},
+    scales:{x:{stacked:true,grid:{display:false},ticks:{color:'#8b949e',font:{size:11}}},
+      y:{stacked:true,beginAtZero:true,grid:{color:'rgba(255,255,255,.06)'},border:{display:false},ticks:{color:'#6e7681',font:{size:10},maxTicksLimit:5,callback:v=>'R$'+(v>=1000?(v/1000).toLocaleString('pt-BR',{maximumFractionDigits:1})+'k':v)}}}
+  }});
 }
 
 // -- BUSCA GLOBAL (todos os meses) --
