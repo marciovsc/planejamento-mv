@@ -3461,9 +3461,22 @@ function deleteCartao(id){
 
 // -- CONFERÊNCIA --
 function confKey(){return 'conferencia_mv_'+M().name.replace(' ','_');}
-function loadConf(){try{const s=localStorage.getItem(confKey());return s?JSON.parse(s):{};}catch(e){return {};}}
-function saveConf(conf){try{localStorage.setItem(confKey(),JSON.stringify(conf));}catch(e){}}
-function clearConf(){localStorage.removeItem(confKey());renderConferencia();}
+// Marcações da conferência ficam dentro do próprio mês (M().conf) e vão para a nuvem com os dados.
+// Marcações antigas, que ficavam só no aparelho (localStorage), são migradas na primeira leitura.
+function loadConf(){
+  const m=M();
+  let local=null;
+  try{const s=localStorage.getItem(confKey());if(s)local=JSON.parse(s);}catch(e){}
+  if(local&&typeof local==='object'){
+    const nuvem=m.conf&&typeof m.conf==='object'?m.conf:{};
+    m.conf=Object.assign({},local,nuvem); // em conflito, vale o que já está na nuvem
+    try{localStorage.removeItem(confKey());}catch(e){}
+    save();
+  }
+  return Object.assign({},m.conf||{});
+}
+function saveConf(conf){M().conf=conf;save();}
+function clearConf(){M().conf={};try{localStorage.removeItem(confKey());}catch(e){}save();renderConferencia();}
 
 function confItemKey(key,it){
   return key+'|'+it.desc+'|'+it.val;
@@ -3895,7 +3908,7 @@ function renderConferencia(){
       </div>
     </div>
 
-    <button onclick="clearConf()" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:14px">🗑️ Limpar conferência deste mês</button>
+    <button onclick="if(confirm('Limpar todas as marcações deste mês? Isso vale para todos os aparelhos.'))clearConf()" style="width:100%;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:14px">🗑️ Limpar conferência deste mês</button>
   </div>`;
   // Adiciona listeners diretamente nos elementos após renderizar
   document.querySelectorAll('[data-expand]').forEach(el=>{
