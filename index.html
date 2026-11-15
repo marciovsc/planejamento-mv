@@ -6,6 +6,9 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#1e1b4b">
 <title>Controle Financeiro MV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/tabler-icons.min.css">
 <style>
 
@@ -13,7 +16,6 @@
 .bnav-btn .ti-svg svg{width:22px;height:22px;}
 .bnav-btn .ti-svg{color:currentColor;}
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --nu:#a78bfa;--nu-bg:#1e1433;--nu-txt:#c4b5fd;
@@ -26,16 +28,16 @@
   --text:#e6edf3;--text2:#8b949e;--text3:#6e7681;
   --radius:14px;--shadow:0 1px 3px rgba(0,0,0,.5),0 4px 16px rgba(0,0,0,.4);
 }
-html,body{background:var(--bg);font-family:'Plus Jakarta Sans',system-ui,sans-serif}
+html,body{background:var(--bg);font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;font-variant-numeric:tabular-nums}
 .app{max-width:960px;margin:0 auto;min-height:100vh;background:var(--bg);padding-bottom:90px}
 
 /* HEADER */
-.topbar{position:sticky;top:0;z-index:90;background:#090d13;padding:14px 20px 12px;border-bottom:1px solid rgba(139,92,246,.2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.topbar{position:sticky;top:0;z-index:90;background:rgba(9,13,19,.82);padding:calc(12px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid rgba(139,92,246,.2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 .topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(139,92,246,.6) 30%,rgba(96,165,250,.6) 70%,transparent)}
 .topbar-row{display:flex;align-items:center;justify-content:space-between}
 .app-title{display:flex;flex-direction:column;gap:1px}
-.app-title-main{font-size:15px;font-weight:700;letter-spacing:.5px;background:linear-gradient(90deg,#c4b5fd,#93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2}
-.app-title-sub{font-size:10px;font-weight:500;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase}
+.app-title-main{font-size:18px;font-weight:800;letter-spacing:-.3px;white-space:nowrap;background:linear-gradient(90deg,#c4b5fd,#93c5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2}
+.app-title-sub{font-size:9px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:1.4px;text-transform:uppercase}
 .month-switcher{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border-radius:24px;padding:5px 10px;border:1px solid rgba(139,92,246,.25)}
 .month-btn{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.6);font-size:20px;line-height:1;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
 .month-label{font-size:13px;font-weight:600;color:#fff;min-width:88px;text-align:center}
@@ -260,6 +262,74 @@ select option{background:var(--surface2);color:var(--text)}
   .fatura-card{padding:14px}
   .fatura-total-val{font-size:18px}
 }
+
+/* ===== REFINAMENTOS VISUAIS ===== */
+.hero{background:radial-gradient(120% 90% at 100% 0%,rgba(96,165,250,.28),transparent 55%),linear-gradient(140deg,#1e1b4b 0%,#3b1d7a 55%,#5b21b6 100%);border:1px solid rgba(167,139,250,.25);box-shadow:0 10px 30px rgba(76,29,149,.35)}
+.hero-label{display:flex;align-items:center;gap:6px}
+.hero-val{font-size:38px;font-weight:800;letter-spacing:-1.2px;margin:2px 0 6px}
+.hero-flow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.flow{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px;min-width:0}
+.flow-lbl{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.55)}
+.flow-in .flow-lbl svg{color:#4ade80}.flow-out .flow-lbl svg{color:#f87171}
+.flow-val{display:block;font-size:17px;font-weight:700;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.flow-in .flow-val{color:#4ade80}.flow-out .flow-val{color:#fca5a5}
+.hero-usage{margin-top:12px}
+.hero-usage-track{height:6px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden}
+.hero-usage-fill{height:100%;border-radius:6px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.hero-usage-lbl{font-size:11px;color:rgba(255,255,255,.55);margin-top:6px}
+.hero-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:16px}
+@media(min-width:640px){.hero-kpis{grid-template-columns:repeat(4,1fr)}.kpi-total{grid-column:1/-1}}
+.kpi{background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:10px 12px;min-width:0}
+.kpi-lbl{display:flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,.6);font-weight:500;white-space:nowrap}
+.kpi-val{font-size:16px;font-weight:700;color:#fff;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi-sub{display:flex;flex-wrap:wrap;align-items:center;gap:3px 4px;font-size:10px;color:rgba(255,255,255,.5);margin-top:4px;white-space:nowrap}.kpi-sub>*{flex-shrink:0}.kpi-pair{display:inline-flex;align-items:center;gap:4px;margin-right:6px}
+.kpi-rai .kpi-val{color:#f9a8d4}
+.kpi-total{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;background:rgba(165,180,252,.1);border-color:rgba(165,180,252,.2)}
+.kpi-total .kpi-val{margin-top:0;color:#c7d2fe;font-size:18px}
+
+/* Navegação inferior */
+.bottom-nav{background:rgba(15,17,26,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,.06);padding:6px 6px calc(8px + env(safe-area-inset-bottom));align-items:flex-end}
+.bnav-btn{font-size:11px;gap:4px;padding:6px 2px;min-height:54px;justify-content:center;transition:color .2s,transform .15s}
+.bnav-btn:active{transform:scale(.92)}
+.bnav-btn.active::before{display:none}
+.bnav-btn.active .ti-svg{background:rgba(167,139,250,.16);border-radius:14px;padding:3px 14px}
+.bnav-btn .ti-svg{padding:3px 14px;transition:background .2s}
+.add-btn .fab{width:54px;height:54px;border-radius:18px;margin-top:-26px;background:linear-gradient(135deg,#8b5cf6,#3b82f6);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(99,102,241,.5),0 0 0 5px var(--bg);transition:transform .2s}
+.add-btn .fab .ti-svg{padding:0!important;background:none!important;color:#fff}
+.add-btn .fab svg{width:26px;height:26px}
+.add-btn .fab svg{transition:transform .25s}.add-btn.active .fab svg{transform:rotate(45deg)}
+.more-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:110}
+.more-sheet{position:fixed;left:50%;bottom:0;width:100%;max-width:960px;transform:translate(-50%,105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);z-index:120;background:#161b22;border:1px solid var(--border);border-bottom:none;border-radius:22px 22px 0 0;padding:10px 14px calc(20px + env(safe-area-inset-bottom));display:grid;grid-template-columns:1fr 1fr;gap:10px;box-shadow:0 -10px 40px rgba(0,0,0,.5)}
+.more-grip{grid-column:1/-1;width:40px;height:4px;border-radius:4px;background:#30363d;margin:0 auto 6px}
+body.more-open .more-backdrop{opacity:1;pointer-events:auto}
+body.more-open .more-sheet{transform:translate(-50%,0)}
+.more-item{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;text-align:left;font-family:inherit;transition:border-color .2s,background .2s}
+.more-item:active{transform:scale(.97)}
+.more-item.active{border-color:var(--nu);background:rgba(167,139,250,.1)}
+.more-ic{width:40px;height:40px;flex:0 0 40px;border-radius:12px;background:rgba(167,139,250,.14);color:var(--nu);display:flex;align-items:center;justify-content:center}
+.more-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.more-txt b{font-size:14px;font-weight:700}
+.more-txt small{font-size:11px;color:var(--text2);line-height:1.3}
+
+/* Microinterações */
+.page.active{animation:pageIn .28s ease-out}
+@keyframes pageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+button{transition:transform .12s,filter .15s}
+.btn-submit:active,.btn-ok:active,.csel-btn:active,.btn-month-sel:active{transform:scale(.97)}
+.btn-submit:hover{filter:brightness(1.08)}
+.list-card,.chart-card,.form-card,.fatura-card,.conf-bank-block,.month-mgr,.mcard{border-color:rgba(255,255,255,.07)}
+.fatura-card{transition:transform .2s}
+.cloud-toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translate(-50%,12px);padding:10px 16px;border-radius:14px;font-size:13px;font-weight:600;z-index:9999;white-space:nowrap;background:#1f2430;color:var(--text);border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+.cloud-toast.show{opacity:1;transform:translate(-50%,0)}
+.cloud-toast.ok{border-color:rgba(74,222,128,.4)}.cloud-toast.err{border-color:rgba(248,113,113,.45)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:480px){
+  .hero{padding:18px}
+  .hero-val{font-size:34px}
+  .bnav-btn{font-size:10px;min-height:54px}
+  .bnav-btn .ti-svg{padding:3px 10px}
+  .add-btn .bicon-wrap{width:auto;height:auto}
+}
 </style>
 </head>
 <body>
@@ -268,7 +338,7 @@ select option{background:var(--surface2);color:var(--text)}
 <div class="topbar">
   <div class="topbar-row">
     <div class="app-title">
-      <span class="app-title-main">Finanças Márcio Cavalcanti</span>
+      <span class="app-title-main">Finanças MV</span>
       <span class="app-title-sub">Controle Financeiro</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px">
@@ -1485,15 +1555,20 @@ select option{background:var(--surface2);color:var(--text)}
 </div>
 
 <nav class="bottom-nav">
-  <button class="bnav-btn active" id="bn-painel" onclick="goTab(&#39;painel&#39;)"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"></rect><rect x="10" y="7" width="4" height="14"></rect><rect x="17" y="3" width="4" height="18"></rect></svg></span>Painel</button>
-  <button class="bnav-btn" id="bn-marcio" onclick="goTab(&#39;marcio&#39;)"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span>Márcio</button>
-  <button class="bnav-btn" id="bn-raissa" onclick="goTab(&#39;raissa&#39;)"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12.572L12 20l-7.5-7.428A5 5 0 1 1 12 6.006a5 5 0 1 1 7.5 6.572"></path></svg></span>Raíssa</button>
-  <button class="bnav-btn add-btn" id="bn-add" onclick="goTab(&#39;add&#39;)"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span>Adicionar</button>
-  <button class="bnav-btn" id="bn-analise" onclick="goTab(&#39;analise&#39;)"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg></span>Histórico</button>
-  <button class="bnav-btn" id="bn-fixos" onclick="goTab(&#39;fixos&#39;)"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"></path><path d="M9 21V12h6v9"></path><path d="M3 12v9h18v-9"></path></svg></span>Fixos</button>
-  <button class="bnav-btn" id="bn-meses" onclick="goTab(&#39;meses&#39;)"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>Meses</button>
-  <button class="bnav-btn" id="bn-conferencia" onclick="goTab(&#39;conferencia&#39;)"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"></line><line x1="10" y1="12" x2="21" y2="12"></line><line x1="10" y1="18" x2="21" y2="18"></line><polyline points="3 6 4 7 6 5"></polyline><polyline points="3 12 4 13 6 11"></polyline><polyline points="3 18 4 19 6 17"></polyline></svg></span>Conferir</button>
+  <button class="bnav-btn active" id="bn-painel" onclick="goTab('painel')"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4" height="9"></rect><rect x="10" y="7" width="4" height="14"></rect><rect x="17" y="3" width="4" height="18"></rect></svg></span><span>Painel</span></button>
+  <button class="bnav-btn" id="bn-marcio" onclick="goTab('marcio')"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path></svg></span><span>Márcio</span></button>
+  <button class="bnav-btn add-btn" id="bn-add" onclick="activeTab==='add'?goTab(_tabAnterior||'painel'):goTab('add')" aria-label="Adicionar lançamento"><span class="fab"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></span></span></button>
+  <button class="bnav-btn" id="bn-raissa" onclick="goTab('raissa')"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 12.572L12 20l-7.5-7.428A5 5 0 1 1 12 6.006a5 5 0 1 1 7.5 6.572"></path></svg></span><span>Raíssa</span></button>
+  <button class="bnav-btn" id="bn-mais" onclick="toggleMore(event)"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg></span><span>Mais</span></button>
 </nav>
+<div class="more-backdrop" id="more-backdrop" onclick="closeMore()"></div>
+<div class="more-sheet" id="more-sheet">
+  <div class="more-grip"></div>
+    <button class="more-item" id="bn-analise" onclick="goTab('analise')"><span class="more-ic"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg></span></span><span class="more-txt"><b>Histórico</b><small>Comparativo entre meses</small></span></button>
+    <button class="more-item" id="bn-fixos" onclick="goTab('fixos')"><span class="more-ic"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"></path><path d="M9 21V12h6v9"></path><path d="M3 12v9h18v-9"></path></svg></span></span><span class="more-txt"><b>Fixos</b><small>Contas fixas e vencimentos</small></span></button>
+    <button class="more-item" id="bn-meses" onclick="goTab('meses')"><span class="more-ic"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span></span><span class="more-txt"><b>Meses</b><small>Gerenciar meses e cartões</small></span></button>
+    <button class="more-item" id="bn-conferencia" onclick="goTab('conferencia')"><span class="more-ic"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" y1="6" x2="21" y2="6"></line><line x1="10" y1="12" x2="21" y2="12"></line><line x1="10" y1="18" x2="21" y2="18"></line><polyline points="3 6 4 7 6 5"></polyline><polyline points="3 12 4 13 6 11"></polyline><polyline points="3 18 4 19 6 17"></polyline></svg></span></span><span class="more-txt"><b>Conferir</b><small>Bater com a fatura do banco</small></span></button>
+</div>
 
 </div>
 
@@ -1582,9 +1657,9 @@ async function cloudLoad(){
 }
 function showSyncStatus(msg,ok){
   let el=document.getElementById('cloud-status');
-  if(!el){el=document.createElement('div');el.id='cloud-status';el.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;transition:opacity .4s;white-space:nowrap;font-family:Inter,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.15)';document.body.appendChild(el);}
-  el.style.background=ok?'#dcfce7':'#fee2e2';el.style.color=ok?'#16a34a':'#dc2626';el.style.opacity='1';el.textContent=msg;
-  setTimeout(()=>{el.style.opacity='0';},2500);
+  if(!el){el=document.createElement('div');el.id='cloud-status';document.body.appendChild(el);}
+  el.removeAttribute('style');el.className='cloud-toast show '+(ok?'ok':'err');el.textContent=msg;
+  clearTimeout(el._t);el._t=setTimeout(()=>{el.classList.remove('show');},2500);
 }
 const MONTH_NAMES=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 
@@ -2241,56 +2316,35 @@ function renderPainel(){
   const nuLiquidoM=sumSemReembolso(m.mnu);
   const c6LiquidoM=sumSemReembolso(m.mc6);
 
+  const usoPct=tEnt>0?tMarcio/tEnt*100:0;
+  const usoCor=usoPct>=100?'#f87171':usoPct>=85?'#fbbf24':'#4ade80';
   let html=`
   <div class="hero">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-      <div>
-        <div class="hero-label"><span class="ti-svg"  style="font-size:12px;margin-right:4px"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 01-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 000 4h4v-4z"/></svg></span>Saldo — Márcio</div>
-        <div class="${saldo>=0?'hero-val':'hero-val neg'}" style="font-size:26px">${fmt(saldo)}</div>
-        <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:4px">${saldo>=0?'✅ No positivo':'❌ Déficit no mês'}</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;justify-content:center">
-        <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(74,222,128,.3)">
-          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px"><span class="ti-svg"  style="font-size:12px;margin-right:3px;color:#4ade80"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8 12 12 16 16 12"/><line x1="12" y1="8" x2="12" y2="16"/></svg></span>Entradas</span>
-          <span style="font-size:15px;font-weight:700;color:#4ade80">${fmt(tEnt)}</span>
-        </div>
-        <div style="padding:8px 2px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(248,113,113,.3)">
-          <span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px"><span class="ti-svg"  style="font-size:12px;margin-right:3px;color:#f87171"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg></span>Gastos</span>
-          <span style="font-size:15px;font-weight:700;color:#f87171">${fmt(tMarcio)}</span>
-        </div>
-      </div>
+    <div class="hero-label"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 01-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 000 4h4v-4z"/></svg> Saldo do mês — Márcio</div>
+    <div class="${saldo>=0?'hero-val':'hero-val neg'}" data-countup="${saldo}">${fmt(saldo)}</div>
+    <div class="hero-sub">${saldo>=0?'✅ No positivo':'❌ Déficit no mês'}</div>
+    <div class="hero-flow">
+      <div class="flow flow-in"><span class="flow-lbl"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg> Entradas</span><span class="flow-val">${fmt(tEnt)}</span></div>
+      <div class="flow flow-out"><span class="flow-lbl"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg> Gastos</span><span class="flow-val">${fmt(tMarcio)}</span></div>
     </div>
-    <div class="hero-divider"></div>
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:12px">
-      <div style="text-align:center">
-        <div class="hero-stat-val">${fmt(tmu+tFixNu)}</div>
-        <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px">${KEY_ICONS.mnu} Nubank MV</div>
-      </div>
-      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val">${fmt(tmc+tFixC6)}</div>
-        <div class="hero-stat-lbl" style="display:flex;align-items:center;justify-content:center;gap:4px">${KEY_ICONS.mc6} C6 MV</div>
-      </div>
-      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val">${fmt(tfix)}</div>
-        <div class="hero-stat-lbl">🏠 Fixos</div>
-      </div>
-      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val" style="color:#f472b6">${fmt(tRai)}</div>
-        <div class="hero-stat-lbl" style="color:rgba(244,114,182,.7)">💜 Raíssa</div>
-        <div class="hero-stat-lbl" style="font-size:10px;display:flex;align-items:center;justify-content:center;gap:3px">${KEY_ICONS.rnu} ${fmt(tru)} · ${KEY_ICONS.rc6} ${fmt(trc)}</div>
-      </div>
-      <div style="text-align:center;border-left:1px solid rgba(255,255,255,.15)">
-        <div class="hero-stat-val" style="color:#a5b4fc">${fmt(grand)}</div>
-        <div class="hero-stat-lbl">🌐 Total</div>
-      </div>
+    <div class="hero-usage">
+      <div class="hero-usage-track"><div class="hero-usage-fill" style="width:${Math.min(100,usoPct)}%;background:${usoCor}"></div></div>
+      <div class="hero-usage-lbl">${tEnt>0?Math.round(usoPct)+'% das entradas já comprometidos':'Sem entradas lançadas neste mês'}</div>
+    </div>
+    <div class="hero-kpis">
+      <div class="kpi"><div class="kpi-lbl">${KEY_ICONS.mnu} Nubank MV</div><div class="kpi-val">${fmt(tmu+tFixNu)}</div></div>
+      <div class="kpi"><div class="kpi-lbl">${KEY_ICONS.mc6} C6 MV</div><div class="kpi-val">${fmt(tmc+tFixC6)}</div></div>
+      <div class="kpi"><div class="kpi-lbl">🏠 Fixos</div><div class="kpi-val">${fmt(tfix)}</div></div>
+      <div class="kpi kpi-rai"><div class="kpi-lbl">💜 Raíssa</div><div class="kpi-val">${fmt(tRai)}</div><div class="kpi-sub"><span class="kpi-pair">${KEY_ICONS.rnu} ${fmt(tru)}</span><span class="kpi-pair">${KEY_ICONS.rc6} ${fmt(trc)}</span></div></div>
+      <div class="kpi kpi-total"><div class="kpi-lbl">🌐 Total do casal</div><div class="kpi-val">${fmt(grand)}</div></div>
     </div>
   </div>
 
   <!-- TOTAIS DA FATURA POR BANCO -->
   <div style="margin-bottom:6px;padding:0 2px">
-    <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:6px">
+    <div style="font-size:12px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px">
       <span class="ti-svg"  style="font-size:14px"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5 10 5 21"/><polyline points="19 10 19 21"/><polyline points="9 10 9 21"/><polyline points="15 10 15 21"/><path d="M12 3L3 10h18L12 3z"/></svg></span> Totais da Fatura
-      <span style="font-size:10px;font-weight:500;color:var(--text3);text-transform:none;letter-spacing:0">· Márcio + Raíssa · clique em 🔍 Conferir para validar</span>
+      <span style="flex-basis:100%;font-size:11px;font-weight:500;color:var(--text3);text-transform:none;letter-spacing:0">Márcio + Raíssa · toque em Mais → Conferir para validar</span>
     </div>
   </div>
   <div class="fatura-grid">
@@ -4187,13 +4241,34 @@ function renderAll(){renderTab(activeTab);updateLabel();}
 
 // -- ROUTING --
 let activeTab='painel';
+let _tabAnterior='painel';
+const MORE_TABS=['analise','fixos','meses','conferencia'];
 function goTab(id){
   ['painel','marcio','raissa','add','analise','fixos','meses','conferencia'].forEach(t=>{
     const b=document.getElementById('bn-'+t);if(b)b.classList.toggle('active',t===id);
   });
+  const bm=document.getElementById('bn-mais');if(bm)bm.classList.toggle('active',MORE_TABS.includes(id));
+  closeMore();
+  const mudou=activeTab!==id;
+  if(mudou&&activeTab!=='add')_tabAnterior=activeTab;
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   activeTab=id;renderTab(id);
+  if(mudou)window.scrollTo({top:0,behavior:'instant'});
+}
+function toggleMore(e){if(e)e.stopPropagation();document.body.classList.toggle('more-open');}
+function closeMore(){document.body.classList.remove('more-open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMore();});
+
+// Anima valores marcados com data-countup (ex.: saldo do painel)
+function animateCountUps(root){
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  (root||document).querySelectorAll('[data-countup]').forEach(el=>{
+    const alvo=parseFloat(el.dataset.countup);if(!isFinite(alvo))return;
+    const t0=performance.now(),dur=650;
+    const step=t=>{const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=fmt(alvo*e);if(k<1)requestAnimationFrame(step);};
+    requestAnimationFrame(step);
+  });
 }
 function goHome(){
   // Abre no mês que corresponde ao mês atual do calendário
@@ -4208,7 +4283,7 @@ function goHome(){
   verificarLembreteBackup();
 }
 function renderTab(id){
-  if(id==='painel')renderPainel();
+  if(id==='painel'){renderPainel();animateCountUps(document.getElementById('tab-painel'));}
   else if(id==='marcio')renderMarcio();
   else if(id==='raissa')renderRaissa();
   else if(id==='fixos')renderFixos();
@@ -4220,7 +4295,7 @@ function renderTab(id){
 }
 </script>
 
-<div id="cloud-status" style="position: fixed; top: 70px; left: 50%; transform: translateX(-50%); padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 9999; transition: opacity 0.4s; white-space: nowrap; font-family: &quot;Plus Jakarta Sans&quot;, sans-serif; box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 12px; opacity: 0; background: rgb(220, 252, 231); color: rgb(22, 163, 74);">☁️ Dados atualizados!</div>
+
 
 
 </body></html>
