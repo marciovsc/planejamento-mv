@@ -99,7 +99,7 @@ html,body{background:var(--bg);font-family:'Plus Jakarta Sans',system-ui,sans-se
 .app-title-sub{font-size:9px;font-weight:600;color:rgba(var(--ink-rgb),.35);letter-spacing:1.4px;text-transform:uppercase}
 .month-switcher{display:flex;align-items:center;gap:8px;background:rgba(var(--ink-rgb),.06);border-radius:24px;padding:5px 10px;border:1px solid rgba(139,92,246,.25)}
 .month-btn{background:none;border:none;cursor:pointer;color:rgba(var(--ink-rgb),.6);font-size:20px;line-height:1;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
-.month-label{font-size:13px;font-weight:600;color:#fff;min-width:88px;text-align:center}
+.month-label{font-size:13px;font-weight:600;color:#fff;min-width:88px;text-align:center;white-space:nowrap}
 
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:960px;background:var(--elev);border-top:1px solid var(--border);display:flex;z-index:100;padding:6px 4px 8px;box-shadow:0 -4px 20px rgba(0,0,0,.4)}
@@ -394,6 +394,8 @@ body.more-open .more-sheet{transform:translate(-50%,0)}
 .bchip.on{background:rgba(167,139,250,.18);border-color:var(--nu);color:var(--accent-txt)}
 .bselect{flex:1 1 auto;width:100%;padding:7px 12px;border-radius:999px;font-size:12px!important;font-weight:600;color:var(--text2);background:var(--surface)}
 .bselect.on{border-color:var(--nu);color:var(--accent-txt)}
+.proj-nota{font-size:11px;color:var(--text3);margin:-8px 0 12px;line-height:1.5}
+.proj-kpis small b{display:inline;font-size:inherit}
 .proj-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 .proj-kpis>div{background:var(--bg);border:1px solid rgba(var(--ink-rgb),.06);border-radius:12px;padding:10px 12px;min-width:0}
 .proj-kpis span{display:block;font-size:11px;color:var(--text2)}
@@ -1235,7 +1237,7 @@ try{localStorage.setItem(SK,JSON.stringify(G));}catch(e){}
 // Atualiza label imediatamente com dados do localStorage (antes do sync)
 document.addEventListener('DOMContentLoaded',()=>{
   const el=document.getElementById('month-label');
-  if(el&&G&&G.months&&G.months[G.current])el.textContent=G.months[G.current].name;
+  if(el&&G&&G.months&&G.months[G.current])updateLabel();
 });
 window.addEventListener('load',()=>{
   try{
@@ -3033,7 +3035,13 @@ function deleteMonth(i){
 }
 function prevMonth(){if(G.current>0){G.current--;save();renderAll();updateLabel();}}
 function nextMonth(){if(G.current<G.months.length-1){G.current++;save();renderAll();updateLabel();}}
-function updateLabel(){document.getElementById('month-label').textContent=M().name;}
+function updateLabel(){
+  const el=document.getElementById('month-label');if(!el)return;
+  const n=M().name;el.title=n;
+  // Em telas estreitas, nome curto do mês (ex.: "Dez 2026") para caber no topo
+  el.textContent=window.innerWidth<=420?n.replace(/^(\S{3})\S*/,'$1'):n;
+}
+window.addEventListener('resize',()=>{try{updateLabel();}catch(e){}});
 
 function criarMesInteligente(name){
   const origem=M();const novo=blankMonth(name);
@@ -3359,38 +3367,67 @@ function htmlTema(){
 // -- PRÓXIMOS MESES: quanto já está comprometido (só Márcio) --
 // Parte do mês aberto: parcelas que ainda faltam + fixos + recorrentes. Só lê os dados.
 const PROJ_MESES=6;
-const PROJ_CORES={fixos:'#3987e5',recorrentes:'#d95926',parcelas:'#9085e9'};
+const PROJ_CORES={fixos:'#3987e5',recorrentes:'#d95926',parcelas:'#9085e9',avulsos:'#199e70'};
 const MES_CURTO=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 let chartProj=null;
 function rotuloMes(ord){return MES_CURTO[ord%12]+'/'+String(Math.floor(ord/12)).slice(-2);}
 function calcProjecao(horizonte){
-  const PROJ_MESES_=horizonte||PROJ_MESES;
-  const m=M();const base=mesOrdinal(m.name);
-  if(base===null)return null;
-  const fixos=Array(PROJ_MESES_).fill(0),recorrentes=Array(PROJ_MESES_).fill(0),parcelas=Array(PROJ_MESES_).fill(0);
-  const fins=[];
-  ['mnu','mc6','fix'].forEach(key=>(m[key]||[]).forEach(it=>{
-    const v=+it.val||0;if(!v)return;
-    const pm=String(it.desc||'').match(/(\d+)\s*-\s*(\d+)\s*$/);
-    if(pm){
-      const n=+pm[1],t=+pm[2],resta=t-n;
-      for(let k=1;k<=PROJ_MESES_;k++)if(k<=resta)parcelas[k-1]+=v;
-      if(resta>=1)fins.push({desc:descDisplay(it.desc),val:v,fim:base+resta,resta});
-    }else if(key==='fix')fixos.forEach((_,i)=>fixos[i]+=v);
-    else if(it.recorrente)recorrentes.forEach((_,i)=>recorrentes[i]+=v);
-  }));
-  const entR=(m.entradas||[]).filter(e=>e.recorrente);
-  const entrada=entR.length?sum(entR):sum(m.entradas);
-  const labels=Array.from({length:PROJ_MESES_},(_,i)=>rotuloMes(base+i+1));
-  const totais=labels.map((_,i)=>fixos[i]+recorrentes[i]+parcelas[i]);
-  const gastoAtual=sum(m.mnu)+sum(m.mc6)+sum(m.fix);
-  return {base,labels,fixos,recorrentes,parcelas,totais,entrada,fins,gastoAtual};
+  // Começa no mês atual do calendário (independente do mês aberto no app).
+  // Meses que já existem no app usam os lançamentos reais; os demais são estimados
+  // a partir do último mês existente (parcelas restantes + fixos + recorrentes).
+  const H=horizonte||PROJ_MESES;
+  const hoje=new Date();const inicio=hoje.getFullYear()*12+hoje.getMonth();
+  const porOrd={};G.months.forEach(mo=>{const o=mesOrdinal(mo.name);if(o!==null)porOrd[o]=mo;});
+  const existentes=Object.keys(porOrd).map(Number).sort((a,b)=>a-b);
+  if(!existentes.length)return null;
+  const ords=Array.from({length:H},(_,i)=>inicio+i);
+  const z=()=>Array(H).fill(0);
+  const fixos=z(),recorrentes=z(),parcelas=z(),avulsos=z(),real=Array(H).fill(false);
+  const parc=it=>String(it.desc||'').match(/(\d+)\s*-\s*(\d+)\s*$/);
+  const itens=mo=>['mnu','mc6','fix'].flatMap(k=>(mo[k]||[]).map(it=>({k,it,v:+it.val||0}))).filter(x=>x.v);
+  ords.forEach((o,i)=>{
+    if(porOrd[o]){
+      real[i]=true;
+      itens(porOrd[o]).forEach(({k,it,v})=>{
+        if(parc(it))parcelas[i]+=v;else if(k==='fix')fixos[i]+=v;else if(it.recorrente)recorrentes[i]+=v;else avulsos[i]+=v;
+      });
+    }else{
+      const L=existentes.filter(e=>e<o).pop();if(L===undefined)return;
+      const k=o-L;
+      itens(porOrd[L]).forEach(({k:key,it,v})=>{
+        const pm=parc(it);
+        if(pm){if(+pm[1]+k<=+pm[2])parcelas[i]+=v;}
+        else if(key==='fix')fixos[i]+=v;else if(it.recorrente)recorrentes[i]+=v;
+      });
+    }
+  });
+  // quando as parcelas terminam (a partir do mês atual)
+  const fins=[],vistos=new Set();
+  const ultimo=existentes[existentes.length-1];
+  existentes.filter(o=>o>=inicio||o===ultimo).forEach(o=>{
+    itens(porOrd[o]).forEach(({it,v})=>{
+      const pm=parc(it);if(!pm)return;
+      const resta=+pm[2]-+pm[1];
+      if(o!==ultimo&&resta!==0)return; // nos meses intermediários, só a última parcela
+      const fim=o+resta;if(fim<inicio)return;
+      const chave=descDisplay(it.desc)+'|'+fim+'|'+v;if(vistos.has(chave))return;vistos.add(chave);
+      fins.push({desc:descDisplay(it.desc),val:v,fim});
+    });
+  });
+  // entradas: do mês atual; se não houver, do mês existente mais recente com entradas
+  const comEnt=[inicio,...existentes.slice().reverse()].map(o=>porOrd[o]).filter(mo=>mo&&sum(mo.entradas)>0);
+  let entrada=0;
+  if(comEnt.length){const mo=comEnt[0];const r=(mo.entradas||[]).filter(e=>e.recorrente);entrada=r.length?sum(r):sum(mo.entradas);}
+  const labels=ords.map(rotuloMes);
+  const totais=ords.map((_,i)=>fixos[i]+recorrentes[i]+parcelas[i]+avulsos[i]);
+  return {inicio,ords,labels,fixos,recorrentes,parcelas,avulsos,totais,entrada,fins,real};
 }
 function htmlProjecao(){
   const P=calcProjecao();
   if(!P)return'';
-  const prox=P.totais[0],pct=P.entrada>0?Math.round(prox/P.entrada*100):null;
-  const livre=P.entrada-prox;
+  const atual=P.totais[0],prox=P.totais[1];
+  const livreAtual=P.entrada-atual,pct=P.entrada>0?Math.round(prox/P.entrada*100):null;
+  const temAvulsos=P.avulsos.some(v=>v>0),temEstimado=P.real.some(r=>!r);
   // agrupa términos por mês
   const porFim={};P.fins.forEach(f=>{(porFim[f.fim]=porFim[f.fim]||[]).push(f);});
   const fimKeys=Object.keys(porFim).map(Number).sort((a,b)=>a-b);
@@ -3405,17 +3442,20 @@ function htmlProjecao(){
   const resto=linhasArr.length>4?`<details class="proj-mais"><summary>Ver todos (${linhasArr.length} meses)</summary>${linhasArr.slice(4).join('')}</details>`:'';
   return `<div class="chart-card proj-card">
     <div class="chart-title">📆 Próximos meses <span style="font-size:11px;color:var(--text3);font-weight:400">— já comprometido · Márcio</span></div>
+    <div class="proj-nota">Mês de lançamento: as compras de ${P.labels[0]} entram na fatura que vence no mês seguinte.</div>
     <div class="proj-kpis">
-      <div><span>Comprometido em ${P.labels[0]}</span><b>${fmt(prox)}</b>${pct!==null?`<small>${pct}% das entradas</small>`:''}</div>
-      <div><span>Livre estimado em ${P.labels[0]}</span><b class="${livre<0?'neg':''}">${P.entrada>0?fmt(livre):'—'}</b><small>${P.entrada>0?'antes de novos gastos':'sem entradas lançadas'}</small></div>
+      <div><span>${P.labels[0]} · em andamento</span><b>${fmt(atual)}</b><small>${P.entrada>0?`livre: <b class="${livreAtual<0?'neg':''}">${fmt(livreAtual)}</b>`:'sem entradas lançadas'}</small></div>
+      <div><span>${P.labels[1]} · já comprometido</span><b>${fmt(prox)}</b>${pct!==null?`<small>${pct}% das entradas${P.real[1]?'':' · estimado'}</small>`:''}</div>
     </div>
-    <div class="chart-wrap" style="height:210px"><canvas id="chart-proj" aria-label="Gráfico de gastos já comprometidos nos próximos ${PROJ_MESES} meses"></canvas></div>
+    <div class="chart-wrap" style="height:210px"><canvas id="chart-proj" aria-label="Gráfico de gastos já comprometidos do mês atual e dos próximos meses"></canvas></div>
     <div class="proj-legend">
       <span><i style="background:${PROJ_CORES.fixos}"></i>Fixos</span>
       <span><i style="background:${PROJ_CORES.recorrentes}"></i>Recorrentes</span>
       <span><i style="background:${PROJ_CORES.parcelas}"></i>Parcelas</span>
+      ${temAvulsos?`<span><i style="background:${PROJ_CORES.avulsos}"></i>Compras avulsas</span>`:''}
       ${P.entrada>0?`<span><i class="dash"></i>Entradas (${fmt(P.entrada)})</span>`:''}
     </div>
+    ${temEstimado?`<div class="proj-nota" style="margin-top:8px">Meses já criados no app usam os lançamentos reais; ${P.real.every(r=>!r)?'todos os meses':'os demais'} são estimativa (parcelas, fixos e recorrentes).</div>`:''}
     ${linhas?`<div class="proj-fins-t">Quando as parcelas terminam</div>${linhas}${resto}`:'<div class="empty" style="padding:14px 0 4px">Nenhuma compra parcelada em andamento 🎉</div>'}
   </div>`;
 }
@@ -3426,14 +3466,16 @@ function drawProjecao(){
   const P=calcProjecao();if(!P)return;
   const SURF=cssVar('--surface');
   const barra=(label,data,cor,topo)=>({type:'bar',label,data,backgroundColor:cor,borderColor:SURF,borderWidth:{top:2,bottom:0,left:0,right:0},borderSkipped:false,borderRadius:topo?{topLeft:4,topRight:4}:0,stack:'s',maxBarThickness:34});
-  const ds=[barra('Fixos',P.fixos,PROJ_CORES.fixos,false),barra('Recorrentes',P.recorrentes,PROJ_CORES.recorrentes,false),barra('Parcelas',P.parcelas,PROJ_CORES.parcelas,true)];
+  const temAv=P.avulsos.some(v=>v>0);
+  const ds=[barra('Fixos',P.fixos,PROJ_CORES.fixos,false),barra('Recorrentes',P.recorrentes,PROJ_CORES.recorrentes,false),barra('Parcelas',P.parcelas,PROJ_CORES.parcelas,!temAv)];
+  if(temAv)ds.push(barra('Compras avulsas',P.avulsos,PROJ_CORES.avulsos,true));
   if(P.entrada>0)ds.push({type:'line',label:'Entradas',data:P.labels.map(()=>P.entrada),borderColor:cssVar('--text2'),borderWidth:2,borderDash:[6,5],pointRadius:0,pointHoverRadius:0,fill:false,order:-1});
   chartProj=new Chart(ctx,{data:{labels:P.labels,datasets:ds},options:{
     responsive:true,maintainAspectRatio:false,animation:{duration:500},
     interaction:{mode:'index',intersect:false},
     plugins:{legend:{display:false},tooltip:{backgroundColor:cssVar('--elev'),borderColor:cssVar('--border'),borderWidth:1,titleColor:cssVar('--text'),bodyColor:cssVar('--text2'),footerColor:cssVar('--text'),padding:10,
-      filter:i=>i.dataset.label!=='Entradas',
-      callbacks:{label:i=>` ${i.dataset.label}: ${fmt(i.raw)}`,footer:items=>{const t=P.totais[items[0].dataIndex];const l=P.entrada-t;return P.entrada>0?[`Total: ${fmt(t)}`,`Livre: ${fmt(l)}`]:`Total: ${fmt(t)}`;}}}},
+      filter:i=>i.dataset.label!=='Entradas'&&i.raw>0,
+      callbacks:{title:it=>{const k=it[0].dataIndex;return P.labels[k]+(k===0?' · em andamento':P.real[k]?' · lançado':' · estimado');},label:i=>` ${i.dataset.label}: ${fmt(i.raw)}`,footer:items=>{const t=P.totais[items[0].dataIndex];const l=P.entrada-t;return P.entrada>0?[`Total: ${fmt(t)}`,`Livre: ${fmt(l)}`]:`Total: ${fmt(t)}`;}}}},
     scales:{x:{stacked:true,grid:{display:false},ticks:{color:cssVar('--text2'),font:{size:11}}},
       y:{stacked:true,beginAtZero:true,grid:{color:cssVar('--grid')},border:{display:false},ticks:{color:cssVar('--text3'),font:{size:10},maxTicksLimit:5,callback:v=>'R$'+(v>=1000?(v/1000).toLocaleString('pt-BR',{maximumFractionDigits:1})+'k':v)}}}
   }});
@@ -3441,7 +3483,7 @@ function drawProjecao(){
 
 // -- POSSO COMPRAR? (simulador) --
 // Usa a mesma projeção do "Próximos meses" e testa cada mês e forma de pagamento. Não grava nada.
-const SIM_HORIZ=14;
+const SIM_HORIZ=15;
 const SIM_CORES={base:'#3987e5',nova:'#d95926'};
 let SIM={desc:'',valor:'',n:'',parcela:'',semJuros:true,desde:'',cartao:'auto',margem:null};
 let SIM_RES=null,chartSim=null;
@@ -3471,13 +3513,13 @@ function simular(){
   const valor=parseBR(SIM.valor);
   if(valor<=0)return {erro:'Informe o valor à vista.'};
   const P=calcProjecao(SIM_HORIZ);
-  if(!P)return {erro:'Não consegui ler o mês aberto.'};
-  if(!(P.entrada>0))return {erro:'Lance as entradas (salário) do mês aberto para eu conseguir calcular.'};
+  if(!P)return {erro:'Não encontrei meses cadastrados para calcular.'};
+  if(!(P.entrada>0))return {erro:'Lance as entradas (salário) do mês atual para eu conseguir calcular.'};
   const margemPct=SIM.margem==null?simMargemPadrao():SIM.margem;
   const margem=P.entrada*margemPct/100;
   // comprometido por mês: índice 0 = mês aberto (gasto real), 1.. = projeção
-  const ords=[P.base,...P.labels.map((_,i)=>P.base+i+1)];
-  const comp=[P.gastoAtual,...P.totais];
+  const ords=P.ords;
+  const comp=P.totais;
   const livre=comp.map(c=>P.entrada-c);
   // opções de pagamento
   const n=Math.max(0,Math.round(parseBR(SIM.n)));
@@ -3492,7 +3534,7 @@ function simular(){
   // mês mais cedo possível (pela data desejada)
   const desde=SIM.desde?new Date(SIM.desde+'T12:00:00'):new Date();
   const bancos=SIM.cartao==='auto'?['nu','c6']:[SIM.cartao];
-  const sMin=Math.max(P.base,Math.min(...bancos.map(b=>mesLancamentoDaCompra(b,desde))));
+  const sMin=Math.max(P.ords[0],Math.min(...bancos.map(b=>mesLancamentoDaCompra(b,desde))));
   const avaliar=(op,s)=>{
     let pior=Infinity,piorOrd=null;const nova=ords.map(()=>0);
     for(let i=0;i<ords.length;i++){
