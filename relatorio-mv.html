@@ -332,8 +332,11 @@ function loadLocal(){
 async function loadCloud(){
   try{
     showStatus('☁️ Sincronizando dados...', true);
-    const r=await fetch(CLOUD_URL+'?t='+Date.now());
+    // Usa a mesma chave da nuvem salva pelo app principal neste aparelho
+    let chave='';try{chave=localStorage.getItem('mv_chave_nuvem')||'';}catch(e){}
+    const r=await fetch(CLOUD_URL+'?'+(chave?'key='+encodeURIComponent(chave)+'&':'')+'t='+Date.now());
     const text=await r.text();
+    if(/"erro"\s*:\s*"nao_autorizado"/.test(text)){showStatus('🔒 Abra o app principal e configure a chave da nuvem',false);return null;}
     if(!text||text==='{}') return null;
     const d=JSON.parse(text);
     if(d&&d.months&&d.months.length>0){

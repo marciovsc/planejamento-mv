@@ -316,6 +316,16 @@ body.more-open .more-sheet{transform:translate(-50%,0)}
 .more-txt b{font-size:14px;font-weight:700}
 .more-install{grid-column:1/-1;border-color:rgba(167,139,250,.45);background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(59,130,246,.14))}
 .more-install[hidden]{display:none}
+.key-modal-bg{position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px;animation:pageIn .2s ease-out}
+.key-modal{width:100%;max-width:380px;background:#161b22;border:1px solid var(--border);border-radius:20px;padding:22px 20px 18px;box-shadow:0 20px 60px rgba(0,0,0,.6);text-align:center}
+.key-modal-ic{font-size:30px;margin-bottom:6px}
+.key-modal h3{font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px}
+.key-modal p{font-size:13px;color:var(--text2);line-height:1.5;margin-bottom:16px}
+.key-inp-wrap{position:relative;margin-bottom:14px}
+.key-inp-wrap input{padding-right:46px}
+.key-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:none;background:none;cursor:pointer;font-size:16px;opacity:.7}
+.key-actions{display:flex;gap:8px}
+.key-actions button{flex:1;padding:12px 10px;font-size:13px}
 .ios-tip{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);width:calc(100% - 32px);max-width:420px;z-index:9999;background:#1f2430;border:1px solid rgba(167,139,250,.45);border-radius:16px;padding:14px 40px 14px 16px;color:var(--text);font-size:13px;line-height:1.5;box-shadow:0 10px 30px rgba(0,0,0,.5)}
 .ios-tip button{position:absolute;top:8px;right:8px;width:28px;height:28px;border:none;border-radius:8px;background:rgba(255,255,255,.08);color:var(--text2);font-size:16px;cursor:pointer}
 .more-txt small{font-size:11px;color:var(--text2);line-height:1.3}
@@ -1644,9 +1654,49 @@ function setSyncStatus(status){
   else if(status==='erro'){el.innerHTML='<span class="ti-svg" ><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="2" x2="22" y2="22"/><path d="M20 16.7A5 5 0 0018 7h-1.26a8.1 8.1 0 00-.26-1M10.29 5.29A8 8 0 104 15.25"/></svg></span>';el.title='Erro ao salvar na nuvem — dados salvos localmente';el.style.color='#f87171';el.style.opacity='1';}
 }
 
+// -- CHAVE DA NUVEM --
+// A chave fica só neste aparelho (localStorage), nunca no código. A planilha recusa pedidos sem ela.
+const CHAVE_SK='mv_chave_nuvem';
+function getChave(){try{return localStorage.getItem(CHAVE_SK)||'';}catch(e){return '';}}
+function setChave(v){try{v?localStorage.setItem(CHAVE_SK,v):localStorage.removeItem(CHAVE_SK);}catch(e){}}
+function urlNuvem(extra){const k=getChave();const qs=[k?'key='+encodeURIComponent(k):'',extra||''].filter(Boolean).join('&');return CLOUD_URL+(qs?'?'+qs:'');}
+function ehNaoAutorizado(text){return /"erro"\s*:\s*"nao_autorizado"/.test(text||'');}
+let _nuvemBloqueada=false;
+function abrirModalChave(msg){
+  if(document.getElementById('key-modal'))return;
+  const bg=document.createElement('div');bg.id='key-modal';bg.className='key-modal-bg';
+  bg.innerHTML=`<div class="key-modal" role="dialog" aria-modal="true" aria-labelledby="key-modal-t">
+    <div class="key-modal-ic">🔒</div>
+    <h3 id="key-modal-t">Chave da nuvem</h3>
+    <p>${msg||'Digite a chave que protege seus dados na planilha. Ela fica salva só neste aparelho.'}</p>
+    <div class="key-inp-wrap"><input type="password" id="inp-chave" placeholder="Sua chave secreta" autocomplete="current-password" value=""><button type="button" class="key-eye" onclick="const i=document.getElementById('inp-chave');i.type=i.type==='password'?'text':'password'" aria-label="Mostrar chave">👁</button></div>
+    <div class="key-actions"><button type="button" class="btn-cancel" onclick="fecharModalChave()">Agora não</button><button type="button" class="btn-ok" onclick="salvarChaveModal()">Salvar e sincronizar</button></div>
+  </div>`;
+  bg.addEventListener('click',e=>{if(e.target===bg)fecharModalChave();});
+  document.body.appendChild(bg);
+  const inp=document.getElementById('inp-chave');inp.value=getChave();
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter')salvarChaveModal();});
+  setTimeout(()=>inp.focus(),50);
+}
+function fecharModalChave(){const m=document.getElementById('key-modal');if(m)m.remove();}
+function salvarChaveModal(){
+  const v=(document.getElementById('inp-chave').value||'').trim();
+  if(!v){document.getElementById('inp-chave').focus();return;}
+  setChave(v);fecharModalChave();_nuvemBloqueada=false;loadFromCloud();
+}
+function trocarChaveNuvem(){abrirModalChave('Digite a nova chave da nuvem. Ela precisa ser igual à configurada no Google Apps Script.');}
+
 async function cloudSave(data){
+  if(_nuvemBloqueada){setSyncStatus('erro');return false;}
   try{
-    await fetch(CLOUD_URL,{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'text/plain'}});
+    const r=await fetch(urlNuvem(),{method:'POST',body:JSON.stringify(data),headers:{'Content-Type':'text/plain'}});
+    let text='';try{text=await r.text();}catch(e){}
+    if(ehNaoAutorizado(text)){
+      _nuvemBloqueada=true;setSyncStatus('erro');
+      showSyncStatus('🔒 Chave da nuvem inválida — não salvou',false);
+      abrirModalChave('A nuvem recusou o salvamento. Confira a chave. Seus dados continuam salvos neste aparelho.');
+      return false;
+    }
     setSyncStatus('ok');
     return true;
   }catch(e){
@@ -1657,8 +1707,10 @@ async function cloudSave(data){
 }
 async function cloudLoad(){
   try{
-    const r=await fetch(CLOUD_URL+'?t='+Date.now());
+    const r=await fetch(urlNuvem('t='+Date.now()));
     const text=await r.text();
+    if(ehNaoAutorizado(text)){_nuvemBloqueada=true;return null;}
+    _nuvemBloqueada=false;
     if(!text||text==='{}')return null;
     const d=JSON.parse(text);
     if(d&&d.months&&d.months.length>0)return d;
@@ -2119,6 +2171,10 @@ async function loadFromCloud(){
       await cloudSave(G);
       showSyncStatus('☁️ Dados atualizados!',true);
     } else {showSyncStatus('☁️ Sincronizado!',true);}
+  }else if(_nuvemBloqueada){
+    setSyncStatus('erro');
+    showSyncStatus('🔒 Nuvem bloqueada — informe a chave',false);
+    abrirModalChave(getChave()?'A chave salva neste aparelho não foi aceita. Digite a chave correta.':null);
   }else{showSyncStatus('☁️ Sem dados na nuvem',false);}
 }
 
@@ -3244,6 +3300,7 @@ function renderMeses(){
         <button onclick="loadFromCloud()" style="flex:1;padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">☁️ Sincronizar agora</button>
         <button onclick="exportData()" style="flex:1;padding:12px;border-radius:12px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">💾 Backup local</button>
       </div>
+      <button onclick="trocarChaveNuvem()" style="width:100%;margin-top:8px;padding:11px;border-radius:12px;border:1px dashed var(--border);background:transparent;color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif">🔑 Chave da nuvem ${getChave()?'· configurada':'· não configurada'}</button>
       <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)">
       <div id="sync-msg" style="display:none;margin-top:10px;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:500;text-align:center"></div>
     </div>
