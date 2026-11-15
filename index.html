@@ -340,6 +340,9 @@ body.more-open .more-sheet{transform:translate(-50%,0)}
 .bchip.on{background:rgba(167,139,250,.18);border-color:var(--nu);color:#ddd6fe}
 .bselect{flex:1 1 auto;width:100%;padding:7px 12px;border-radius:999px;font-size:12px!important;font-weight:600;color:var(--text2);background:var(--surface)}
 .bselect.on{border-color:var(--nu);color:#ddd6fe}
+.filtro-chip{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;padding:8px 8px 8px 14px;border-radius:12px;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.4);font-size:13px;color:#ddd6fe}
+.filtro-chip span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.filtro-chip button{flex:0 0 auto;width:30px;height:30px;border:none;border-radius:9px;background:rgba(255,255,255,.08);color:var(--text);cursor:pointer;font-size:13px}
 .busca-vazio{text-align:center;color:var(--text2);font-size:13px;line-height:1.6;padding:36px 12px}
 .busca-vazio-ic{font-size:34px;margin-bottom:8px}
 .busca-sug-t{margin:22px 0 10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3)}
@@ -2578,7 +2581,6 @@ function categorizedCard(items,key,search){
     }).join('');
     const total=sum(items);
     return `
-      <div style="font-size:12px;color:var(--text3);margin-bottom:10px">${items.length} resultado(s) para "<b style="color:var(--text)">${search}</b>"</div>
       <div class="list-card" style="margin-bottom:12px">${rows||'<div class="empty">Nenhum resultado</div>'}</div>
       <div style="background:var(--surface);border-radius:var(--radius);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow)">
         <span style="font-size:13px;font-weight:600;color:var(--text2)">Total filtrado</span>
@@ -2893,12 +2895,7 @@ function renderMarcio(){
   document.getElementById('tab-marcio').innerHTML=`<div>
     <div class="page-title">👤 Márcio</div>
     <div class="card-selector">${sel}</div>
-    <div style="position:relative;margin-bottom:14px">
-      <input id="busca-marcio" placeholder="🔍 Buscar lançamento..." value="${marcioSearch}"
-        oninput="marcioSearch=this.value;renderMarcio()"
-        style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif">
-      ${marcioSearch?`<button onclick="marcioSearch='';renderMarcio()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px">✕</button>`:''}
-    </div>
+    ${marcioSearch?`<div class="filtro-chip"><span>🔍 Filtrando: <b>${escHtml(marcioSearch)}</b></span><button onclick="marcioSearch='';renderMarcio()" aria-label="Limpar filtro">✕</button></div>`:''}
     ${listaHTML}
     ${totalReembolso.qtd>0?`
     <div style="margin-top:16px">
@@ -2908,7 +2905,6 @@ function renderMarcio(){
       </button>
     </div>`:''}
   </div>`;
-  if(marcioSearch){const el=document.getElementById('busca-marcio');if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);}}
 }
 
 function renderRaissa(){
@@ -2926,15 +2922,9 @@ function renderRaissa(){
   document.getElementById('tab-raissa').innerHTML=`<div>
     <div class="page-title">💜 Raíssa</div>
     <div class="card-selector">${sel}</div>
-    <div style="position:relative;margin-bottom:14px">
-      <input id="busca-raissa" placeholder="🔍 Buscar lançamento..." value="${raissaSearch}"
-        oninput="raissaSearch=this.value;renderRaissa()"
-        style="width:100%;padding:10px 36px 10px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:'Plus Jakarta Sans',sans-serif">
-      ${raissaSearch?`<button onclick="raissaSearch='';renderRaissa()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px">✕</button>`:''}
-    </div>
+    ${raissaSearch?`<div class="filtro-chip"><span>🔍 Filtrando: <b>${escHtml(raissaSearch)}</b></span><button onclick="raissaSearch='';renderRaissa()" aria-label="Limpar filtro">✕</button></div>`:''}
     ${raissaSearch&&!itensFiltrados.length?'<div class="empty">Nenhum resultado para "'+raissaSearch+'"</div>':categorizedCard(itensFiltrados,raissaCard,raissaSearch)}
   </div>`;
-  if(raissaSearch){const el=document.getElementById('busca-raissa');if(el){el.focus();el.setSelectionRange(el.value.length,el.value.length);}}
 }
 
 function renderFixos(){
@@ -4351,6 +4341,8 @@ function goTab(id){
   const bm=document.getElementById('bn-mais');if(bm)bm.classList.toggle('active',MORE_TABS.includes(id));
   closeMore();
   const mudou=activeTab!==id;
+  if(mudou&&typeof marcioSearch!=='undefined'&&!window._mantemFiltro){marcioSearch='';raissaSearch='';}
+  window._mantemFiltro=false;
   if(mudou&&activeTab!=='add')_tabAnterior=activeTab;
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
@@ -4424,6 +4416,7 @@ function buscaResultados(){
   const res=[];
   G.months.forEach((mo,mi)=>{
     const ord=mesOrdinal(mo.name);
+    if(BUSCA.periodo==='mes'&&mi!==G.current)return;
     if(BUSCA.periodo==='ano'&&(ord===null||Math.floor(ord/12)!==hoje.getFullYear()))return;
     if(BUSCA.periodo==='3m'&&(ord===null||ord>ordHoje||ord<ordHoje-2))return;
     Object.keys(BUSCA_ORIGENS).forEach(key=>{
@@ -4454,6 +4447,7 @@ function buscaSugestoes(){
 function irParaResultado(mi,key,desc){
   G.current=mi;updateLabel();
   const termo=descDisplay(desc||'');
+  window._mantemFiltro=true;
   if(key==='mnu'||key==='mc6'||key==='fix'){marcioCard=key;marcioSearch=termo;goTab('marcio');}
   else if(key==='rnu'||key==='rc6'){raissaCard=key;raissaSearch=termo;goTab('raissa');}
   else goTab('entradas');
@@ -4481,7 +4475,7 @@ function renderBusca(){
   document.getElementById('busca-filtros').innerHTML=`
     <div class="bchips">${chip('pessoa','todos','Todos')}${chip('pessoa','marcio','👤 Márcio')}${chip('pessoa','raissa','💜 Raíssa')}</div>
     <div class="bchips">${chip('tipo','todos','Tudo')}${chip('tipo','nu','Nubank')}${chip('tipo','c6','C6')}${chip('tipo','fix','🏠 Fixos')}${chip('tipo','ent','💵 Entradas')}</div>
-    <div class="bchips">${chip('periodo','tudo','Todo o período')}${chip('periodo','ano','Este ano')}${chip('periodo','3m','Últimos 3 meses')}</div>
+    <div class="bchips">${chip('periodo','tudo','Todo o período')}${chip('periodo','mes','Mês aberto')}${chip('periodo','ano','Este ano')}${chip('periodo','3m','Últimos 3 meses')}</div>
     <div class="bchips">
       <select class="bselect${BUSCA.cat?' on':''}" onchange="buscaSet('cat',this.value)">
         <option value="">Todas as categorias</option>
