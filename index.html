@@ -4,7 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#1e1b4b">
+<meta name="theme-color" content="#0d1117">
+<meta name="apple-mobile-web-app-title" content="Finanças MV">
+<meta name="application-name" content="Finanças MV">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <title>Controle Financeiro MV</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -309,6 +314,10 @@ body.more-open .more-sheet{transform:translate(-50%,0)}
 .more-ic{width:40px;height:40px;flex:0 0 40px;border-radius:12px;background:rgba(167,139,250,.14);color:var(--nu);display:flex;align-items:center;justify-content:center}
 .more-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
 .more-txt b{font-size:14px;font-weight:700}
+.more-install{grid-column:1/-1;border-color:rgba(167,139,250,.45);background:linear-gradient(135deg,rgba(124,58,237,.18),rgba(59,130,246,.14))}
+.more-install[hidden]{display:none}
+.ios-tip{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);width:calc(100% - 32px);max-width:420px;z-index:9999;background:#1f2430;border:1px solid rgba(167,139,250,.45);border-radius:16px;padding:14px 40px 14px 16px;color:var(--text);font-size:13px;line-height:1.5;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.ios-tip button{position:absolute;top:8px;right:8px;width:28px;height:28px;border:none;border-radius:8px;background:rgba(255,255,255,.08);color:var(--text2);font-size:16px;cursor:pointer}
 .more-txt small{font-size:11px;color:var(--text2);line-height:1.3}
 
 /* Microinterações */
@@ -1564,6 +1573,7 @@ button{transition:transform .12s,filter .15s}
 <div class="more-backdrop" id="more-backdrop" onclick="closeMore()"></div>
 <div class="more-sheet" id="more-sheet">
   <div class="more-grip"></div>
+  <button class="more-item more-install" id="btn-instalar" onclick="instalarApp()" hidden><span class="more-ic"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"></rect><path d="M12 7v7"></path><path d="M9 11l3 3 3-3"></path></svg></span></span><span class="more-txt"><b>Instalar app</b><small>Adicionar à tela inicial do celular</small></span></button>
     <button class="more-item" id="bn-analise" onclick="goTab('analise')"><span class="more-ic"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg></span></span><span class="more-txt"><b>Histórico</b><small>Comparativo entre meses</small></span></button>
     <button class="more-item" id="bn-fixos" onclick="goTab('fixos')"><span class="more-ic"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"></path><path d="M9 21V12h6v9"></path><path d="M3 12v9h18v-9"></path></svg></span></span><span class="more-txt"><b>Fixos</b><small>Contas fixas e vencimentos</small></span></button>
     <button class="more-item" id="bn-meses" onclick="goTab('meses')"><span class="more-ic"><span class="ti-svg"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span></span><span class="more-txt"><b>Meses</b><small>Gerenciar meses e cartões</small></span></button>
@@ -4277,8 +4287,11 @@ function goHome(){
   const nomeMesAtual=MESES_PT[hoje.getMonth()]+' '+hoje.getFullYear();
   const idxAtual=G.months.findIndex(m=>m.name===nomeMesAtual);
   G.current=idxAtual>=0?idxAtual:G.months.length-1;
-  activeTab='painel';
-  goTab('painel');
+  // Atalhos do ícone instalado abrem direto numa aba (ex.: ?tab=add)
+  const tabUrl=new URLSearchParams(location.search).get('tab');
+  const inicial=tabUrl&&document.getElementById('tab-'+tabUrl)?tabUrl:'painel';
+  activeTab=inicial;
+  goTab(inicial);
   updateLabel();
   verificarLembreteBackup();
 }
@@ -4292,6 +4305,27 @@ function renderTab(id){
   else if(id==='meses')renderMeses();
   else if(id==='analise')renderAnalise();
   else if(id==='conferencia')renderConferencia();
+}
+
+// -- APP INSTALÁVEL (PWA) --
+let _promptInstalar=null;
+const _ehIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const _jaInstalado=()=>window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+function _mostrarBotaoInstalar(v){const b=document.getElementById('btn-instalar');if(b)b.hidden=!v;}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();_promptInstalar=e;_mostrarBotaoInstalar(true);});
+window.addEventListener('appinstalled',()=>{_promptInstalar=null;_mostrarBotaoInstalar(false);showSyncStatus('📲 App instalado!',true);});
+if(_ehIOS&&!_jaInstalado())_mostrarBotaoInstalar(true);
+async function instalarApp(){
+  closeMore();
+  if(_promptInstalar){_promptInstalar.prompt();await _promptInstalar.userChoice;_promptInstalar=null;_mostrarBotaoInstalar(false);return;}
+  if(_ehIOS){
+    let tip=document.getElementById('ios-tip');
+    if(!tip){tip=document.createElement('div');tip.id='ios-tip';tip.className='ios-tip';document.body.appendChild(tip);}
+    tip.innerHTML='<b>Instalar no iPhone:</b><br>No Safari, toque em <b>Compartilhar</b> (quadrado com seta ↑) e depois em <b>Adicionar à Tela de Início</b>.<button onclick="this.parentNode.remove()" aria-label="Fechar">×</button>';
+  }
+}
+if('serviceWorker' in navigator&&location.protocol!=='file:'){
+  window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});
 }
 </script>
 
