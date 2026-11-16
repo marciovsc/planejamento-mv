@@ -343,6 +343,8 @@ select option{background:var(--surface2);color:var(--text)}
 .kpi-val{font-size:16px;font-weight:700;color:#fff;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .kpi-sub{display:flex;flex-wrap:wrap;align-items:center;gap:3px 4px;font-size:10px;color:rgba(var(--ink-rgb),.5);margin-top:4px;white-space:nowrap}.kpi-sub>*{flex-shrink:0}.kpi-pair{display:inline-flex;align-items:center;gap:4px;margin-right:6px}
 .kpi-rai .kpi-val{color:var(--rai-soft)}
+.kpi-btn{text-align:left;font-family:inherit;color:inherit;cursor:pointer;width:100%;display:flex;flex-direction:column;justify-content:flex-start}
+.kpi-btn:active{transform:scale(.98)}
 .kpi-total{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;background:rgba(165,180,252,.1);border-color:rgba(165,180,252,.2)}
 .kpi-total .kpi-val{margin-top:0;color:#c7d2fe;font-size:18px}
 
@@ -1041,12 +1043,28 @@ function saveCartoes(cartoes){
   try{localStorage.setItem(CARTOES_SK,JSON.stringify(cartoes));}catch(e){}
   save(); // sincroniza na nuvem
 }
+// Formas de pagamento no crédito que não são um cartão físico, sempre disponíveis por banco.
+// Pix no crédito só existe no Nubank; boleto no crédito existe nos dois.
+// ('BOLETO_CREDITO' é o código antigo e continua valendo como Nubank.)
+const FORMAS_VIRTUAIS={nu:['PIX_CREDITO','BOLETO_CREDITO'],c6:['BOLETO_CREDITO_C6']};
+function ehFormaVirtual(cod){return Object.values(FORMAS_VIRTUAIS).some(l=>l.includes(cod));}
 function getCartoes(banco){
-  return loadCartoes().filter(c=>c.banco===banco);
+  const reais=loadCartoes().filter(c=>c.banco===banco&&!ehFormaVirtual(c.digitos));
+  return [...reais,...(FORMAS_VIRTUAIS[banco]||[]).map(d=>({id:'v_'+d,banco,digitos:d,virtual:true}))];
+}
+// Em qual banco cai um lançamento/fixo, pela forma de pagamento. null = fora do cartão.
+function bancoDoCartao(cod){
+  if(!cod)return null;
+  for(const b in FORMAS_VIRTUAIS)if(FORMAS_VIRTUAIS[b].includes(cod))return b;
+  const c=loadCartoes().find(c=>c.digitos===cod);return c?c.banco:null;
+}
+function formasOptsTodas(sel){
+  return ['nu','c6'].map(b=>`<optgroup label="${b==='nu'?'Nubank':'C6'}">${getCartoes(b).map(c=>`<option value="${c.digitos}"${sel===c.digitos?' selected':''}>${cartaoLabel(c.digitos)}</option>`).join('')}</optgroup>`).join('');
 }
 function cartaoLabel(digitos){
   if(digitos==='PIX_CREDITO') return '💸 Pix Crédito';
-  if(digitos==='BOLETO_CREDITO') return '📄 Boleto Crédito';
+  if(digitos==='BOLETO_CREDITO') return '📄 Boleto Crédito Nubank';
+  if(digitos==='BOLETO_CREDITO_C6') return '📄 Boleto Crédito C6';
   return digitos?`•••• ${digitos}`:'Sem cartão';
 }
 function cartaoSelectOpts(banco, selectedDigitos){
@@ -1317,10 +1335,9 @@ function renderPainel(){
 
   // Totais por banco (Márcio + Raíssa + fixos com cartão daquele banco) - bruto e líquido
   const cartoes=G.cartoes||[];
-  const digitosNu=cartoes.filter(c=>c.banco==='nu').map(c=>c.digitos);
-  const digitosC6=cartoes.filter(c=>c.banco==='c6').map(c=>c.digitos);
-  const tFixNu=sum((m.fix||[]).filter(it=>digitosNu.includes(it.cartao)));
-  const tFixC6=sum((m.fix||[]).filter(it=>digitosC6.includes(it.cartao)));
+  const tFixNu=sum((m.fix||[]).filter(it=>bancoDoCartao(it.cartao)==='nu'));
+  const tFixC6=sum((m.fix||[]).filter(it=>bancoDoCartao(it.cartao)==='c6'));
+  const tFixFora=tfix-tFixNu-tFixC6;
   const nuBruto=tmu+tru+tFixNu;
   const c6Bruto=tmc+trc+tFixC6;
   // Reembolso só de Márcio (Raíssa não tem reembolsos)
@@ -1347,7 +1364,7 @@ function renderPainel(){
     <div class="hero-kpis">
       <div class="kpi"><div class="kpi-lbl">${KEY_ICONS.mnu} Nubank MV</div><div class="kpi-val">${fmt(tmu+tFixNu)}</div></div>
       <div class="kpi"><div class="kpi-lbl">${KEY_ICONS.mc6} C6 MV</div><div class="kpi-val">${fmt(tmc+tFixC6)}</div></div>
-      <div class="kpi"><div class="kpi-lbl">🏠 Fixos</div><div class="kpi-val">${fmt(tfix)}</div></div>
+      <button class="kpi kpi-btn" onclick="goTab('fixos')" aria-label="Ver fixos"><div class="kpi-lbl">🏠 Fixos fora do cartão</div><div class="kpi-val">${fmt(tFixFora)}</div><div class="kpi-sub">de ${fmt(tfix)} em fixos ›</div></button>
       <div class="kpi kpi-rai"><div class="kpi-lbl">💜 Raíssa</div><div class="kpi-val">${fmt(tRai)}</div><div class="kpi-sub"><span class="kpi-pair">${KEY_ICONS.rnu} ${fmt(tru)}</span><span class="kpi-pair">${KEY_ICONS.rc6} ${fmt(trc)}</span></div></div>
       <div class="kpi kpi-total"><div class="kpi-lbl">🌐 Total do casal</div><div class="kpi-val">${fmt(grand)}</div></div>
     </div>
@@ -1460,7 +1477,7 @@ function itemRow(it,i,key){
         <div class="item-desc" style="color:var(--text)">${descDisplay(it.desc)}</div>
         <div style="display:flex;align-items:center;gap:6px;margin-top:2px;flex-wrap:wrap">
           ${(()=>{const pm=it.desc.match(/(\d+)-(\d+)/);const parc=pm?`${pm[1]}/${pm[2]}`:null;if(it.data&&parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(var(--ink-rgb),.05)"><span style="font-size:12px;color:var(--text2);padding:3px 9px">${it.data}</span><span style="width:1px;background:var(--border);align-self:stretch"></span><span style="font-size:11px;font-weight:700;color:var(--blue-txt);padding:3px 9px;background:rgba(37,99,235,.18)">${parc}</span></span>`;if(parc)return`<span style="display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;background:rgba(37,99,235,.18)"><span style="font-size:11px;font-weight:700;color:var(--blue-txt);padding:3px 9px">${parc}</span></span>`;if(it.data)return`<span style="font-size:11px;color:#64748b">${it.data}</span>`;return'';})()}
-          ${it.cartao?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${it.cartao==='PIX_CREDITO'?'var(--chip-bg)':it.cartao==='BOLETO_CREDITO'?'var(--chip-bg)':'var(--chip-bg)'};color:${it.cartao==='PIX_CREDITO'?'#14b8a6':it.cartao==='BOLETO_CREDITO'?'#ca8a04':'var(--text2)'}">${cartaoLabel(it.cartao)}</span>`:''}
+          ${it.cartao?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:var(--chip-bg);color:${it.cartao==='PIX_CREDITO'?'#14b8a6':String(it.cartao).startsWith('BOLETO_CREDITO')?'#ca8a04':'var(--text2)'}">${cartaoLabel(it.cartao)}</span>`:''}
           ${cat?`<span style="font-size:10px;font-weight:600;padding:1px 7px;border-radius:6px;background:${cat.color}22;color:${cat.color}">${cat.emoji} ${cat.label}</span>`:''}
         </div>
       </div>
@@ -1730,10 +1747,8 @@ function renderMarcio(){
   const m=M();
   const cartoes=G.cartoes||[];
   // Fixos separados por banco
-  const digitosNu=cartoes.filter(c=>c.banco==='nu').map(c=>c.digitos);
-  const digitosC6=cartoes.filter(c=>c.banco==='c6').map(c=>c.digitos);
-  const fixNu=(m.fix||[]).filter(it=>digitosNu.includes(it.cartao));
-  const fixC6=(m.fix||[]).filter(it=>digitosC6.includes(it.cartao));
+  const fixNu=(m.fix||[]).filter(it=>bancoDoCartao(it.cartao)==='nu');
+  const fixC6=(m.fix||[]).filter(it=>bancoDoCartao(it.cartao)==='c6');
   const fixTodos=(m.fix||[]);
   const tFixNu=sum(fixNu), tFixC6=sum(fixC6);
 
@@ -1960,15 +1975,14 @@ function startEditFix(idx){
   const row=document.getElementById('row-fix-'+idx);if(!row)return;
   const catOpts=CATS.map(c=>`<option value="${c.id}"${it.cat===c.id?' selected':''}>${c.emoji} ${c.label}</option>`).join('');
   // FEATURE 3: cartao selector para fixos
-  const allCartoes=(G.cartoes||[]);
-  const cartaoOpts=allCartoes.map(c=>`<option value="${c.digitos}"${it.cartao===c.digitos?' selected':''}>${cartaoLabel(c.digitos)}</option>`).join('');
+  const cartaoOpts=formasOptsTodas(it.cartao||'');
   row.innerHTML=`<div class="edit-row">
     <input id="ei-desc" value="${it.desc}" placeholder="Descrição">
     <input class="val-inp" id="ei-date" value="${it.data||''}" placeholder="dd/mm" style="width:68px;flex:0 0 68px">
     <input class="val-inp" id="ei-venc" type="number" value="${it.venc||''}" placeholder="Venc." min="1" max="31" style="width:60px;flex:0 0 60px">
     <input class="val-inp" id="ei-val" type="number" value="${it.val}" step="0.01">
     <select id="ei-cat" style="width:130px;flex:0 0 130px;padding:8px 8px;font-size:12px"><option value="">Categoria</option>${catOpts}</select>
-    ${allCartoes.length?`<select id="ei-cartao" style="width:120px;flex:0 0 120px;padding:8px 8px;font-size:12px"><option value="">Sem cartão</option>${cartaoOpts}</select>`:''}
+    <select id="ei-cartao" style="width:150px;flex:0 0 150px;padding:8px 8px;font-size:12px"><option value="">Fora do cartão</option>${cartaoOpts}</select>
     <button class="btn-ok" onclick="saveEditFix(${idx})">Ok</button>
     <button class="btn-cancel" onclick="cancelEdit()">✕</button>
   </div>`;
@@ -2259,8 +2273,8 @@ function renderMeses(){
 
 function renderCartoesBlock(){
   const cartoes=loadCartoes();
-  const nu=cartoes.filter(c=>c.banco==='nu');
-  const c6=cartoes.filter(c=>c.banco==='c6');
+  const nu=cartoes.filter(c=>c.banco==='nu'&&!ehFormaVirtual(c.digitos));
+  const c6=cartoes.filter(c=>c.banco==='c6'&&!ehFormaVirtual(c.digitos));
 
   function cardRow(c,idx){
     return `<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
@@ -2285,33 +2299,13 @@ function renderCartoesBlock(){
 
   return `<div style="background:var(--surface);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)">
     <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px">💳 Meus Cartões</div>
-    <div style="font-size:12px;color:var(--text3);margin-bottom:16px">Cadastre os 4 últimos dígitos para identificar na conferência</div>
+    <div style="font-size:12px;color:var(--text3);margin-bottom:16px">Cadastre os 4 últimos dígitos dos cartões. Pix no crédito (Nubank) e boleto no crédito (Nubank e C6) já ficam disponíveis automaticamente.</div>
     ${bancoSection('Nubank','<svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#820AD1"/><text x="10" y="14" text-anchor="middle" font-family="Arial" font-weight="700" font-size="9" fill="white">NU</text></svg>','nu',nu)}
     ${bancoSection('C6','<svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="10" fill="#242424"/><text x="10" y="14" text-anchor="middle" font-family="Arial" font-weight="700" font-size="9" fill="white">C6</text></svg>','c6',c6)}
   </div>`;
 }
 
 function addCartao(banco){
-  // Para Nubank, oferece também a opção Pix Crédito
-  if(banco==='nu'){
-    const cartoes=loadCartoes();
-    const temPix=cartoes.some(c=>c.banco==='nu'&&c.digitos==='PIX_CREDITO');
-    const temBoleto=cartoes.some(c=>c.banco==='nu'&&c.digitos==='BOLETO_CREDITO');
-    const opcao=prompt(
-      'Nubank — o que deseja adicionar?\n\n1 = Pix no Crédito\n2 = Boleto no Crédito\n3 = Cartão físico (4 dígitos)\n\nDigite 1, 2 ou 3:'
-    );
-    if(!opcao||!opcao.trim())return;
-    if(opcao.trim()==='1'){
-      if(temPix){alert('Pix Crédito já cadastrado!');return;}
-      cartoes.push({id:'nu_PIX_CREDITO_'+Date.now(),banco:'nu',digitos:'PIX_CREDITO'});
-      saveCartoes(cartoes);renderMeses();return;
-    }
-    if(opcao.trim()==='2'){
-      if(temBoleto){alert('Boleto Crédito já cadastrado!');return;}
-      cartoes.push({id:'nu_BOLETO_CREDITO_'+Date.now(),banco:'nu',digitos:'BOLETO_CREDITO'});
-      saveCartoes(cartoes);renderMeses();return;
-    }
-  }
   const digitos=prompt('Digite os 4 últimos dígitos do cartão '+(banco==='nu'?'Nubank':'C6')+':');
   if(!digitos||!digitos.trim())return;
   const d=digitos.trim().replace(/\D/g,'').slice(0,4);
@@ -2610,9 +2604,8 @@ function renderConferencia(){
 
   function buildBankSection(titulo,icone,banco,itensM,itensR,keyM,keyR){
     // Inclui fixos deste banco como itens extras
-    const cartoesBanco=(G.cartoes||[]).filter(c=>c.banco===banco);
-    const digitosBanco=cartoesBanco.map(c=>c.digitos);
-    const fixDosBanco=(m.fix||[]).filter(it=>it.cartao&&digitosBanco.includes(it.cartao));
+    const cartoesBanco=getCartoes(banco);
+    const fixDosBanco=(m.fix||[]).filter(it=>bancoDoCartao(it.cartao)===banco);
     // índice real em m.fix para o toggleConfItem funcionar corretamente
     const fixDosBancoIdx=fixDosBanco.map(it=>(m.fix||[]).indexOf(it));
 
@@ -2626,6 +2619,7 @@ function renderConferencia(){
     if(cartoesBanco.length>0){
       cartoesBanco.forEach(c=>{
         const itens=todos.filter(({it})=>it.cartao===c.digitos);
+        if(c.virtual&&!itens.length)return;
         grupos.push({label:cartaoLabel(c.digitos),id:banco+'_'+c.digitos,itens});
       });
       const semCartao=todos.filter(({it})=>!it.cartao||!cartoesBanco.some(c=>c.digitos===it.cartao));
@@ -2850,11 +2844,8 @@ function atualizaCartaoSelect(){
   if(!fg||!sel)return;
   // FEATURE 3: Fixos agora podem ter forma de pagamento
   if(tipo==='fix'){
-    const allCartoes=(G.cartoes||[]);
-    if(allCartoes.length===0){fg.style.display='none';return;}
     fg.style.display='block';
-    sel.innerHTML=`<option value="">— Sem cartão (boleto/Pix) —</option>`+
-      allCartoes.map(c=>`<option value="${c.digitos}">${cartaoLabel(c.digitos)}</option>`).join('');
+    sel.innerHTML=`<option value="">— Fora do cartão (boleto, Pix, débito) —</option>`+formasOptsTodas('');
     return;
   }
   const banco=(tipo==='nu')?'nu':'c6';
