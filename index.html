@@ -1707,25 +1707,36 @@ function saveEdit(){
   if(!desc||isNaN(val))return;
   const key=editState.key;
   const it=M()[key][editState.idx];
+  const antes={desc:it.desc,rec:!!it.recorrente};
   it.desc=desc;it.val=val;it.data=data;
   if(cat){it.cat=cat;it._catManual=true;}else{delete it.cat;delete it._catManual;}
   if(cartao){it.cartao=cartao;it._cartaoManual=true;}else{delete it.cartao;delete it._cartaoManual;}
   if(key!=='fix'){if(window._editRec)it.recorrente=true;else delete it.recorrente;}
-  // Propaga categoria, cartão e data para parcelas/recorrentes seguintes
-  if(isParcelado(it)||it.recorrente){
+  let aviso='';
+  if(key!=='fix'&&it.recorrente&&!isParcelado(it)){
+    // Recorrente: leva nome, valor, categoria, cartão e data para os meses seguintes
+    const r=propagarRecorrenteEdicao(key,antes.desc,it,G.current);
+    if(r.atualizados||r.adicionados)aviso=`🔄 Recorrente atualizado em ${r.atualizados+r.adicionados} mês(es) seguinte(s)`;
+  }else if(isParcelado(it)){
+    // Parcela: propaga categoria, cartão e data para as próximas parcelas
     propagarEdicao(key,it.desc,{cat:cat||null,cartao:cartao||null,data:data||null},G.current);
   }
-  // Recorrente: garante que está nos meses seguintes que já existem
-  const nRec=(key!=='fix'&&it.recorrente&&!isParcelado(it))?propagarRecorrente(key,it,G.current):0;
+  if(key!=='fix'&&antes.rec&&!it.recorrente){
+    // Deixou de ser recorrente: oferece tirar dos meses seguintes
+    const copias=copiasRecorrenteSeguintes(key,antes.desc,G.current);
+    if(copias.length&&confirm(`"${antes.desc}" deixou de ser recorrente.\n\nRemover também dos ${copias.length} mês(es) seguinte(s)?`)){
+      removerCopias(key,copias);aviso=`🗑️ Removido de ${copias.length} mês(es) seguinte(s)`;
+    }
+  }
   editState={key:null,idx:null};save();renderAll();
-  if(nRec>0)showSyncStatus(`🔄 Recorrente copiado para ${nRec} mês(es) seguinte(s)`,true);
+  if(aviso)showSyncStatus(aviso,true);
 }
 function cancelEdit(){editState={key:null,idx:null};renderAll();}
 function confirmDel(key,idx){
   const it=M()[key][idx];
   const row=document.getElementById('row-'+key+'-'+idx);if(!row)return;
-  row.innerHTML=`<div class="edit-row" style="background:#fef2f2">
-    <span style="flex:1;font-size:13px;color:#dc2626">Excluir <b>${it.desc}</b> (${fmt(it.val)})?</span>
+  row.innerHTML=`<div class="edit-row" style="background:var(--bad-bg)">
+    <span style="flex:1;font-size:13px;color:var(--danger)">Excluir <b>${it.desc}</b> (${fmt(it.val)})?</span>
     <button class="btn-ok" style="background:#dc2626" onclick="delItem('${key}',${idx})">Excluir</button>
     <button class="btn-cancel" onclick="cancelEdit()">Cancelar</button>
   </div>`;
@@ -1738,8 +1749,15 @@ function delItem(key,idx){
     const registro=key+'|'+it.desc;
     if(!M()._deletados.includes(registro)) M()._deletados.push(registro);
   }
+  let copias=[];
+  if(it&&it.recorrente&&key!=='fix'){
+    copias=copiasRecorrenteSeguintes(key,it.desc,G.current);
+    if(copias.length&&!confirm(`"${it.desc}" é recorrente.\n\nApagar também dos ${copias.length} mês(es) seguinte(s)?\n\nOK = apagar de todos · Cancelar = só deste mês`))copias=[];
+  }
   M()[key].splice(idx,1);
+  if(copias.length)removerCopias(key,copias);
   save();renderAll();
+  if(copias.length)showSyncStatus(`🗑️ Apagado deste e de ${copias.length} mês(es) seguinte(s)`,true);
 }
 
 // -- TABS --
@@ -2932,6 +2950,44 @@ function propagarRecorrente(key,item,mesOrigemIdx){
     lista.push(novo);n++;
   }
   return n;
+}
+// Mesmo dia, no mês de destino: "10/11" em "Dezembro 2026" vira "10/12".
+function dataNoMes(data,nomeMes){
+  const m=String(data||'').match(/^(\d{1,2})\/\d{1,2}$/);if(!m)return '';
+  const o=mesOrdinal(nomeMes);if(o===null)return '';
+  return m[1].padStart(2,'0')+'/'+String(o%12+1).padStart(2,'0');
+}
+// Edição de um recorrente: leva TODAS as informações para os meses seguintes.
+// Acha o lançamento pelo nome antigo (para funcionar mesmo se ele foi renomeado).
+// Meses anteriores ao mês de origem nunca são alterados.
+function propagarRecorrenteEdicao(key,descAntiga,item,mesOrigemIdx){
+  const norm=s=>String(s||'').trim().toLowerCase();
+  let atualizados=0,adicionados=0;
+  for(let i=mesOrigemIdx+1;i<G.months.length;i++){
+    const lista=G.months[i][key]||(G.months[i][key]=[]);
+    const alvo=lista.find(it=>norm(it.desc)===norm(descAntiga))||lista.find(it=>norm(it.desc)===norm(item.desc));
+    if(alvo){
+      alvo.desc=item.desc;alvo.val=item.val;alvo.recorrente=true;
+      const d=dataNoMes(item.data,G.months[i].name);if(d)alvo.data=d;else delete alvo.data;
+      if(item.cat){alvo.cat=item.cat;alvo._catManual=true;}else{delete alvo.cat;delete alvo._catManual;}
+      if(item.cartao){alvo.cartao=item.cartao;alvo._cartaoManual=true;}else{delete alvo.cartao;delete alvo._cartaoManual;}
+      atualizados++;
+    }else{
+      const novo={...item,data:dataNoMes(item.data,G.months[i].name)};delete novo.pago;lista.push(novo);adicionados++;
+    }
+  }
+  return {atualizados,adicionados};
+}
+// Cópias de um recorrente nos meses seguintes (para remover quando deixa de ser recorrente ou é excluído)
+function copiasRecorrenteSeguintes(key,desc,mesOrigemIdx){
+  const norm=s=>String(s||'').trim().toLowerCase();const res=[];
+  for(let i=mesOrigemIdx+1;i<G.months.length;i++){
+    (G.months[i][key]||[]).forEach(it=>{if(it.recorrente&&norm(it.desc)===norm(desc))res.push({i,it});});
+  }
+  return res;
+}
+function removerCopias(key,copias){
+  copias.forEach(({i,it})=>{const l=G.months[i][key];const k=l.indexOf(it);if(k>=0)l.splice(k,1);});
 }
 function propagarParcelas(key,item,mesOrigemIdx){
   let descAtual=item.desc;
