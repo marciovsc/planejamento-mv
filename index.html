@@ -1715,7 +1715,10 @@ function saveEdit(){
   if(isParcelado(it)||it.recorrente){
     propagarEdicao(key,it.desc,{cat:cat||null,cartao:cartao||null,data:data||null},G.current);
   }
+  // Recorrente: garante que está nos meses seguintes que já existem
+  const nRec=(key!=='fix'&&it.recorrente&&!isParcelado(it))?propagarRecorrente(key,it,G.current):0;
   editState={key:null,idx:null};save();renderAll();
+  if(nRec>0)showSyncStatus(`🔄 Recorrente copiado para ${nRec} mês(es) seguinte(s)`,true);
 }
 function cancelEdit(){editState={key:null,idx:null};renderAll();}
 function confirmDel(key,idx){
@@ -2917,6 +2920,19 @@ function migrateCapitalize(){
   alert(msg);
 }
 
+// Recorrentes (assinaturas etc.) também vão na hora para os meses seguintes que já existem.
+// Não duplica: se o mês já tem um lançamento com a mesma descrição, mantém o que está lá.
+function propagarRecorrente(key,item,mesOrigemIdx){
+  let n=0;
+  const norm=s=>String(s||'').trim().toLowerCase();
+  for(let i=mesOrigemIdx+1;i<G.months.length;i++){
+    const lista=G.months[i][key]||(G.months[i][key]=[]);
+    if(lista.some(it=>norm(it.desc)===norm(item.desc)))continue;
+    const novo={...item,data:''};delete novo.pago;
+    lista.push(novo);n++;
+  }
+  return n;
+}
 function propagarParcelas(key,item,mesOrigemIdx){
   let descAtual=item.desc;
   for(let i=mesOrigemIdx+1;i<G.months.length;i++){
@@ -2969,13 +2985,14 @@ function addGasto(){
     M()[keyR].push(itemR);
 
     if(isParc){propagarParcelas(keyM,itemM,G.current);propagarParcelas(keyR,itemR,G.current);}
+    else if(recorrente){propagarRecorrente(keyM,itemM,G.current);propagarRecorrente(keyR,itemR,G.current);}
     save();renderAll();
     ['f-desc','f-val','f-data','f-parc-atual','f-parc-total','f-venc','f-cat','f-val-m','f-val-r'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
     const prev=document.getElementById('parc-preview');if(prev)prev.style.display='none';
     const prevDiv=document.getElementById('divisao-preview');if(prevDiv)prevDiv.textContent='';
     const futuros=G.months.length-1-G.current;
     const t=document.getElementById('toast-g');
-    if(t){t.textContent=`✅ Dividido! 👤 Márcio ${fmt(valM)} · 💜 Raíssa ${fmt(valR)}${isParc&&futuros>0?' + parcelas propagadas':''}`;t.style.display='block';setTimeout(()=>{t.style.display='none';},3000);}
+    if(t){t.textContent=`✅ Dividido! 👤 Márcio ${fmt(valM)} · 💜 Raíssa ${fmt(valR)}${futuros>0&&isParc?' + parcelas propagadas':futuros>0&&recorrente?' + copiado para os próximos meses':''}`;t.style.display='block';setTimeout(()=>{t.style.display='none';},3000);}
     return;
   }
 
@@ -2989,14 +3006,16 @@ function addGasto(){
   if(recorrente)item.recorrente=true;
   M()[key].push(item);
   // FEATURE 4: propagar parcelas para fixos tambem
+  let nRec=0;
   if(isParc){propagarParcelas(key,item,G.current);}
+  else if(recorrente){nRec=propagarRecorrente(key,item,G.current);}
   save();renderAll();
   ['f-desc','f-val','f-data','f-parc-atual','f-parc-total','f-venc','f-cat'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   const prev=document.getElementById('parc-preview');if(prev)prev.style.display='none';
   const futuros=G.months.length-1-G.current;
-  if(isParc&&futuros>0){
+  if((isParc||nRec>0)&&futuros>0){
     const t=document.getElementById('toast-g');
-    if(t){t.textContent=`✅ Lançado + parcelas propagadas para ${futuros} mês(es)!`;t.style.display='block';setTimeout(()=>{t.style.display='none';},3000);}
+    if(t){t.textContent=isParc?`✅ Lançado + parcelas propagadas para ${futuros} mês(es)!`:`✅ Lançado + recorrente copiado para ${nRec} mês(es) seguinte(s)!`;t.style.display='block';setTimeout(()=>{t.style.display='none';},3000);}
   }else{showToast('toast-g');}
 }
 
