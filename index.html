@@ -473,6 +473,8 @@ button{transition:transform .12s,filter .15s}
 .btn-submit:hover{filter:brightness(1.08)}
 .list-card,.chart-card,.form-card,.fatura-card,.conf-bank-block,.month-mgr,.mcard{border-color:rgba(var(--ink-rgb),.07)}
 .fatura-card{transition:transform .2s}
+.aviso-prop{position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom));transform:translate(-50%,12px);width:calc(100% - 32px);max-width:440px;padding:14px 16px;border-radius:16px;font-size:14px;font-weight:600;line-height:1.45;z-index:10001;background:var(--elev);color:var(--text);border:2px solid var(--nu);box-shadow:0 14px 40px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;text-align:center}
+.aviso-prop.show{opacity:1;transform:translate(-50%,0)}
 .cloud-toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translate(-50%,12px);padding:10px 16px;border-radius:14px;font-size:13px;font-weight:600;z-index:9999;white-space:nowrap;background:var(--elev);color:var(--text);border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
 .cloud-toast.show{opacity:1;transform:translate(-50%,0)}
 .cloud-toast.ok{border-color:rgba(74,222,128,.4)}.cloud-toast.err{border-color:rgba(248,113,113,.45)}
@@ -1597,8 +1599,8 @@ function toggleEditRec(){
   else{btn.style.borderColor='var(--border)';btn.style.background='var(--surface2)';btn.style.color='var(--text3)';btn.textContent='🔄 Normal';}
 }
 function propagarEdicao(key, itemDesc, campos, mesOrigemIdx){
-  // campos = { cat, cartao, data } -- propaga para parcelas/recorrentes nos meses seguintes
-  let descAtual=itemDesc;
+  // campos = { cat, cartao, data, val, venc } -- propaga para as próximas parcelas
+  let descAtual=itemDesc,n=0;
   for(let i=mesOrigemIdx+1;i<G.months.length;i++){
     const mo=G.months[i];
     const proxDesc=isParcelado({desc:descAtual})?nextParcel(descAtual):null;
@@ -1613,12 +1615,16 @@ function propagarEdicao(key, itemDesc, campos, mesOrigemIdx){
         else delete alvo.cartao;
       }
       if(campos.data!==undefined){
-        if(campos.data)alvo.data=campos.data;
-        else delete alvo.data;
+        // parcelas mantêm a data da compra original
+        if(campos.data)alvo.data=campos.data;else delete alvo.data;
       }
+      if(campos.val!==undefined&&campos.val!==null)alvo.val=campos.val;
+      if(campos.venc!==undefined){if(campos.venc)alvo.venc=campos.venc;else delete alvo.venc;}
+      n++;
     }
     if(proxDesc)descAtual=proxDesc;else break;
   }
+  return n;
 }
 
 // Varre TODOS os meses e propaga cartão de parcelas anteriores para as seguintes
@@ -1713,23 +1719,27 @@ function saveEdit(){
   if(cartao){it.cartao=cartao;it._cartaoManual=true;}else{delete it.cartao;delete it._cartaoManual;}
   if(key!=='fix'){if(window._editRec)it.recorrente=true;else delete it.recorrente;}
   let aviso='';
+  const temSeguintes=G.current<G.months.length-1;
   if(key!=='fix'&&it.recorrente&&!isParcelado(it)){
     // Recorrente: leva nome, valor, categoria, cartão e data para os meses seguintes
-    const r=propagarRecorrenteEdicao(key,antes.desc,it,G.current);
-    if(r.atualizados||r.adicionados)aviso=`🔄 Recorrente atualizado em ${r.atualizados+r.adicionados} mês(es) seguinte(s)`;
+    if(!temSeguintes)aviso='SEM';
+    else{const r=propagarRecorrenteEdicao(key,antes.desc,it,G.current);const n=r.atualizados+r.adicionados;
+      if(n)aviso=`🔄 "${it.desc}" atualizado em ${plural(n,'mês seguinte','meses seguintes')}`+(r.adicionados?` (${plural(r.adicionados,'mês recebeu','meses receberam')} o lançamento)`:'')+'.';}
   }else if(isParcelado(it)){
-    // Parcela: propaga categoria, cartão e data para as próximas parcelas
-    propagarEdicao(key,it.desc,{cat:cat||null,cartao:cartao||null,data:data||null},G.current);
+    // Parcela: propaga categoria, cartão, data e valor para as próximas parcelas
+    const n=propagarEdicao(key,it.desc,{cat:cat||null,cartao:cartao||null,data:data||null,val},G.current);
+    if(n)aviso=`🔄 ${plural(n,'próxima parcela atualizada','próximas parcelas atualizadas')}.`;
   }
   if(key!=='fix'&&antes.rec&&!it.recorrente){
     // Deixou de ser recorrente: oferece tirar dos meses seguintes
     const copias=copiasRecorrenteSeguintes(key,antes.desc,G.current);
     if(copias.length&&confirm(`"${antes.desc}" deixou de ser recorrente.\n\nRemover também dos ${copias.length} mês(es) seguinte(s)?`)){
-      removerCopias(key,copias);aviso=`🗑️ Removido de ${copias.length} mês(es) seguinte(s)`;
+      removerCopias(key,copias);aviso=`🗑️ "${antes.desc}" removido de ${plural(copias.length,'mês seguinte','meses seguintes')}.`;
     }
   }
   editState={key:null,idx:null};save();renderAll();
-  if(aviso)showSyncStatus(aviso,true);
+  if(aviso==='SEM')avisoSemMesesSeguintes(key==='entradas'?'Entrada recorrente':'Recorrente');
+  else if(aviso)avisoPropagacao(aviso);
 }
 function cancelEdit(){editState={key:null,idx:null};renderAll();}
 function confirmDel(key,idx){
@@ -1750,14 +1760,15 @@ function delItem(key,idx){
     if(!M()._deletados.includes(registro)) M()._deletados.push(registro);
   }
   let copias=[];
-  if(it&&it.recorrente&&key!=='fix'){
+  if(it&&(it.recorrente||key==='fix')){
     copias=copiasRecorrenteSeguintes(key,it.desc,G.current);
-    if(copias.length&&!confirm(`"${it.desc}" é recorrente.\n\nApagar também dos ${copias.length} mês(es) seguinte(s)?\n\nOK = apagar de todos · Cancelar = só deste mês`))copias=[];
+    const oque=key==='fix'?'fixo':isParcelado(it)?'parcelado':'recorrente';
+    if(copias.length&&!confirm(`"${descDisplay(it.desc)}" é ${oque}.\n\nApagar também dos ${plural(copias.length,'mês seguinte','meses seguintes')}?\n\nOK = apagar de todos · Cancelar = só deste mês`))copias=[];
   }
   M()[key].splice(idx,1);
   if(copias.length)removerCopias(key,copias);
   save();renderAll();
-  if(copias.length)showSyncStatus(`🗑️ Apagado deste e de ${copias.length} mês(es) seguinte(s)`,true);
+  if(copias.length)avisoPropagacao(`🗑️ "${descDisplay(it.desc)}" apagado deste mês e de ${plural(copias.length,'mês seguinte','meses seguintes')}.`);
 }
 
 // -- TABS --
@@ -2017,12 +2028,23 @@ function saveEditFix(idx){
   const cartao=document.getElementById('ei-cartao')?.value||'';
   if(!desc||isNaN(val))return;
   const it=M().fix[idx];
-  const catMudou=it.cat!==cat;
+  const descAntiga=it.desc;
   it.desc=desc;it.val=val;it.data=data;it.venc=venc;
   if(cat){it.cat=cat;it._catManual=true;}else{delete it.cat;delete it._catManual;}
   if(cartao){it.cartao=cartao;}else{delete it.cartao;}
-  if(catMudou){propagarCategoria('fix',it.desc,cat||null,G.current);}
+  // Fixo se repete todo mês: leva nome, valor, vencimento, categoria, cartão e data para os meses seguintes
+  // (o "pago" de cada mês é mantido). Fixo parcelado: atualiza as próximas parcelas.
+  let aviso='';
+  if(G.current>=G.months.length-1)aviso='SEM';
+  else if(isParcelado(it)){
+    const n=propagarEdicao('fix',it.desc,{cat:cat||null,cartao:cartao||null,data:data||null,val,venc:venc||null},G.current);
+    if(n)aviso=`🔄 ${plural(n,'próxima parcela atualizada','próximas parcelas atualizadas')}.`;
+  }else{
+    const r=propagarRecorrenteEdicao('fix',descAntiga,it,G.current);const n=r.atualizados+r.adicionados;
+    if(n)aviso=`🔄 Fixo "${it.desc}" atualizado em ${plural(n,'mês seguinte','meses seguintes')}`+(r.adicionados?` (${plural(r.adicionados,'mês recebeu','meses receberam')} o fixo)`:'')+'.';
+  }
   editState={key:null,idx:null};save();renderFixos();
+  if(aviso==='SEM')avisoSemMesesSeguintes('Fixo');else if(aviso)avisoPropagacao(aviso);
 }
 
 function renderEntradas(){
@@ -2951,6 +2973,17 @@ function propagarRecorrente(key,item,mesOrigemIdx){
   }
   return n;
 }
+// Aviso de propagação: grande, fica 4,5 s e não é trocado pelo aviso da nuvem.
+function avisoPropagacao(msg){
+  let el=document.getElementById('aviso-prop');
+  if(!el){el=document.createElement('div');el.id='aviso-prop';el.className='aviso-prop';el.setAttribute('role','status');document.body.appendChild(el);}
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),4500);
+}
+function avisoSemMesesSeguintes(oque){
+  avisoPropagacao(`ℹ️ ${oque} salvo neste mês. Ainda não há meses seguintes criados: ele será levado automaticamente quando você criar o próximo mês.`);
+}
+const plural=(n,s,p)=>n+' '+(n===1?s:p);
 // Mesmo dia, no mês de destino: "10/11" em "Dezembro 2026" vira "10/12".
 function dataNoMes(data,nomeMes){
   const m=String(data||'').match(/^(\d{1,2})\/\d{1,2}$/);if(!m)return '';
@@ -2967,13 +3000,14 @@ function propagarRecorrenteEdicao(key,descAntiga,item,mesOrigemIdx){
     const lista=G.months[i][key]||(G.months[i][key]=[]);
     const alvo=lista.find(it=>norm(it.desc)===norm(descAntiga))||lista.find(it=>norm(it.desc)===norm(item.desc));
     if(alvo){
-      alvo.desc=item.desc;alvo.val=item.val;alvo.recorrente=true;
+      alvo.desc=item.desc;alvo.val=item.val;if(key!=='fix')alvo.recorrente=true;
+      if(key==='fix'){if(item.venc)alvo.venc=item.venc;else delete alvo.venc;}
       const d=dataNoMes(item.data,G.months[i].name);if(d)alvo.data=d;else delete alvo.data;
       if(item.cat){alvo.cat=item.cat;alvo._catManual=true;}else{delete alvo.cat;delete alvo._catManual;}
       if(item.cartao){alvo.cartao=item.cartao;alvo._cartaoManual=true;}else{delete alvo.cartao;delete alvo._cartaoManual;}
       atualizados++;
     }else{
-      const novo={...item,data:dataNoMes(item.data,G.months[i].name)};delete novo.pago;lista.push(novo);adicionados++;
+      const novo={...item,data:dataNoMes(item.data,G.months[i].name)};if(key==='fix')novo.pago=false;else delete novo.pago;lista.push(novo);adicionados++;
     }
   }
   return {atualizados,adicionados};
@@ -2981,8 +3015,17 @@ function propagarRecorrenteEdicao(key,descAntiga,item,mesOrigemIdx){
 // Cópias de um recorrente nos meses seguintes (para remover quando deixa de ser recorrente ou é excluído)
 function copiasRecorrenteSeguintes(key,desc,mesOrigemIdx){
   const norm=s=>String(s||'').trim().toLowerCase();const res=[];
+  // Parcela: as próximas parcelas da mesma compra
+  if(isParcelado({desc})){
+    let d=desc;
+    for(let i=mesOrigemIdx+1;i<G.months.length;i++){
+      d=nextParcel(d);if(!d)break;
+      const it=(G.months[i][key]||[]).find(x=>x.desc===d);if(it)res.push({i,it});
+    }
+    return res;
+  }
   for(let i=mesOrigemIdx+1;i<G.months.length;i++){
-    (G.months[i][key]||[]).forEach(it=>{if(it.recorrente&&norm(it.desc)===norm(desc))res.push({i,it});});
+    (G.months[i][key]||[]).forEach(it=>{if((key==='fix'||it.recorrente)&&norm(it.desc)===norm(desc))res.push({i,it});});
   }
   return res;
 }
@@ -3041,7 +3084,8 @@ function addGasto(){
     M()[keyR].push(itemR);
 
     if(isParc){propagarParcelas(keyM,itemM,G.current);propagarParcelas(keyR,itemR,G.current);}
-    else if(recorrente){propagarRecorrente(keyM,itemM,G.current);propagarRecorrente(keyR,itemR,G.current);}
+    else if(recorrente){const a=propagarRecorrente(keyM,itemM,G.current);propagarRecorrente(keyR,itemR,G.current);
+      if(a)setTimeout(()=>avisoPropagacao(`✅ "${desc}" dividido e copiado para ${plural(a,'mês seguinte','meses seguintes')} (Márcio e Raíssa).`),50);}
     save();renderAll();
     ['f-desc','f-val','f-data','f-parc-atual','f-parc-total','f-venc','f-cat','f-val-m','f-val-r'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
     const prev=document.getElementById('parc-preview');if(prev)prev.style.display='none';
@@ -3064,14 +3108,20 @@ function addGasto(){
   // FEATURE 4: propagar parcelas para fixos tambem
   let nRec=0;
   if(isParc){propagarParcelas(key,item,G.current);}
-  else if(recorrente){nRec=propagarRecorrente(key,item,G.current);}
+  else if(recorrente||key==='fix'){nRec=propagarRecorrente(key,item,G.current);}
   save();renderAll();
   ['f-desc','f-val','f-data','f-parc-atual','f-parc-total','f-venc','f-cat'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   const prev=document.getElementById('parc-preview');if(prev)prev.style.display='none';
   const futuros=G.months.length-1-G.current;
-  if((isParc||nRec>0)&&futuros>0){
+  if(isParc&&futuros>0){
     const t=document.getElementById('toast-g');
-    if(t){t.textContent=isParc?`✅ Lançado + parcelas propagadas para ${futuros} mês(es)!`:`✅ Lançado + recorrente copiado para ${nRec} mês(es) seguinte(s)!`;t.style.display='block';setTimeout(()=>{t.style.display='none';},3000);}
+    if(t){t.textContent=`✅ Lançado + parcelas propagadas para ${futuros} mês(es)!`;t.style.display='block';setTimeout(()=>{t.style.display='none';},3000);}
+    avisoPropagacao(`✅ "${descDisplay(item.desc)}" lançado e parcelas levadas para ${plural(futuros,'mês seguinte','meses seguintes')}.`);
+  }else if(nRec>0){
+    showToast('toast-g');
+    avisoPropagacao(`✅ "${item.desc}" lançado e copiado para ${plural(nRec,'mês seguinte','meses seguintes')}.`);
+  }else if((recorrente||key==='fix')&&!isParc&&futuros===0){
+    showToast('toast-g');avisoSemMesesSeguintes(key==='fix'?'Fixo':'Recorrente');
   }else{showToast('toast-g');}
 }
 
@@ -3088,9 +3138,13 @@ function addEntrada(){
   const data=document.getElementById('e-data').value.trim();
   if(!desc||isNaN(val)||val<=0)return;
   const item={desc,val,data};if(window._recEntrada)item.recorrente=true;
-  M().entradas.push(item);save();renderAll();
+  M().entradas.push(item);
+  const n=item.recorrente?propagarRecorrente('entradas',item,G.current):0;
+  save();renderAll();
   ['e-desc','e-val','e-data'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   window._recEntrada=false;showToast('toast-g');
+  if(n>0)avisoPropagacao(`✅ Entrada "${desc}" lançada e copiada para ${plural(n,'mês seguinte','meses seguintes')}.`);
+  else if(item.recorrente&&G.current>=G.months.length-1)avisoSemMesesSeguintes('Entrada recorrente');
 }
 function showToast(id){const el=document.getElementById(id);if(!el)return;el.style.display='block';setTimeout(()=>{el.style.display='none';},2200);}
 function selectMonth(i){G.current=i;save();renderAll();updateLabel();}
