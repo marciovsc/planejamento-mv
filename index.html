@@ -2429,8 +2429,8 @@ function toggleConfItem(bankKey,idx,estado){
 }
 
 function proximoDiaUtil(ano, mes, dia){
-  // Feriados nacionais fixos (dia/mes)
-  const feriadosFixos=['01/01','21/04','01/05','07/09','12/10','02/11','15/11','25/12'];
+  // Feriados nacionais fixos (dia/mes) + feriados municipais da cidade do Márcio
+  const feriadosFixos=['01/01','21/04','01/05','07/09','12/10','02/11','15/11','25/12',...FERIADOS_LOCAIS];
   const d = new Date(ano, mes, dia);
   function ehFeriado(dt){
     const str=String(dt.getDate()).padStart(2,'0')+'/'+String(dt.getMonth()+1).padStart(2,'0');
@@ -2447,15 +2447,18 @@ function proximoDiaUtil(ano, mes, dia){
 // Vencimento por banco. C6 mudou de dia 05 para dia 15 a partir da fatura de Dezembro/2026.
 // Fechamento estimado: FECHA_ANTES dias antes do vencimento.
 const FECHA_ANTES=7;
+// Feriados municipais (dia/mês) da cidade do Márcio: afetam vencimento e fechamento das faturas.
+const FERIADOS_LOCAIS=['08/12'];
 function diaVencimento(banco,anoFatura,mesFaturaIdx){
   if(banco==='nu')return 9;
   const ord=anoFatura*12+mesFaturaIdx;
   return ord>=2026*12+11?15:5;
 }
 function vencimentoFatura(banco,anoFatura,mesFaturaIdx){return proximoDiaUtil(anoFatura,mesFaturaIdx,diaVencimento(banco,anoFatura,mesFaturaIdx));}
+// Fechamento: FECHA_ANTES dias antes do vencimento; se cair em fim de semana ou feriado, vai para o próximo dia útil
+// (ex.: C6 vence 15/12, fecharia 08/12, que é feriado municipal → fecha 09/12).
 function fechamentoFatura(banco,anoFatura,mesFaturaIdx){
-  const d=new Date(anoFatura,mesFaturaIdx,diaVencimento(banco,anoFatura,mesFaturaIdx));
-  d.setDate(d.getDate()-FECHA_ANTES);return d;
+  return proximoDiaUtil(anoFatura,mesFaturaIdx,diaVencimento(banco,anoFatura,mesFaturaIdx)-FECHA_ANTES);
 }
 
 function infoFaturaBanco(){

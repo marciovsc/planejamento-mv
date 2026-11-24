@@ -67,7 +67,7 @@ sincronizados numa "nuvem" feita com Google Apps Script + Google Drive.
 - Ao lançar/editar: **parcelas** vão para os meses seguintes que já existem (`propagarParcelas`) e **recorrentes** também (`propagarRecorrente`, sem duplicar). Editar um recorrente leva nome, valor, categoria, cartão e data (mesmo dia, no mês de cada destino) para os meses seguintes (`propagarRecorrenteEdicao`); desmarcar "recorrente" ou excluir pergunta se remove dos meses seguintes. Fixos se comportam como recorrentes (todo fixo se repete; o `pago` de cada mês é mantido) e entradas recorrentes também. Toda propagação mostra `avisoPropagacao()` (aviso grande, separado do aviso da nuvem); se não há meses seguintes, avisa que será levado ao criar o próximo mês. Parcelas mantêm a data da compra original. Meses anteriores nunca são alterados. Ao criar um mês novo, `criarMesInteligente()` leva recorrentes, parcelas e fixos do mês anterior.
 - **Mês de lançamento:** as compras de "Novembro" entram na fatura que **vence no mês seguinte**.
 - Vencimentos: Nubank dia 9; C6 dia 5 até a fatura de Nov/2026 e **dia 15 a partir da fatura de Dez/2026**
-  (`diaVencimento()`). Fechamento estimado em 7 dias antes do vencimento (`FECHA_ANTES`).
+  (`diaVencimento()`). Fechamento estimado em 7 dias antes do vencimento (`FECHA_ANTES`), passando para o próximo dia útil se cair em fim de semana ou feriado. Feriados municipais da cidade do Márcio ficam em `FERIADOS_LOCAIS` (hoje: 08/12). Confirmado: fatura C6 de Dez/2026 fecha 09/12 e vence 15/12.
 - Formas de pagamento sem cartão físico (`FORMAS_VIRTUAIS`), sempre disponíveis:
   - `PIX_CREDITO` → Nubank (só existe no Nubank)
   - `BOLETO_CREDITO` → Nubank (código antigo, mantido)
