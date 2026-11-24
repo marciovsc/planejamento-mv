@@ -90,6 +90,14 @@ sincronizados numa "nuvem" feita com Google Apps Script + Google Drive.
 - Painel: `renderPainel()`; gráfico "Próximos meses": `calcProjecao()`, `htmlProjecao()`, `drawProjecao()`
   (começa no **mês atual do calendário**; meses existentes usam dados reais, os demais são estimados).
 - Busca global: `renderBusca()`, `buscaResultados()`.
+- Importar fatura do C6 (aba `importar`, botão na Conferir): `impArquivo()` lê o `.csv` ou o `.zip` com senha do e-mail
+  (ZipCrypto + `DecompressionStream`, tudo no aparelho, senha nunca salva); `processarFaturaCSV()` lê as colunas do C6
+  (`Data de Compra;Nome no Cartão;Final do Cartão;Categoria;Descrição;Parcela;…;Valor (em R$)`, valor com ponto);
+  nome do arquivo `Fatura_AAAA-MM-DD.csv` = vencimento, logo lançamentos do mês anterior. `calcularImportacao()` casa cada
+  compra com `mc6`, `rc6` e fixos do C6, inclusive **compras divididas** (uma linha da fatura = Márcio + Raíssa somados).
+  O cartão usado não decide quem pagou; para lançamentos novos a pessoa sugerida vem do nome no cartão e de
+  `FINAL_PESSOA_PADRAO` (1507 → Márcio, 8861 → Raíssa), e dá para trocar ou dividir na lista. Valores negativos
+  (pagamentos/estornos) não entram. Nada é gravado até tocar em "Marcar conferência" ou "Adicionar selecionados".
 - Simulador "Posso comprar?": `simular()`, `renderCompra()`.
 - Conferir: `renderConferencia()`, `loadConf()` / `saveConf()`.
 - Tema claro/escuro: variáveis em `:root` e `:root[data-theme="light"]`; `aplicarTema()`, `setTema()`;
