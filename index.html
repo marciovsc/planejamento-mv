@@ -473,6 +473,36 @@ button{transition:transform .12s,filter .15s}
 .btn-submit:hover{filter:brightness(1.08)}
 .list-card,.chart-card,.form-card,.fatura-card,.conf-bank-block,.month-mgr,.mcard{border-color:rgba(var(--ink-rgb),.07)}
 .fatura-card{transition:transform .2s}
+.imp-cta{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:14px 16px;margin-bottom:14px;border-radius:var(--radius);border:1px solid var(--nu);background:var(--nu-bg);color:var(--text);cursor:pointer;font-family:inherit}
+.imp-cta-ic{font-size:24px}
+.imp-cta b{display:block;font-size:14px}
+.imp-cta small{display:block;font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4}
+.imp-passos{margin:0 0 14px 18px;font-size:13px;color:var(--text2);line-height:1.6}
+.imp-file{display:block;text-align:center;cursor:pointer}
+.imp-file2{flex:1;padding:12px;font-weight:600}
+.imp-head{font-size:13px;color:var(--text)}
+.imp-resumo{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.imp-resumo>div{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:10px 12px}
+.imp-resumo>div.ok{background:var(--ok-bg)}
+.imp-resumo>div.warn{border-color:var(--warn)}
+.imp-resumo span{display:block;font-size:11px;color:var(--text2)}
+.imp-resumo b{display:block;font-size:18px;color:var(--text);margin-top:2px}
+.imp-resumo small{display:block;font-size:11px;color:var(--text3)}
+.imp-row{display:flex;gap:10px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid var(--border)}
+.imp-row:last-child{border-bottom:none}
+.imp-row-main{flex:1;min-width:0}
+.imp-desc{font-size:13px;font-weight:600;color:var(--text);word-break:break-word}
+.imp-val{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap}
+.imp-chk{width:20px;height:20px;flex:0 0 20px;margin-top:2px;accent-color:var(--nu)}
+.imp-pessoa{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.imp-pessoa .bchip{padding:5px 10px;font-size:11px}
+.imp-div{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:var(--text2)}
+.imp-div input{width:100px;padding:6px 8px;font-size:13px!important}
+.imp-cmp{font-size:11px;color:var(--text2);margin-top:4px}
+.imp-cmp b.neg{color:var(--neg)}.imp-cmp b.pos{color:var(--pos)}
+.imp-det summary{cursor:pointer;list-style:none}
+.imp-det summary::-webkit-details-marker{display:none}
+
 .aviso-prop{position:fixed;left:50%;bottom:calc(140px + env(safe-area-inset-bottom));transform:translate(-50%,12px);width:calc(100% - 32px);max-width:440px;padding:14px 16px;border-radius:16px;font-size:14px;font-weight:600;line-height:1.45;z-index:10001;background:var(--elev);color:var(--text);border:2px solid var(--nu);box-shadow:0 14px 40px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;text-align:center}
 .aviso-prop.show{opacity:1;transform:translate(-50%,0)}
 .cloud-toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translate(-50%,12px);padding:10px 16px;border-radius:14px;font-size:13px;font-weight:600;z-index:9999;white-space:nowrap;background:var(--elev);color:var(--text);border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
@@ -521,6 +551,7 @@ button{transition:transform .12s,filter .15s}
   <div id="tab-conferencia" class="page"></div>
   <div id="tab-busca" class="page"></div>
   <div id="tab-compra" class="page"></div>
+  <div id="tab-importar" class="page"></div>
 </div>
 
 <nav class="bottom-nav">
@@ -2801,6 +2832,8 @@ function renderConferencia(){
       ${totalDiv>0?`<div style="margin-top:10px;padding:10px 12px;background:var(--bad-bg);border-radius:10px;font-size:12px;color:var(--neg);font-weight:600">⚠️ Você marcou ${totalDiv} item(ns) com divergência. Acesse as abas Márcio/Raíssa para corrigir os valores.</div>`:''}
     </div>
 
+    <button class="imp-cta" onclick="goTab('importar')"><span class="imp-cta-ic">📥</span><span><b>Importar fatura do C6</b><small>Arquivo .zip do e-mail ou .csv do app. Confere sozinho e mostra o que falta lançar.</small></span></button>
+
     ${buildBankSection('Nubank',KEY_ICONS.mnu,'nu',m.mnu||[],m.rnu||[],'mnu','rnu')}
     ${buildBankSection('C6',KEY_ICONS.mc6,'c6',m.mc6||[],m.rc6||[],'mc6','rc6')}
 
@@ -3401,9 +3434,9 @@ function renderAll(){renderTab(activeTab);updateLabel();}
 // -- ROUTING --
 let activeTab='painel';
 let _tabAnterior='painel';
-const MORE_TABS=['analise','fixos','meses','conferencia','compra'];
+const MORE_TABS=['analise','fixos','meses','conferencia','compra','importar'];
 function goTab(id){
-  ['painel','marcio','raissa','add','analise','fixos','meses','conferencia','busca','compra'].forEach(t=>{
+  ['painel','marcio','raissa','add','analise','fixos','meses','conferencia','busca','compra','importar'].forEach(t=>{
     const b=document.getElementById('bn-'+t);if(b)b.classList.toggle('active',t===id);
   });
   const bm=document.getElementById('bn-mais');if(bm)bm.classList.toggle('active',MORE_TABS.includes(id));
@@ -3458,6 +3491,7 @@ function renderTab(id){
   else if(id==='conferencia')renderConferencia();
   else if(id==='busca')renderBusca();
   else if(id==='compra')renderCompra();
+  else if(id==='importar')renderImportar();
 }
 
 // -- TEMA (automático / claro / escuro) --
@@ -3801,6 +3835,249 @@ function desenharResultadoCompra(){
       scales:{x:{stacked:true,grid:{display:false},ticks:{color:cssVar('--text2'),font:{size:10},maxRotation:0,autoSkip:true}},
         y:{stacked:true,beginAtZero:true,grid:{color:cssVar('--grid')},border:{display:false},ticks:{color:cssVar('--text3'),font:{size:10},maxTicksLimit:5,callback:v=>'R$'+(v>=1000?(v/1000).toLocaleString('pt-BR',{maximumFractionDigits:1})+'k':v)}}}}});
   }
+}
+
+// -- IMPORTAR FATURA (C6: CSV, ou o .zip com senha que chega por e-mail) --
+// Tudo acontece no aparelho: o arquivo e a senha não vão para a nuvem nem ficam salvos.
+// Compras divididas (Márcio + Raíssa) aparecem na fatura como UMA linha e no app como DOIS
+// lançamentos (mc6 + rc6): o casamento soma os dois. O cartão usado não decide quem pagou.
+// Pessoa sugerida para lançamentos novos (dá para trocar na lista): nome no cartão > final do cartão.
+const FINAL_PESSOA_PADRAO={'8861':'R','1507':'M'};
+let IMP=null;
+const _CRC_T=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+const _crcByte=(crc,b)=>(_CRC_T[(crc^b)&0xff]^(crc>>>8))>>>0;
+function _crc32(u8){let c=0xFFFFFFFF;for(let i=0;i<u8.length;i++)c=_crcByte(c,u8[i]);return (c^0xFFFFFFFF)>>>0;}
+function lerZip(u8){
+  const dv=new DataView(u8.buffer,u8.byteOffset,u8.byteLength);
+  let eocd=-1;for(let i=u8.length-22;i>=Math.max(0,u8.length-65558);i--){if(dv.getUint32(i,true)===0x06054b50){eocd=i;break;}}
+  if(eocd<0)throw new Error('zip inválido');
+  const n=dv.getUint16(eocd+10,true);let p=dv.getUint32(eocd+16,true);const out=[];
+  for(let k=0;k<n;k++){
+    if(dv.getUint32(p,true)!==0x02014b50)break;
+    const flags=dv.getUint16(p+8,true),metodo=dv.getUint16(p+10,true),hora=dv.getUint16(p+12,true),crc=dv.getUint32(p+16,true),csize=dv.getUint32(p+20,true);
+    const nl=dv.getUint16(p+28,true),el=dv.getUint16(p+30,true),cl=dv.getUint16(p+32,true),off=dv.getUint32(p+42,true);
+    const nome=new TextDecoder().decode(u8.subarray(p+46,p+46+nl));
+    const ini=off+30+dv.getUint16(off+26,true)+dv.getUint16(off+28,true);
+    out.push({nome,flags,metodo,hora,crc,dados:u8.subarray(ini,ini+csize),criptografado:!!(flags&1)});
+    p+=46+nl+el+cl;
+  }
+  return out;
+}
+function decifrarZipCrypto(e,senha){
+  let k0=0x12345678,k1=0x23456789,k2=0x34567890;
+  const up=c=>{k0=_crcByte(k0,c);k1=(k1+(k0&0xff))>>>0;k1=(Math.imul(k1,134775813)+1)>>>0;k2=_crcByte(k2,k1>>>24);};
+  for(const ch of new TextEncoder().encode(senha))up(ch);
+  const d=e.dados,out=new Uint8Array(d.length);
+  for(let i=0;i<d.length;i++){const t=(k2|2)&0xffff;const c=d[i]^(((t*(t^1))>>>8)&0xff);up(c);out[i]=c;}
+  const chk=(e.flags&8)?(e.hora>>>8)&0xff:(e.crc>>>24)&0xff;
+  return out[11]===chk?out.subarray(12):null;
+}
+async function inflarRaw(u8){
+  if(typeof DecompressionStream==='undefined')throw new Error('Este navegador não abre .zip. Exporte em CSV pelo app do banco.');
+  const s=new Blob([u8]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+  return new Uint8Array(await new Response(s).arrayBuffer());
+}
+function decodificarTexto(u8){try{return new TextDecoder('utf-8',{fatal:true}).decode(u8);}catch(e){return new TextDecoder('windows-1252').decode(u8);}}
+function pedirSenhaZip(erro){
+  return new Promise(res=>{
+    const bg=document.createElement('div');bg.className='key-modal-bg';bg.id='zip-modal';
+    bg.innerHTML=`<div class="key-modal" role="dialog" aria-modal="true"><div class="key-modal-ic">🔐</div><h3>Senha do arquivo</h3>
+      <p>${erro?'<b style="color:var(--neg)">Senha incorreta.</b> ':''}O C6 protege a fatura com os <b>6 primeiros dígitos do CPF</b> do titular. A senha é usada só agora, neste aparelho, e não fica salva.</p>
+      <div class="key-inp-wrap"><input id="zip-senha" type="password" inputmode="numeric" autocomplete="off" placeholder="6 dígitos" maxlength="20"></div>
+      <div class="key-actions"><button type="button" class="btn-cancel" id="zip-cancel">Cancelar</button><button type="button" class="btn-ok" id="zip-ok">Abrir fatura</button></div></div>`;
+    document.body.appendChild(bg);
+    const inp=bg.querySelector('#zip-senha');setTimeout(()=>inp.focus(),50);
+    const fim=v=>{bg.remove();res(v);};
+    bg.querySelector('#zip-cancel').onclick=()=>fim(null);
+    bg.querySelector('#zip-ok').onclick=()=>fim(inp.value.trim());
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')fim(inp.value.trim());});
+  });
+}
+async function impArquivo(input){
+  const f=input.files&&input.files[0];input.value='';if(!f)return;
+  try{
+    const u8=new Uint8Array(await f.arrayBuffer());let texto,nome=f.name;
+    if(u8[0]===0x50&&u8[1]===0x4b){
+      const e=lerZip(u8).find(x=>/\.csv$/i.test(x.nome));
+      if(!e){avisoPropagacao('⚠️ Não encontrei um arquivo CSV dentro do .zip. Peça a fatura em CSV no app do C6.');return;}
+      let dados=e.dados,erro=false;
+      if(e.criptografado){
+        for(;;){
+          const senha=await pedirSenhaZip(erro);if(senha===null)return;
+          const d=decifrarZipCrypto(e,senha);
+          if(d){try{const bruto=e.metodo===8?await inflarRaw(d):d;if(_crc32(bruto)===e.crc){dados=bruto;break;}}catch(x){}}
+          erro=true;
+        }
+      }else if(e.metodo===8)dados=await inflarRaw(dados);
+      texto=decodificarTexto(dados);nome=e.nome;
+    }else texto=decodificarTexto(u8);
+    processarFaturaCSV(texto,nome);
+  }catch(err){console.warn(err);avisoPropagacao('⚠️ Não consegui ler o arquivo. '+(err&&err.message?err.message:''));}
+}
+function _numBR(s){s=String(s||'').trim().replace(/\s|R\$/g,'');if(!s)return 0;if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');const v=parseFloat(s);return isFinite(v)?v:0;}
+function processarFaturaCSV(texto,nome){
+  const linhas=texto.replace(/^﻿/,'').split(/\r?\n/).filter(l=>l.trim());
+  if(!linhas.length){avisoPropagacao('⚠️ O arquivo está vazio.');return;}
+  const cab=linhas[0].split(';').map(c=>semAcento(c.replace(/"/g,'').trim()));
+  const col=t=>cab.findIndex(c=>c.startsWith(t));
+  const iData=col('data de compra'),iNome=col('nome no cartao'),iFinal=col('final do cartao'),iCat=col('categoria'),iDesc=col('descricao'),iParc=col('parcela'),iVal=col('valor (em r$)');
+  if(iData<0||iDesc<0||iVal<0){avisoPropagacao('⚠️ Formato não reconhecido. Por enquanto o app lê a fatura em CSV do C6.');return;}
+  const compras=[],creditos=[];
+  linhas.slice(1).forEach(l=>{
+    const c=l.split(';').map(x=>x.replace(/^"|"$/g,'').trim());if(c.length<=iVal)return;
+    const v=_numBR(c[iVal]);if(!v)return;
+    const pm=String(iParc>=0?c[iParc]:'').match(/(\d+)\s*\/\s*(\d+)/);
+    const r={data:(c[iData]||'').slice(0,5),nome:iNome>=0?c[iNome]:'',final:iFinal>=0?c[iFinal]:'',catBanco:iCat>=0?c[iCat]:'',desc:c[iDesc]||'',parc:pm&&+pm[2]>1?{n:+pm[1],t:+pm[2]}:null,valor:Math.abs(v)};
+    (v<0?creditos:compras).push(r);
+  });
+  // mês: a fatura que vence em AAAA-MM traz os lançamentos do mês anterior
+  let venc=null,mesIdx=G.current;
+  const md=String(nome).match(/(\d{4})-(\d{2})-(\d{2})/);
+  if(md){venc=md[3]+'/'+md[2]+'/'+md[1];const ord=(+md[1])*12+(+md[2]-1)-1;const i=G.months.findIndex(mo=>mesOrdinal(mo.name)===ord);if(i>=0)mesIdx=i;}
+  IMP={banco:'c6',arquivo:nome,venc,mesIdx,compras,creditos,pessoa:{},marcados:{},parteR:{}};
+  compras.forEach((r,i)=>{IMP.pessoa[i]=/RA[IÍ]SSA/i.test(r.nome)?'R':(FINAL_PESSOA_PADRAO[r.final]||'M');IMP.marcados[i]=true;});
+  calcularImportacao();goTab('importar');
+}
+const _STOP=new Set(['br','com','www','ltda','sa','me','eireli','pag','pagamento','de','da','do','e','dos','das','compra','loja','div','dividido']);
+function _tokens(s){return semAcento(descDisplay(String(s||''))).replace(/[^a-z0-9]+/g,' ').split(' ').filter(t=>t.length>=2&&!_STOP.has(t));}
+function _sim(a,b){const A=_tokens(a),B=_tokens(b);if(!A.length||!B.length)return 0;let n=0;A.forEach(t=>{if(B.some(u=>u===t||(t.length>=4&&u.length>=4&&(u.startsWith(t)||t.startsWith(u)))))n++;});return n/Math.min(A.length,B.length);}
+function calcularImportacao(){
+  const m=G.months[IMP.mesIdx];
+  const app=[...(m.mc6||[]).map((it,idx)=>({key:'mc6',it,idx})),...(m.rc6||[]).map((it,idx)=>({key:'rc6',it,idx})),
+    ...(m.fix||[]).map((it,idx)=>({key:'fix',it,idx})).filter(x=>bancoDoCartao(x.it.cartao)==='c6')];
+  const parcApp=it=>{const p=String(it.desc||'').match(/(\d+)-(\d+)\s*$/);return p?{n:+p[1],t:+p[2]}:null;};
+  const info=(r,a)=>{const pa=parcApp(a.it);const parcOk=!!(r.parc&&pa&&r.parc.n===pa.n&&r.parc.t===pa.t);
+    return {s:_sim(r.desc,a.it.desc),parcOk,parcRuim:!!(r.parc&&pa&&!parcOk),dataOk:(a.it.data||'')===r.data};};
+  // Candidatos em níveis: 1 valor igual + nome/parcela/data parecidos; 2 compra dividida (Márcio + Raíssa somam o valor);
+  // 3 só o valor igual; 4 nome parecido e valor diferente; 5 dividida com soma diferente.
+  const cand=[];
+  IMP.compras.forEach((r,ri)=>{
+    const ok=[];
+    app.forEach((a,ai)=>{
+      const f=info(r,a);if(f.parcRuim)return;
+      const dv=Math.abs((+a.it.val||0)-r.valor),ev=f.s>=0.3||f.parcOk||f.dataOk,forte=f.s>=0.5||f.parcOk;
+      if(dv<0.015)cand.push({ri,ais:[ai],nivel:ev?1:3,score:f.s*40+(f.parcOk?30:0)+(f.dataOk?10:0)});
+      else if(forte&&dv<=Math.max(5,r.valor*0.3))cand.push({ri,ais:[ai],nivel:4,score:f.s*40+(f.parcOk?30:0)-dv/r.valor*10});
+      if(forte&&a.key!=='fix')ok.push({ai,a,f});
+    });
+    // compra dividida: um lançamento do Márcio + um da Raíssa
+    ok.filter(x=>x.a.key==='mc6').forEach(x=>ok.filter(y=>y.a.key==='rc6').forEach(y=>{
+      const soma=(+x.a.it.val||0)+(+y.a.it.val||0),dv=Math.abs(soma-r.valor);
+      const score=(x.f.s+y.f.s)*20+(x.f.parcOk&&y.f.parcOk?30:0);
+      if(dv<0.015)cand.push({ri,ais:[x.ai,y.ai],nivel:2,score});
+      else if(dv<=Math.max(5,r.valor*0.3))cand.push({ri,ais:[x.ai,y.ai],nivel:5,score:score-dv/r.valor*10});
+    }));
+  });
+  cand.sort((a,b)=>a.nivel-b.nivel||b.score-a.score);
+  const usadoA=new Set(),usadoR=new Set(),res={ok:[],div:[]};
+  cand.forEach(c=>{
+    if(usadoR.has(c.ri)||c.ais.some(i=>usadoA.has(i)))return;
+    usadoR.add(c.ri);c.ais.forEach(i=>usadoA.add(i));
+    res[c.nivel===4||c.nivel===5?'div':'ok'].push({r:IMP.compras[c.ri],ri:c.ri,as:c.ais.map(i=>app[i]),soValor:c.nivel===3});
+  });
+  res.falta=IMP.compras.map((r,ri)=>({r,ri})).filter(x=>!usadoR.has(x.ri));
+  res.soApp=app.filter((a,ai)=>!usadoA.has(ai));
+  IMP.res=res;
+}
+function _catDoBanco(cb,desc){
+  const g=guessCat(desc);if(g)return g;const c=semAcento(cb);
+  const regras=[['supermerc','alimentacao'],['restaur','alimentacao'],['aliment','alimentacao'],['padaria','alimentacao'],['posto','transporte'],['combust','transporte'],['transport','transporte'],['estacion','transporte'],
+    ['farmac','saude'],['drogar','saude'],['saude','saude'],['hospital','saude'],['medic','saude'],['vestu','vestuario'],['educa','educacao'],['hotel','viagem'],['aere','viagem'],['turism','viagem'],['viage','viagem'],
+    ['entreten','lazer'],['lazer','lazer'],['telecom','assinaturas'],['pet','pet'],['esport','esportes'],['varejo','compras'],['departamento','compras']];
+  for(const [t,cat] of regras)if(c.includes(t))return cat;
+  return '';
+}
+function impMarcarConferencia(){
+  const m=G.months[IMP.mesIdx];const conf=Object.assign({},m.conf||{});
+  IMP.res.ok.forEach(x=>x.as.forEach(a=>{conf[confItemKey(a.key,a.it)]='ok';}));
+  IMP.res.div.forEach(x=>x.as.forEach(a=>{conf[confItemKey(a.key,a.it)]='div';}));
+  m.conf=conf;save();renderImportar();
+  avisoPropagacao(`✅ Conferência de ${m.name}: ${plural(IMP.res.ok.length,'compra conferida','compras conferidas')}`+(IMP.res.div.length?` e ${plural(IMP.res.div.length,'divergência marcada','divergências marcadas')}`:'')+'.');
+}
+function impParteR(ri){const r=IMP.compras[ri];const v=IMP.parteR[ri];return v!=null&&isFinite(v)?Math.min(r.valor,Math.max(0,v)):+(r.valor/2).toFixed(2);}
+function impAdicionar(){
+  const m=G.months[IMP.mesIdx];
+  const sel=IMP.res.falta.filter(x=>IMP.marcados[x.ri]);
+  if(!sel.length){avisoPropagacao('Selecione ao menos um lançamento para adicionar.');return;}
+  const total=sel.reduce((t,x)=>t+x.r.valor,0);
+  if(!confirm(`Adicionar ${plural(sel.length,'compra','compras')} (${fmt(total)}) em ${m.name}?\n\nParcelas também vão para os meses seguintes que já existem.`))return;
+  const cartoesC6=getCartoes('c6').map(c=>c.digitos);const conf=Object.assign({},m.conf||{});let parcs=0;
+  sel.forEach(({r,ri})=>{
+    const base={desc:toCapitalize(r.desc)+(r.parc?` ${r.parc.n}-${r.parc.t}`:''),data:r.data};
+    const cat=_catDoBanco(r.catBanco,r.desc);if(cat){base.cat=cat;base._catManual=true;}
+    if(r.final&&cartoesC6.includes(r.final))base.cartao=r.final;
+    const p=IMP.pessoa[ri];
+    const partes=p==='D'?[['mc6',+(r.valor-impParteR(ri)).toFixed(2)],['rc6',impParteR(ri)]]:[[p==='R'?'rc6':'mc6',+r.valor.toFixed(2)]];
+    partes.filter(([,v])=>v>0).forEach(([key,val])=>{
+      const item={...base,val};(m[key]||(m[key]=[])).push(item);conf[confItemKey(key,item)]='ok';
+      if(r.parc&&r.parc.n<r.parc.t){propagarParcelas(key,item,IMP.mesIdx);parcs++;}
+    });
+  });
+  m.conf=conf;save();calcularImportacao();renderImportar();
+  avisoPropagacao(`✅ ${plural(sel.length,'compra adicionada','compras adicionadas')} em ${m.name} e marcadas como conferidas`+(parcs?'. Parcelas levadas para os meses seguintes.':'.'));
+}
+function renderImportar(){
+  const el=document.getElementById('tab-importar');if(!el)return;
+  const input=(rot,cls)=>`<label class="${cls} imp-file">${rot}<input type="file" accept=".csv,.zip,text/csv,application/zip" onchange="impArquivo(this)" hidden></label>`;
+  if(!IMP){
+    el.innerHTML=`<div><div class="page-title">📥 Importar fatura</div>
+      <div class="form-card">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px">Fatura do C6</div>
+        <ol class="imp-passos">
+          <li>No app do C6, vá na fatura e peça o arquivo em <b>CSV</b>.</li>
+          <li>Use o <b>.zip</b> que chega no e-mail (senha: 6 primeiros dígitos do CPF) ou o <b>.csv</b>.</li>
+          <li>Escolha o arquivo abaixo. O app confere tudo, inclusive compras divididas com a Raíssa, e mostra o que falta lançar.</li>
+        </ol>
+        ${input('📂 Escolher arquivo da fatura','btn-submit')}
+        <div class="sim-hint" style="margin:12px 0 0">O arquivo e a senha ficam só neste aparelho. Nada é gravado até você tocar nos botões.</div>
+      </div></div>`;
+    return;
+  }
+  const m=G.months[IMP.mesIdx],R=IMP.res;
+  const totF=IMP.compras.reduce((t,r)=>t+r.valor,0);
+  const sumR=l=>l.reduce((t,x)=>t+x.r.valor,0);
+  const quem=a=>a.key==='rc6'?'💜 Raíssa':a.key==='fix'?'🏠 Fixo':'👤 Márcio';
+  const noApp=as=>as.length>1?`➗ Dividido: ${as.map(a=>quem(a)+' '+fmt(a.it.val)).join(' + ')}`:`${quem(as[0])} · ${escHtml(descDisplay(as[0].it.desc))}${as[0].it.val!==undefined?' · '+fmt(as[0].it.val):''}`;
+  const linhaR=(r,extra)=>`<div class="imp-row"><div class="imp-row-main"><div class="imp-desc">${escHtml(r.desc)}${r.parc?` <span class="busca-parc">${r.parc.n}/${r.parc.t}</span>`:''}</div><div class="busca-meta">${escHtml(r.data)}${r.final?' · final '+escHtml(r.final):''}</div>${extra||''}</div><div class="imp-val">${fmt(r.valor)}</div></div>`;
+  const opts=G.months.map((mo,i)=>`<option value="${i}"${i===IMP.mesIdx?' selected':''}>${escHtml(mo.name)}</option>`).join('');
+  el.innerHTML=`<div><div class="page-title">📥 Importar fatura</div>
+    <div class="form-card">
+      <div class="imp-head"><div><b>C6</b> · ${escHtml(IMP.arquivo)}</div>${IMP.venc?`<div class="busca-meta">Fatura que vence em ${IMP.venc}</div>`:''}</div>
+      <label class="flabel" style="margin-top:12px">Conferir com os lançamentos de</label>
+      <select onchange="IMP.mesIdx=+this.value;calcularImportacao();renderImportar()">${opts}</select>
+      <div class="imp-resumo">
+        <div><span>Total da fatura</span><b>${fmt(totF)}</b><small>${plural(IMP.compras.length,'compra','compras')}</small></div>
+        <div class="ok"><span>✅ Batem</span><b>${R.ok.length}</b><small>${fmt(sumR(R.ok))}</small></div>
+        <div class="${R.div.length?'warn':''}"><span>⚠️ Valor diferente</span><b>${R.div.length}</b><small>${fmt(sumR(R.div))}</small></div>
+        <div class="${R.falta.length?'warn':''}"><span>➕ Faltam no app</span><b>${R.falta.length}</b><small>${fmt(sumR(R.falta))}</small></div>
+      </div>
+      ${(R.ok.length||R.div.length)?`<button class="btn-submit" style="margin-top:12px" onclick="impMarcarConferencia()">✓ Marcar conferência em ${escHtml(m.name)}</button>`:''}
+    </div>
+
+    ${R.falta.length?`<div class="list-card"><div class="list-head"><div class="list-title">➕ Faltam no app</div><span class="busca-sub">${fmt(sumR(R.falta))}</span></div>
+      ${R.falta.map(({r,ri})=>{const p=IMP.pessoa[ri];return `<div class="imp-row"><input type="checkbox" class="imp-chk" ${IMP.marcados[ri]?'checked':''} onchange="IMP.marcados[${ri}]=this.checked">
+        <div class="imp-row-main"><div class="imp-desc">${escHtml(r.desc)}${r.parc?` <span class="busca-parc">${r.parc.n}/${r.parc.t}</span>`:''}</div>
+        <div class="busca-meta">${escHtml(r.data)}${r.final?' · final '+escHtml(r.final):''}${r.catBanco?' · '+escHtml(r.catBanco):''}</div>
+        <div class="imp-pessoa"><button class="bchip${p==='M'?' on':''}" onclick="IMP.pessoa[${ri}]='M';renderImportar()">👤 Márcio</button><button class="bchip${p==='R'?' on':''}" onclick="IMP.pessoa[${ri}]='R';renderImportar()">💜 Raíssa</button><button class="bchip${p==='D'?' on':''}" onclick="IMP.pessoa[${ri}]='D';renderImportar()">➗ Dividir</button></div>
+        ${p==='D'?`<div class="imp-div">Parte da Raíssa: <input type="number" step="0.01" min="0" value="${impParteR(ri)}" onchange="IMP.parteR[${ri}]=parseFloat(this.value);renderImportar()"> <span>Márcio: ${fmt(r.valor-impParteR(ri))}</span></div>`:''}</div>
+        <div class="imp-val">${fmt(r.valor)}</div></div>`;}).join('')}
+      <div style="padding:12px 16px"><button class="btn-submit" onclick="impAdicionar()">Adicionar selecionados</button></div></div>`:''}
+
+    ${R.div.length?`<div class="list-card"><div class="list-head"><div class="list-title">⚠️ Valor diferente</div></div>
+      ${R.div.map(x=>{const v=x.as.reduce((t,a)=>t+(+a.it.val||0),0);const d=x.r.valor-v;return linhaR(x.r,`<div class="imp-cmp">No app: ${noApp(x.as)} <b class="${d>0?'neg':'pos'}">(${d>0?'+':''}${fmt(d)})</b></div>`);}).join('')}</div>`:''}
+
+    ${R.soApp.length?`<div class="list-card"><div class="list-head"><div class="list-title">❓ No app, mas não na fatura</div></div>
+      ${R.soApp.map(a=>`<div class="imp-row"><div class="imp-row-main"><div class="imp-desc">${escHtml(descDisplay(a.it.desc))}</div><div class="busca-meta">${quem(a)}${a.it.data?' · '+escHtml(a.it.data):''}</div></div><div class="imp-val">${fmt(a.it.val)}</div></div>`).join('')}
+      <div class="sim-hint" style="margin:0;padding:10px 16px 14px">Pode ser lançamento no mês errado, compra que ainda não entrou na fatura ou algo lançado a mais.</div></div>`:''}
+
+    ${R.ok.length?`<details class="list-card imp-det"><summary class="list-head"><div class="list-title">✅ Batem (${R.ok.length})</div><span class="busca-sub">${fmt(sumR(R.ok))}</span></summary>
+      ${R.ok.map(x=>linhaR(x.r,`<div class="imp-cmp">${noApp(x.as)}${x.soValor?' · <i>bateu só pelo valor, confira</i>':''}</div>`)).join('')}</details>`:''}
+
+    ${IMP.creditos.length?`<div class="list-card"><div class="list-head"><div class="list-title">💳 Pagamentos e créditos (não entram)</div></div>
+      ${IMP.creditos.map(r=>linhaR(r)).join('')}</div>`:''}
+
+    <div style="display:flex;gap:8px;margin-bottom:12px">${input('📂 Outro arquivo','btn-cancel imp-file2')}<button class="btn-cancel" style="flex:1;padding:12px" onclick="IMP=null;renderImportar()">Fechar</button></div>
+  </div>`;
 }
 
 // -- BUSCA GLOBAL (todos os meses) --
